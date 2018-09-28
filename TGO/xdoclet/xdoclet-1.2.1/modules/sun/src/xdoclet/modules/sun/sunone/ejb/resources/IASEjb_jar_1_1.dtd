@@ -1,0 +1,727 @@
+<!--
+This is the IAS 6.1 specific XML DTD for the EJB JAR file
+-->
+
+<!--
+The ias-ejb-jar element is the root element of the EJB deployment descrip-tor.
+-->
+<!ELEMENT ias-ejb-jar ( enterprise-beans, role-mapping*, transaction-manager-type? )>
+
+<!--
+The enterprise-beans element contains the declarations of one or more
+enterprise beans.
+-->
+<!ELEMENT enterprise-beans (session | entity | message-driven)+>
+
+<!--
+Declares all the ias specific session bean related deployment information
+The ejb-name MUST be matched 1 to 1 with the ejb-name declared in the 
+J2EE XML file.
+-->
+<!ELEMENT session (ejb-name, guid, pass-timeout, 
+					pass-by-value, session-timeout, ejb-ref*, resource-ref*, transaction-manager-type?, failover-required?, iiop? )>
+
+<!--
+Declares all the ias specific entity bean related deployment information
+The ejb-name MUST be matched 1 to 1 with the ejb-name declared in the 
+J2EE XML file.
+-->
+<!ELEMENT entity (ejb-name, guid, pass-timeout, 
+					pass-by-value, persistence-manager?, pool-manager?, ejb-ref*, resource-ref*, transaction-manager-type?, failover-required?, iiop?)>
+
+
+<!--
+              Beginning of the MDB-specific section
+-->
+
+<!--
+The message-driven element declares a message-driven bean. The
+declaration consists of: an optional description; optional display
+name; optional small icon file name; optional large icon file name; a
+name assigned to the enterprise bean in the deployment descriptor; the
+message-driven bean's implementation class; the message-driven bean's
+transaction management type; an optional declaration of the
+message-driven bean's message selector; an optional declaration of the
+acknowledgment mode for the message-driven bean if bean-managed
+transaction demarcation is used; an optional declaration of the
+intended destination type of the message-driven bean; an optional
+declaration of the bean's environment entries; an optional declaration
+of the bean's EJB references; an optional declaration of the security
+identity to be used for the execution of the bean's methods; an
+optional declaration of the bean's resource manager connection factory
+references; and an optional declaration of the bean's resource
+environment references.
+ 
+Used in: enterprise-beans
+-->
+<!ELEMENT message-driven (description?, display-name?, small-icon?,
+large-icon?, ejb-name?, ejb-class, transaction-type, trans-attribute,
+message-selector?, acknowledge-mode?, message-driven-destination?,
+destination-name, env-entry*, mdb-ejb-ref*, security-identity?,
+mdb-resource-ref*, resource-env-ref*, max-message-limit, durable-name?,
+max-mdb-pool-size, min-mdb-pool-size)>
+
+<!-- 
+The acknowledge-mode element specifies whether JMS
+AUTO_ACKNOWLEDGE or DUPS_OK_ACKNOWLEDGE message acknowledgment
+semantics should be used for the onMessage message of a message-driven
+bean that uses bean managed transaction demarcation.
+
+The acknowledge-mode element must be one of the two following:
+
+<acknowledge-mode>Auto-acknowledge</acknowledge-mode>
+<acknowledge-mode>Dups-ok-acknowledge</acknowledgemode>
+
+Used in: message-driven
+-->
+<!ELEMENT acknowledge-mode (#PCDATA)>
+
+<!--
+The description element is used by the ejb-jar file producer to
+provide text describing the parent element.
+
+The description element should include any information that the
+ejb-jar file producer wants to provide to the consumer of the ejb-jar
+file (i.e. to the Deployer). Typically, the tools used by the ejb-jar
+file consumer will display the description when processing the parent
+element.
+
+Used in: cmp-field, cmr-field, container-transaction, dependent,
+dependents, ejb-entity-ref, ejb-jar, ejb-ref, ejb-relation,
+ejb-relationship-role, entity, env-entry, message-driven, method,
+method-permission, relationships, role-source,
+run-as-specified-identity, resource-env-ref, resource-ref,
+security-identity, security-role, security-role-ref, and session.
+-->
+<!ELEMENT description (#PCDATA)>
+
+<!--
+The destination-name element specifies the name of the Queue or the
+Topic the MDB listens to.
+
+Used in: message-driven
+-->
+<!ELEMENT destination-name (#PCDATA)>
+
+<!--
+The destination-type element specifies the type of the JMS
+destination. The type is specified by the Java interface expected to
+be implemented by the destination.
+
+The destination-type element must be one of the two following:
+
+<destination-type>javax.jms.Queue</destination-type>
+<destination-type>javax.jms.Topic</destination-type>
+
+Used in: message-driven-destination
+-->
+<!ELEMENT destination-type (#PCDATA)>
+
+<!--
+The display-name element contains a short name that is intended to be
+displayed by tools.
+
+Used in: ejb-jar, session, entity, and message-driven
+
+Example:
+
+<display-name>Employee Self Service</display-name>
+-->
+<!ELEMENT display-name (#PCDATA)>
+
+<!--
+The ejb-class element contains the fully-qualified name of the
+enterprise bean's class.
+
+Used in: entity, message-driven, and session
+
+Example: 
+
+<ejb-class>com.wombat.empl.EmployeeServiceBean</ejb-class>
+-->
+<!ELEMENT ejb-class (#PCDATA)>
+
+<!--
+The ejb-link element is used in the ejb-ref and ejb-entity-ref
+elements to specify that an EJB reference is linked to another
+enterprise bean.
+
+The value of the ejb-link element must be the ejb-name of an
+enterprise bean in the same ejb-jar file or in another ejb-jar file in
+the same J2EE application unit.
+
+Alternatively, the name in the ejb-link element may be composed of a
+path name specifying the ejb-jar containing the referenced enterprise
+bean with the ejb-name of the target bean appended and separated from
+the path name by "#". The path name is relative to the jar file
+containing the referencing component. This allows multiple enterprise
+beans with the same ejb-name to be uniquely identified.
+
+Used in: ejb-entity-ref, ejb-ref
+
+Examples: 
+
+<ejb-link>EmployeeRecord</ejb-link>
+
+<ejb-link>../products/product.jar#ProductEJB</ejb-link>
+
+-->
+<!ELEMENT ejb-link (#PCDATA)>
+
+<!--
+The ejb-ref element is used for the declaration of a reference to
+another enterprise bean's home. The declaration consists of an
+optional description; the EJB reference name used in the code of the
+referencing enterprise bean; the expected type of the referenced
+enterprise bean; the expected home and remote interfaces of the
+referenced enterprise bean; and an optional ejb-link information.
+
+The optional ejb-link element is used to specify the referenced
+enterprise bean.
+
+Used in: entity, message-driven, and session
+-->
+<!ELEMENT mdb-ejb-ref (description?, ejb-ref-name, ejb-ref-type, home, remote, 
+ejb-link?)>
+
+<!-- 
+The ejb-ref-type element contains the expected type of the
+referenced enterprise bean.
+
+The ejb-ref-type element must be one of the following:
+
+<ejb-ref-type>Entity</ejb-ref-type>
+<ejb-ref-type>Session</ejb-ref-type>
+
+Used in: ejb-ref
+-->
+<!ELEMENT ejb-ref-type (#PCDATA)>
+
+
+<!--
+The home element contains the fully-qualified name of the enterprise
+bean's home interface.
+
+Used in: ejb-ref, ejb-entity-ref, entity, and session
+
+Example:
+
+
+<home>com.aardvark.payroll.PayrollHome</home>
+-->
+<!ELEMENT home (#PCDATA)>
+
+<!--
+The remote element contains the fully-qualified name of the enterprise
+bean's remote interface.
+
+Used in: ejb-ref, entity, and session
+
+Example: 
+
+<remote>com.wombat.empl.EmployeeService</remote>
+-->
+<!ELEMENT remote (#PCDATA)>
+
+
+<!--
+The ejb-name element specifies an enterprise bean's name. This name is
+assigned by the ejb-jar file producer to name the enterprise bean in
+the ejb-jar file's deployment descriptor. The name must be unique
+among the names of the enterprise beans in the same ejb-jar file.
+
+There is no architected relationship between the ejb-name in the
+deployment descriptor and the JNDI name that the Deployer will assign
+to the enterprise bean's home.
+
+The name for an entity bean with cmp-version 2.x must conform to the
+lexical rules for an NMTOKEN. The name for an entity bean with
+cmp-version 2.x must not be a reserved literal in EJB QL.
+
+Used in: entity, message-driven, session, method, and role-source. 
+
+Example: 
+
+<ejb-name>EmployeeService</ejb-name>
+-->
+<!ELEMENT ejb-name (#PCDATA)>
+
+<!--
+The env-entry element contains the declaration of an enterprise bean's
+environment entry. The declaration consists of an optional
+description, the name of the environment entry, and an optional value.
+
+Used in: entity, message-driven, and session
+-->
+<!ELEMENT env-entry (description?, env-entry-name, env-entry-type,
+env-entry-value?)>
+
+<!--
+The env-entry-name element contains the name of an enterprise bean's
+environment entry.
+
+Used in: env-entry
+
+Example: 
+
+<env-entry-name>minAmount</env-entry-name>
+-->
+<!ELEMENT env-entry-name (#PCDATA)>
+
+<!--
+The env-entry-type element contains the fully-qualified Java type of
+the environment entry value that is expected by the enterprise bean's
+code.
+
+The following are the legal values of env-entry-type:
+java.lang.Boolean, java.lang.String, java.lang.Integer,
+java.lang.Double, java.lang.Byte, java.lang.Short, java.lang.Long, and
+java.lang.Float.
+
+
+Used in: env-entry
+
+Example: 
+
+
+<env-entry-type>java.lang.Boolean</env-entry-type>
+-->
+<!ELEMENT env-entry-type (#PCDATA)>
+
+<!--
+The env-entry-value element contains the value of an enterprise bean's
+environment entry. The value must be a String that is valid for the
+constructor of the specified type that takes a single String
+parameter.
+
+Used in: env-entry
+
+Example: 
+
+
+<env-entry-value>100.00</env-entry-value>
+-->
+<!ELEMENT env-entry-value (#PCDATA)>
+
+<!--
+The large-icon element contains the name of a file containing a large
+(32 x 32) icon image. The file name is relative path within the
+ejb-jar file.
+
+The image must be either in the JPEG or GIF format, and the file name
+must end with the suffix ".jpg" or ".gif" respectively.  The icon can
+be used by tools.
+
+Example:
+
+<large-icon>employee-service-icon32x32.jpg</large-icon>
+-->
+<!ELEMENT large-icon (#PCDATA)>
+
+<!--
+The message-driven-destination element provides advice to the Deployer
+as to whether a message-driven bean is intended for a Queue or a
+Topic. The declaration consists of: the type of the message-driven
+bean's intended destination and an optional declaration of whether a
+durable or non-durable subscription should be used if the
+destination-type is javax.jms.Topic.
+
+Used in: message-driven
+-->
+<!ELEMENT message-driven-destination (destination-type, subscription-durability?)>
+
+<!--
+The message-selector element is used to specify the JMS message
+selector to be used in determining which messages a message-driven
+bean is to receive.
+
+Example: 
+<message-selector>JMSType = `car' AND color = `blue' AND weight &gt; 2500
+</message-selector>
+
+Used in: message-driven
+-->
+<!ELEMENT message-selector (#PCDATA)>
+
+<!--
+The persistence-type element specifies an entity bean's persistence
+management type.
+
+The persistence-type element must be one of the two following:
+
+<persistence-type>Bean</persistence-type>
+<persistence-type>Container</persistence-type>
+
+Used in: entity
+-->
+<!ELEMENT persistence-type (#PCDATA)>
+
+<!--
+The reentrant element specifies whether an entity bean is reentrant or
+not.
+
+The reentrant element must be one of the two following:
+
+<reentrant>True</reentrant>
+<reentrant>False</reentrant>
+
+Used in: entity
+-->
+<!ELEMENT reentrant (#PCDATA)>
+
+<!--
+The run-as-specified-identity element specifies the run-as identity to
+be used for the execution of the methods of an enterprise bean. It
+contains an optional description, and the name of a security role.
+
+Used in: security-identity
+-->
+<!ELEMENT run-as-specified-identity (description?, role-name)>
+
+<!--
+The security-identity element specifies whether the caller's security
+identity is to be used for the execution of the methods of the
+enterprise bean or whether a specific run-as identity is to be
+used. It contains an optional description and a specification of the
+security identity to be used.
+
+Used in: session, entity, message-driven
+-->
+<!ELEMENT security-identity (description?, 
+(use-caller-identity|run-as-specified-identity))>
+
+<!--
+The small-icon element contains the name of a file containing a small
+(16 x 16) icon image. The file name is relative path within the
+ejb-jar file.
+
+The image must be either in the JPEG or GIF format, and the file name
+must end with the suffix ".jpg" or ".gif" respectively.
+
+The icon can be used by tools.
+
+Example:
+
+<small-icon>employee-service-icon16x16.jpg</small-icon>
+-->
+<!ELEMENT small-icon (#PCDATA)>
+
+<!--
+The subscription-durability element specifies whether a JMS topic
+subscription is intended to be durable or nondurable.
+
+The subscription-durability element must be one of the two following:
+
+<subscription-durability>Durable</subscription-durability>
+<subscription-durability>NonDurable</subscription-durability>
+
+Used in: message-driven-destination
+-->
+<!ELEMENT subscription-durability (#PCDATA)>
+
+<!-- 
+The transaction-type element specifies an enterprise bean's
+transaction management type.
+
+The transaction-type element must be one of the two following: 
+
+<transaction-type>Bean</transaction-type> 
+<transaction-type>Container</transaction-type>
+
+Used in: session and message-driven
+-->
+<!ELEMENT transaction-type (#PCDATA)>
+
+<!--
+The use-caller-identity element specifies that the caller's security
+identity be used as the security identity for the execution of the
+enterprise bean's methods.
+
+Used in: security-identity
+-->
+<!ELEMENT use-caller-identity EMPTY>
+
+<!--
+The mdb-resource-ref element contains a declaration of enterprise bean's
+reference to an external resource. It consists of an optional
+description, the resource manager connection factory reference name,
+the indication of the resource manager connection factory type
+expected by the enterprise bean code, and the type of authentication
+(Application or Container)
+
+Used in: entity, message-driven, and session
+
+Example:
+
+<mdb-resource-ref>
+    <res-ref-name>jdbc/EmployeeAppDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+</mdb-resource-ref>
+-->
+<!ELEMENT mdb-resource-ref (description?, res-ref-name, res-type, res-auth)>
+
+<!--
+The res-type element specifies the type of the data source. The type
+is specified by the Java interface (or class) expected to be
+implemented by the data source.
+
+Used in: resource-ref
+-->
+<!ELEMENT res-type (#PCDATA)>
+
+<!--
+The res-auth element specifies whether the enterprise bean code signs
+on programmatically to the resource manager, or whether the Container
+will sign on to the resource manager on behalf of the bean. In the
+latter case, the Container uses information that is supplied by the
+Deployer.
+
+The value of this element must be one of the two following:
+
+<res-auth>Application</res-auth>
+<res-auth>Container</res-auth>
+-->
+<!ELEMENT res-auth (#PCDATA)>
+
+<!--
+The res-sharing-scope element specifies whether connections obtained
+through the given resource manager connection factory reference can be
+shared. The value of this element, if specified, must be one of the
+two following:
+
+<res-sharing-scope>Shareable</res-sharing-scope>
+<res-sharing-scope>Unshareable</res-sharing-scope>
+
+The default value is Shareable.
+
+Used in: resource-ref
+-->
+<!ELEMENT res-sharing-scope (#PCDATA)>
+
+
+<!--
+The resource-env-ref element contains a declaration of an enterprise
+bean's reference to an administered object associated with a resource
+in the enterprise bean's environment. It consists of an optional
+description, the resource environment reference name, and an
+indication of the resource environment reference type expected by the
+enterprise bean code.
+
+Used in: entity, message-driven and session
+
+Examples:
+
+<resource-env-ref>
+    <resource-env-ref-name>jms/StockQueue
+    </resource-env-ref-name>
+    <resource-env-ref-type>javax.jms.Queue
+    </resource-env-ref-type>
+</resource-env-ref>
+-->
+<!ELEMENT resource-env-ref (description?, resource-env-ref-name, 
+resource-env-ref-type)>
+
+<!--
+The resource-env-ref-name element specifies the name of a resource
+environment reference; its value is the environment entry name used in
+the enterprise bean code.
+
+Used in: resource-env-ref
+-->
+<!ELEMENT resource-env-ref-name (#PCDATA)>
+
+<!--
+The resource-env-ref-type element specifies the type of a resource
+environment reference.
+
+Used in: resource-env-ref
+-->
+<!ELEMENT resource-env-ref-type (#PCDATA)>
+
+<!--
+The trans-attribute element specifies how the container must manage
+the transaction boundaries when delegating a method invocation to an
+enterprise bean's business method.
+
+The value of trans-attribute must be one of the following:
+
+
+<trans-attribute>NotSupported</trans-attribute>
+<trans-attribute>Required</trans-attribute>
+
+Used in: message-driven
+-->
+<!ELEMENT trans-attribute (#PCDATA)>
+
+
+<!--
+The maximum number of messages to load into a JMS Session
+
+Used in: message-driven
+-->
+<!ELEMENT max-message-limit (#PCDATA)>
+
+<!--
+The durable name of the topic subscription
+
+Used in: message-driven
+-->
+<!ELEMENT durable-name (#PCDATA)>
+
+<!--
+The maximum size of the ServerSessionPool
+
+Used in: message-driven
+-->
+<!ELEMENT max-mdb-pool-size (#PCDATA)>
+
+<!--
+The minimum size of the ServerSessionPool
+
+Used in: message-driven
+-->
+<!ELEMENT min-mdb-pool-size (#PCDATA)>
+
+<!--
+                      End of the MDB-specific section
+-->
+
+<!--
+A string that represent the guid of the Ejb in question
+-->
+<!ELEMENT guid (#PCDATA)>
+
+<!--
+Passivation timeout in seconds used by the container.
+This value can be changed during runtime by NASA 
+-->
+<!ELEMENT pass-timeout (#PCDATA)>
+
+<!--
+Set to either true or false
+-->
+<!ELEMENT is-thread-safe (#PCDATA)>
+
+<!--
+set to either true or false
+-->
+<!ELEMENT pass-by-value (#PCDATA)>
+
+<!--
+in seconds
+-->
+<!ELEMENT session-timeout (#PCDATA)>
+
+<!--
+defines all the persistence manager specific information
+-->
+<!ELEMENT persistence-manager ( factory-class-name,
+			properties-file-location? )> 
+
+<!-- 
+Factory class used to create new instances of a persistence manager
+-->
+<!ELEMENT factory-class-name  (#PCDATA)>
+
+<!-- 
+Location in jar file of properties file, relative to the META-INF/ of the jar
+-->
+<!ELEMENT properties-file-location  (#PCDATA)>
+
+<!ELEMENT pool-manager ( commit-option, ready-pool-timeout, ready-pool-maxsize, free-pool-maxsize )>
+
+<!--
+A string field whose valid values are either COMMIT_OPTION_C, or 
+COMMIT_OPTION_B. Default is the COMMIT_OPTION_C value.
+-->
+<!ELEMENT commit-option (#PCDATA)>
+
+<!--
+The following two tags apply to the ready cache. The ready cache is used 
+for commit option B.
+-->
+
+<!--
+ready pool timeout used by the container. An integer in seconds.  
+Default is 0 (infinite) This value can be changed during runtime by NASA 
+-->
+<!ELEMENT ready-pool-timeout (#PCDATA)> 
+
+<!--
+maxsize of the ready cache (in number of entries). An integer that 
+defaults to 0. This value can be changed during runtime by NASA 
+-->
+<!ELEMENT ready-pool-maxsize (#PCDATA)> 
+
+<!--
+maxsize of the instance free pool (in number of entries). An integer that 
+defaults to 0. This value can be changed during runtime by NASA 
+-->
+<!ELEMENT free-pool-maxsize (#PCDATA)> 
+
+
+<!--
+This is a storage place for the ABSOLUTE jndi name that the ejb-link 
+in the corresponding j2ee xml file ejb-ref entry
+-->
+<!ELEMENT ejb-ref ( ejb-ref-name, jndi-name ) >
+
+<!ELEMENT ejb-ref-name (#PCDATA)> 
+
+<!ELEMENT jndi-name (#PCDATA)> 
+
+<!--
+This is a storage place for the ABSOLUTE jndi name that the resource-ref
+in the corresponding j2ee xml file resource-ref entry
+-->
+<!ELEMENT resource-ref ( res-ref-name, jndi-name ) >
+
+<!ELEMENT res-ref-name (#PCDATA)> 
+
+<!--
+THis is a True or False value indicating whether failover is required
+-->
+<!ELEMENT failover-required (#PCDATA)>
+
+<!--
+Optional element indicate if the bean is rich client enabled
+(true | false), default value is false
+-->
+<!ELEMENT iiop (#PCDATA)>
+
+<!--
+This field create the mapping between the role name as it is known in the 
+AppComponent, and then map then onto one or more LDAP defined user,group, etc.
+The deployment code simply treats each role-impl as an opaque string that's
+interpreted by the security infrastructure
+-->
+<!ELEMENT role-mapping (role-name, role-impl)>
+
+<!--
+The name of the role as refered to in the <security-role> element
+-->
+<!ELEMENT role-name (#PCDATA)>
+
+<!--
+The string used to represent a LDAP group/user thing that makes up
+a particular role-name
+A role imple could be any number of groups and/or users
+-->
+<!ELEMENT role-impl (group*, user*)>
+
+<!--
+The LDAP specific string that corresponds to a particular LDAP group
+-->
+<!ELEMENT group (#PCDATA)>
+
+<!--
+The LDAP specific string that corresponds to a particular LDAP user
+-->
+<!ELEMENT user (#PCDATA)>
+
+<!--
+The transaction manager type for the component
+Allowed values are 'local' and 'global'
+-->
+<!ELEMENT transaction-manager-type (#PCDATA)>

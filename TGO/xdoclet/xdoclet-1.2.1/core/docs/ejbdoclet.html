@@ -1,0 +1,1680 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - EJB</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>&lt;ejbdoclet/&gt; Task</H2>
+
+<P>This task allows you to generate various EJB-related files using nested
+subtasks and template files.</P>
+<P>You no longer view EJBeans as a bunch of interfaces and deployment descriptor
+files. You simply program your component and ejbdoclet does the rest, from
+generating component and home interfaces to deployment descriptor. The point is
+that you program your component and specify its meta-data in a per component
+fashion, you don't have to deal with monolithic ejb-jar.xml files, you set the
+deployment meta-data per component. You don't have to worry about outdating
+deployment meta-data whenever you touch the code. The deployment meta-data is
+continuously integrated. And the whole process is, in its nature, round-trip.</P>
+<P>This page outlines the ant subtask, and also the <A HREF="#class-level-tags">class</A>
+and <A HREF="#method-level-tags">method</A> level tags that affect this task.</P>
+<P>See <A HREF="doclet_all.html">Parameters And Nested Elements Applicable To
+All Doclet Tasks</A>.</P>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>ejbspec</TD>
+    <TD>The version of EJB spec ejbdoclet should adhere, currently
+      &quot;1.1&quot; and &quot;2.0&quot; defined. If, for example,
+      &quot;2.0&quot; specified, then ejbdoclet will generate EJB 2.0-compatible
+      ejb-jar.xml file.</TD>
+    <TD>No, default is &quot;2.0&quot;</TD>
+  </TR>
+  <TR>
+    <TD>ejbClassNameSuffix</TD>
+    <TD>A comma-separated list of endings which should be removed from the bean
+      class name to generate a bean's name if no name parameter is specified in
+      the @ejb:bean tag.</TD>
+    <TD>No, default is &quot;Bean,EJB,Ejb&quot;</TD>
+  </TR>
+</TABLE>
+<H3><A NAME="nested">Nested Elements</A></H3>
+<H3><A NAME="subtask_packageSubstitution">packageSubstitution</A></H3>
+<P>It's good practice to put interfaces (such as remote/local interfaces, data
+objects and home interfaces) in a separate &quot;interfaces&quot; package than
+in EJB bean implementation package. In previous versions of XDoclet it dictated
+this behavior, so if package name of a bean ended with <I>.beans</I> or <I>.ejb</I>
+interfaces were put into <I>.interfaces</I> package. It's no more the case. You
+have full control over it. If you don't put a &lt;packageSubstitution .../&gt;
+then all interfaces are generated to the same package of the bean implementation
+class. But if you want to follow the pattern and put interfaces into a separate
+package you can, by providing the list of package name tails that interfaces of
+beans inside that packages should be placed into the package you define. For
+example interfaces of <I>test.ejb.CustomerBean</I> will be placed in <I>test.interfaces</I>
+by the following packageSubstitution:</P>
+<PRE>&lt;packageSubstitution packages=&quot;ejb,beans&quot; substituteWith=&quot;interfaces&quot;/&gt;</PRE>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">packages</TD>
+    <TD VALIGN="top">Comma-separated list of package names.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">substituteWith</TD>
+    <TD VALIGN="top">The package name that packages are substituted with.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </TR>
+</TABLE>
+
+<H3><A NAME="subtask_dataobject">dataobject</A></H3>
+<P>Creates &quot;data objects&quot; for Entity EJBs.  This task is currently being
+deprecated in favour of <a href="#subtask_valueobject">Value Object</a> which is more powerful
+in terms of relationships (1-1, 1-n and n-m).
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the data object classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}Data&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output data object files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the data object classes are generated.</TD>
+    <TD>No, default is &quot;dataobject.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>dataobject-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_valueobject">valueobject</A></H3>
+<P>Creates &quot;value objects&quot; for Entity EJBs.  This is task replaces
+<a href="#subtask_dataobject">Data Object</a>.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the data object classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}Data&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output data object files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the data object classes are generated.</TD>
+    <TD>No, default is &quot;dataobject.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>valueobject-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_remoteinterface">remoteinterface - localinterface</A></H3>
+<P>Creates &quot;remote / local interfaces&quot; for EJB beans.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the interfaces are named. {0}designates the EJB
+      name.</TD>
+    <TD>No, default is &quot;{0}&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output interface files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the interfaces are generated.</TD>
+    <TD>No, default is &quot;remote.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>remote-custom.j - local-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_homeinterface">homeinterface - localhomeinterface</A></H3>
+<P>Creates &quot;home / local home interfaces&quot; for EJB beans.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the interfaces are named. {0}designates the EJB
+      name.</TD>
+    <TD>No, default is &quot;{0}Home&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output interface files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the interfaces are generated.</TD>
+    <TD>No, default is &quot;home.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_entitypk">entitypk</A></H3>
+<P>Creates &quot;primary key classes&quot; for entity EJB beans.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the primary key classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}PK&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output primary key class files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the primary key classes are generated.</TD>
+    <TD>No, default is &quot;entitypk.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>entitypk-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_entitybmp">entitybmp</A></H3>
+<P>Creates &quot;entity bean classes&quot; for BMP entity EJB beans. The classes
+are derived from the abstract entity bean class.</P>
+<P><B>Attention:</B>To give the developer more control over when the EJB becomes
+dirty (data changed) there is now a method called &quot;makeDirty()&quot; in the
+generated wrapper class. To use this please add to your EJB an abstract method
+called &quot;makeDirty&quot; and call it when you change data w/o using the
+setter methods. As example you could store the Data Object instead of storing
+all the attributes one by one (be aware that you have to clone the data object
+before storing to avoid side effects).
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the entity bean classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}BMP&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output entity bean class files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the entity bean classes are generated.</TD>
+    <TD>No, default is &quot;entitybmp.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>entitybmp-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_entitycmp">entitycmp</A></H3>
+<P>Creates &quot;entity bean classes&quot; for CMP entity EJB beans. The classes
+are derived from the abstract entity bean class.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the entity bean classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}CMP&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output entity bean class files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the entity bean classes are generated.</TD>
+    <TD>No, default is &quot;entitycmp.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>cmpspec</TD>
+    <TD>The CMP spec to use.  Possible values are 1.x or 2.x.</TD>
+    <TD>No, default is 2.x.  It can be defined at bean level as well.</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>entitycmp-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_dao">dao</A></H3>
+<P>Creates abstract data access object (DAO) interfaces for EJBs.</P>
+<P>The DAO interfaces will contain any methods flagged as using a DAO call (with
+a <A HREF="#dao-call">@dao:call</A> method-level tag).  Currently, only BMP entity
+beans are supported (support for DAOs with the other EJB types is planned e.g. for
+accessing a database directly with JDBC in a session bean).  In addition to
+the flagged methods, the DAO will contain methods for use by the ejbLoad,
+ejbStore and ejbRemove methods in the generated BMP class.</P>
+<P>To use the generated DAOs, you must supply your own implementation class
+with the specific JDBC (or other) code.  The generated BMP class will contain
+code for obtaining a DAO instance, and calling its methods.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the DAO classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}DAO&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output DAO class files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the DAO classes are generated.</TD>
+    <TD>No, default is &quot;dao.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>dao-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_session">session</A></H3>
+<P>Creates &quot;session bean classes&quot; for Session EJB beans. The classes
+are derived from the (abstract) session bean class. This has less importance
+than for entity bean and is there only for customs changes to session-custom.j.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the session bean classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}Session&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output entity bean class files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the entity bean classes are generated.</TD>
+    <TD>No, default is &quot;session.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>session-custom.j</TD>
+      <TD>The file where custom code can be included.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="subtask_deploymentdescriptor">deploymentdescriptor</A></H3>
+<P>Creates &quot;EJB standard-compliant deployment descriptors (ejb-jar.xml
+file)&quot; for EJB beans.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>xmlencoding</TD>
+    <TD>The encoding of the ejb-jar.xml file.</TD>
+    <TD>No, default is &quot;UTF-8&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output deployment descriptor file.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR>
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>validateXml</TD>
+    <TD>Validates the generated xml file according to the DTD file contained
+      inside xdoclet.jar.</TD>
+    <TD>No, default is false</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR VALIGN="top">
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TD><B>Required</B></TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>ejb-env-entries-{0}.xml</TD>
+      <TD>The file where environment entries are defined. {0}designates the EJB
+        name. See <CODE>&lt;env-entry&gt;</CODE> in EJB spec.</TD>
+      <TD>No</TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>ejb-ejbrefs-{0}.xml</TD>
+      <TD>The file where EJB references are defined. {0}designates the EJB name.
+        See <CODE>&lt;ejb-ref&gt;</CODE> in EJB spec.</TD>
+      <TD>No</TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>ejb-sec-rolerefs-{0}.xml</TD>
+      <TD>The file where security role references are defined. {0}designates the
+        EJB name. See <CODE>&lt;security-role-ref&gt; in EJB spec.</CODE></TD>
+      <TD>No</TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>ejb-resourcerefs-{0}.xml</TD>
+      <TD>The file where resource references are defined. {0}designates the EJB
+        name. See <CODE>&lt;resource-ref&gt;</CODE> in EJB spec.</TD>
+      <TD>No</TD>
+    </TR>
+    <TR VALIGN="top">
+      <TD>ejb-security-roles.xml</TD>
+      <TD>The file where EJB security role references are defined. It should be
+        located at root of mergedir. See <CODE>&lt;security-role&gt;</CODE> in
+        EJB spec.</TD>
+      <TD>No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<P>Remember you should preserve the package directory structure in mergedir. If
+the bean is test.bank.AccountBean then ejb-env-entries-Account.xml should be
+located at test/bank directory in mergedir.</P>
+
+<H3><A NAME="subtask_utilobject">utilobject</A></H3>
+<P>Cretes utility classes for EJBs. Currently utility classes can be used for
+convenient home/local home interface lookups. The generated util classes can be
+tuned with the <A HREF="#util">@ejb:util</A> tag.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%"><B>Attribute</B></TD>
+    <TD WIDTH="78%"><B>Description</B></TD>
+    <TD WIDTH="10%"><B>Required</B></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>pattern</TD>
+    <TD>The pattern by which the entity bean classes are named. {0}designates
+      the EJB name.</TD>
+    <TD>No, default is &quot;{0}Util&quot;</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>destdir</TD>
+    <TD>Destination directory for output entity bean class files.</TD>
+    <TD>No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD>templatefile</TD>
+    <TD>The template file by which the entity bean classes are generated.</TD>
+    <TD>No, default is &quot;util.j&quot; in jar file of ejbdoclet itself</TD>
+  </TR>
+  <tr>
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+      generated files.</TD>
+    <TD>No, required, if the merge feature used. BUte there are no merge point
+      defined at this time</TD>
+  </tr>
+  <TR VALIGN="top">
+    <TD>kind</TD>
+    <TD>The preferred kind of lookup method. Valid values are &quot;physical&quot; (for
+    looking up from global jndi tree) or &quot;logical&quot; (for looking up using logical
+    ejb name). You can specify the value for a specific class by using @ejb:util
+    tag.</TD>
+    <TD>No, &quot;logical&quot; is the default</TD>
+  </TR>
+</TABLE>
+<H4>Nested Elements</H4>
+<UL>
+  <LI><A NAME="subtask_packageSubstitution" HREF="#subtask_packageSubstitution">packageSubstitution</A></LI>
+</UL>
+
+<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+
+<P>With only one attribute, you don't have to remember the name of the property,
+but because the value can have spaces in it, it makes more sense to use the
+&quot;quoted&quot; format.</P>
+<P>With multiple attributes, it would be difficult to remember the order in
+which you have to put the values, that's why using the &quot;name-value
+pairs&quot; format is the unique format.</P>
+
+<H4><A NAME="bean">@ejb:bean</A></H4>
+<P>The <CODE>ejb:bean</CODE> tag provides information about the EJB. It is the
+one compulsory tag for all EJBs, however not all parameters are applicable for
+all types of beans, and some parameters apply differently for different types of
+bean.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD ALIGN="center">Applicability</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR>
+    <TD><I>name</I>: String</TD>
+    <TD ALIGN="center">All beans.</TD>
+    <TD>Provides the name of the bean that will be used in the ejb-jar.xml
+      deployment descriptor.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>display-name</I>: String</TD>
+    <TD ALIGN="center">All beans.</TD>
+    <TD>The display name of the bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>small-icon</I>: String</TD>
+    <TD ALIGN="center">All beans.</TD>
+    <TD>The small icon for the bean.</TD>
+  </TR>
+  <TR>
+    <TD><I>large-icon</I>: String</TD>
+    <TD ALIGN="center">All beans.</TD>
+    <TD>The large icon for the bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>generate</I>: boolean</TD>
+    <TD ALIGN="center">All beans.</TD>
+    <TD>Set it to &quot;false&quot; if you want the class be excluded from list
+      of EJBs. This is useful for abstract EJBs that other EJBs are to derive
+      from. So you obviously do not want the abstract EJB be wrongly specified
+      in deployment desciptors as a concrete EJB. Default is &quot;true&quot;.</TD>
+  </TR>
+  <TR>
+    <TD><I>jndi-name</I>: String</TD>
+    <TD ALIGN="center">Remote Session and Entity beans</TD>
+    <TD>Provides the JNDI name of the bean that will be used in the vendor
+      specific deployment descriptors.</TD>
+  </TR>
+  <TR>
+    <TD><I>local-jndi-name</I>: String</TD>
+    <TD ALIGN="center">Local Session and Entity beans (EJB2.0 only)</TD>
+    <TD>Provides the JNDI name of the bean that will be used in the vendor
+      specific deployment descriptors. It's the JNDI name for the local EJB.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[view-type]</I>: String ( &quot;local&quot;, &quot;remote&quot;* or
+      &quot;both&quot;)</TD>
+    <TD ALIGN="center">Session and Entity beans (EJB2.0 only)</TD>
+    <TD>Indicates what view-type(s) is(are) supported by the bean. If not
+      specified, it's assumed that the bean is remote.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>type</I>: String ( &quot;Stateful&quot;, &quot;Stateless&quot;,
+      &quot;CMP&quot;, &quot;BMP&quot;)</TD>
+    <TD ALIGN="center">Session and Entity beans</TD>
+    <TD>Defines the bean's &quot;type&quot;. For session beans this is either
+      Stateful or Stateless. For Entities it is CMP or BMP</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>transaction-type</I>: String ( &quot;Container&quot;*,
+      &quot;Bean&quot;)</TD>
+    <TD ALIGN="center">Session and Message-driven beans</TD>
+    <TD>Defines the bean's transaction type.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>reentrant</I>: boolean</TD>
+    <TD ALIGN="center">Entity</TD>
+    <TD>Defines the entity bean's reentrancy.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>cmp-version</I>: String ( &quot;1.x&quot;, &quot;2.x&quot; )</TD>
+    <TD ALIGN="center">Entity beans, EJB2.0 only</TD>
+    <TD>Defines the version of the spec the bean is for CMP.  If not set,
+    default comes <b>entitycmp</b> subtask's <i>cmpspec</i> value.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>schema</I>: String</TD>
+    <TD ALIGN="center">Entity beans, EJB2.0 only</TD>
+    <TD>Defines the abstract schema name for the bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>primkey-field</I>: String</TD>
+    <TD ALIGN="center">Entity beans</TD>
+    <TD>Defines the primary key field for the bean as per spec.</TD>
+  </TR>
+  <TR>
+    <TD>use-soft-locking: boolean</TD>
+    <TD ALIGN="center">Entity beans</TD>
+    <TD>If true, then generate a public int version attribute in the
+      uto-generated concrete class, to form a optimistic locking mechianism. The
+      value of version attribute is incremented in ejbStore. The default is
+      false.
+      <P>Note: It's applicable to both CMP and BMP, but many containers have
+      optimistic locking capabilities built-in, so you don't need to worry about
+      it locking issues.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>message-selector</I>: String</TD>
+    <TD ALIGN="center">Message-driven beans</TD>
+    <TD>Defines an optional message selector for MDB.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>acknowledge-mode</I>: String ( &quot;Auto-acknowledge&quot;,
+      &quot;Dups-ok-acknowledge&quot; )</TD>
+    <TD ALIGN="center">Message-driven beans</TD>
+    <TD>Defines the acknowledge mode for MDB.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>destination-type</I>: String ( &quot;javax.jms.Queue&quot;,
+      &quot;javax.jms.Topic&quot; )</TD>
+    <TD ALIGN="center">Message-driven beans</TD>
+    <TD>Defines the type of destination for MDB.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>subscription-durability</I>: String ( &quot;Durable&quot;,
+      &quot;NonDurable&quot; )</TD>
+    <TD ALIGN="center">Message-driven beans</TD>
+    <TD>Defines the durability of messages for MDB as per EJB2.0 spec.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-business-interface</I>: String</TD>
+    <TD ALIGN="center">Session and Entity Beans</TD>
+    <TD>Defines the remote business interface for the bean. If present,
+      ejb:interface-method tags are not required, instead the remote interface
+      will extend the business interface. The business interface must declare
+      all methods as throwing RemoteException as per the business interface
+      pattern.</TD>
+  </TR>
+  <TR>
+    <TD><I>local-business-interface</I>: String</TD>
+    <TD ALIGN="center">Session and Entity Beans, EJB2.0 only</TD>
+    <TD>Defines the local business interface for the bean. Similar to
+      remote-business-interface but the interface does not need to declare
+      RemoteException in the throws clause.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="persistence">@ejb:persistence</A></H4>
+<P>The <CODE>@ejb:persistence</CODE> tag provides information about the persistence
+of an CMP Entity bean</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>table-name</I>: String</TD>
+    <TD>Declare the table-name to which the CMP will ba mapped.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="home">@ejb:home</A></H4>
+<P>The <CODE>@ejb:home</CODE> tag provides information about an Entity or
+Session Bean's home interface. It is not applicable for Message-driven beans.
+All parameters are applicable to both Entity and Session beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>extends</I>: String</TD>
+    <TD><I>Declare which interface the generated home interface should extend.
+      Default is &quot;javax.ejb.EJBHome&quot;.</I></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-extends</I>: String</TD>
+    <TD>Declare which interface the generated local home interface should
+      extend. Default is &quot;javax.ejb.EJBLocalHome&quot;. EJB2.0 only</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>generate</I>: none|(local?,remote?)</TD>
+    <TD>Which home interfaces should be generated. Defaults to both (only
+      generated if relevant), can be &quot;none&quot;, &quot;remote&quot;,
+      &quot;local&quot;, or &quot;local, remote&quot;. The &quot;local&quot;
+      value is only applicable to EJB2.0</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-class</I>: String</TD>
+    <TD>The fully qualified name of the remote home interface.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-class</I>: String</TD>
+    <TD>The fully qualified name of the local home interface. EJB2.0 only.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-pattern</I>: String</TD>
+    <TD>The pattern to be used in determining the unqualified name of the remote
+      home interface - only used if remote-class is not present.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-pattern</I>: String</TD>
+    <TD>The pattern to be used in determining the unqualified name of the local
+      home interface - only used if local-class is not present. EJB2.0 only</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>pattern</I>: String</TD>
+    <TD>The pattern to be used in determining the unqualified name of either
+      local or remote home interfaces. Used where -class and -pattern tags are
+      absent for the bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-package</I>: String</TD>
+    <TD>The package the remote home interface should be in - only used where
+      remote-class is not present. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-package</I>: String</TD>
+    <TD>The package the local home interface should be in - only used where
+      local-class is not present. EJB2.0 only. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>package</I>: String</TD>
+    <TD>The package for the home interfaces to be placed in. Only used where
+      -class and -package are not present. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="interface">@ejb:interface</A></H4>
+<P>The <CODE>@ejb:interface</CODE> tag provides information about an Entity or
+Session Bean's component interfaces (remote and/or local). It is not applicable
+to Message-driven beans. All parameters are applicable to both Entity and
+Session beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>extends</I>: String</TD>
+    <TD>Declare which interface the generated remote interface should extend.
+      Default is &quot;javax.ejb.EJBObject&quot;.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-extends</I>: String</TD>
+    <TD>Declare which interface the generated local interface should extend.
+      Default is &quot;javax.ejb.EJBLocalObject&quot;. EJB2.0 only.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>generate</I>: none|(local,remote)</TD>
+    <TD>Which interfaces should be generated. Defaults to both (only generated
+      if relevant), can be &quot;none&quot;, &quot;remote&quot;,
+      &quot;local&quot;, or &quot;local, remote&quot;.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-class</I>: String</TD>
+    <TD><I>The fully qualified name of the remote interface.</I></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-class</I>: String</TD>
+    <TD><I>The fully qualified name of the local interface. EJB2.0 only.</I></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-pattern</I>: String</TD>
+    <TD><I>The pattern to be used in determining the unqualified name of the
+      remote interface - only used if remote-class is not present.</I></TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-pattern</I>: String</TD>
+    <TD>The pattern to be used in determining the unqualified name of the local
+      interface - only used if local-class is not present. EJB2.0 only.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>pattern</I>: String</TD>
+    <TD>The pattern to be used in determining the unqualified name of either
+      local or remote interfaces. Used where -class and -pattern tags are absent
+      for the bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote-package</I>: String</TD>
+    <TD>The package the remote interface should be in - only used where
+      remote-class is not present. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>local-package</I>: String</TD>
+    <TD>The package the local interface should be in - only used where
+      local-class is not present. EJB2.0 only. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>package</I>: String</TD>
+    <TD>The package for the interfaces to be placed in. Only used where -class
+      and -package are not present. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="finder">@ejb:finder</A></H4>
+<P>Defines a finder method for the home interface. Applicable only to Entity
+beans. An entity bean may have zero or more <CODE>ejb:finder</CODE> tags.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR>
+    <TD><I>[view-type]</I>: String (local,remote,both)</TD>
+    <TD>TODO ! To restrict the home interface in wich the finder will be defined.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[signature]</I>: String</TD>
+    <TD>Defines the signature of the method. E.g.. &quot;java.util.Collection
+      findAll()&quot;. The return type in the signature must be fully qualified.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[unchecked]</I>: boolean</TD>
+    <TD>Flags the finder as having unchecked permission. EJB2.0 only. If
+      present, role-name must be omitted</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[role-name]</I>: list</TD>
+    <TD>A comma-separated list of roles that can invoke this finder method.</TD>
+  </TR>
+  <TR>
+    <TD><I>[query]</I>: String</TD>
+    <TD>EJB-QL query for the finder. Applicable to EJB2.0 CMP only.</TD>
+  </TR>
+  <TR>
+    <TD><I>[result-type-mapping]</I>: none|(Local,Remote)</TD>
+    <TD>Result type mapping for the finder method. Applicable to EJB2.0 CMP
+      only.</TD>
+  </TR>
+  <TR>
+    <TD><I>[transaction-type]</I>: String</TD>
+    <TD>Indicates the transaction type attribute sets to the method.</TD>
+  </TR>
+  <TR>
+    <TD><I>[method-intf]</I>: String</TD>
+    <TD>Indicates the interface (Home or LocalHome) for which the finder
+      permissions should be set. If the permissions should apply to both Home or LocalHome
+      interfaces, this parameter should not be specified.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="select">@ejb:select</A></H4>
+<P>Defines a select method for the home interface. An entity bean may have zero
+or more <CODE>ejb:select</CODE> tags. Applicable to EJB2.0 CMP only.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[signature]</I>: String</TD>
+    <TD>Defines the signature of the method. E.g.. &quot;java.util.Collection
+      selectAll()&quot;. The return type in the signature must be fully
+      qualified.</TD>
+  </TR>
+  <TR>
+    <TD><I>[query]</I>: String</TD>
+    <TD>EJB-QL query for the select method.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[result-type-mapping]</I>: none|(local,remote)</TD>
+    <TD>Result type mapping for the select method.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="util">@ejb:util</A></H4>
+<P>This tag is optional, and lets you define whether or not a util class should
+be generated, and whether to use the logical component name (java:comp/env) or
+the physical JNDI name to do the lookup. If this tag is not specified, the util
+class will be generated using logical lookups (provided the <A HREF="#subtask_utilobject">&lt;utilobject&gt;</A>
+subtask is used)</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[generate]</I>: (false|no|logical|physical)</TD>
+    <TD>false or no will omit the generation of the util class. logical will
+      generate a util class that uses the component name for lookup, and
+      physical will generate a class that uses the JNDI name for lookups.
+      Default is logical.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="pk">@ejb:pk</A></H4>
+<P>Defines the primary key of an entity bean. If the <A HREF="#subtask_entitypk"><CODE>&lt;entitypk/&gt;</CODE></A>
+subtask is included, then primary key classes will be generated for all entity
+beans unless a generate=&quot;false&quot; parameter is present, or the primary
+class is in the <CODE>java.lang</CODE> package.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[class]</I>: String</TD>
+    <TD>The fully qualified name of the primary key class. If absent the primary
+      key class name will be determined using the <I>pattern</I> and <I>package</I>
+      parameters.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[pattern]</I>: String</TD>
+    <TD>Define the pattern (using {0} for the EJB name) to be used for
+      constructing the unqualified (package specific) name of the primary key
+      class.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[package]</I>: String</TD>
+    <TD>Define the package the pk class is in (generated or not). Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the PK class should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[generate]</I>: boolean</TD>
+    <TD>Indicate if the primary key class should be generated. Defaults to true</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[extends]</I>: String</TD>
+    <TD>Define which class the generated pk must extend.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[implements]</I>: String</TD>
+    <TD>Define which interface the generated pk must implement.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[role-name]</I>: list</TD>
+    <TD>A comma-separated list of roles that can execute findByPrimaryKey</TD>
+  </TR>
+  <TR>
+    <TD><I>[unchecked]</I>: boolean</TD>
+    <TD>Flags the PK-finder as having unchecked permission. EJB2.0 only. If
+      present, role-name must be omitted</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[method-intf]</I>: String</TD>
+    <TD>Indicates the interface (Home or LocalHome) for which the
+      findByPrimaryKey permissions should be set. Applies only if role-name or
+      unchecked is specified. If the permissions should apply to both Home or
+      LocalHome interfaces, this parameter should not be specified.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="data-object">@ejb:data-object</A></H4>
+<P>Defines configuration attributes used for data object generation. Applicable
+only for Entity beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[extends]</I>: String</TD>
+    <TD>Declare which class the generated bulk data class should extend. Default
+      is &quot;java.lang.Object&quot;. The class must be java.io.Serializable.
+      This is useful if you want to add some methods that should always be
+      available in bulk data objects.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[implements]</I>: list</TD>
+    <TD>Declare a set of interfaces (comma-separated list) that the generated
+      data object class should implement. &quot;java.io.Serializable&quot; is
+      always added to this list.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[package]</I>: String</TD>
+    <TD>Define the package the data object class is in. Use <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the data-object class should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[container]</I>: boolean</TD>
+    <TD>If set and set to &quot;false&quot; the ejbdoclet will not generate a
+      Bulk Data Container nor a setter method. Thus it will make all other
+      &quot;data&quot; settings obsolete. This is usefull when you want to use
+      inheritance within your data container classes.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[setdata]</I>: boolean</TD>
+    <TD>If set and set to &quot;false&quot; the ejbdoclet will not generate a
+      &quot;setData()&quot; method. Therefore you are you are free to use your
+      own method.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[equals]</I>: boolean</TD>
+    <TD>If set and set to &quot;false&quot; the ejbdoclet will not generate an
+      &quot;equals()&quot; method. Therefore you are free to use your own
+      method.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[use-super-equals]</I>: boolean</TD>
+    <TD>If set and set to &quot;true&quot; the ejbdoclet will generate an
+      &quot;equals()&quot; method that first calls super.equals() to check for
+      superclass equivalence. This allows for adding to the dataobject in the
+      superclass. If true, the generated hashCode() method will also start with
+      super.hashCode().</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="dao">@ejb:dao</A></H4>
+<P>Defines the data access object of an entity bean. If the
+<A HREF="#subtask_dao"><CODE>&lt;dao/&gt;</CODE></A> subtask is included, then
+DAO interfaces will be generated for any entity beans containing this tag,
+unless a generate=&quot;false&quot; parameter is present.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[class]</I>: String</TD>
+    <TD>The fully qualified name of the DAO interface. If absent the interface
+      name will be determined using the <I>pattern</I> and <I>package</I>
+      parameters.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[pattern]</I>: String</TD>
+    <TD>Define the pattern (using {0} for the EJB name) to be used for
+      constructing the unqualified (package specific) name of the DAO
+      interface.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[package]</I>: String</TD>
+    <TD>Define the package the DAO interface is in (generated or not). Use
+      <A HREF="#subtask_packageSubstitution">&lt;packageSubstitution/&gt;</A>
+      to configure which package the interface should end up in.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[generate]</I>: boolean</TD>
+    <TD>Indicate if the DAO interface should be generated. Defaults to true.</TD>
+  </TR>
+<!--  <TR VALIGN="top">
+    <TD><I>[extends]</I>: String</TD>
+    <TD>Define which class the generated pk must extend.</TD>
+  </TR> -->
+  <TR VALIGN="top">
+    <TD><I>[impl-class]</I>: String</TD>
+    <TD>The fully qualified name of a class which implements the DAO interface.
+      If present, then generated code for obtaining a DAO will just create a
+      new instance of this class.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[impl-jndi]</I>: String</TD>
+    <TD>Indicates a JNDI environment reference which will contain a String
+      that is the fully qualified name of a class implementing the DAO
+      interface.  If present, then generated code for obtaining a DAO will look
+      up this reference, then create a new instance of the class whose name is
+      found there.  This allows the actual implementation class to be determined
+      at runtime.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="env-entry">@ejb:env-entry</A></H4>
+<P>Defines an environment entry for an EJB. Applicable to all EJB types.</P>
+<I>name</I> of java type <I>type</I> that has the<BR>
+value of <I>value</I>. <I>type </I>is optional, the default is java.lang.Sting.
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the env-entry</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[description]</I>: String</TD>
+    <TD>Optional description of the env-entry</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>type</I>: String</TD>
+    <TD>The type of the env-entry, eg java.lang.String. Supported types outlined
+      in the EJB spec.</TD>
+  <TR VALIGN="top">
+    <TD><I>value</I>: dependent on type<BR>
+    <TD>The value of the env-entry.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="ejb-ref">@ejb:ejb-ref</A></H4>
+<P>Defines an EJB-reference. Applicable to all EJB types. <B>Attention</B> You
+have to import the referred class (the ejbdoclet one) even your EJB does not
+need it.</P>
+to the bean with EJB-name <I>ejb-name</I>. <I>ref-name</I> is optional and if
+not specified then the reference name is <I>ejb-name</I> prefixed by a <I>ejb/</I>.
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>ejb-name</I>: String</TD>
+    <TD>The name of the EJB being referenced.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[view-type]</I>: &quot;local&quot; | &quot;remote&quot;</TD>
+    <TD>The view type that the reference uses.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[ref-name]</I>: String</TD>
+    <TD>The name that the referenced bean will be referred to by. For example,
+      to refer to the bean Customer as java:comp/env/ejb/Customer name should be
+      ejb/Customer. Defaults to ejb/[ejb-name], where [ejb-name] is the named of
+      the referenced bean (Customer) prefixed by &quot;ejb/&quot;.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="ejb-external-ref">@ejb:ejb-external-ref</A></H4>
+<P>Defines an EJB-reference to a bean in another application.of type <I>type</I>,
+name of reference bean's home interface <I>home</I>, name of<BR>
+reference bean's remote interface <I>remote</I>. Applicable to all types of
+beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR>
+    <TD><I>ref-name</I>: String</TD>
+    <TD>The name that the referenced bean will be referred to by. For example,
+      to refer to the bean Customer as java:comp/env/ejb/Customer name should be
+      ejb/Customer. Defaults to ejb/[ejb-name], where [ejb-name] is the named of
+      the referenced bean (Customer) prefixed by &quot;ejb/&quot;.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>ejb-name</I>: String</TD>
+    <TD>The name that the referenced bean will be referred to by. For example,
+      to refer to the bean Customer as java:comp/env/ejb/Customer name should be
+      ejb/Customer. Defaults to ejb/[ejb-name], where [ejb-name] is the named of
+      the referenced bean (Customer) prefixed by &quot;ejb/&quot;.
+      <P>* Deprecated. Use ref-name instead.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>type</I>: &quot;Entity&quot; | &quot;Session&quot;</TD>
+    <TD>The type of EJB being referenced.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>home</I>: String</TD>
+    <TD>The fully qualified class name of the home interface of the referenced
+      bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>remote</I>: String</TD>
+    <TD>The fully qualified class name of the remote interface of the referenced
+      bean.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="resource-ref">@ejb:resource-ref</A></H4>
+<P>Defines a resource reference with the name <I>res-name</I> to a resource of
+type <I>res-type</I>, and the authentication is done by the one specified in <I>res-auth</I>.
+Applicable to all EJB types.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>res-name</I>: String</TD>
+    <TD>The resource name.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>res-type</I>: String</TD>
+    <TD>The resource type.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>res-auth</I>: &quot;Container&quot; | &quot;Application&quot;</TD>
+    <TD>The resource authentication type.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="resource-env-ref">@ejb:resource-env-ref</A></H4>
+<P>Defines a resource environment reference with the name <I>name</I> to a
+resource of type <I>type</I>. Applicable to all EJB types.
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the resource.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>type</I>: String</TD>
+    <TD>The type of the resource.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="security-role-ref">@ejb:security-role-ref</A></H4>
+<P>Defines a security role reference with the name <I>role-name</I> to a
+security role link named <I>role-link</I>. Applicable to Entity and Session
+beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>role-name</I>: String</TD>
+    <TD>The name of the role reference.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[role-link]</I>: String</TD>
+    <TD>The name of the role link.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="transaction">@ejb:transaction</A></H4>
+<P>Defines the transactional behaviour for all methods in remote and home
+interfaces of this bean with transaction type of <I>type</I>. Can be overridden
+by using transaction tags on individual methods.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>type</I>: &quot;NotSupported&quot; | &quot;Supports&quot; |
+      &quot;Required&quot; | &quot;RequiresNew&quot; | &quot;Mandatory&quot; |
+      &quot;Never&quot;</TD>
+    <TD>The transactional type for the bean's methods.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="permission">@ejb:permission</A></H4>
+<P>Allow the role <I>role-name</I> to call all methods in remote and home
+interfaces of this bean. Applicable to Entity and Session beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>role-name</I>: list</TD>
+    <TD>Comma separated list of roles that is given permission to invoke the
+      methods on this bean.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[unchecked]</I>: String</TD>
+    <TD>Declare the methods in the bean as unchecked. EJB2.0 only.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="security-identity">@ejb:security-identity</A></H4>
+<P>The security-identity element specifies whether the caller’s security
+identity is to be used for the execution of the methods of the enterprise bean
+or whether a specific run-as identity is to be used. It contains an optional
+description and a specification of the security identity to be used. Applicable
+to Entity, Session and Message Driven beans.<BR>
+EJB2.0 only.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[description]</I>: String</TD>
+    <TD>The description of the security identity.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[use-caller-identity]</I>: String</TD>
+    <TD>The use-caller-identity element specifies that the caller’s security
+      identity be used as the security identity for the execution of the
+      enterprise bean’s methods.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[run-as]</I>: String</TD>
+    <TD>The run-as element specifies the run-as identity to be used for the
+      execution of the methods of an enterprise bean. It contains an optional
+      description, and the name of a security role.</TD>
+  </TR>
+</TABLE>
+
+<H3><A NAME="method-level-tags">Method level Tags</A></H3>
+
+<H4><A NAME="persistence-method">@ejb:persistence</A></H4>
+<P>The <CODE>@ejb:persistence</CODE> tag provides information about the persistence
+of an CMP Entity bean's fields.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>column-name</I>: String</TD>
+    <TD>Declare the column-name to which the CMP field will be mapped.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>jdbc-type</I>: String</TD>
+    <TD>Declare the JDBC Type.  Its value must be one of the fields of java.sql.Types (e.g. BIT, CHAR...).
+    This jdbc type will be used by the CMP provider to determine which method to call on
+    PreparedStatement and ResultSet for INSERT / UPDATE / SELECT queries. </TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>sql-type</I>: String</TD>
+    <TD>Declare the actual type of the field in the database. This value will only be used when
+    te CMP container creates your table (if possible).</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="relation">@ejb:relation</A></H4>
+<P>Define a relationship for an Entity bean. Applicable only to EJB2.0 CMP2.x
+beans.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>Name of the relation. For bidirectional relationships, specify the same
+      name on both sides.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>role-name</I>: String</TD>
+    <TD>Name of a relationship role.</TD>
+  </TR>
+  <TR>
+    <TD><I>[cascade-delete]</I>: String</TD>
+    <TD>Indicates whether or not the app server should perform cascade deletes.
+      If yes, specify cascade-delete=&quot;yes&quot;</TD>
+  </TR>
+  <TR>
+    <TD><I>[target-ejb]</I>: String</TD>
+    <TD>Name of the EJB on the other side of the relation. Should *only* occur
+      if the relation is unidirectional.</TD>
+  </TR>
+  <TR>
+    <TD><I>[target-role-name]</I>: String</TD>
+    <TD>Name of the relationship role on the other side of the relation. Should
+      *only* occur if the relation is unidirectional.</TD>
+  </TR>
+  <TR>
+    <TD><I>[target-cascade-delete]</I>: String</TD>
+    <TD>Indicates whether or not the app server should perform cascade deletes
+      for the other side of the relation. If yes, specify
+      cascade-delete=&quot;yes&quot;. Should *only* occur if the relation is
+      unidirectional.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[target-multiple]</I>: String</TD>
+    <TD>If this EJB represents a many-side of the other side of the relation,
+      specify target-multiple=&quot;yes&quot;. If not, just don't use this
+      parameter, or specify &quot;no&quot;. Should *only* occur if the relation
+      is unidirectional.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="interface-method">@ejb:interface-method</A></H4>
+<P>Declare in which interface (local/remote) this method must appear. If the
+view-type parameter is absent then the method will be added to whatever
+component interfaces are defined in @ejb:bean.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[view-type]</I>: &quot;local&quot; | &quot;remote&quot; |
+      &quot;both&quot;</TD>
+    <TD>Optionally specify which view-type the method will be exposed in. The
+      value &quot;local&quot; or &quot;both&quot; is only applicable to EJB2.0
+      beans.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="home-method">@ejb:home-method</A></H4>
+<P>Define this method as a home method (e.g. its name is &quot;ejbHomefoo&quot;,
+and the corresponding home method should be defined in the home interface).
+Applicable to session and entity beans - valid for EJB2.0 only.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[view-type]</I>: &quot;local&quot; | &quot;remote&quot;</TD>
+    <TD>Optionally specify which view-type the method will be exposed in.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="create-method">@ejb:create-method</A></H4>
+<P>The method is an ejbCreate method and will be included in the home interface.
+It is applicable to Session and Entity beans. In Stateless Session beans the
+ejbCreate will be created if it is not in the code.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[view-type]</I>: &quot;local&quot; | &quot;remote&quot;</TD>
+    <TD>Optionally specify which view-type the method will be exposed in.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="persistent-field">@ejb:persistent-field</A></H4>
+<P>Use this for methods with the following patterns:</P>
+<UL>
+  <LI><CODE>public abstract Foo getX();</CODE>
+  <LI><CODE>public abstract boolean isX();</CODE>
+  <LI><CODE>public abstract void setX(Foo newVal);</CODE>
+</UL>
+<P>This will create the CMP field &quot;X&quot; in the generated CMP layer of
+type &quot;Foo&quot;, and concrete implementations of the getX/setX methods. For
+BMP, it will generate getX/setX methods that keep track of a dirty flag (so that
+ejbStore is only called if necessary). If the type is boolean it is ok to have
+the get method prefixed &quot;is&quot; instead of &quot;get&quot;. If you don't
+define the setter method, no setter method is generated for the concrete BMP/CMP
+class (concrete CMP class is generated only if EJB 1.1 or EJB 2.0 but using CMP
+1.x). This is useful for cases where for example nothing is set programmatically
+but via external sources such as a stored procedure. Applicable for entity
+beans.</P>
+
+<H4><A NAME="pk-field">@ejb:pk-field</A></H4>
+<P>Use this for methods with the following pattern: public abstract Foo getX().
+This will denote the persistent field &quot;X&quot; as a primary key field,
+which will be included in the generated primary key class. Must be used with the
+persistent-field tag. This tag is only valid for EntityBeans. It has no
+parameters.</P>
+
+<H4><A NAME="aggregate">@ejb:aggregate</A></H4>
+<P>Mark a persistent field containing a reference to another entity bean as
+being aggregated in this bean. The data object will contain accessor methods for
+the aggregated entity's data object instead of a reference to the entity itself.
+The aggregated entity will also be removed when this entity is removed. For
+example, aggregates are useful for sending graphs of data to the client. This is
+only applicable to entity beans and has no parameters.</P>
+
+<H4><A NAME="transaction">@ejb:transaction</A></H4>
+<P>Defines the transactional behavior for this method. Applicable to methods
+with <A HREF="#create-method">@ejb:create-method</A> and <A HREF="#interface-method">@ejb:interface-method</A>
+tags.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[type]</I>: &quot;NotSupported&quot; | &quot;Supports&quot; |
+      &quot;Required&quot; | &quot;RequiresNew&quot; | &quot;Mandatory&quot; |
+      &quot;Never&quot;</TD>
+    <TD>Define the type of transactional behaviour.</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="permission">@ejb:permission</A></H4>
+<P>Define a method's premission. Used with a method with an <A HREF="#interface-method">@ejb:interface-method</A>
+or <A HREF="#create-method">@ejb:create-method</A> tag.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[role-name]</I>: list</TD>
+    <TD>Comma-separated list of roles allowed to call this method</TD>
+  </TR>
+</TABLE>
+
+<H4><A NAME="dao-call">@dao:call</A></H4>
+<P>The method is a call to a data access object; the method will be included
+in the DAO interface, and the EJB's generated subclass will contain a call to
+the DAO's method.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[name]</I>: String</TD>
+    <TD>Optionally specify the method's name in the DAO (it need not be the
+      same as the calling method in the EJB).  If not specified, the default is
+      the usual interface equivalent of the method's name (i.e. generally the
+      same, but ejbFindByX becomes findByX etc.)</TD>
+  </TR>
+</TABLE>
+
+</BODY>
+</HTML>

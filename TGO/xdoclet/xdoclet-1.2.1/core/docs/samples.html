@@ -1,0 +1,79 @@
+
+<h3><a name="examples">An Example</a></h3>
+
+<p>  &nbsp;&lt;target name=&quot;ejbdoclet&quot; depends=&quot;prepare&quot;&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; &lt;taskdef name=&quot;ejbdoclet&quot; classname=&quot;xdoclet.modules.ejb.EjbDocletTask&quot;
+classpath=&quot;${xdoclet.jar.path};${lib.dir}/log4j.jar&quot;/&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&lt;tstamp&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         &lt;format property="TODAY" pattern="d-MM-yy" /&gt;<br>
+&nbsp;&nbsp;&nbsp;      &lt;/tstamp&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; &lt;ejbdoclet sourcepath=&quot;${java.dir}&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+destdir=&quot;${generated.java.dir}&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+classpathref=&quot;project.class.path&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+excludedtags=&quot;@version,@author&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+addedtags=&quot;@xdoclet-generated at ${TODAY}&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ejbspec=&quot;2.0&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+force=&quot;${xdoclet.force}&quot;&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;fileset dir=&quot;${java.dir}&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;include
+name=&quot;**/*Bean.java&quot; /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/fileset&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;dataobject/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;remoteinterface/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;homeinterface/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;entitypk/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;entitycmp/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;deploymentdescriptor destdir=&quot;${build.dir}/ejb/META-INF&quot;/&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;jboss xmlencoding=&quot;UTF-8&quot;
+typemapping=&quot;Hypersonic SQL&quot; datasource=&quot;java:/DefaultDS&quot;/&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; &lt;/ejbdoclet&gt;<br>
+<br>
+&lt;/target&gt;<br>
+&nbsp;</p>
+
+<h3><a name="tasks">Bundled Tasks</a></h3>
+
+<p><a href="ejb.html">&lt;ejbdoclet/&gt;</a></p>
+
+<p><a href="web.html">&lt;webdoclet/&gt;</a></p>
+
+<h3><a name="test">Test</a></h3>
+
+<p>To run ejbdoclet against the test classes, run &quot;build_test&quot.
+This will generate the java files under &quot;dist/test&quot;.</p>
+<p>To test deployment on a specific server, add a specific parameter.</p>
+<table border="1" cellspacing="0">
+<tr>
+<td>EJB Server</td>
+<td>Parameter</td>
+</tr>
+<tr>
+<td>JBoss</td>
+<td>-D jboss.home=/usr/jboss</td>
+</tr>
+<tr>
+<td>WebLogic</td>
+<td>-D weblogic.home=/usr/weblogic</td>
+</tr>
+</table>
+<p>You can test the deployment on multiple servers as well.
+Example: &quot;build_test -Djboss.home /usr/jboss -Dweblogic.home /usr/weblogic&quot;</p>
+<p>Architecture : build_test.xml run ejbdoclet to generates the java classes, then compiles them,
+then create ejbdoclet.jar ready for deployment.  Then all subprojects/test-xx.xml are run.  Those
+EJB server specific test scripts will be run only if the specific parameter for the EJB server is
+specified.</p>
+<p>Currently test-jboss.xml is simply set up to deploy the ejb by copying the ejbdoclet.jar to JBoss
+deploy directory.</p>

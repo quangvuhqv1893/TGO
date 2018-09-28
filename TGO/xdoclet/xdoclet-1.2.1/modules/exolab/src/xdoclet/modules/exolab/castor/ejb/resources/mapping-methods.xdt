@@ -1,0 +1,30 @@
+   <XDtMethod:ifHasMethodTag tagName="castor:field">
+    <field name="<XDtMethod:propertyName/>"
+           type="<XDtMethod:ifHasMethodTag tagName="castor:field" paramName="type"><XDtMethod:methodTagValue tagName="castor:field" paramName="type"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="castor:field" paramName="type"><XDtType:typeWithoutDimensions type="<XDtMethod:methodType/>"/><XDtType:ifIsOfType value="return-type" type="int" extent="concrete-type">eger</XDtType:ifIsOfType></XDtMethod:ifDoesntHaveMethodTag>"<XDtMethod:ifHasMethodTag tagName="castor:field" paramName="required">
+           required="<XDtMethod:methodTagValue tagName="castor:field" paramName="required" values="true,false"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field" paramName="lazy">
+           lazy="<XDtMethod:methodTagValue tagName="castor:field" paramName="lazy" values="true,false" default="false"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field" paramName="handler">
+           handler="<XDtMethod:methodTagValue tagName="castor:field" paramName="handler"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field" paramName="direct">
+           direct="<XDtMethod:methodTagValue tagName="castor:field" paramName="direct" values="true,false" />"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field" paramName="transient">
+           transient="<XDtMethod:methodTagValue tagName="castor:field" paramName="transient" values="true,false" />"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field" paramName="create-method">
+           create-method="<XDtMethod:methodTagValue tagName="castor:field" paramName="create-method"/>"</XDtMethod:ifHasMethodTag>
+           get-method="<XDtMethod:methodName/>"<XDtMethod:ifHasMethodTag tagName="castor:field" paramName="set-method">
+           set-method="<XDtMethod:methodTagValue tagName="castor:field" paramName="set-method"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field" paramName="collection">
+           collection="<XDtMethod:methodTagValue tagName="castor:field" paramName="collection" values="array,arraylist,vector,hashtable,collection,set,map" />"</XDtMethod:ifHasMethodTag>>
+     <XDtMethod:ifHasMethodTag tagName="castor:field-sql">
+      <sql<XDtMethod:ifHasMethodTag tagName="castor:field-sql" paramName="name"> name="<XDtMethod:methodTagValue tagName="castor:field-sql" paramName="name"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-sql" paramName="type">
+           type="<XDtMethod:methodTagValue tagName="castor:field-sql" paramName="type"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-sql" paramName="many-key">
+           many-key="<XDtMethod:methodTagValue tagName="castor:field-sql" paramName="many-key"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-sql" paramName="many-table">
+           many-table="<XDtMethod:methodTagValue tagName="castor:field-sql" paramName="many-table"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-sql" paramName="dirty">
+           dirty="<XDtMethod:methodTagValue tagName="castor:field-sql" paramName="dirty" values="check,ignore" />"</XDtMethod:ifHasMethodTag> />
+     </XDtMethod:ifHasMethodTag>
+     <XDtMethod:ifHasMethodTag tagName="castor:field-xml">
+      <bind-xml<XDtMethod:ifHasMethodTag tagName="castor:field-xml" paramName="name"> name="<XDtMethod:methodTagValue tagName="castor:field-xml" paramName="name"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-xml" paramName="type">
+                type="<XDtMethod:methodTagValue tagName="castor:field-xml" paramName="type"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-xml" paramName="matches">
+                matches="<XDtMethod:methodTagValue tagName="castor:field-xml" paramName="matches"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-xml" paramName="QName-prefix">
+                QName-prefix="<XDtMethod:methodTagValue tagName="castor:field-xml" paramName="QName-prefix"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-xml" paramName="reference">
+                reference="<XDtMethod:methodTagValue tagName="castor:field-xml" paramName="reference" values="true,false"/>"</XDtMethod:ifHasMethodTag><XDtMethod:ifHasMethodTag tagName="castor:field-xml" paramName="node">
+                node="<XDtMethod:methodTagValue tagName="castor:field-xml" paramName="node" values="element,attribute,text"/>"</XDtMethod:ifHasMethodTag> />
+     </XDtMethod:ifHasMethodTag>
+    </field>
+
+    </XDtMethod:ifHasMethodTag>

@@ -1,0 +1,152 @@
+// Generated MockObject for <XDtClass:fullClassName/>. Do not edit!
+
+package <XDtPackage:packageOf><XDtMockObject:mockClass/></XDtPackage:packageOf>;
+
+import com.mockobjects.Verifiable;
+import com.mockobjects.ExpectationList;
+import com.mockobjects.ExpectationCounter;
+import xdoclet.modules.mockobjects.util.ReturnObjectList;
+
+public class <XDtClass:classOf><XDtMockObject:mockClass/></XDtClass:classOf> implements <XDtClass:fullClassName/>, Verifiable
+{
+    /**
+     * Constructor that makes sure all methods are setup with a state,
+     * so that if the developer forgets it, the test will fail.
+     */
+    public <XDtClass:classOf><XDtMockObject:mockClass/></XDtClass:classOf>()
+    {
+        clear();
+    }
+
+    <XDtMethod:forAllMethods superclasses="true">
+    // Fields/methods for <XDtMethod:methodName />(<XDtParameter:parameterList/>)
+    
+    private ExpectationCounter <XDtMockObject:uniqueMethodName template="my{0}{1}Calls"/> = new ExpectationCounter("<XDtClass:fullClassName/>.<XDtMethod:methodName />(<XDtParameter:parameterList/>)");
+    private ReturnObjectList <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/> = new ReturnObjectList("<XDtClass:fullClassName/>.<XDtMethod:methodName />(<XDtParameter:parameterList/>)");
+    <XDtParameter:forAllMethodParams>
+    private ExpectationList <XDtMockObject:uniqueMethodNameAndParam template="my{0}{1}Parameter{2}Values"/> = new ExpectationList("<XDtClass:fullClassName/>.<XDtMethod:methodName />(<XDtParameter:parameterList/>) <XDtParameter:methodParamName/>");
+    </XDtParameter:forAllMethodParams>
+
+    public <XDtMethod:methodType/> <XDtMethod:methodName/>(<XDtParameter:parameterList/>)
+              <XDtMockObject:ifThrowsException><XDtMethod:exceptionList/></XDtMockObject:ifThrowsException>
+    {
+        <XDtMockObject:uniqueMethodName template="my{0}{1}Calls"/>.inc();
+
+        <XDtParameter:forAllMethodParams>
+        <XDtMockObject:uniqueMethodNameAndParam template="my{0}{1}Parameter{2}Values"/>.addActual(<XDtMockObject:wrap name="<XDtParameter:methodParamName/>" type="<XDtParameter:methodParamType/>"/>);
+        </XDtParameter:forAllMethodParams>
+
+        Object result;
+
+        <XDtMethod:ifReturnsVoid>
+        if(<XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.hasNext())
+        {
+            result = <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.next();
+
+            if(null != result)
+            {
+                // If result is a subclass of Error, RuntimeException or one of the exceptions
+                // this method has declared that it throws, throw it instead of returning it.
+                if(result instanceof RuntimeException)
+                {
+                    throw (RuntimeException)result;
+                }
+                else if(result instanceof Error)
+                {
+                    throw (Error)result;
+                }
+                <XDtMockObject:forAllExceptions>
+                else if(result instanceof <XDtMockObject:currentException/>)
+                {
+                    throw (<XDtMockObject:currentException/>)result;
+                }
+                </XDtMockObject:forAllExceptions>
+            }
+        }
+        </XDtMethod:ifReturnsVoid>
+        <XDtMethod:ifDoesntReturnVoid>
+        result = <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.next();
+
+        if(null != result)
+        {
+            // If result is a subclass of Error, RuntimeException or one of the exceptions
+            // this method has declared that it throws, throw it instead of returning it.
+            if(result instanceof RuntimeException)
+            {
+                throw (RuntimeException)result;
+            }
+            else if(result instanceof Error)
+            {
+                throw (Error)result;
+            }
+            <XDtMockObject:forAllExceptions>
+            else if(result instanceof <XDtMockObject:currentException/>)
+            {
+                throw (<XDtMockObject:currentException/>)result;
+            }        
+            </XDtMockObject:forAllExceptions>
+        }
+
+        return <XDtMockObject:unwrap name="result" type="<XDtMethod:methodType/>"/>;
+        </XDtMethod:ifDoesntReturnVoid>
+    }
+
+    public void <XDtMockObject:uniqueMethodName template="setExpected{0}{1}Calls"/>(int calls)
+    {
+        <XDtMockObject:uniqueMethodName template="my{0}{1}Calls"/>.setExpected(calls);
+    }
+
+    <XDtMethod:ifDoesntReturnVoid>
+    public void <XDtMockObject:uniqueMethodName template="addActual{0}{1}ReturnValue"/>(<XDtMethod:methodType/> value)
+    {
+        <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.add(<XDtMockObject:wrap name="value" type="<XDtMethod:methodType/>"/>);
+    }
+
+    public void <XDtMockObject:uniqueMethodName template="setReuseLast{0}{1}ReturnValue"/>(boolean reuseLast)
+    {
+        <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.setReuseLast(reuseLast);
+    }
+    </XDtMethod:ifDoesntReturnVoid>
+
+    public void <XDtMockObject:uniqueMethodName template="addActual{0}{1}ExceptionThrown"/>(Throwable throwable)
+    {
+        <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.add(throwable);
+    }
+
+    <XDtParameter:ifHasParams>
+    public void <XDtMockObject:uniqueMethodName template="addExpected{0}{1}InputValues"/>(<XDtParameter:parameterList/>)
+    {
+        <XDtParameter:forAllMethodParams>
+        <XDtMockObject:uniqueMethodNameAndParam template="my{0}{1}Parameter{2}Values"/>.addExpected(<XDtMockObject:wrap name="<XDtParameter:methodParamName/>" type="<XDtParameter:methodParamType/>"/>);
+        </XDtParameter:forAllMethodParams>
+    }
+    </XDtParameter:ifHasParams>
+
+    </XDtMethod:forAllMethods>
+
+    public void clear()
+    {
+        <XDtMethod:forAllMethods superclasses="true">
+        <XDtMockObject:uniqueMethodName template="my{0}{1}Calls"/>.setExpectNothing();
+        <XDtParameter:forAllMethodParams>
+        <XDtMockObject:uniqueMethodNameAndParam template="my{0}{1}Parameter{2}Values"/>.setExpectNothing();
+        </XDtParameter:forAllMethodParams>
+        <XDtMethod:ifDoesntReturnVoid>
+        <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.clear();
+        </XDtMethod:ifDoesntReturnVoid>
+        </XDtMethod:forAllMethods>
+    }
+
+    public void verify()
+    {
+        <XDtMethod:forAllMethods superclasses="true">
+        <XDtMockObject:uniqueMethodName template="my{0}{1}Calls"/>.verify();
+        <XDtParameter:forAllMethodParams>
+        <XDtMockObject:uniqueMethodNameAndParam template="my{0}{1}Parameter{2}Values"/>.verify();
+        </XDtParameter:forAllMethodParams>
+        <XDtMethod:ifDoesntReturnVoid>
+        <XDtMockObject:uniqueMethodName template="myActual{0}{1}ReturnValues"/>.verify();
+        </XDtMethod:ifDoesntReturnVoid>
+        </XDtMethod:forAllMethods>
+    }
+}

@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Using XDoclet</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Using XDoclet">
+            <p>
+                Using XDoclet is simple. Just as you write JavaDoc tags for your
+                code (you do comment your code, don't you?), you now add XDoclet tags
+                too.  These tags are used by XDoclet as providers of meta-data that is
+                then used to generate other files as required.
+            </p>
+
+            <p>
+                For a thorough example of how to use XDoclet, consult the
+                <a href="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xdoclet/xdoclet/samples/src/">samples</a>.
+                However, this page should give you enough of a start to XDoclet your code.
+            </p>
+
+            <p>
+                A typical XDoclet comment might look like this:
+            </p>
+
+<source><![CDATA[/**
+ * This is the Account entity bean. It is an example of how to use the
+ * EJBDoclet tags.
+ *
+ * @see Customer
+ *
+ * @ejb.bean
+ *     name="bank/Account"
+ *     type="CMP"
+ *     jndi-name="ejb/bank/Account"
+ *     local-jndi-name="ejb/bank/LocalAccount"
+ *     primkey-field="id"
+ *
+ * @ejb.finder
+ *     signature="java.util.Collection findAll()"
+ *     unchecked="true"
+ *
+ * @ejb.transaction
+ *     type="Required"
+ *
+ * @ejb.interface
+ *     remote-class="test.interfaces.Account"
+ *
+ * @ejb.value-object
+ *     match="*"
+ *
+ * @version 1.5
+ */]]></source>
+
+            <p>
+                There are three parts to that comment: The comment, the javadoc
+                tag, and the XDoclet tags. The first two are your standard documentation.
+                Just because you are using XDoclet doesn't mean that you stop doing
+                normal documentation. The third part of the comment is the part that
+                we are interested in. An XDoclet tag is comprised of the following
+                parts:
+            </p>
+
+<source>@namespace.tag-name attribute-name="attribute value"</source>
+
+            <p>
+                The concept is similar to an XML element, which has a tag name and an optional set of
+                attributes. The difference is the syntax.
+            </p>
+
+            <p>
+                Tags are grouped by namespaces, and have names that are unique
+                within that namespace. Tags can have zero or more attributes, which
+                are grouped in name="value" pairs.  Looking at the above example, we
+                find the first tag is in the <code>ejb</code> namespace, and
+                is called <code>bean</code>. The <code>ejb.bean</code>
+                tag defines data relating to Enterprise Java Beans. Every EJB will
+                require a name, and it is specified here. The namespace is a mechanism for
+                making sure no name collision happens. Namespaces include ejb, web, jboss,
+                weblogic, struts and so on. So it's simply a way to group related tags. For details
+                on individual tags, consult the Tag Reference.
+            </p>
+
+            <p>
+                Tag values can be specified as ant properties. For example:
+            </p>
+
+<source>@jboss.create-table create="${jboss.create.table}"</source>
+
+            <p>
+                Where the jboss.create.table is a property defined in the ant
+                project. For more information on ant properties consult the
+                <a href="http://ant.apache.org/manual/index.html">Jakarta Ant documentation</a>.
+            </p>
+
+            <p>
+                Tags exist at both class and method level (and in some rare cases even on the
+                field or constructor level). As a general rule, if information can be determined
+                by the name or type of a class, then it will be - and hence there will not be
+                a requirement to specify that information with a tag. An example of this is the
+                <code>type</code> attribute of the <code>ejb.bean</code> tag example above.
+                The type in this instance refers to the Entity type (CMP or BMP), but if the
+                class implemented the <code>javax.ejb.SessionBean</code> interface the type would be
+                Stateful or Stateless. So in the above example, the type can be omitted.
+            </p>
+
+            <p>
+                To start using XDoclet you must first determine what it is you wish to use it for.
+                The two most popular usages are <a href="ant/xdoclet/modules/ejb/EjbDocletTask.html">EJBDoclet</a>
+                and <a href="ant/xdoclet/modules/web/WebDocletTask.html">WebDoclet</a>. Generally you should
+                define the XDoclet task for Ant, setup the configuration parameter. Here is an example:
+            </p>
+
+<source><![CDATA[
+<path id="project.class.path">
+    <fileset dir="${lib.dir}">
+        <include name="*.jar"/>
+    </fileset>
+</path>
+
+<target name="ejbdoclet" depends="prepare">
+    <taskdef
+        name="ejbdoclet"
+        classname="xdoclet.modules.ejb.EjbDocletTask"
+        classpathref="project.class.path"
+    />
+
+    <tstamp>
+        <format property="TODAY" pattern="d-MM-yy"/>
+    </tstamp>
+
+    <ejbdoclet
+        destdir="${generated.java.dir}"
+        excludedtags="@version,@author"
+        addedtags="@xdoclet-generated at ${TODAY}"
+        ejbspec="2.0"
+    >
+        <fileset dir="${java.dir}">
+            <include name="**/*Bean.java"/>
+        </fileset>
+
+        <dataobject/>
+
+        <packageSubstitution packages="persistence" substituteWith="interfaces"/>
+
+        <remoteinterface pattern="{0}Remote"/>
+        <localinterface pattern="{0}"/>
+
+        <homeinterface />
+        <localhomeinterface/>
+
+        <entitypk/>
+        <entitycmp/>
+
+        <deploymentdescriptor destdir="${build.dir}/ejb/META-INF"/>
+        <jboss version="3.0"
+            securityDomain="java:/jaas/samples"
+            preferredRelationMapping="relation-table"
+            datasource="java:/DefaultDS"
+            datasourcemapping="Hypersonic SQL"
+            destdir="${build.dir}/ejb/META-INF"
+        />
+    </ejbdoclet>
+</target>
+
+<target name="compile" depends="ejbdoclet">
+   <!-- Compile EJBs -->
+   <javac
+       srcdir="${java.dir}:${generated.java.dir}"
+       destdir="${build.dir}/ejb"
+       includes="test/ejb/*.java, test/interfaces/*.java"
+   >
+</target>]]></source>
+
+            <p>
+                Here the compile target depends on the ejbdoclet target. This means that before compiling
+                anything all home/local/remote interfaces, primary key, data-objects and deployment descriptors
+                are generated. The first thing you have to do is define the ejbdoclet task for Ant.<br/>
+                To do so you use taskdef, where you specify <code>xdoclet.modules.ejb.EjbDocletTask</code>
+                as the class implementing ejbdoclet task. Note that the classpathref points to the path with
+                id "project.class.path". This path should have all XDoclet jar files and commons-logging.jar.
+            </p>
+            <p>
+                Next you declare ejbdoclet task, with a set of configuration parameters and
+                nested elements. For example, destdir specifies where to put generated files. As
+                you can see there's an inheritance mechanisms also, you can override this
+                destdir parameter for each nested element (or as we call it sub-task).<br/>
+                &amp;lt;deploymentdescriptor/&amp;gt; does exactly that; put the generated
+                ejb-jar.xml file somewhere else than where generated java sources for
+                home/remote/pk/etc are placed. For a complete list of configurable parameters
+                consult the Ant Task Reference for each task and sub-task.
+            </p>
+            <p>
+                By default each task has some built-in sub-tasks. Some of them are mandatory,
+                for example &amp;lt;remoteinterface/&amp;gt; and
+                &amp;lt;localinterface/&amp;gt;, can you imagine an EJB without a remote or
+                local (EJB 2.0 only) interface? Some other tasks may be optional, for example
+                &amp;lt;jboss/&amp;gt; is optional if you're not using JBoss Application Server.
+            </p>
+            <p>
+                There's even a third form of sub-tasks: &amp;lt;template/&amp;gt;. This is useful for cases
+                where you want to design your own template file and generate a customized file.
+                So, you need a simple way to let XDoclet use your template file. Here is an
+                example:
+            </p>
+
+<source><![CDATA[
+<taskdef
+    name="templatedoclet"
+    classname="xdoclet.DocletTask"
+    classpathref="project.class.path"
+/>
+
+<templatedoclet
+    destdir="${generated.java.dir}"
+    excludedtags="@version,@author"
+>
+    <fileset dir="${java.dir}">
+        <include name="**/*Bean.java"/>
+    </fileset>
+    <template
+        templateFile="/mytemplate.xdt"
+        destinationfile="mygeneratedfile.txt"
+    />
+</templatedoclet>
+]]></source>
+
+            <p>
+                So you put a &amp;lt;template/&amp;gt; element in the task, specify the path to
+                your template file and output file name (which will we stored in the directory
+                specified in destdir parameter). This is very useful for those creative people
+                who want to easily take advantage of XDoclet's framework-like capabilities and
+                define their own set of @tags and templates generating something from those
+                @tags.
+            </p>
+            <p>
+                So whenever you build, ejbdoclet (and/or whatever other task) is run and generates
+                up-to-date files.
+            </p>
+            <p>
+                Quick checklist of things to get XDoclet running:
+            </p>
+            <ul>
+                <li>Modify (creating if required) your build.xml script (see
+                <a href="http://ant.apache.org/">Jakarta Ant</a> web site for details).</li>
+                <li>Add <a href="tags/ejb-tags.html">XDoclet tags</a> to your source code.</li>
+                <li>Stop worrying about all that boring code you used to write! XDoclet does it all for you now.</li>
+            </ul>
+            <p>
+                The <a href="mail-lists.html">mailing lists</a> provide a wealth of knowledge, and the developers
+                are lurking on the xdoclet-user list, so feel free to ask questions, make suggestions, or just generally
+                discuss XDoclet.
+            </p>
+        </section>
+    </body>
+</document>

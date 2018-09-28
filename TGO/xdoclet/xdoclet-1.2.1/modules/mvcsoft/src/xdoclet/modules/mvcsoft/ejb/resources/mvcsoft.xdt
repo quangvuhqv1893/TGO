@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+
+<persistence-mappings>
+   <XDtConfig:ifConfigParamNotEquals paramName="Connectionjndiname" value="false">
+   <database>
+      <transactional-connection-jndi-name><XDtConfig:configParameterValue paramName="Connectionjndiname"/></transactional-connection-jndi-name>
+   </database>
+   </XDtConfig:ifConfigParamNotEquals>
+
+   <jar-environment>
+     <XDtConfig:ifConfigParamNotEquals paramName="Loggingtype" value="false">
+      <logging-config><logging-type><XDtConfig:configParameterValue paramName="Loggingtype"/></logging-type>
+
+       <XDtMerge:merge file="mvcsoft-log4j.xml">
+       <!-- Write a file named mvcsoft-log4j.xml if you want to define MVCSoft logging with Log4J. -->
+       </XDtMerge:merge>
+
+      </logging-config>
+     </XDtConfig:ifConfigParamNotEquals>
+     <XDtConfig:ifConfigParamNotEquals paramName="Lightweightfactoryname" value="false">
+      <home-factory-class><XDtConfig:configParameterValue paramName="Lightweightfactoryname"/></home-factory-class>
+     </XDtConfig:ifConfigParamNotEquals>
+   </jar-environment>
+
+
+   <XDtEjbCmp:forAllCmpEntityBeans>
+   <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+   <XDtClass:ifClassTagValueNotEquals tagName="ejb.bean" paramName="cmp-version" value="1.x">
+   <XDtEjb:ifIsAConcreteEJBean>
+   <entity>
+
+      <name><XDtEjb:ejbName/></name>
+
+      <XDtEjb:ifRemoteEjb>
+        <entity-remote-jndi-name><XDtEjbHome:jndiName type="remote"/></entity-remote-jndi-name>
+      </XDtEjb:ifRemoteEjb>
+      <XDtEjb:ifLocalEjb>
+        <entity-local-jndi-name><XDtEjbHome:jndiName type="local"/></entity-local-jndi-name>
+      </XDtEjb:ifLocalEjb>
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.entity,ejb.persistence" paramName="table">
+        <primary-table>                                                  
+           <table-description>                                           
+               <table-name><XDtClass:classTagValue tagName="mvcsoft.entity,ejb.persistence" paramName="table,table-name"/></table-name>
+           </table-description>                                          
+        </primary-table>                                                 
+      </XDtClass:ifHasClassTag>                                          
+                                                                         
+    <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="cache">
+    <cache-strategy>
+      <cache-strategy-type><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="cache"/></cache-strategy-type>
+      <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="data-expires"><data-expires><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="data-expires"/></data-expires></XDtClass:ifHasClassTag>
+    </cache-strategy>
+    </XDtClass:ifHasClassTag>
+
+      <primary-key-config>
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.uuid-key">
+      <container-key-value>
+        <key-value-field><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="key-field"/></key-value-field>
+        <key-value-type>UUID</key-value-type>
+
+        <uuid-key>
+          <uuid-type><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="field-type"/></uuid-type>
+
+          <XDtClass:ifHasClassTag tagName="mvcsoft.uuid-key" paramName="timestamp">
+          <id-component>
+             <id-component-type>Timestamp</id-component-type>
+             <id-component-bytes><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="timestamp"/></id-component-bytes>
+          </id-component>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="mvcsoft.uuid-key" paramName="ipaddress">
+          <id-component>
+             <id-component-type>IPAddress</id-component-type>
+             <id-component-bytes><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="ipaddress"/></id-component-bytes>
+          </id-component>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="mvcsoft.uuid-key" paramName="classhash">
+          <id-component>
+             <id-component-type>ClassHash</id-component-type>
+             <id-component-bytes><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="classhash"/></id-component-bytes>
+          </id-component>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="mvcsoft.uuid-key" paramName="classstarttime">
+          <id-component>
+             <id-component-type>ClassStartTime</id-component-type>
+             <id-component-bytes><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="classstarttime"/></id-component-bytes>
+          </id-component>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="mvcsoft.uuid-key" paramName="counter">
+          <id-component>
+             <id-component-type>Counter</id-component-type>
+             <id-component-bytes><XDtClass:classTagValue tagName="mvcsoft.uuid-key" paramName="counter"/></id-component-bytes>
+          </id-component>
+          </XDtClass:ifHasClassTag>
+        </uuid-key>
+      </container-key-value>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.high-low-key">
+      <container-key-value>
+        <key-value-field><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="key-field"/></key-value-field>
+        <key-value-type>HighLow</key-value-type>
+        <high-low-key>
+          <sequence-name><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="sequence-name"/></sequence-name>
+          <non-transactional-pool-name><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="non-transactional-pool-name"/></non-transactional-pool-name>
+          <chunk-size><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="chunk-size"/></chunk-size>
+          <retry-count><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="retry-count"/></retry-count>
+          <table-name><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="table-name"/></table-name>
+          <sequence-name-column><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="sequence-name-column"/></sequence-name-column>
+          <sequence-name-sql-type><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="sequence-name-sql-type"/></sequence-name-sql-type>
+          <value-column><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="value-column"/></value-column>
+          <value-sql-type><XDtClass:classTagValue tagName="mvcsoft.high-low-key" paramName="value-sql-type"/></value-sql-type>
+        </high-low-key>
+      </container-key-value>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.unknown-key">
+      <unknown-key-config>
+         <java-type><XDtClass:classTagValue tagName="mvcsoft.unknown-key" paramName="java-type"/></java-type>
+         <col-name><XDtClass:classTagValue tagName="mvcsoft.unknown-key" paramName="col-name"/></col-name>
+         <jdbc-type><XDtClass:classTagValue tagName="mvcsoft.unknown-key" paramName="jdbc-type"/></jdbc-type>
+         <sql-type><XDtClass:classTagValue tagName="mvcsoft.unknown-key" paramName="sql-type"/></sql-type>
+      </unknown-key-config>
+      </XDtClass:ifHasClassTag>
+
+      </primary-key-config>
+
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="insert">
+    <insert-behavior><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="insert"/></insert-behavior>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="delete">
+    <delete-behavior><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="delete"/></delete-behavior>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="locking-strategy">
+    <locking-strategy>
+         <strategy-type><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="locking-strategy"/></strategy-type>
+
+         <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="lock-col-name">
+         <lock-col-name><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="lock-col-name"/></lock-col-name>
+         </XDtClass:ifHasClassTag>
+
+         <XDtClass:ifHasClassTag tagName="mvcsoft.entity" paramName="lock-col-sql-type">
+         <lock-col-sql-type><XDtClass:classTagValue tagName="mvcsoft.entity" paramName="lock-col-sql-type"/></lock-col-sql-type>
+         </XDtClass:ifHasClassTag>
+
+         <XDtMethod:forAllMethods>
+         <XDtMethod:ifHasMethodTag tagName="mvcsoft.exclude-from-optimistic-lock">
+         <exclude-field-name><XDtMethod:propertyName/></exclude-field-name>
+         </XDtMethod:ifHasMethodTag>
+         </XDtMethod:forAllMethods>
+
+      </locking-strategy>
+      </XDtClass:ifHasClassTag>
+
+      <XDtMethod:forAllMethods>
+      <XDtMethod:ifHasMethodTag tagName="mvcsoft.wrap">
+      <query-context>
+         <bean-method-name><XDtMethod:methodName/></bean-method-name>
+         <query-method>
+            <name><XDtMethod:methodTagValue tagName="mvcsoft.wrap" paramName="query-name" paramNum="0"/></name>
+            <XDtMVCSoft:forAllQueryMethodParams>
+            <param><XDtMVCSoft:methodParamType/></param>
+            </XDtMVCSoft:forAllQueryMethodParams>
+         </query-method>
+      </query-context>
+      </XDtMethod:ifHasMethodTag>
+      </XDtMethod:forAllMethods>
+
+      <XDtMethod:forAllMethods>
+      <XDtMethod:ifHasMethodTag tagName="ejb.persistent-field,ejb.persistence">
+      <field-map>
+        <field-name><XDtMethod:propertyName/></field-name>
+        <XDtMethod:ifHasMethodTag tagName="ejb.persistence,mvcsoft.col-name" paramName="column-name">
+        <col-name><XDtMethod:methodTagValue tagName="ejb.persistence,mvcsoft.col-name"paramName="column-name"/></col-name>
+        </XDtMethod:ifHasMethodTag>
+        <XDtMethod:ifHasMethodTag tagName="ejb.persistence,mvcsoft.jdbc-type">
+        <jdbc-type><XDtMethod:methodTagValue tagName="ejb.persistence,mvcsoft.jdbc-type" paramName="jdbc-type"/></jdbc-type>
+        </XDtMethod:ifHasMethodTag>
+        <XDtMethod:ifHasMethodTag tagName="ejb.persistence,mvcsoft.sql-type">
+        <sql-type><XDtMethod:methodTagValue tagName="ejb.persistence,mvcsoft.sql-type" paramName="sql-type"/></sql-type>
+        </XDtMethod:ifHasMethodTag>
+        <XDtMethod:ifHasMethodTag tagName="mvcsoft.custom-conversion-object" paramName="class">
+        <custom-conversion-object>
+          <class-name><XDtMethod:methodTagValue tagName="mvcsoft.custom-conversion-object" paramName="class"/></class-name>
+          <bean-to-db-method><XDtMethod:methodTagValue tagName="mvcsoft.custom-conversion-object" paramName="bean-to-db-method"/></bean-to-db-method>
+          <db-to-bean-method><XDtMethod:methodTagValue tagName="mvcsoft.custom-conversion-object" paramName="db-to-bean-method"/></db-to-bean-method>
+        </custom-conversion-object>
+        </XDtMethod:ifHasMethodTag>
+      </field-map>
+      </XDtMethod:ifHasMethodTag>
+      </XDtMethod:forAllMethods>
+
+     <XDtClass:forAllClassTags tagName="mvcsoft.fault-group">
+     <fault-group>
+        <name><XDtClass:classTagValue tagName="mvcsoft.fault-group" paramName="name"/></name>
+        <XDtClass:forAllClassTagTokens tagName="mvcsoft.fault-group" paramName="fields">
+           <field-name><XDtClass:currentToken/></field-name>
+        </XDtClass:forAllClassTagTokens>
+        <XDtMVCSoft:forNestedFaultGroups tagName="mvcsoft.fault-group" paramName="nested" default="">
+        <XDtMVCSoft:nestedFaultGroups/>
+        </XDtMVCSoft:forNestedFaultGroups>
+     </fault-group>
+     </XDtClass:forAllClassTags>
+
+
+     <XDtClass:forAllClassTags tagName="mvcsoft.query">
+     <query-fault-map>
+        <method-name><XDtClass:classTagValue tagName="mvcsoft.query" paramName="name"/></method-name>
+
+        <XDtClass:ifHasClassTag tagName="mvcsoft.query" paramName="fault-group">
+        <fault-group-name><XDtClass:classTagValue tagName="mvcsoft.query" paramName="fault-group"/></fault-group-name>
+        </XDtClass:ifHasClassTag>
+
+        <XDtClass:ifHasClassTag tagName="mvcsoft.query" paramName="should-flush">
+        <should-flush><XDtClass:classTagValue tagName="mvcsoft.query" paramName="should-flush"/></should-flush>
+        </XDtClass:ifHasClassTag>
+
+        <XDtClass:ifHasClassTag tagName="mvcsoft.query" paramName="sort-order">
+        <sort-order>
+        <XDtMVCSoft:forAllClassTagTokens tagName="mvcsoft.query" paramName="sort-order">
+           <sort-element>
+              <field-name><XDtMVCSoft:fieldName/></field-name>
+              <XDtMVCSoft:ifHasSortDirection>
+              <sort-direction><XDtMVCSoft:sortDirection/></sort-direction>
+              </XDtMVCSoft:ifHasSortDirection>
+           </sort-element>
+        </XDtMVCSoft:forAllClassTagTokens>
+        </sort-order>
+        </XDtClass:ifHasClassTag>
+
+        <XDtClass:ifHasClassTag tagName="mvcsoft.query" paramName="lightweight">
+        <j2ee-stack>Bypass</j2ee-stack>
+        </XDtClass:ifHasClassTag>
+
+     </query-fault-map>
+     </XDtClass:forAllClassTags>
+
+     <cmr-field-map>
+   <XDtMethod:forAllMethods>
+   <XDtMethod:ifHasMethodTag tagName="mvcsoft.lightweight">
+      <cmr-field><XDtMethod:propertyName/></cmr-field><j2ee-stack>Bypass</j2ee-stack>
+   </XDtMethod:ifHasMethodTag>
+   </XDtMethod:forAllMethods>
+     </cmr-field-map>
+
+   </entity>
+   </XDtEjb:ifIsAConcreteEJBean>
+   </XDtClass:ifClassTagValueNotEquals>
+   </XDtConfig:ifConfigParamGreaterOrEquals>
+   </XDtEjbCmp:forAllCmpEntityBeans>
+
+
+   <XDtEjbCmp:forAllCmpEntityBeans>
+   <XDtMethod:forAllMethods>
+   <XDtMethod:ifHasMethodTag tagName="ejb.relation">
+   <XDtMethod:ifHasMethodTag tagName="mvcsoft.relation">
+
+   <relationship>
+      <name><XDtMethod:methodTagValue tagName="ejb.relation" paramName="name"/></name>
+      <XDtMethod:ifMethodTagValueEquals tagName="mvcsoft.relation" paramName="map-style" value="table">
+
+      <relationship-table-mapping>
+        <XDtMethod:ifHasMethodTag tagName="mvcsoft.relation" paramName="table-name">
+        <table-name><XDtMethod:methodTagValue tagName="mvcsoft.relation" paramName="table-name"/></table-name>
+        </XDtMethod:ifHasMethodTag>
+        <XDtMVCSoft:forEachRoleMapping>
+        <relationship-role-mapping>
+          <name><XDtMVCSoft:roleName/></name>
+          <XDtMVCSoft:forAllAliases>
+          <prim-key-alias>
+             <key-field-name><XDtMVCSoft:keyFieldName/></key-field-name>
+             <col-name><XDtMVCSoft:colName/></col-name>
+          </prim-key-alias>
+          </XDtMVCSoft:forAllAliases>
+        </relationship-role-mapping>
+        </XDtMVCSoft:forEachRoleMapping>
+      </relationship-table-mapping>
+      </XDtMethod:ifMethodTagValueEquals>
+
+      <XDtMethod:ifMethodTagValueEquals tagName="mvcsoft.relation" paramName="map-style" value="foreign-key">
+      <foreign-key-mapping>
+        <role-with-key>
+          <name><XDtMethod:methodTagValue tagName="mvcsoft.relation" paramName="role-with-key"/></name>
+          <XDtMVCSoft:forSingleRoleMapping>
+          <XDtMVCSoft:forAllAliases>
+          <prim-key-alias>
+             <key-field-name><XDtMVCSoft:keyFieldName/></key-field-name>
+             <col-name><XDtMVCSoft:colName/></col-name>
+          </prim-key-alias>
+          </XDtMVCSoft:forAllAliases>
+          </XDtMVCSoft:forSingleRoleMapping>
+        </role-with-key>
+        <XDtMethod:ifHasMethodTag tagName="mvcsoft.relation" paramName="relationship-in-pk">
+        <relationship-in-pk>True</relationship-in-pk>
+        </XDtMethod:ifHasMethodTag>
+      </foreign-key-mapping>
+      </XDtMethod:ifMethodTagValueEquals>
+
+   </relationship>
+
+   </XDtMethod:ifHasMethodTag>
+   </XDtMethod:ifHasMethodTag>
+   </XDtMethod:forAllMethods>
+   </XDtEjbCmp:forAllCmpEntityBeans>
+
+
+
+</persistence-mappings>

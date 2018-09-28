@@ -1,0 +1,9 @@
+<!--
+  <XDtI18n:getString resource="do_not_edit"/>
+-->
+
+<XDtClass:forAllClasses>
+<XDtMerge:merge file="mlet-entry-{0}.mlet">
+<XDtClass:ifHasClassTag tagName="jmx:mlet-entry"><MLET<XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="name"> NAME="<XDtClass:classTagValue tagName="jmx:mbean" paramName="name" />"</XDtClass:ifHasClassTag> CODE="<XDtClass:fullClassName />"<XDtClass:ifHasClassTag tagName="jmx:mlet-entry" paramName="archive"> ARCHIVE="<XDtClass:classTagValue tagName="jmx:mlet-entry" paramName="archive" />"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx:mlet-entry" paramName="codebase"> CODEBASE="<XDtClass:classTagValue tagName="jmx:mlet-entry" paramName="codebase" />"</XDtClass:ifHasClassTag>></MLET></XDtClass:ifHasClassTag>
+</XDtMerge:merge>
+</XDtClass:forAllClasses>

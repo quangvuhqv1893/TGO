@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- common jdo tags -->
+  <namespace>
+    <name>tjdo</name>
+    <usage-description>JDO tags specific for Triactive Java Data Objects (TJDO).</usage-description>
+    <condition-description>Field that is part of an inverse map.</condition-description>
+    <condition type="field"/>
+    <tags>
+      <tag>
+        <level>field</level>
+        <name>tjdo.field</name>
+        <usage-description>
+           The tjdo.field tag gives access to the TJDO extensions at the field level to be included in the 
+           generated jdo metadata.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>The jdo.field tag must be present</condition-description>
+        <condition type="field"/>
+        <parameter type="int">
+          <name>column-length</name>
+          <usage-description>
+                String fields can specify the maximum length of the String that will be stored in the database column. This should be with the sql.column stuff.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>owner-field</name>
+          <usage-description>
+               Specifies the column in the detail table that is the foreign key to this object. For inverse set and inverse map.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>key-field</name>
+          <usage-description>
+                Specifies the column in the related table that is the map key for the inverse map.  Used with inverse map.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>collection-field</name>
+          <usage-description>
+                Specifies the column in the  master table that  this object is in an inverse set detail relationship with.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>map-field</name>
+          <usage-description>
+                Specifies the column in the  master table that  this object is in an inverse map detail relationship with.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

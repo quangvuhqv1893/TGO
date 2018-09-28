@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>XDoclet - Apache SOAP</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>&lt;apachesoap/&gt; subtask</h2>
+
+<h3><a name="apachesoap">Apache SOAP</a></h3>
+
+<p>Generates Apache-SOAP deployment descriptor. It generates a file named 
+&quot;soap-dds-{0}.xml&quot; in destdir, where {0} is substituted by symbolic class name 
+of the class implementing a SOAP service. For an EJBean it is the value of 
+ejb:bean's ejb-name parameter, for an ordinary class it is the full qualified 
+class name.</p>
+
+<h4>Parameters</h4>
+<table border="1" cellpadding="2" cellspacing="0" width="100%" height="415">
+<tr>
+  <td width="12%" valign="top" height="19"><b>Attribute</b></td>
+  <td width="78%" valign="top" height="19"><b>Description</b></td>
+  <td width="10%" valign="top" height="19"><b>Required</b></td>
+</tr>
+<tr>
+    <td valign="top" height="19">xmlencoding</td>
+    <td valign="top" height="19">The encoding of the soap dds xml file.</td>
+    <td align="center" valign="top" height="19">No, default is &quot;UTF-8&quot;</td>
+</tr>
+  <tr>
+    <td valign="top" height="19">destdir</td>
+    <td valign="top" height="19">Destination directory for output SOAP-specific
+      deployment descriptor files.</td>
+    <td align="center" valign="top" height="19">No, default is destdir parameter of
+      ejbdoclet task</td>
+  </tr>
+<tr>
+    <td valign="top" height="19">mergedir</td>
+    <td valign="top" height="19">Merge directory where ejbdoclet looks for files to be
+      merged with generated files.</td>
+    <td align="center" valign="top" height="19">No, required, if the merge feature used</td>
+</tr>
+<tr>
+    <td valign="top" height="38"><a name="statelessSessionEjbProvider">statelessSessionEjbProvider</a></td>
+    <td valign="top" height="38">Specifies the provider to be used for stateless session 
+    beans.</td>
+    <td align="center" valign="top" height="38">No, default is &quot;org.apache.soap.providers.StatelessEJBProvider&quot;</td>
+</tr>
+<tr>
+    <td valign="top" height="38"><a name="statefulSessionEjbProvider">statefulSessionEjbProvider</a></td>
+    <td valign="top" height="38">Specifies the provider to be used for stateful session 
+    beans.</td>
+    <td align="center" valign="top" height="38">No, default is &quot;org.apache.soap.providers.StatefulEJBProvider&quot;</td>
+</tr>
+<tr>
+    <td valign="top" height="32"><a name="entityEjbProvider">entityEjbProvider</a></td>
+    <td valign="top" height="32">Specifies the provider to be used for entity beans.</td>
+    <td align="center" valign="top" height="32">No, default is &quot;org.apache.soap.providers.EntityEJBProvider&quot;</td>
+</tr>
+<tr>
+    <td valign="top" height="57">providerClasspath</td>
+    <td valign="top" height="57">Specifies the path to where the provider 
+    classes are stored.</td>
+    <td align="center" valign="top" height="57">Yes if using a user-written 
+    provider class, No otherwise</td>
+</tr>
+<tr>
+    <td valign="top" height="57">contextProviderUrl</td>
+    <td valign="top" height="57">Specifies the context provider URL to be used for looking 
+    up the EJBeans. For example, for IBM Websphere it should be something like 
+    iiop://localhost:900. It's EJB container dependent.</td>
+    <td align="center" valign="top" height="57">Yes, if EJBs used.</td>
+</tr>
+<tr>
+    <td valign="top" height="57">contextFactoryName</td>
+    <td valign="top" height="57">Specifies the context factory class name to be used for 
+    looking up the EJBeans. For example, for IBM Websphere it's 
+    com.ibm.ejs.ns.jndi.CNInitialContextFactory. It's EJB container dependent.</td>
+    <td align="center" valign="top" height="57">Yes, if EJBs used.</td>
+</tr>
+<tr>
+  <td>validateXml</td>
+  <td>Validates the generated xml file according to the DTD file contained 
+  inside xdoclet.jar.</td>
+  <td>No, default is false</td>
+</tr>
+</table>
+
+<h4>Merge Points</h4>
+<div align="left">
+  <table border="1" width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+      <th width="20%" align="left"><b>Merge File Name</b></th>
+      <th align="left"><b>Description</b></th>
+  <td valign="top"><b>Required</b></td>
+    </tr>
+    <tr>
+      <td>soap-mappings-{0}.xml</td>
+      <td>The file where Apache-SOAP type mappings are defined.
+      {0}designates the symbolic class name. For an EJBean it is the value of 
+      ejb:bean's ejb-name parameter, for an ordinary class it is the full 
+      qualified class name. See &lt;isd:mappings&gt; in Apache-SOAP deployment 
+      descriptor docs.</td>
+    <td align="center" valign="top">No</td>
+    </tr>
+    </table>
+</div>
+
+<h3>Class level tags.</h3>
+
+<h4><a name="service">@soap:service</a></h4>
+
+<p>Declares the class a SOAP service.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>[scope]</i>: &quot;Page&quot; | &quot;Request&quot; | &quot;Session&quot; | &quot;Application&quot;</td>
+	<td>Define the service scope.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[provider]</i>: String</td>
+	<td>Specifies the provider class name. There's special support for
+  EJB beans, so if you do not specify the provider parameter apachesoap
+  tries to assign the correct provider name to the service based on
+  the type of the EJB bean. The provider name for the EJB is taken from
+    <a href="#statelessSessionEjbProvider">statelessSessionEjbProvider</a> or
+    <a href="#statefulSessionEjbProvider">statefulSessionEjbProvider</a> or
+    <a href="#entityEjbProvider">entityEjbProvider</a> configuration parameters 
+    based on the EJBean type.</td> 
+  </tr>
+  </table>
+
+<h3>Method level tags.</h3>
+
+<h4><a name="method">@soap:method</a></h4>
+
+<p>Declares the method a SOAP service method.  Does not have any
+parameters.</p>
+
+<p>Note: By default &quot;create&quot; methods of session bean is used, no need to 
+explicitly specify a method as soap:method. All methods declared in remote 
+interface of an EJB are automatically exposed to SOAP clients by default.</p>
+
+</body>
+</html>

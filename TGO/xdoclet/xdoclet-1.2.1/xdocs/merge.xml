@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Merge Points</title>
+		<author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+	</properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+	<body>
+		<section name="Introduction">
+			<p>
+				A merge point is an "entry point" to XDoclet generated files.
+				The developer can add custom data easily.
+			</p>
+			<p>
+				There are two different ways to use merge points.
+			</p>
+
+	  		<subsection name="1. Adding specific parts inside deployment descriptors">
+	    		<p>
+					Having to hard code deployment descriptor specifics (ejb-jar.xml and vendor specific ones) in
+					a source file simplifies the deployment work but has the limitation that the programmer
+					must also take the deployer role.
+	    		</p>
+	    		<p>
+					Let's examine an example. You have, in your ejb-jar.xml, an env-entry element to a JDBC URL that you use
+					inside a session bean (<code>test.ejb.SessionBean</code>) to access a database.  You have included a
+					tag
+				</p>
+
+<source>@ejb.env-entry name="jdbcUrl" type="String" value="jdbc:hsqldb:hsql://thishost:1476"</source>
+
+				<p>
+					and use the value returned by a JNDI lookup to get the SQL connection.
+	    		</p>
+				<p>
+					The problem is that you will need to change your code when the url changes. Several merge points exist
+					in ejb-body.xdt. This file is the template for ejb-jar.xml, you can see the merge point we need:
+					<code>&lt;XDtMerge:merge file="ejb-env-entries-{0}.xml"&gt;</code>.<br/>
+					Every line between this tag and its closing tag	will be replaced in the generated ejb-jar.xml file
+					by the content of ejb-env-entries-SessionBean.xml, found under the directory given by the <i>mergeDir</i>
+					attribute you specify for the task or the subtask and a directory structure given by the package of the class.
+				</p>
+				<p>
+					For example c:\mergedir\test\ejb\.  Here is the content:
+	    		</p>
+
+<source><![CDATA[
+<env-entry>
+	<env-entry-name>jdbcUrl</env-entry-name>
+	<env-entry-type>java.lang.String</env-entry-type>
+	<env-entry-value>jdbc:hsqldb:hsql://thishost:1476</env-entry-value>
+</env-entry>]]></source>
+
+				<p>
+					You can now change this file independently of the source file.
+				</p>
+				<p>
+					Look into the .xdt files directly to find all defined merge points.
+				</p>
+			</subsection>
+
+			<subsection name="2. Adding specific generation of code">
+				<p>
+					Entry points exist in template files used to generate the classes. For
+					example in entitycmp.xdt (template for Entity Bean classes) you have
+					<code>&lt;XDtMerge:merge file="entitycmp-custom.xdt"&gt;&lt;/XDtMerge:merge&gt;</code>. If
+					you program something in this file (that will be searched for in the
+					<i>mergeDir</i> of the task or subtask) the generated content will be
+					included in the generated file.
+				</p>
+				<p>
+					Examine the existing .xdt files to learn the template language.
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,202 @@
+/*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ */
+package <XDtPackage:packageOf><XDtEjbDataObj:dataObjectClass/></XDtPackage:packageOf>;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="data_object_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/> */
+public class <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf>
+   extends <XDtEjbDataObj:extendsFrom/>
+   implements java.io.Serializable<XDtClass:ifHasClassTag tagName="ejb:data-object" paramName="implements" superclasses="false">, <XDtClass:classTagValue tagName="ejb:data-object" paramName="implements" superclasses="false"/></XDtClass:ifHasClassTag>
+{
+  <XDtEjbPersistent:forAllPersistentFields superclasses="false">
+   private <XDtMethod:methodType/> <XDtMethod:propertyName/>;
+  </XDtEjbPersistent:forAllPersistentFields>
+
+ <XDtEjbValueObj:ifUsingValueObject>
+ <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/do-entity-value.xdt">
+ </XDtMerge:merge>
+ </XDtEjbValueObj:ifUsingValueObject>
+
+ <XDtMethod:forAllMethods>
+  <XDtEjbDataObj:ifIsAggregate>
+   private <XDtClass:pushClass value="<XDtEjbIntf:beanClassNameFromInterfaceName/>"><XDtEjbDataObj:dataObjectClass/></XDtClass:pushClass> <XDtMethod:propertyName/>;
+  </XDtEjbDataObj:ifIsAggregate>
+ </XDtMethod:forAllMethods>
+
+  <XDtEjbBmp:ifUseSoftLocking>
+   private long _version = 0;
+  </XDtEjbBmp:ifUseSoftLocking>
+
+   public <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf>()
+   {
+   }
+
+
+  <XDtEjbPersistent:ifHasAtLeastOnePersistentField>
+   public <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf>( <XDtEjbPersistent:persistentfieldList superclasses="true"/> )
+   {
+     <XDtEjbPersistent:forAllPersistentFields superclasses="true">
+     <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+      <XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);
+     </XDtMethod:ifHasMethod>
+     <XDtMethod:ifDoesntHaveMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+     </XDtMethod:ifDoesntHaveMethod>
+     </XDtEjbPersistent:forAllPersistentFields>
+   }
+  </XDtEjbPersistent:ifHasAtLeastOnePersistentField>
+
+   public <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf>( <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf> otherData )
+   {
+    <XDtEjbPersistent:forAllPersistentFields superclasses="true">
+     <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+      <XDtMethod:setterMethod/>(otherData.<XDtMethod:getterMethod/>());
+     </XDtMethod:ifHasMethod>
+     <XDtMethod:ifDoesntHaveMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+     </XDtMethod:ifDoesntHaveMethod>
+    </XDtEjbPersistent:forAllPersistentFields>
+
+    <XDtMethod:forAllMethods>
+     <XDtEjbDataObj:ifIsAggregate>
+      this.<XDtMethod:propertyName/> = new <XDtClass:pushClass value="<XDtEjbIntf:beanClassNameFromInterfaceName/>"><XDtEjbDataObj:dataObjectClass/></XDtClass:pushClass>( otherData.<XDtMethod:propertyName/> );
+     </XDtEjbDataObj:ifIsAggregate>
+    </XDtMethod:forAllMethods>
+   }
+
+  <XDtEjb:ifIsAConcreteEJBean>
+  <XDtEjbPersistent:ifHasAtLeastOnePersistentField>
+   public <XDtEjbPk:pkClass/> getPrimaryKey() {
+    <XDtEjbPk:ifDoesntHavePrimkeyField>
+     <XDtEjbPk:pkClass/> pk = new <XDtEjbPk:pkClass/>(<XDtEjbPk:pkfieldListFrom name="this"/>);
+     return pk;
+    </XDtEjbPk:ifDoesntHavePrimkeyField>
+    <XDtEjbPk:ifHasPrimkeyField>
+     return  <XDtEjbPk:primkeyGetter/>();
+    </XDtEjbPk:ifHasPrimkeyField>
+   }
+  </XDtEjbPersistent:ifHasAtLeastOnePersistentField>
+  </XDtEjb:ifIsAConcreteEJBean>
+
+ <XDtEjbPersistent:forAllPersistentFields superclasses="false">
+   public <XDtMethod:methodType/> <XDtMethod:getterMethod/>()
+   {
+      return this.<XDtMethod:propertyName/>;
+   }
+   public void <XDtMethod:setterMethod/>( <XDtMethod:methodType/> <XDtMethod:propertyName/> )
+   {
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+   }
+
+ </XDtEjbPersistent:forAllPersistentFields>
+ <XDtMethod:forAllMethods>
+  <XDtEjbDataObj:ifIsAggregate>
+   public <XDtEjbDataObj:dataObjectClassNameFromInterfaceName/> <XDtMethod:getterMethod/>()
+   {
+      return this.<XDtMethod:propertyName/>;
+   }
+
+   <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+   public void <XDtMethod:setterMethod/>( <XDtEjbDataObj:dataObjectClassNameFromInterfaceName/> <XDtMethod:propertyName/> )
+   {
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+   }
+
+   </XDtMethod:ifHasMethod>
+  </XDtEjbDataObj:ifIsAggregate>
+ </XDtMethod:forAllMethods>
+
+  <XDtEjbBmp:ifUseSoftLocking>
+   public long getVersion()
+   {
+      return _version;
+   }
+
+   public void setVersion(long version)
+   {
+      this._version = version;
+   }
+
+  </XDtEjbBmp:ifUseSoftLocking>
+   public String toString()
+   {
+      StringBuffer str = new StringBuffer("{");
+
+  <XDtEjbPersistent:ifHasAtLeastOnePersistentField>
+      str.append(<XDtEjbPersistent:persistentfieldNameValueList/>);
+  </XDtEjbPersistent:ifHasAtLeastOnePersistentField>
+     <XDtEjbBmp:ifUseSoftLocking>
+      str.append(",version=");
+      str.append(_version);
+     </XDtEjbBmp:ifUseSoftLocking>
+      str.append('}');
+
+      return(str.toString());
+   }
+
+  <XDtEjbDataObj:isDataContentEquals>
+   public boolean equals( Object pOther )
+   {
+      <XDtClass:ifHasClassTag tagName="ejb:data-object" paramName="use-super-equals">
+       <XDtClass:ifClassTagValueEquals tagName="ejb:data-object" paramName="use-super-equals" superclasses="false" value="true" default="false">
+      if (!super.equals(pOther)) return false;
+       </XDtClass:ifClassTagValueEquals>
+      </XDtClass:ifHasClassTag>
+      if( pOther instanceof <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf> )
+      {
+         <XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf> lTest = (<XDtClass:classOf><XDtEjbDataObj:dataObjectClass/></XDtClass:classOf>) pOther;
+         boolean lEquals = true;
+
+       <XDtEjbPersistent:forAllPersistentFields superclasses="false">
+        <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+         lEquals = lEquals && this.<XDtMethod:propertyName/> == lTest.<XDtMethod:propertyName/>;
+        </XDtType:ifIsPrimitive>
+        <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+         if( this.<XDtMethod:propertyName/> == null )
+         {
+            lEquals = lEquals && ( lTest.<XDtMethod:propertyName/> == null );
+         }
+         else
+         {
+            lEquals = lEquals && this.<XDtMethod:propertyName/>.equals( lTest.<XDtMethod:propertyName/> );
+         }
+        </XDtType:ifIsNotPrimitive>
+       </XDtEjbPersistent:forAllPersistentFields>
+
+         return lEquals;
+      }
+      else
+      {
+         return false;
+      }
+   }
+
+   public int hashCode()
+   {
+     <XDtClass:ifHasClassTag tagName="ejb:data-object" paramName="use-super-equals">
+      <XDtClass:ifClassTagValueEquals tagName="ejb:data-object" paramName="use-super-equals" superclasses="false" value="true">
+      int result = super.hashCode();
+      </XDtClass:ifClassTagValueEquals>
+      <XDtClass:ifClassTagValueNotEquals tagName="ejb:data-object" paramName="use-super-equals" superclasses="false" value="true">
+      int result = 17;
+      </XDtClass:ifClassTagValueNotEquals>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifDoesntHaveClassTag tagName="ejb:data-object" paramName="use-super-equals">
+      int result = 17;
+     </XDtClass:ifDoesntHaveClassTag>
+
+     <XDtEjbPersistent:forAllPersistentFields superclasses="false">
+     <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-object-hashcode.xdt">
+     </XDtMerge:merge>
+     </XDtEjbPersistent:forAllPersistentFields>
+
+      return result;
+   }
+
+  </XDtEjbDataObj:isDataContentEquals>
+
+   <XDtMerge:merge file="dataobject-custom.xdt">
+   </XDtMerge:merge>
+}

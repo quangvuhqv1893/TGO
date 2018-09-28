@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- castor tags -->
+  <namespace>
+    <name>castor mapping</name>
+    <usage-description>The castormapping subtask produces a mapping.xml file for use by castor.</usage-description>
+    <condition type="and"/>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>castor.class</name>
+        <usage-description>
+          Defines the class and its attributes.
+          For full coverage of the mapping options,
+          please refer to the Castor mapping documentation.
+        </usage-description>
+        <unique>true</unique>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>table</name>
+          <usage-description>
+            The name of the table in the database that the class is mapped to.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>id</name>
+          <usage-description>The fields that form the class's primary key.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>access</name>
+          <usage-description>Define the access to the class.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>shared</default>
+              <options>
+                <option>read-only</option>
+                <option>shared</option>
+                <option>exclusive</option>
+                <option>db-locked</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>depends</name>
+          <usage-description>The name of the class this class depends on.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>
+            Should be used only if this class extends another class for which
+            mapping information is provided.  It should not be used if the
+            extended class is not used in the mapping file.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>key-generator</name>
+          <usage-description>The key-generator strategy to be used by Castor.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>auto-complete</name>
+          <usage-description>
+            If true, the class will be introspected to determine its field
+            and the fields specified in the mapping file will be used to
+            override the field found during the introspection.
+         </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>ns-uri</name>
+          <usage-description>
+            The namespace URI to be used for the class.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>ns-prefix</name>
+          <usage-description>
+            The namespace prefix to be used for the class.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>castor.field</name>
+        <usage-description/>
+        <unique>true</unique>
+        <condition-description>method level</condition-description>
+        <condition type="method"/>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+           The Java type of the field. It is used to access the field. Castor
+           will use this information to cast the XML information (like string
+           into integer). It is also used to define the signature of the
+           accessors method. If a collection is specified, this is used to specify
+           the type of the object inside the collection.
+           If type is not specified it defaults to the return type of the method.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>required</name>
+          <usage-description>Flag to indicate if the field is compulsory.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="bool">
+          <name>direct</name>
+          <usage-description>
+            Flag to indicate if the field should be accessed directly rather than
+            using getter / setter methods.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+        <parameter type="bool">
+          <name>lazy</name>
+          <usage-description>Flag to indicate if the field loaded lazily.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="bool">
+          <name>transient</name>
+          <usage-description>
+            Flag to indicate if the field should be ignored during marshalling -
+            useful when used with the auto-complete option of @castor.class.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+        <parameter type="text">
+          <name>set-method</name>
+          <usage-description>The method used to set the property value.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>create-method</name>
+          <usage-description>The factory method for instantiation of FieldHandler.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>collection</name>
+          <usage-description/>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>vector</default>
+              <options>
+                <option>array</option>
+                <option>arraylist</option>
+                <option>vector</option>
+                <option>hashtable</option>
+                <option>collection</option>
+                <option>set</option>
+                <option>map</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>castor.field-sql</name>
+        <usage-description/>
+        <unique>true</unique>
+        <condition-description>method level</condition-description>
+        <condition type="method"/>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The column name the field is mapped to.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The SQL type of the field.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>many-key</name>
+          <usage-description>The many key of the field.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>many-table</name>
+          <usage-description>The many table of the field.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>dirty</name>
+          <usage-description>Flag to indicate if the field is checked for dirty status or not.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>castor.field-xml</name>
+        <usage-description/>
+        <unique>true</unique>
+        <condition-description>method level</condition-description>
+        <condition type="method"/>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the element or attribute.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+           XML Schema type (of the value of this field) that requires specific
+           handling in the Castor Marshalling Framework (such as 'QName' for
+           instance).
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>matches</name>
+          <usage-description>
+           Allows overriding the matches rules for the name of the element. It is a
+           standard regular expression and will be used instead of the 'name' field.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>QName-prefix</name>
+          <usage-description>
+           When using a QName value, you can provide a default prefix that is used
+           when marshalling value of type QName.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>reference</name>
+          <usage-description>
+            Indicates if this field has to be treated as a reference by the unmarshaller. In
+            order to work properly, you must specify the node type to 'attribute' for
+            both the 'id' and the 'reference' fields.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>node</name>
+          <usage-description>
+           Indicates if the name corresponds to an attribute, an element, or text content.
+           By default, primitive types are assumed to be an attribute otherwise
+           the node is assumed to be an element.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>text</default>
+              <options>
+                <option>element</option>
+                <option>attribute</option>
+                <option>text</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>dirty</name>
+          <usage-description>Flag to indicate if the field is checked for dirty status or not.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

@@ -1,0 +1,735 @@
+<head>
+<title>XDoclet - JBoss</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>&lt;jboss/&gt; subtask</h2>
+
+<h3>jboss</h3>
+
+<p>Creates JBoss-specific deployment descriptors (jboss.xml, jaws.xml and jbosscmp-jdbc.xml
+files) for EJB beans.</p>
+
+<h4>Parameters</h4>
+
+<table border="1" cellpadding="7" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">version</td>
+    <td valign="top">The version of JBoss.  Supported versions are 2.4 and 3.0.</td>
+    <td valign="top">No, default is &quot;2.4&quot;.
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">debug</td>
+    <td valign="top">Debug flag for jaws.xml.</td>
+    <td valign="top">No, default is &quot;false&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">xmlencoding</td>
+    <td valign="top">The encoding of the ejb-jar.xml file.</td>
+    <td valign="top">No, default is &quot;UTF-8&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">typemapping</td>
+    <td valign="top">The type-mapping for JAWS.</td>
+    <td valign="top">No, default is &quot;Hypersonic SQL&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">datasource</td>
+    <td valign="top">The datasource for JAWS.</td>
+    <td valign="top">No, default is &quot;java:/DefaultDS&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">destdir</td>
+    <td valign="top">Destination directory for output JBoss-specific deployment
+      descriptor files.</td>
+    <td valign="top">No, default is destdir parameter of
+      ejbdoclet task</td>
+  </tr>
+  <tr>
+    <td valign="top">mergedir</td>
+    <td valign="top">Merge directory where ejbdoclet looks for files to be
+      merged with generated files.</td>
+    <td valign="top">No, required, if the merge feature used</td>
+  </tr>
+  <tr>
+    <td>validateXml</td>
+    <td>Validates the generated xml files according to the DTD file contained
+    inside xdoclet.jar.</td>
+    <td>No, default is false</td>
+  </tr>
+</table>
+
+<h4>Merge Points</h4>
+<div align="left">
+  <table border="1" width="100%" cellspacing="0" cellpadding="7">
+    <tr valign="top">
+      <th width="20%" align="left"><b>Merge File Name</b></th>
+      <th align="left"><b>Description</b></th>
+      <td><b>Required</b></td>
+    </tr>
+    <tr valign="top">
+      <td>jboss-resource-managers.xml</td>
+      <td>The file where JBoss resource managers are defined. See resource-managers
+        in jboss.xml.</td>
+    <td>No</td>
+    </tr>
+    <tr>
+      <td>jboss-{0}.xml</td>
+      <td>The file where per-bean settings are defined.
+      {0}designates the EJB name. See elements under <code>&lt;enterprise-beans&gt;</code> in
+        jboss.xml.</td>
+    <td>No</td>
+    </tr>
+    <tr valign="top">
+      <td>jboss-beans.xml</td>
+      <td>To add beans that you have deployment descriptor info for, add<br>
+       a file to your XDoclet merge directory called session-beans.xml that contains<br>
+       the &lt;session>&lt;/session>, &lt;entity>&lt;/entity> and &lt;message-driven>&lt;/message-driven><br>
+       markup for those beans.</td>
+    <td>No</td>
+    </tr>
+    <tr valign="top">
+      <td>jaws-db-settings-{0}.xml</td>
+      <td>The file where per-bean JAWS database settings are defined.
+      {0}designates the EJB name. See elements under <code>&lt;enterprise-beans&gt;</code> in
+        jaws.xml.</td>
+    <td>No</td>
+    </tr>
+    <tr valign="top">
+      <td>jaws-{0}.xml</td>
+      <td>The file where per-bean JAWS CMP settings are defined.
+      {0}designates the EJB name. See <code>&lt;cmp-field&gt;</code> in jaws.xml.</td>
+    <td>No</td>
+    </tr>
+    <tr valign="top">
+      <td>jboss-security.xml</td>
+      <td>The file where security domain setting is defined</td>
+    <td>No</td>
+    </tr>
+    <tr valign="top">
+      <td>jboss-container.xml</td>
+      <td>The file where container configurations are defined</td>
+    <td>No</td>
+    </tr>
+	<tr valign="top">
+		<td>jbosscmp-jdbc-defaults.xml</td>
+		<td>The file where JBossCMP defaults are defined</td>
+		<td>No</td>
+	</tr>
+	<tr valign="top">
+		<td>jbosscmp-jdbc-db-setting-{0}.xml</td>
+		<td>The file where per-bean JBossCMP database settings are defined</td>
+		<td>No</td>
+	</tr>
+	<tr valign="top">
+		<td>jbosscmp-jdbc-{0}.xml</td>
+		<td>The file where per-ben JBossCMP CMP settings are defined</td>
+		<td>No</td>
+	</tr>
+	<tr valign="top">
+		<td>jbosscmp-jdbc-load-{0}.xml</td>
+		<td>The file where per-bean JBossCMP load groups are defined</td>
+		<td>No</td>
+	</tr>
+	<tr valign="top">
+		<td>jbosscmp-jdbc-dvc.xml</td>
+		<td>The file where DVC classes are defined</td>
+		<td>No</td>
+	</tr>
+	<tr valign="top">
+		<td>jbosscmp-jdbc-typemappings.xml</td>
+		<td>The file where JBossCMP custom typemappings are defined</td>
+		<td>No</td>
+	</tr>
+  </table>
+</div>
+
+<p>Remember you should preserve the package directory structure in mergedir. If
+the bean is test.bank.AccountBean then jboss-Account.xml should be
+located at test/bank directory in mergedir.</p>
+
+<h3><a name="class-level-tags">Class level Tags</a></h3>
+
+<h4><a name="container-configuration">@jboss:container-configuration</a></h4>
+
+<p>The name of the container configuration to use for the bean.
+Applicable to all types of EJBs.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+    <td>Defines the container configuration for the bean.</td>
+  </tr>
+</table>
+
+<h4><a name="read-only">[DEPRECATED in favour of <a href="#persistence-class">@jboss:persistence</a>] @jboss:read-only</a></h4>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[read-only]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Declare the bean as read only.</td>
+  </tr>
+</table>
+
+<h4><a name="ejb-ref-jndi">@jboss:ejb-ref-jndi</a></h4>
+
+<p>Sets the JNDI name of a referenced bean. For example:</p>
+<blockquote><code>@jboss:ejb-ref-jndi Bar foo/Bar</code></blockquote>
+<p>There must be an <a
+href="ejbdoclet.html#ejb-ref"><code>@ejb:ejb-ref</code></a> tag too
+which points to the referenced bean.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[ref-name]</i>: String<br>
+    <td>Define the name of the bean reference.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[jndi-name]</i>: String</td>
+    <td>Define the jndi-name of the referenced bean.</td>
+  </tr>
+</table>
+
+<h4><a name="resource-ref">@jboss:resource-ref</a></h4>
+
+<p>Sets multiple resource managers in jboss.xml.  For example:</p>
+<blockquote><code>@jboss:resource-manager org.jboss.ejb.deployment.MailResource mail/EasyNetMail Mail</code></blockquote>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[res-ref-name]</i>: String</td>
+    <td>Define the resource reference name.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[resource-name]</i>: String</td>
+    <td>Define the name of the resource.</td>
+  </tr>
+</table>
+
+<h4><a name="resource-manager">@jboss:resource-manager</a></h4>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[res-man-class]</i>: String</td>
+    <td>Define the class of the resource manager</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[res-man-name]</i>: String</td>
+    <td>Define the name of the resource manager.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[res-man-jndi-name]</i>: String</td>
+    <td>Define the jndi name of the resource manager.</td>
+  </tr>
+</table>
+
+<h4><a name="persistence-class">@jboss:persistence</a></h4>
+
+<p>The Jaws/Jboss CMP deployment descriptor specific entries.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+	<td>Mandatory</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[datasource]</i>: String</td>
+    <td>JNDI name of the datasource to be used for this bean.</td>
+	<td>No. If specified, datasource-mapping should also be specified.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[datasource-mapping]</i>: String</td>
+    <td>Typemapping for the datasource to be used for this bean.</td>
+	<td>No. If specified, datasource should also be specified.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[create-table]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Set to true if you want JBoss to create the entity table when the bean is deployed.</td>
+	<td>No. Default is taken from container configuration (usually true).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[remove-table]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Set to true if you want JBoss to remove the entity table when the bean is undeployed.</td>
+	<td>No. Default is taken from container configuration (usually false).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[read-only]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>If true then the bean is read-only and no properties can be set. Avoid database calls.</td>
+	<td>No. Default is taken from container configuration (usually false).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[time-out]</i>: milisseconds</td>
+    <td>Specify the amount of time that a read-only field is considered valid.</td>
+	<td>No. Default is taken from container configuration (usually 300).</td>
+  </tr>
+  <tr valign="top">
+	<td><i>[row-locking]</i>: &quot;true&quot; | &quot;false&quot;</td>
+	<td>Set to true if you want JBossCMP to use SELECT ... FOR UPDATE queries.</td>
+	<td>No. Default is taken from container configuration (usually false).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[tuned-updates]</i>: "true" | "false"</td>
+	<td>Set to true if you want JAWS to use tuned updates.</td>
+	<td>No. Default is taken from container configuration (usually false).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[pk-constraint]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Set to true if you want JBoss to create primary key constraints when creating the entity table.</td>
+	<td>No. Default is taken from container configuration (usually true).</td>
+  </tr>
+  <tr valign="top">
+	<td><i>[list-cache-max]</i>: integer</td>
+	<td>Specifies the number of simultaneous queries that can be tracked by the cache for the entity.</td>
+	<td>No. Default is taken from container configuration (usually 1000).</td>
+</table>
+
+<h4><a name="read-ahead">@jboss:read-ahead</a></h4>
+<p>JBossCMP read-ahead configuration</p>
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+	<td>Mandatory</td>
+  </tr>
+  <tr valign="top">
+    <td>strategy: on-load/on-find</td>
+    <td>The strategy used to read-ahead data in queries.</td>
+	<td>Yes</td>
+  </tr>
+  <tr valign="top">
+	<td><i>[page-size]</i>: integer</td>
+	<td>The number of entities that will be read in a single read-ahead load query.</td>
+	<td>No. Default is taken from container configuration (usually 1000).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[eager-load-group]</i>: string</td>
+	<td>The name of the load-group that should be loaded on the read-ahead load queries.</td>
+	<td>No. Default is taken from container configuration (usually *).</td>
+  </tr>
+</table>
+
+<h4><a name="table-name">[DEPRECATED in favour of <a href="ejb.html#persistence-class">@ejb:persistence</a>] @jboss:table-name</a></h4>
+
+<p>The table to be used by this bean is called <i>table-name</i>.
+Applicable to entity beans using JAWS for CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[table-name]</i>: String</td>
+    <td>Define the name of the table for the bean.</td>
+  </tr>
+</table>
+
+<h4><a name="create-table">[DEPRECATED in favour of <a href="#persistence-class">@jboss:persistence</a>] @jboss:create-table</a></h4>
+
+<a>Create the table if it doesn't exist.  Applicable to entity beans using JAWS for CMP.</a>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[create]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Create the table if it does not already exist.</td>
+  </tr>
+</table>
+
+<h4><a name="remove-table">[DEPRECATED in favour of <a href="#persistence-class">@jboss:persistence</a>] @jboss:remove-table</a></h4>
+
+<a>Remove the table when the bean is undeployed.  Applicable to entity beans using JAWS for CMP.</a>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[remove]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Create the table if it does not already exist.</td>
+  </tr>
+</table>
+
+<h4><a name="remove-table">[DEPRECATED in favour of <a href="#persistence-class">@jboss:persistence</a>] @jboss:pk-constraint</a></h4>
+
+<a>Create a primary constraint when creating the table</a>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[pk-constraint]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Creates a pk constraint when creating the table.</td>
+  </tr>
+</table>
+
+<h4><a name="tuned-updates">[DEPRECATED in favour of <a href="#persistence-class">@jboss:persistence</a>] @jboss:tuned-updates</a></h4>
+
+<p>Use tuned updates (i.e. minimize data stored on ejbStore).  Applicable to entity beans using JAWS for CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[tune]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Apply tuned updates.</td>
+  </tr>
+</table>
+
+<h4><a name="time-out">[DEPRECATED in favour of <a href="#persistence-class">@jboss:persistence</a>] @jboss:time-out</a></h4>
+
+<p>Time out for read-only beans. The state of the bean will be
+reloaded from the database after the time out.  Applicable to entity
+beans using JAWS for CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[time-out]</i>: integer (in seconds)</td>
+    <td>Define the time out interval for transactions.</td>
+  </tr>
+</table>
+
+<h4><a name="finder-query">@jboss:finder-query</a></h4>
+
+<p>Assign custom query to finder named "findFoo". An <a
+href="ejbdoclet.html#finder"><code>@ejb:finder</code></a> tag for the
+named finder must also be present.  Example: </p>
+<blockquote><code>@jboss:finder-query name="findFoo" query="foo = {1}" order="foo,bar"</code></blockquote>
+<p>Applicable to Entity beans using JAWS CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>:String</td>
+    <td>The name of the finder.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[query]</i>:String</td>
+    <td>The query for the finder.  See JAWS documentation for finder query
+  syntax.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[order]</i>:String</td>
+    <td>The order for the finder results.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[read-ahead]</i>:(true|false)</td>
+    <td>Optional, if provided, should be true or false to indicate if the query should have read-ahead.</td>
+  </tr>
+</table>
+
+<h4><a name="query">@jboss:query</a></h4>
+<p>Assign a JBoss-QL or Dynamic-QL element to a finder.</p>
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td>signature: String</td>
+	<td>The method signature for this finder. Must match the signature
+	in ejb-jar.xml (genereted using @ejb:finder).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[query]</i>: String</td>
+	<td>Specify the JBoss-QL for this finder. JBoss-QL is an extension to EJB-QL.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[dynamic-ql]: String</td>
+	<td>Mark this finder as a method that takes a Dynamic-QL argument. More info on
+	the JBossCMP documentation.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[result-type-mapping]</i>: "Local" | "Remote"</td>
+    <td>The result type for a collection-valued finder.</td>
+  </tr>
+</table>
+
+<h4><a name="declared-sql">@jboss:declared-sql</a></h4>
+<p>Declares the SQL for a finder.</p>
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td>signature: String</td>
+	<td>The method signature for this finder. Must match the signature
+	in ejb-jar.xml (genereted using @ejb:finder).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[where]</i>: String</td>
+	<td>The WHERE clause for the declared SQL.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[order]: String</td>
+	<td>The ORDER BY clause for the declared SQL.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[other]: String</td>
+	<td>Any aditional words for the declared SQL.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[result-type-mapping]</i>: "Local" | "Remote"</td>
+    <td>The result type for a collection-valued finder.</td>
+  </tr>
+</table>
+
+<h4><a name="cmp-field">@jboss:cmp-field</a></h4>
+
+<p>Will define a &lt;cmp-field&gt; element for a field of a cmp-field
+of ejb-jar.xml.  This is used for dependant objects fields mapping,
+see <a href="#not-persisted-field">@jboss:not-persisted-field</a>.
+Example:  </p>
+<blockquote><code>@jboss:cmp-field field-name="sitePk.pk" column-name="site"</code></blockquote>
+<p>Applicable to EJBs using JAWS CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[field-name]</i>: String</td>
+    <td>The name of the field</td>
+  </tr>
+  <tr>
+    <td><i>[column-name]</i>: String</td>
+    <td>The name of the column.</td>
+  </tr>
+</table>
+
+<h4><a name="destination-jndi-name">@jboss:destination-jndi-name</a></h4>
+
+<p>Defines JNDI name of the Queue/Topic used my the MDB.  Applicable
+to MDB.  Example:</p>
+<blockquote><code>@jboss:destination-jndi-name name="queue/testQueue"</code></blockquote>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+    <td>The name of the destination.</td>
+  </tr>
+</table>
+
+<h4><a name="dvc">@jboss:dvc</a></h4>
+
+<p>JBossCMP Dependent Value Class configuration. Just put this tag on a class if you
+want to generate o <dependent-value-class/> section for this class. Also, you need to
+tag each property you want persisted with <a href="#dvc-property">@jboss:dvc-property</a>.
+
+<h3><a name="method-level-tags">Method level Tags</h3>
+
+<h4><a name="column-name">[DEPRECATED in favour of <a href="ejb.html#persistence-method">@ejb:persistence</a>] @jboss:column-name</a></h4>
+
+<p>The column name for the CMP field in the table where this bean will
+be persisted.  Applicable to Entity EJBs using JAWS CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+    <td>Define the name of the column for the field.</td>
+  </tr>
+</table>
+
+<h4><a name="sql-type">[DEPRECATED in favour of <a href="ejb.html#persistence-method">@ejb:persistence</a>] @jboss:sql-type</a></h4>
+
+<p>The SQL type for the column where this CMP field will be
+  persisted. See your database's documentation for a list of valid
+  types. Example:</p>
+<blockquote><code>@jboss:sql-type VARCHAR(10)</code></blockquote>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[type]</i>: String</td>
+    <td>Define the name of the sql type for the field.</td>
+  </tr>
+</table>
+
+<h4><a name="jdbc-type">[DEPRECATED in favour of <a href="ejb.html">@ejb:persistence</a>] @jboss:jdbc-type</a></h4>
+
+<p>The JDBC type for the column where this CMP field will be
+persisted. See the javadoc for "java.sql.Types" for a list of valid
+types.  Applicable to Entity beans using CMP through JAWS.</td>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>type</i>: String</td>
+    <td>The jdbc type of the field.</td>
+  </tr>
+</table>
+
+<h4><a name="not-persisted-field">@jboss:not-persisted-field</a></h4>
+
+<p>Means the field does not have to be stored in the database.  It
+will appear in ejb-jar.xml but not in jaws.xml.  Used for a dependant
+object that is not mapped as Object to the database, but instead
+exploded by its attributes.  See <a
+href="#cmp-field"><code>@jboss:cmp-field</code></a>.  Applicable to
+Entity beans using JAWS CMP.  This tag has no parameters.</p>
+
+<h4><a name="relation-mapping">@jboss:relation-mapping</a></h4>
+<p>Used to choose the relation mapping style for a relationship. It can
+be safely omitted and must be used only when you want a mapping style that
+is different from the default (foreign-key for 1-1 and 1-n relations,
+relation-table for n-m relations).</p>
+
+<table border="1" cellpadding="7">
+	<tr valign="top">
+		<td>Parameter</td>
+		<td>Usage</td>
+	</tr>
+	<tr valign="top">
+		<td><i>style</i>: (foreign-key | relation-table)</td>
+		<td>The mapping style for this relationship.</td>
+	</tr>
+</table>
+
+
+<h4><a name="relation">@jboss:relation</a></h4>
+
+<p>Used to customize the relationships via jbosscmp-jdbc.xml for JBoss 3.0.
+NOTE: If you replace jboss:relation with jboss:target-relation, you can modify
+the blind side of a unidirectional relationship (someone fix this wording)</p>
+<p>Also please note that the @jboss:relation semantics and the generated &lt;key-fields>
+generated element are somewhat reversed. You use @jboss:relation tag on the relation side
+that has the foreign key, but the &lt;key-fields> element is genereted on the relation side
+that holds the primary key. This behavior <em>is correct</em>. Take a look at the
+samples so you can understand better what this means.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>fk-constraint</i>: (true|false*)</td>
+    <td>Flag to indicate if a foreign key constraint should be placed on the relation column.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>related-pk-field</i>: (String)</td>
+    <td>Name of the pk field of the 1- end of the relationship that this foreign key
+    constraint applies to.  Required for support of complex primary keys in the 1- end
+    of the relation. (Corresponds to field-name in jbosscmp-jdbc.xml)</td>
+  </tr>
+  <tr valign="top">
+    <td><i>fk-column</i>: (String)</td>
+    <td>Name of the column that should be used for foreign key mapping. (Corresponds to column-name in jbosscmp-jdbc.xml)</td>
+  </tr>
+</table>
+
+<h4><a name="relation-table">@jboss:relation-table</a></h4>
+<p>Used to configure the table used in relation table mapped relationships.</p>
+<table border="1" cellpadding="7">
+	<tr valign="top">
+		<td>Parameter</td>
+		<td>Usage</td>
+	</tr>
+	<tr valign="top">
+		<td><i>table-name</i>: String</td>
+		<td>The name of the table used for this relationship.</td>
+	</tr>
+	<tr valign="top">
+		<td><i>[create-table]</i>: (true | false)</td>
+		<td>Set to true if you want JBossCMP to create the relation table at deployment time.</td>
+	</tr>
+	<tr valign="top">
+		<td><i>[remove-table]</i>: (true | false)</td>
+		<td>Set to true if you want JBossCMP to remove the relation table at undeployment time.</td>
+	</tr>
+	<tr valign="top">
+		<td><i>[pk-constraint]</i>: (true | false)</td>
+		<td>Set to true if you want JBossCMP to create a primary key constraint on the relation table.</td>
+	</tr>
+</table>
+
+<h4><a name="dvc-property">@jboss:dvc-property</a></h4>
+
+<p>This tag has two possible uses. The first is on the DVC class to declare which properties
+should be used as DVC fields and the second is on a CMR field to specify how to map DVC properties to
+database columns. On a DVC property, this tag doesn't need any parameters. On a CMR field you need
+to indicate at least property-name and can also define the column-name, jdbc-type and sql-type.
+Please not that jdbc-type and sql-type should both on none be specified.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+	<td>Parameter</td>
+	<td>Usage</td>
+  </tr>
+  <tr valign="top">
+	<td>property-name: String</td>
+	<td>The name of the DVC property being configured.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[column-name]</i>: String</td>
+	<td>The database column where te persist this property.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[jdbc-type]</i>: String</td>
+	<td>The JDBC type for this property.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[sql-type]</i>: String</td>
+	<td>The SQL type for this property.</td>
+  </tr>
+</table>
+
+</body>

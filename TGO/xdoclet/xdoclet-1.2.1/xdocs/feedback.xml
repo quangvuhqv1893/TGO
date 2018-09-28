@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Feedback</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Feedback">
+            <subsection name="Support">
+                <p>
+                    First, you should know that many people ask us about things that aren't really related
+                    to XDoclet. Would you ask your IDE manufacturer why how to specify an EJB finder query?
+                    Hopefully not. You shouldn't ask us either. There are
+                    <a href="http://archives.java.sun.com/ejb-interest.html">better forums</a> for that.
+                </p>
+
+                <p>
+                    We <a href="mail-lists.html">receive</a> an astonishing amount of support requests, and handling them
+                    can be a big burden. One of the reasons we receive so many requests is that many people don't
+                    <a href="faq.html">bother</a> <a href="using.html">to</a>
+                    <a href="http://www.onjava.com">figure</a> <a href="http://www.javaworld.com">out</a>
+                    what their problem relates to. Just because XDoclet can generate for example <a href="http://www.jboss.org">JBoss</a>
+                    deployment descriptors, it doesn't necessarily mean we can be held responsible for generation of incorrect
+                    code. More importantly, we might not even know how to
+                    <a href="http://www.jboss.org/jive.jsp">help you with JBoss</a>.
+                </p>
+
+                <p>
+                    If you have successfully managed to run XDoclet and generate files, but you think there
+                    is something wrong with the generated files, there can be many causes for this. Possible causes
+                    are (with decreasing probability):
+                    <ul>
+                        <li>
+                            You have incorrect tags in your Java class. Missing tags, bad parameters, tags in wrong places etc.
+                            Please consult the Tag Reference carefully. Examining the
+                            <a href="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xdoclet/xdoclet/samples/src/">samples</a> is also helpful.
+                        </li>
+                        <li>
+                            You have incorrect subtasks and parameters in your build script. Please consult the Ant Task Reference
+                            carefully. Examining the samples' build file is also helpful.
+                        </li>
+                        <li>
+                            You have bad classpath settings. Make sure the classpath you pass to the taskdef you're using to define
+                            an XDoclet task in your ant script contains all the jar files in the lib directory, and all the jar files
+                            containing the classes on which your tagged classes depend (struts.jar, ejb.jar, servlet.jar, etc.)
+                        </li>
+                        <li>
+                            You have found a bug (see below).
+                        </li>
+                        </ul>
+                </p>
+            </subsection>
+            <subsection name="Issues">
+                <p>
+                    If you believe you found a bug in XDoclet, or you would like to see a new feature implemented, please
+                    follow these guidelines:
+                    <ol>
+                        <li>
+                            Verify that the issue isn't reported before (search for previously posted issues). Chances are
+                            the issue is already reported and fixed in CVS. If it is, please
+                            <a href="install.html">try the CVS version</a> and see if that works for you.
+                        </li>
+                        <li>
+                            Search the <a href="mail-lists.html">mailing lists</a> and see if anything is written about it
+                            (<a href="http://www.geocrawler.com/lists/3/SourceForge/14029/0/">xdoclet-user on Geocrawler</a>,
+                             <a href="http://www.geocrawler.com/lists/3/SourceForge/14030/0/">xdoclet-devel on Geocrawler</a>).
+                        </li>
+                        <li>
+                            If you do not find anything, please
+                            <a href="http://opensource.atlassian.com/projects/xdoclet/">report the issue</a>,
+                            and include a detailed description on how to reproduce it.
+                            Filing improvements (patches) is the preferred way to get bugs fixed quickly.
+                        </li>
+                    </ol>
+                </p>
+            </subsection>
+            <subsection name="QUICK HOWTO: Reporting issues in JIRA">
+                <p>
+                    Some people find it difficult to log issues (bugs, feature requests, patches) in JIRA. Here is a quick howto:
+                    <ol>
+                        <li>Go to <a href="http://opensource.atlassian.com/projects/xdoclet/">http://opensource.atlassian.com/projects/xdoclet/</a>.</li>
+                        <li>If you haven't got an account in this JIRA system, create one by following the "Signup" link. Then log in.</li>
+                        <li>Follow the "New Issue" link at the top of the page.</li>
+                        <li>Select the project (XDoclet, XJavaDoc...).</li>
+                        <li>Select the issue type:
+                            <ul>
+                                <li>Bug: You have discovered some incorrect behavior in the software.</li>
+                                <li>New Feature: You'd like to see some new feature.</li>
+                                <li>Task: You want to record "something to do" for the developers.</li>
+                                <li>Improvement: You want to contribute with some code. Maybe a bugfix (also known as patch).</li>
+                            </ul>
+                        </li>
+                        <li>Click the "Next &gt;&gt;" button.</li>
+                        <li>Fill in as much info as you can on this page.</li>
+                        <li>Click the "Create" button.</li>
+                    </ol>
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

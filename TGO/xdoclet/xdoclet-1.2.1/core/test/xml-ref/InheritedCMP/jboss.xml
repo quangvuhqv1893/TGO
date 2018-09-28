@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_3_0.dtd">
+
+<jboss>
+
+   <enterprise-beans>
+
+      <entity>
+         <ejb-name>inherited/cmp/InheritedCMPSub</ejb-name>
+         <jndi-name>inherited/cmp/InheritedCMPSub</jndi-name>
+         <local-jndi-name>inherited/cmp/InheritedCMPSubLocal</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>inherited/cmp/InheritedCMPSuper</ejb-name>
+         <jndi-name>inherited/cmp/InheritedCMPSuper</jndi-name>
+         <local-jndi-name>inherited/cmp/InheritedCMPSuperLocal</local-jndi-name>
+      </entity>
+
+   </enterprise-beans>
+
+   <resource-managers>
+   </resource-managers>
+
+</jboss>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title></title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}"
+          rel="stylesheet"></link>
+    <link href="../static/css/touroperator_style.css"
+          th:href="@{/css/touroperator_style.css}" rel="stylesheet"></link>
+    <link href="../static/css/info.css"
+          th:href="@{/css/info.css}" rel="stylesheet"></link>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="header">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <img src="../static/image/logo.png" th:src="@{/image/logo.png}"></img>
+            </div>
+            <div class="container">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a th:href="@{/home}">Trang chủ</a></li>
+                        <li><a href="#">Địa điểm</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Trợ giúp</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown"><b
+                                th:text="${operator.companyNameViet}"></b><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Thông tin công ty</a></li>
+                                <li><a href="#">Trợ giúp</a></li>
+                                <li><a href="#">Cài đặt</a></li>
+                                <li class="divider"></li>
+                                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+
+
+                <img src="../static/image/hero_1.jpg" th:src="@{/image/hero_1.jpg}"></img>
+                <h4 class="text-center">
+                    <b th:text="${operator.companyNameViet}"></b>
+                </h4>
+                <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a th:href="@{/operator/info}">Thông tin công ty</a></li>
+                        <li><a href="#">Cài đặt</a></li>
+                        <li><a th:href="@{/operator}">Quản lý tour</a></li>
+                </ul>
+                <form th:action="@{/operator/searchguide}" th:method="GET">
+                    <button type="submit" class="btn btn-danger button-newtour">
+                        Tìm HDV
+                    </button>
+                </form>
+                
+                
+            </div>
+
+
+            <div class="col-md-offset-1 col-md-8">
+                <div class="info-header">
+                    <div class="cover-photo">
+                        <img src="../static/image/hero_4.jpg" th:src="@{/image/hero_4.jpg}"></img>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="../static/image/hero_2.jpg" th:src="@{/image/hero_2.jpg}"></img>
+                    </div>
+                    <div class="guide-info">
+                        <h3 class="text-center" th:text="'Tên: '+${guide.user.fullname}"></h3>
+                        <p class="text-center" th:text="'Email: '+${guide.user.email}"></p>
+                        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div class="col-sm-4 info-box">
+                                
+                                <p style="margin-top: 10px;" th:text="'Số thẻ: '+${guide.cardnumber}"></p>
+
+                                <p th:text="'Giới tính: '+${guide.gender}"></p>
+                            </div>
+                            <div class="col-sm-4 info-box">
+                                <p class="text-center">Số điện thoại</p>
+                                <span><p th:text="${guide.user.phonenumber}"></p></span>
+                                
+
+                            </div>
+                            <div class="col-sm-4 info-box">
+                                <p class="text-center">Địa chỉ</p>
+                                <span><p th:text="${guide.user.address}"></p></span>
+                                
+
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-3.2.1.min.js"
+        th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/js/bootstrap.min.js"
+        th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../static/js/operator.js" th:src="@{/js/operator.js}"></script>
+<script src="../static/js/validator.js" th:src="@{/js/validator.js}"> </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+ <XDtTagDef:tagDef namespace="Doc" handler="xdoclet.modules.doc.DocumentationTagsHandler"/>
+
+<html>
+<head>
+<base target="tags">
+</head>
+<body bgcolor="#ffffff">
+<h2>Tags</h2>
+
+<h3>Block Tags</h3>
+<XDtMethod:forAllMethods>
+ <XDtMethod:ifHasMethodTag tagName="doc.tag">
+  <XDtMethod:ifMethodTagValueEquals tagName="doc.tag" paramName="type" value="block">
+   <a href="<XDtDoc:currentNamespace/>.html#<XDtMethod:methodName/>"><XDtMethod:methodName/></a><br>
+  </XDtMethod:ifMethodTagValueEquals>
+ </XDtMethod:ifHasMethodTag>
+</XDtMethod:forAllMethods>
+
+<h3>Content Tags</h3>
+<XDtMethod:forAllMethods>
+ <XDtMethod:ifHasMethodTag tagName="doc.tag">
+  <XDtMethod:ifMethodTagValueEquals tagName="doc.tag" paramName="type" value="content">
+   <a href="<XDtDoc:currentNamespace/>.html#<XDtMethod:methodName/>"><XDtMethod:methodName/></a><br>
+  </XDtMethod:ifMethodTagValueEquals>
+ </XDtMethod:ifHasMethodTag>
+</XDtMethod:forAllMethods>
+
+</body>
+</html>

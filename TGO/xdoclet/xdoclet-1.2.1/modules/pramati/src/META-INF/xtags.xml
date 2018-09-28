@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+    <!-- Pramati tags -->
+    <namespace>
+        <name>pramati</name>
+        <usage-description>Tags to configure the Pramati J2EE server</usage-description>
+        <tags>
+            <tag>
+                <level>class</level>
+                <name>pramati.bean</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique/>
+                <condition-description/>
+                <parameter type="bool">
+                    <name>is-secure</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>low-activity-interval</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>max-pool-size</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>min-pool-size</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>run-as-principal</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>session-timeout</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.destination-mapping</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique/>
+                <condition-description>For Message Driven Beans</condition-description>
+                <parameter type="text">
+                    <name>conn-factory</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>destination-link</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.ejb-local-ref</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique>false</unique>
+                <condition-description/>
+                <parameter type="text">
+                    <name>ejb-link</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>ejb-ref-name</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.ejb-ref</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique>false</unique>
+                <condition-description/>
+                <parameter type="text">
+                    <name>ejb-link</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>ejb-ref-name</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.resource-env-ref</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique>false</unique>
+                <condition-description/>
+                <parameter type="text">
+                    <name>resource-env-ref-link</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>resource-env-ref-name</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>resource-env-ref-type</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.resource-mapping</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique>false</unique>
+                <condition-description/>
+                <parameter type="text">
+                    <name>resource-link</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>resource-name</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="text">
+                    <name>resource-type</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.server-session</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique/>
+                <condition-description>For Message Driven Beans</condition-description>
+                <parameter type="int">
+                    <name>max-messages</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>max-pool-size</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>min-pool-size</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.thread-pool</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique/>
+                <condition-description/>
+                <parameter type="int">
+                    <name>max-pool-size</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+                <parameter type="int">
+                    <name>min-pool-size</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>pramati.persistence</name>
+                <usage-description>Please give a usage description</usage-description>
+                <unique/>
+                <condition-description>For CMP Entity Beans</condition-description>
+                <parameter type="text">
+                    <name>exclusion-type</name>
+                    <usage-description>Please give a description</usage-description>
+                    <mandatory/>
+                    <condition-description/>
+                </parameter>
+            </tag>
+        </tags>
+    </namespace>
+</xdoclet>

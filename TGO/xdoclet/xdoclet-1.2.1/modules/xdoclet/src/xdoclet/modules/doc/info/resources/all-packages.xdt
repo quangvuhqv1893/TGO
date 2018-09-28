@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<LINK TITLE="Style" HREF="info.css" TYPE="text/css" REL="stylesheet">
+</HEAD>
+<BODY>
+<H2>
+  <A TARGET="classFrame" HREF="overview-packages.html">Overview</a>
+</H2>
+<H2>Packages</H2>
+<P>
+<TABLE WIDTH="100%">
+ <XDtPackage:forAllPackages>
+  <!-- HEHH -->
+  <XDtInfo:ifTagCountNotZero level="package">
+  <TR>
+    <TD NOWRAP="nowrap"><A TARGET="classListFrame" HREF="<XDtPackage:packageNameAsPath/>/classes-list.html"><XDtPackage:packageName/></A> (<XDtInfo:tagCount level="package"/>)</TD>
+  </TR>
+  </XDtInfo:ifTagCountNotZero>
+ </XDtPackage:forAllPackages>
+</TABLE>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+
+<!DOCTYPE weblogic-web-app PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<weblogic-web-app>
+  <XDtConfig:ifConfigParamNotEquals paramName="Description" value=""> 
+   <description><![CDATA[<XDtConfig:configParameterValue paramName="Description"/>]]></description>
+  </XDtConfig:ifConfigParamNotEquals> 
+  <XDtConfig:ifConfigParamNotEquals paramName="Version" value=""> 
+   <weblogic-version><XDtConfig:configParameterValue paramName="Version"/></weblogic-version>
+  </XDtConfig:ifConfigParamNotEquals> 
+   <!-- XDoclet TODO: implement security roles (see DTD) -->
+   <reference-descriptor>
+    <XDtClass:forAllClasses>
+     <XDtClass:forAllClassTags tagName="weblogic:resource-description">
+      <resource-description>
+         <res-ref-name><XDtClass:classTagValue tagName="weblogic:resource-description" paramName="res-ref-name"/></res-ref-name>
+         <jndi-name><XDtClass:classTagValue tagName="weblogic:resource-description" paramName="jndi-name"/></jndi-name>
+      </resource-description>
+     </XDtClass:forAllClassTags>
+    </XDtClass:forAllClasses>
+    <XDtClass:forAllClasses>
+     <XDtClass:forAllClassTags tagName="weblogic:ejb-reference-description">
+      <ejb-reference-description>
+         <ejb-ref-name><XDtClass:classTagValue tagName="weblogic:ejb-reference-description" paramName="ejb-ref-name"/></ejb-ref-name>
+         <jndi-name><XDtClass:classTagValue tagName="weblogic:ejb-reference-description" paramName="jndi-name"/></jndi-name>
+      </ejb-reference-description>
+     </XDtClass:forAllClassTags>
+    </XDtClass:forAllClasses>
+   </reference-descriptor>
+   <!-- XDoclet TODO: implement the rest of the stuff (see DTD)
+        NB use merge points for most of them?  -->
+  <XDtConfig:ifHasConfigParam paramName="ContextRoot">
+   <context-root><XDtConfig:configParameterValue paramName="ContextRoot"/></context-root>
+  </XDtConfig:ifHasConfigParam>
+</weblogic-web-app>

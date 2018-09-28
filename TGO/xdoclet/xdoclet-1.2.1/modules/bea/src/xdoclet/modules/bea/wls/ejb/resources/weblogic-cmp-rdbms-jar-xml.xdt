@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+
+<!DOCTYPE weblogic-rdbms-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<weblogic-rdbms-jar>
+   <XDtEjbEntity:forAllEntityBeans>
+   <XDtEjb:ifIsAConcreteEJBean>
+   <XDtEjbCmp:ifEntityIsCmp>
+   <weblogic-rdbms-bean>
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+     <XDtClass:ifHasClassTag tagName="weblogic:data-source-name">
+      <data-source-name><XDtClass:classTagValue tagName="weblogic:data-source-name"/></data-source-name>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifDoesntHaveClassTag tagName="weblogic:data-source-name">
+      <data-source-name><XDtConfig:configParameterValue paramName="Datasource"/></data-source-name>
+     </XDtClass:ifDoesntHaveClassTag>
+  <XDtConfig:ifConfigParamEquals paramName="EjbSpec" value="1.1">
+     <XDtClass:ifHasClassTag tagName="weblogic:pool-name">
+      <pool-name><XDtClass:classTagValue tagName="weblogic:pool-name"/></pool-name>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifDoesntHaveClassTag tagName="weblogic:pool-name">
+     <XDtConfig:ifConfigParamNotEquals paramName="Poolname" value="">
+      <pool-name><XDtConfig:configParameterValue paramName="Poolname"/></pool-name>
+     </XDtConfig:ifConfigParamNotEquals>
+     </XDtClass:ifDoesntHaveClassTag>
+  </XDtConfig:ifConfigParamEquals>
+     <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+      <table-map>
+     </XDtConfig:ifConfigParamGreaterOrEquals>
+      <table-name><XDtEjbCmp:dbmsTable/></table-name>
+     <XDtEjbCmp:forAllCmpFields>
+      <field-map>
+         <cmp-field><XDtMethod:propertyName/></cmp-field>
+         <dbms-column><XDtEjbCmp:dbmsColumn/></dbms-column>
+       <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="6.1">
+        <XDtMethod:ifHasMethodTag tagName="weblogic:dbms-column-type">
+         <dbms-column-type><XDtMethod:methodTagValue tagName="weblogic:dbms-column-type" values="OracleBlob,OracleClob"/></dbms-column-type>
+        </XDtMethod:ifHasMethodTag>
+       </XDtConfig:ifConfigParamGreaterOrEquals>
+      </field-map>
+     </XDtEjbCmp:forAllCmpFields>
+     <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+      </table-map>
+     </XDtConfig:ifConfigParamGreaterOrEquals>
+    <XDtConfig:ifConfigParamEquals paramName="EjbSpec" value="1.1">
+     <XDtMerge:merge file="xdoclet/modules/bea/wls/ejb/resources/weblogic-cmp-11-finders.xdt">
+     </XDtMerge:merge>
+     <XDtClass:ifHasClassTag tagName="weblogic:enable-tuned-updates" superclasses="true">
+      <enable-tuned-updates><XDtClass:classTagValue tagName="weblogic:enable-tuned-updates" values="True,False"/></enable-tuned-updates>
+     </XDtClass:ifHasClassTag>
+    </XDtConfig:ifConfigParamEquals>
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+    <XDtMethod:forAllMethods>
+     <XDtMethod:ifHasMethodTag tagName="weblogic:field-group">
+      <field-group>
+         <group-name><XDtMethod:methodTagValue tagName="weblogic:field-group" paramName="group-name"/></group-name>
+         <cmp-field><XDtMethod:propertyName/></cmp-field>
+      </field-group>
+     </XDtMethod:ifHasMethodTag>
+    </XDtMethod:forAllMethods>
+    <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+     <XDtClass:forAllClassTags tagName="ejb:finder">
+      <weblogic-query>
+         <query-method>
+            <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+            <method-params>
+              <XDtParameter:forAllParameterTypes paramName="signature">
+               <method-param><XDtParameter:currentToken/></method-param>
+              </XDtParameter:forAllParameterTypes>
+            </method-params>
+         </query-method>
+         <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="query">
+         <weblogic-ql><![CDATA[<XDtClass:classTagValue tagName="ejb:finder" paramName="query"/>]]></weblogic-ql>
+         </XDtClass:ifHasClassTag>
+      </weblogic-query>
+     </XDtClass:forAllClassTags>
+     <XDtMethod:forAllMethods>
+      <XDtMethod:ifHasMethodTag tagName="ejb:select">
+      <weblogic-query>
+         <query-method>
+            <method-name><XDtMethod:methodName/></method-name>
+            <method-params>
+              <XDtParameter:forAllMethodParams>
+               <method-param><XDtParameter:methodParamType/></method-param>
+              </XDtParameter:forAllMethodParams>
+            </method-params>
+         </query-method>
+         <XDtClass:ifHasClassTag tagName="ejb:select" paramName="query">
+         <weblogic-ql><![CDATA[<XDtClass:classTagValue tagName="ejb:select" paramName="query"/>]]></weblogic-ql>
+         </XDtClass:ifHasClassTag>
+         <XDtMethod:ifMethodTagValueEquals tagName="weblogic:select" paramName="include-updates" value="true">
+         <include-updates>true</include-updates>
+         </XDtMethod:ifMethodTagValueEquals>
+      </weblogic-query>
+      </XDtMethod:ifHasMethodTag>
+     </XDtMethod:forAllMethods>
+    </XDtConfig:ifConfigParamGreaterOrEquals>
+    <XDtClass:ifHasClassTag tagName="weblogic.delay-database-insert-until">
+     <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+      <delay-database-insert-until><XDtClass:classTagValue tagName="weblogic.delay-database-insert-until" values="ejbCreate,ejbPostCreate,commit"/></delay-database-insert-until>
+     </XDtConfig:ifConfigParamGreaterOrEquals>
+     <XDtConfig:ifConfigParamNotGreaterOrEquals paramName="Version" value="7.0">
+      <delay-database-insert-until><XDtClass:classTagValue tagName="weblogic.delay-database-insert-until" values="ejbCreate,ejbPostCreate"/></delay-database-insert-until>
+     </XDtConfig:ifConfigParamNotGreaterOrEquals>
+    </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="weblogic:automatic-key-generation">
+      <automatic-key-generation>
+         <generator-type><XDtClass:classTagValue tagName="weblogic:automatic-key-generation" paramName="generator-type" values="ORACLE,SQL_SERVER,NAMED_SEQUENCE_TABLE"/></generator-type>
+         <XDtClass:ifHasClassTag tagName="weblogic:automatic-key-generation" paramName="generator-name">
+         <generator-name><XDtClass:classTagValue tagName="weblogic:automatic-key-generation" paramName="generator-name"/></generator-name>
+         </XDtClass:ifHasClassTag>
+         <XDtClass:ifHasClassTag tagName="weblogic:automatic-key-generation" paramName="key-cache-size">
+         <key-cache-size><XDtClass:classTagValue tagName="weblogic:automatic-key-generation" paramName="key-cache-size"/></key-cache-size>
+         </XDtClass:ifHasClassTag>
+      </automatic-key-generation>
+     </XDtClass:ifHasClassTag>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+   </weblogic-rdbms-bean>
+   </XDtEjbCmp:ifEntityIsCmp>
+   </XDtEjb:ifIsAConcreteEJBean>
+   </XDtEjbEntity:forAllEntityBeans>
+
+  <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+   <XDtEjbRel:forAllRelationships>
+   <weblogic-rdbms-relation>
+      <relation-name><XDtEjbRel:relationName/></relation-name>
+     <XDtEjbRel:ifIsMany2Many>
+      <table-name><XDtWlEjbRel:joinTableName/></table-name>
+     </XDtEjbRel:ifIsMany2Many>
+      <weblogic-relationship-role>
+<XDtComment:comment>
+In case of a 1:1 relationship we want to make sure the fk side is to the right
+</XDtComment:comment><XDtWlEjbRel:ensureColumnMapTagsRight/>
+         <relationship-role-name><XDtEjbRel:leftRoleName/></relationship-role-name>
+        <XDtWlEjbRel:ifHasLeftGroupName>
+         <group-name><XDtWlEjbRel:leftGroupName/></group-name>
+        </XDtWlEjbRel:ifHasLeftGroupName>
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+         <relationship-role-map>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+        <XDtWlEjbRel:forAllLeftColumnMaps>
+         <column-map>
+            <foreign-key-column><XDtWlEjbRel:foreignKeyColumn/></foreign-key-column>
+           <XDtWlEjbRel:ifHasKeyColumn>
+            <key-column><XDtWlEjbRel:keyColumn/></key-column>
+           </XDtWlEjbRel:ifHasKeyColumn>
+         </column-map>
+        </XDtWlEjbRel:forAllLeftColumnMaps>
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+         </relationship-role-map>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+      </weblogic-relationship-role>
+     <XDtEjbRel:ifIsMany2Many>
+      <weblogic-relationship-role>
+         <relationship-role-name><XDtEjbRel:rightRoleName/></relationship-role-name>
+        <XDtWlEjbRel:ifHasRightGroupName>
+         <group-name><XDtWlEjbRel:rightGroupName/></group-name>
+        </XDtWlEjbRel:ifHasRightGroupName>
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+         <relationship-role-map>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+        <XDtWlEjbRel:forAllRightColumnMaps>
+         <column-map>
+            <foreign-key-column><XDtWlEjbRel:foreignKeyColumn/></foreign-key-column>
+           <XDtWlEjbRel:ifHasKeyColumn>
+            <key-column><XDtWlEjbRel:keyColumn/></key-column>
+           </XDtWlEjbRel:ifHasKeyColumn>
+         </column-map>
+        </XDtWlEjbRel:forAllRightColumnMaps>
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+        </relationship-role-map>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+      </weblogic-relationship-role>
+     </XDtEjbRel:ifIsMany2Many>
+   </weblogic-rdbms-relation>
+   </XDtEjbRel:forAllRelationships>
+   <XDtMerge:merge file="weblogic-cmp-rdbms-relationships.xml"> 
+     <!-- 
+       To add weblogic relationships for beans not managed by XDoclet, add
+       a file to your XDoclet merge directory called weblogic-cmp-rdbms-relationships.xml that contains
+       the <weblogic-rdbms-relation></weblogic-rdbms-relation> markups for those beans.
+     --> 
+   </XDtMerge:merge>
+  </XDtConfig:ifConfigParamGreaterOrEquals>
+
+ <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="6.1">
+  <XDtConfig:ifConfigParamNotEquals paramName="Createtables" value="">
+   <create-default-dbms-tables><XDtConfig:configParameterValue paramName="Createtables"/></create-default-dbms-tables>
+  </XDtConfig:ifConfigParamNotEquals>
+ </XDtConfig:ifConfigParamGreaterOrEquals>
+ <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="6.1">
+  <XDtConfig:ifConfigParamNotEquals paramName="ValidateDbSchemaWith" value="">
+   <validate-db-schema-with><XDtConfig:configParameterValue paramName="ValidateDbSchemaWith"/></validate-db-schema-with>
+  </XDtConfig:ifConfigParamNotEquals>
+ </XDtConfig:ifConfigParamGreaterOrEquals>
+ <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+  <XDtConfig:ifConfigParamNotEquals paramName="DatabaseType" value="">
+   <database-type><XDtConfig:configParameterValue paramName="DatabaseType"/></database-type>
+  </XDtConfig:ifConfigParamNotEquals>
+ </XDtConfig:ifConfigParamGreaterOrEquals>
+
+</weblogic-rdbms-jar>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document>
+
+    <properties>
+        <title><XDtAntdoc:elementName/></title>
+        <author email="xdoclet-user@lists.sourceforge.net">XDoclet Team</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../<XDtAntdoc:rootlink/>favicon.ico" />
+        <link rel="icon" href="../<XDtAntdoc:rootlink/>favicon.ico" />
+    </head>
+    
+    <body>
+        <section name="<XDtAntdoc:elementName/>">
+            <p>
+                <XDtClass:classComment no-comment-signs="true"/>
+            </p>
+        
+            <subsection name="Attributes">
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                <XDtClass:forAllClassTags tagName="ant.attribute" superclasses="false">
+                    <tr>
+                        <td><XDtClass:classTagValue tagName="ant.attribute" paramName="name"/></td>
+                        <td><XDtClass:classTagValue tagName="ant.attribute" paramName="description"/></td>
+                        <td><XDtClass:classTagValue tagName="ant.attribute" paramName="required"/></td>
+                    </tr>
+                </XDtClass:forAllClassTags>
+                
+                <XDtMethod:forAllMethods superclasses="true">
+                <XDtMethod:ifIsPublic>
+                <XDtMethod:ifIsSetter>
+                <XDtMethod:ifDoesntHaveMethodTag tagName="ant.ignore">
+                    <tr>
+                        <td><XDtMethod:propertyName/></td>
+                        <td><XDtMethod:methodComment no-comment-signs="true"/></td>
+                        <td><XDtAntdoc:required/></td>
+                    </tr>
+                </XDtMethod:ifDoesntHaveMethodTag>
+                </XDtMethod:ifIsSetter>
+                </XDtMethod:ifIsPublic>
+                </XDtMethod:forAllMethods>
+                </table>
+            </subsection>
+
+<XDtComment:comment>
+This section is the only XDoclet-specific part of this template.
+Other projects (like Ant itself) should comment out the ifHasMergeFiles section.
+</XDtComment:comment>
+
+            <XDtClass:ifHasClassTag tagName="xdoclet.merge-file">
+            <subsection name="Merge Files">
+                <table>
+                    <tr>
+                        <th>File name</th>
+                        <th>Description</th>
+                        <th>Relates to</th>
+                    </tr>
+                <XDtClass:forAllClassTags tagName="xdoclet.merge-file">
+                    <tr>
+                        <td><XDtClass:classTagValue tagName="xdoclet.merge-file" paramName="file"/></td>
+                        <td><XDtClass:classTagValue tagName="xdoclet.merge-file" paramName="description"/></td>
+                        <td><XDtClass:classTagValue tagName="xdoclet.merge-file" paramName="relates-to"/></td>
+                    </tr>
+                </XDtClass:forAllClassTags>
+                </table>
+            </subsection>
+            </XDtClass:ifHasClassTag>
+    
+            <XDtAntdoc:ifHasSubElements>
+            <subsection name="Nested Elements">
+                <table>
+                    <tr>
+                        <th>Element</th>
+                        <th>Description</th>
+                    </tr>
+                <XDtAntdoc:forAllSubElements>
+                    <tr>
+                        <td><a href="<XDtAntdoc:subElementLink/>"><XDtAntdoc:subElementName/></a></td>
+                        <td><XDtAntdoc:subElementDescription/></td>
+                    </tr>
+                </XDtAntdoc:forAllSubElements>
+                </table>
+            </subsection>
+            </XDtAntdoc:ifHasSubElements>
+        </section>
+    </body>
+</document>

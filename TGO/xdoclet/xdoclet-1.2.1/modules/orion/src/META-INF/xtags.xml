@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- orion specific tags -->
+  <namespace>
+    <name>orion</name>
+    <usage-description>Ironflare Orion Application Server specific tags for EJB beans.</usage-description>
+    <condition-description>all EJB types</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="method"/>
+        <condition type="class"/>
+      </condition>
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+        </condition>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>orion.bean</name>
+        <usage-description>
+          All parameters of &lt;session-deployment/&gt;, &lt;entity-deployment/&gt; and
+          &lt;message-driven-deployment/&gt; are placed under this class level tag.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>All EJB types, class level</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="int">
+          <name>call-timeout</name>
+          <usage-description>
+            The time (long millis in hex) to
+            wait for an EJB if it is busy (before
+            throwing a RemoteException,
+            treating it as a deadlock). 0 equals
+            "forever" and is the default.
+            Applicable to session and entity
+            beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>0x0</default>
+          <condition-description>Applicable to session and entity beans.</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="bool">
+          <name>copy-by-value</name>
+          <usage-description>
+            Whether or not to copy (clone) all
+            the incoming/outgoing parameters
+            in EJB calls. Set this to 'false' if
+            you're certain your application
+            doesn't assume copy-by-value
+            semantics for a speed-up. The
+            default is 'true'. Applicable to
+             session and entity beans
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Applicable to session and entity beans</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>max-tx-retries</name>
+          <usage-description>
+            The number of times to retry a
+            transaction that was rolled back due
+            to system-level failures. The
+            default is 0, i.e. no retries.
+            Applicable to session and entity
+            beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>0</default>
+          <condition-description>Applicable to session and entity beans</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>persistence-filename</name>
+          <usage-description>
+             Path to file where sessions are
+             stored across restarts. Applicable to
+             session beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>applicable to session beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>timeout</name>
+          <usage-description>
+            Inactivity timeout in seconds. If the
+            value is zero or negative timeouts
+            will be disabled. Applicable to
+            session beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>0</default>
+          <condition-description>applicable to session beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>clustering-schema</name>
+          <usage-description>
+             Despite what Orion's auto-generated docs say, this is NOT
+             "the name of the data-source used if using container-managed
+             persistence" - that's the data-source element.  This parameter
+             should be set to "asynchronous-cache" to cluster-enable the
+             Entity bean.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>default</default>
+              <options>
+                <option>default</option>
+                <option>asynchronous-cache</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>data-source</name>
+          <usage-description>
+            The name of the data-source used
+            if using container-managed
+            persistence. Applicable to entity
+            beans.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="bool">
+          <name>exclusive-write-access</name>
+          <usage-description>
+            Whether or not the EJB-server has
+            exclusive write (update) access to
+            the database backend. If it does it
+            will speed up common bean
+            operations and enable better
+            caching. The default is true.
+            Applicable to entity beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>instance-cache-timeout</name>
+          <usage-description>
+            The amount of time in seconds that
+            an entity is to be kept in the
+            instance (assigned to an identity)
+            state, specifying 'never' retains the
+            entities forever. The default is 60.
+            Applicable to entity beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>60</default>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>isolation</name>
+          <usage-description>
+            Specifies the isolation-level for
+            database actions. The valid values
+            are 'serializable', 'uncommitted',
+            'committed', 'repeatable_read'.
+            Applicable to entity beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>serializable</default>
+              <options>
+                <option>serializable</option>
+                <option>uncommitted</option>
+                <option>committed</option>
+                <option>repeatable_read</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="int">
+          <name>max-instances</name>
+          <usage-description>
+            The number of maximum instances
+            to be kept instantiated or pooled.
+            The default is infinite. Applicable
+            to entity beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>pool-cache-timeout</name>
+          <usage-description>
+           The amount of time in seconds that
+           an entity is to be kept in the
+           "pooled" (unassigned) state,
+           specifying 'never' retains the
+           entities forever. The default is 60.
+            Applicable to entity beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>60</default>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>table</name>
+          <usage-description>
+            The name of the table in the
+            database if using
+            container-managed persistence.
+            Applicable to entity beans.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>validity-timeout</name>
+          <usage-description>
+            The maximum amount of time (in
+            millis) that an entity is valid in the
+            cache (before being reloaded).
+            Useful for loosely coupled
+            environments where rare updates
+            from legacy systems occur. This
+            attribute is only valid when
+            exclusive-write-access="true" (the
+            default). Applicable to entity beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>cache-timeout</name>
+          <usage-description>
+            The number of seconds before a
+            cached instance can be timed out.
+            Can be set to 'never' to never time
+            out or to 0 (zero) to never cache.
+            The default is 60. Applicable to
+            message driven beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>60</default>
+          <condition-description>Applicable to message driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>connection-factory-location</name>
+          <usage-description>
+            The JNDI location of the
+            connection factory to use.
+            Applicable to message driven
+            beans.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to message driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>destination-location</name>
+          <usage-description>
+            The JNDI location of the
+            destination (queue/topic) to use.
+            Applicable to message driven
+            beans.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to message driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>max-instances</name>
+          <usage-description>
+            The maximum number of bean
+            instances to instantiate. The default
+            is -1, which implies an infinite
+            number. Applicable to message
+            driven beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>-1</default>
+          <condition-description>Applicable to message driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>min-instances</name>
+          <usage-description>
+            The minimum number of bean
+            instances to instantiate. The set
+            amount will be instantiated at
+            startup, and there will always be at
+            least the set amount of instances
+            active. The default is 0 (none).
+            Applicable to message driven
+            beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>-1</default>
+          <condition-description>Applicable to message driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>orion.field-persistence-manager-property</name>
+        <usage-description>
+            If @orion.persistence field-persistence-manager
+            specified and there's some properties for the persistence manager, specify it
+            as one or more
+            @orion.field-persistence-manager-property tags for the
+            persistent field.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Method level, entity beans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the property.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>The value of the property.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>orion.persistence</name>
+        <usage-description>
+          Used to specify orion specific persistence mechanisms, such as persisting primitive collections
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Method level, entity beans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>persistence-name</name>
+          <usage-description>The name of the column for single column fields, or the name of the second column in the
+            table specified in table-name.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>table-name</name>
+          <usage-description>The name of the second table to use if the field is a collection</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

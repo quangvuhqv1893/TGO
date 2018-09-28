@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<!-- <XDtI18n:getString resource="generated_by_xdoclet"/> -->
+
+<sun-ejb-jar>
+<XDtMerge:merge file="sunone-role-mappings.ent">
+    <!--
+        To add any role mappings, add an Unparsed XML Entity file to your XDoclet
+        merge directory called sunone-role-mappings.ent that contains the
+        <role-mapping> elements.
+        <!ELEMENT role-mapping (role-name, role-impl)>
+        <!ELEMENT role-impl (group*, user*)>
+        N.B. This is an Unparsed XML Entity file, rather than an XML Document,
+        since if there are multiple mappings it will not be well-formed.
+    -->
+
+</XDtMerge:merge>
+    <enterprise-beans>
+<XDtComment:comment>
+* The DTD & docs aren't clear as to what this element is, so I don't know where
+* best to get it from.  But as it's optional anyway, I'm just omitting it for now.
+*         <name/>
+</XDtComment:comment>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="guid">
+<XDtComment:comment>
+* I'm assuming this element serves the same purpose as "guid" in versions 6.0 & 6.5
+</XDtComment:comment>
+        <unique-id><XDtClass:classTagValue tagName="sunone.bean" paramName="guid"/></unique-id>
+</XDtClass:ifHasClassTag>
+<XDtEjb:forAllBeans>
+<XDtEjb:ifIsAConcreteEJBean>
+        <ejb>
+            <ejb-name><XDtEjb:ejbName/></ejb-name>
+<XDtComment:comment>
+* The DTD lists this element among the additional one for MDBs.  However, the Developer's
+* Guide says it applies to all bean types, and the example DD includes it on a BMP entity
+* bean, so I'm going to believe the manual.
+</XDtComment:comment>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="jndi-name">
+            <jndi-name><XDtEjbHome:jndiName type="remote"/></jndi-name>
+</XDtClass:ifHasClassTag>
+<XDtEjbRef:forAllEjbRefs>
+            <ejb-ref>
+                <ejb-ref-name><XDtEjbRef:ejbRefName/></ejb-ref-name>
+                <jndi-name><XDtEjbRef:ejbRefJndiName/></jndi-name>
+            </ejb-ref>
+</XDtEjbRef:forAllEjbRefs>
+<XDtClass:forAllClassTags tagName="ejb.resource-ref">
+            <resource-ref>
+                <res-ref-name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="res-ref-name"/></res-ref-name>
+                <jndi-name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="jndi-name"/></jndi-name>
+<XDtClass:ifHasClassTag tagName="resource-ref" paramName="default-resource-principal-name">
+                <default-resource-principal>
+                    <name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="default-resource-principal-name"/></name>
+                    <password><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="default-resource-principal-password"/></password>
+                </default-resource-principal>
+</XDtClass:ifHasClassTag>
+            </resource-ref>
+</XDtClass:forAllClassTags>
+<XDtClass:forAllClassTags tagName="ejb.resource-env-ref">
+<XDtClass:ifHasClassTag tagName="ejb.resource-env-ref" paramName="jndi-name">
+            <resource-env-ref>
+                <resource-env-ref-name><XDtClass:classTagValue tagName="ejb.resource-env-ref" paramName="name"/></resource-env-ref-name>
+                <jndi-name><XDtClass:classTagValue tagName="ejb.resource-env-ref" paramName="jndi-name"/></jndi-name>
+            </resource-env-ref>
+</XDtClass:ifHasClassTag>
+</XDtClass:forAllClassTags>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="pass-by-value">
+            <pass-by-reference>
+<XDtClass:ifClassTagValueEquals tagName="sunone.bean" paramName="pass-by-value" value="false">
+                true
+</XDtClass:ifClassTagValueEquals>
+<XDtClass:ifClassTagValueNotEquals tagName="sunone.bean" paramName="pass-by-value" value="false">
+                false
+</XDtClass:ifClassTagValueNotEquals>
+            </pass-by-reference>
+</XDtClass:ifHasClassTag>
+<XDtEjbEntity:ifEntity>
+<XDtEjbCmp:ifEntityIsCmp>
+            <cmp>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="cmp-mapping-properties">
+                <mapping-properties><XDtClass:classTagValue tagName="sunone.bean" paramName="cmp-mapping-properties"/></mapping-properties>
+</XDtClass:ifHasClassTag>
+<XDtEjbCmp:ifNotUsingCmp2>
+                <is-one-one-cmp>true</is-one-one-cmp>
+<XDtClass:ifHasClassTag tagName="sunone.finder">
+                <one-one-finders>
+<XDtClass:forAllClassTags tagName="sunone.finder">
+                    <finder>
+                        <method-name><XDtClass:classTagValue tagName="sunone.finder" paramName="method-name"/></method-name>
+<XDtClass:ifHasClassTag tagName="sunone.finder" paramName="query-params">
+                        <query-params><XDtClass:classTagValue tagName="sunone.finder" paramName="query-params"/></query-params>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.finder" paramName="query-filter">
+                        <query-filter><XDtClass:classTagValue tagName="sunone.finder" paramName="query-filter"/></query-filter>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.finder" paramName="query-variables">
+                        <query-variables><XDtClass:classTagValue tagName="sunone.finder" paramName="query-variables"/></query-variables>
+</XDtClass:ifHasClassTag>
+                    </finder>
+</XDtClass:forAllClassTags>
+                </one-one-finders>
+</XDtClass:ifHasClassTag>
+</XDtEjbCmp:ifNotUsingCmp2>
+            </cmp>
+</XDtEjbCmp:ifEntityIsCmp>
+</XDtEjbEntity:ifEntity>
+<XDtClass:ifHasClassTag tagName="ejb.security-identity" paramName="sunone-principal">
+            <principal><name><XDtClass:classTagValue tagName="ejb.security-identity" paramName="sunone-principal"/></name></principal>
+</XDtClass:ifHasClassTag>
+<XDtEjbMdb:ifMessageDriven>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="destination-name">
+            <mdb-connection-factory>
+                <jndi-name><XDtClass:classTagValue tagName="sunone.bean" paramName="destination-name"/></jndi-name>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="mdb-connection-factory-user">
+                <default-resource-principal>
+                    <name><XDtClass:classTagValue tagName="sunone.bean" paramName="mdb-connection-factory-user"/></name>
+                    <password><XDtClass:classTagValue tagName="sunone.bean" paramName="mdb-connection-factory-password"/></password>
+                </default-resource-principal>
+</XDtClass:ifHasClassTag>
+            </mdb-connection-factory>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="durable-name">
+            <jms-durable-subscription-name><XDtClass:classTagValue tagName="sunone.bean" paramName="durable-name"/></jms-durable-subscription-name>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="max-message-limit">
+            <jms-max-messages-load><XDtClass:classTagValue tagName="sunone.bean" paramName="max-message-limit"/></jms-max-messages-load>
+</XDtClass:ifHasClassTag>
+</XDtEjbMdb:ifMessageDriven>
+<XDtMerge:merge file="sunone-ior-security-config-{0}.xml">
+</XDtMerge:merge>
+<XDtEjbEntity:ifEntity>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="read-only">
+            <is-read-only-bean><XDtClass:classTagValue tagName="sunone.bean" paramName="read-only"/></is-read-only-bean>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="refresh-period">
+            <refresh-period-in-seconds><XDtClass:classTagValue tagName="sunone.bean" paramName="refresh-period"/></refresh-period-in-seconds>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="commit-option">
+            <commit-option><XDtClass:classTagValue tagName="sunone.bean" paramName="commit-option"/></commit-option>
+</XDtClass:ifHasClassTag>
+</XDtEjbEntity:ifEntity>
+<XDtComment:comment>
+* The <gen-classes> element appears here, but (according to the developer's guide)
+* "This is automatically generated by the server at deployment/redeployment time.
+* It should not be specified by the developer or changed after deployment."
+</XDtComment:comment>
+<XDtComment:comment>
+* The DTD says <bean-pool> applies to stateless session and message driven beans.  The
+* Developer's Guide also says it applies to entity beans...  I've gone along with
+* the guide, so checking for not being a stateful session bean ought to be good
+* enough (at least till J2EE 1.4's timer beans arrive).
+</XDtComment:comment>
+<XDtEjbSession:ifNotStatefulSession>
+<XDtClass:ifHasClassTag tagName="sunone.bean-pool">
+            <bean-pool>
+<XDtClass:ifHasClassTag tagName="sunone.bean-pool" paramName="steady-pool-size">
+                <steady-pool-size><XDtClass:classTagValue tagName="sunone.bean-pool" paramName="steady-pool-size"/></steady-pool-size>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean-pool" paramName="resize-quantity">
+                <resize-quantity><XDtClass:classTagValue tagName="sunone.bean-pool" paramName="resize-quantity"/></resize-quantity>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean-pool" paramName="max-pool-size">
+                <max-pool-size><XDtClass:classTagValue tagName="sunone.bean-pool" paramName="max-pool-size"/></max-pool-size>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean-pool" paramName="pool-idle-timeout">
+                <pool-idle-timeout-in-seconds><XDtClass:classTagValue tagName="sunone.bean-pool" paramName="pool-idle-timeout"/></pool-idle-timeout-in-seconds>
+</XDtClass:ifHasClassTag>
+<XDtComment:comment>
+* Although the <max-wait-time-in-millis> is present here in the DTD, according
+* to the Developer's Guide it's deprecated, so I'm not including it.
+</XDtComment:comment>
+            </bean-pool>
+</XDtClass:ifHasClassTag>
+</XDtEjbSession:ifNotStatefulSession>
+<XDtComment:comment>
+* Both DTD and Developer's Guide say <bean-cache> applies to stateful session and
+* entity beans.  To avoid repeating the section I check it's not a stateless session
+* nor a message driven bean.  Again, this should be good enough till we have timer
+* beans to worry about.  Otherwise, I'd have to repeat the section.
+</XDtComment:comment>
+<XDtEjbSession:ifNotStatelessSession>
+<XDtEjbMdb:ifNotMessageDriven>
+<XDtClass:ifHasClassTag tagName="sunone.bean-cache">
+            <bean-cache>
+<XDtClass:ifHasClassTag tagName="sunone.bean-cache" paramName="max-cache-size">
+                <max-cache-size><XDtClass:classTagValue tagName="sunone.bean-cache" paramName="max-cache-size"/></max-cache-size>
+</XDtClass:ifHasClassTag>
+<XDtComment:comment>
+* Although the <is-cache-overflow-allowed> is present here in the DTD, according
+* to the Developer's Guide it's deprecated, so I'm not including it.
+</XDtComment:comment>
+<XDtClass:ifHasClassTag tagName="sunone.bean-cache" paramName="cache-idle-timeout">
+                <cache-idle-timeout-in-seconds><XDtClass:classTagValue tagName="sunone.bean-cache" paramName="cache-idle-timeout"/></cache-idle-timeout-in-seconds>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean-cache" paramName="removal-timeout">
+                <removal-timeout-in-seconds><XDtClass:classTagValue tagName="sunone.bean-cache" paramName="removal-timeout"/></removal-timeout-in-seconds>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean-cache" paramName="victim-selection-policy">
+                <victim-selection-policy><XDtClass:classTagValue tagName="sunone.bean-cache" paramName="victim-selection-policy"/></victim-selection-policy>
+</XDtClass:ifHasClassTag>
+            </bean-cache>
+</XDtClass:ifHasClassTag>
+</XDtEjbMdb:ifNotMessageDriven>
+</XDtEjbSession:ifNotStatelessSession>
+        </ejb>
+
+</XDtEjb:ifIsAConcreteEJBean>
+</XDtEjb:forAllBeans>
+<XDtMerge:merge file="sunone-pm-descriptors.xml">
+        <!--
+            To add any persistence manager descriptors, put an XML Document named
+            sunone-pm-descriptors.xml in your XDoclet merge directory containing the
+            <pm-descriptors> element.
+        -->
+
+</XDtMerge:merge>
+<XDtConfig:ifHasConfigParam paramName="CmpResourceJndiName">
+        <cmp-resource>
+            <jndi-name><XDtConfig:configParameterValue paramName="CmpResourceJndiName"/></jndi-name>
+<XDtConfig:ifHasConfigParam paramName="CmpResourcePrincipalName">
+            <default-resource-principal>
+                <name><XDtConfig:configParameterValue paramName="CmpResourcePrincipalName"/></name>
+                <password><XDtConfig:configParameterValue paramName="CmpResourcePrincipalPassword"/></password>
+            </default-resource-principal>
+</XDtConfig:ifHasConfigParam>
+        </cmp-resource>
+</XDtConfig:ifHasConfigParam>
+    </enterprise-beans>
+</sun-ejb-jar>

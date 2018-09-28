@@ -1,0 +1,15 @@
+ <XDtTagDef:tagDef namespace="Doc" handler="xdoclet.modules.doc.DocumentationTagsHandler"/>
+
+<html>
+<head>
+<base target="tags_toc">
+</head>
+<body bgcolor="#ffffff">
+<h2>Namespaces</h2>
+
+  <XDtDoc:forAllNamespaces>
+   <a href="<XDtDoc:namespace/>_toc.html"><XDtDoc:namespace/></a><br>
+  </XDtDoc:forAllNamespaces>
+
+</body>
+</html>

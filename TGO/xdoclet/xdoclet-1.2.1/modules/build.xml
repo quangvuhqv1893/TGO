@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- The project element's name attribute will be used in the name of the module's jar file/ -->
+<project name="XDoclet Modules" default="dist" basedir=".">
+    <property name="xdoclet.root.dir" value="${basedir}/.."/>
+    <property file="${xdoclet.root.dir}/build.properties"/>
+
+    <!-- Define classpath required for compiling modules -->
+    <path id="modules.grand.builder.class.path">
+        <pathelement location="${dist.dir}/lib/xdoclet-${version}.jar"/>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Builds all modules. The order is important because of dependencies. -->
+    <!-- =================================================================== -->
+    <target name="dist">
+
+        <property environment="env"/>
+
+        <taskdef name="builder" classname="xdoclet.ant.modulesbuilder.ModulesGrandBuilderTask"
+            classpathref="modules.grand.builder.class.path"
+        />
+
+        <builder>
+            <dtd publicId="-//XDoclet Team//DTD XDoclet Module 1.0//EN"
+                location="../xdocs/dtds/xdoclet-module_1_0.dtd"
+            />
+        </builder>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Clean                                                               -->
+    <!-- =================================================================== -->
+    <target name="clean">
+        <delete dir="${modules.build.dir}"/>
+    </target>
+
+</project>

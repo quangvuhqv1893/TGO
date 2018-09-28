@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE section PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+
+<section>
+  <title><XDtClass:fullClassName/></title>
+  <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="name"><subtitle>Default ObjectName: <XDtClass:classTagValue tagName="jmx:mbean" paramName="name"/></subtitle></XDtClass:ifHasClassTag>
+    <para><XDtClass:classTagValue tagName="jmx:mbean" paramName="description" default="(no description)"/></para>
+    <table>
+      <title>Descriptors</title>
+      <tgroup cols="3">
+        <colspec colname="descriptor"/>
+        <colspec colname="value"/>
+        <thead>
+          <row>
+            <entry>Descriptor</entry>
+            <entry>Value</entry>
+          </row>
+        </thead>
+        <tbody>
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="persistPolicy"><row>
+            <entry>persistPolicy</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="persistPolicy"/></entry>
+          </row></XDtClass:ifHasClassTag>
+
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="persistPeriod"><row>
+            <entry>persistPeriod</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="persistPeriod"/></entry>
+          </row></XDtClass:ifHasClassTag>
+
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="persistLocation"><row>
+            <entry>persistLocation</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="persistLocation"/></entry>
+          </row></XDtClass:ifHasClassTag>
+
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="persistName"><row>
+            <entry>persistName</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="persistName"/></entry>
+          </row></XDtClass:ifHasClassTag>
+
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="currencyTimeLimit"><row>
+            <entry>currencyTimeLimit</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="currencyTimeLimit"/></entry>
+          </row></XDtClass:ifHasClassTag>
+
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="state-action-on-update"><row>
+            <entry>state-action-on-update</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="state-action-on-update"/></entry>
+          </row></XDtClass:ifHasClassTag>
+
+          <XDtClass:ifHasClassTag tagName="jmx:mbean" paramName="descriptor"><row>
+            <entry>descriptor</entry>
+            <entry><XDtClass:classTagValue tagName="jmx:mbean" paramName="descriptor"/></entry>
+          </row></XDtClass:ifHasClassTag>
+        </tbody>
+      </tgroup>
+    </table>
+
+
+  <section>
+    <title>Managed Constructors</title>
+
+  <XDtConstructor:forAllConstructors superclasses="false" sort="false">
+    <XDtConstructor:ifHasConstructorTag tagName="jmx:managed-constructor">
+    <formalpara>
+      <title>Managed Constructor (<XDtParameter:parameterList forConstructor="true" includeDefinition="true"/>)</title>
+    <para><XDtConstructor:constructorTagValue tagName="jmx:managed-constructor" paramName="description" default="(no description)"/>
+        <orderedlist>
+    <XDtConstructor:forAllConstructorTags tagName="jmx.managed-parameter">
+          <listitem>
+            <para><XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="description" default="(no description)"/></para>
+            <para><XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="name"/></para>
+            <para><XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="type"/></para>
+          </listitem>
+    </XDtConstructor:forAllConstructorTags>
+        </orderedlist>
+      </para>
+    </formalpara>
+    </XDtConstructor:ifHasConstructorTag>
+  </XDtConstructor:forAllConstructors>
+  </section>
+
+  <!--attributes-->
+    <section>
+      <title>Managed Attributes</title>
+    <table>
+      <!--title></title-->
+      <tgroup cols="3">
+        <colspec colname="attribute"/>
+        <colspec colname="type"/>
+        <colspec colname="access"/>
+        <colspec colname="description" align="center"/>
+        <thead>
+          <row>
+            <entry>Attribute</entry>
+            <entry>Type</entry>
+            <entry>Access</entry>
+            <entry align="center">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <XDtProperty:forAllPropertiesWithTag superclasses="<XDtClass:classTagValue tagName='jmx.mbean' paramName='superclasses' default='true'/>" tagName="jmx:managed-attribute">
+          <row>
+            <entry><XDtMethod:methodNameWithoutPrefix/></entry>
+            <entry><XDtProperty:propertyTypeWithTag tagName="jmx:managed-attribute"/></entry>
+            <entry><XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="access" values="read-only,write-only,read-write" default="read-write"/></entry>
+            <entry><XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="description" default="(no description)"/></entry>
+          </row>
+        </XDtProperty:forAllPropertiesWithTag></tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+
+
+<!--operations -->
+    <section>
+      <title>Managed Operations</title>
+  <XDtMethod:forAllMethods superclasses="<XDtClass:classTagValue tagName='jmx.mbean' paramName='superclasses' default='true'/>" sort="false">
+    <XDtMethod:ifHasMethodTag tagName="jmx:managed-operation">
+      <formalpara>
+        <title><XDtMethod:methodName/></title>
+        <para><XDtMethod:methodTagValue tagName="jmx:managed-operation" paramName="description" default="(no description)"/>
+          <orderedlist>
+    <XDtMethod:forAllMethodTags tagName="jmx.managed-parameter">
+            <listitem>
+              <para><XDtMethod:methodTagValue tagName="jmx.managed-parameter" paramName="description" default="(no description)"/></para>
+              <para><XDtMethod:methodTagValue tagName="jmx.managed-parameter" paramName="name"/></para>
+              <para><XDtMethod:methodTagValue tagName="jmx.managed-parameter" paramName="type"/></para>
+            </listitem>
+    </XDtMethod:forAllMethodTags>
+            <listitem>
+              <para>return type: <XDtMethod:methodType/></para>
+            </listitem>
+          </orderedlist>
+        </para>
+
+    </formalpara>
+    </XDtMethod:ifHasMethodTag>
+ </XDtMethod:forAllMethods>      
+  </section>
+
+<!--notifications -->
+    <section>
+      <title>Notifications</title>
+    <table>
+      <!--title></title-->
+      <tgroup cols="3">
+        <colspec colname="name"/>
+        <colspec colname="type"/>
+        <colspec colname="description" align="center"/>
+        <thead>
+          <row>
+            <entry>Name</entry>
+            <entry>Type</entry>
+            <entry align="center">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+  <XDtClass:forAllClassTags superclasses="false" tagName="jmx:notification">
+    <XDtClass:ifHasClassTag tagName="jmx:notification" paramName="description">
+          <row>
+            <entry><XDtClass:classTagValue tagName="jmx:notification" paramName="name"/></entry>
+            <entry><XDtClass:classTagValue tagName="jmx:notification" paramName="notificationType"/></entry>
+            <entry><XDtClass:classTagValue tagName="jmx:notification" paramName="description"/></entry>
+          </row>
+</XDtClass:ifHasClassTag>
+  </XDtClass:forAllClassTags>
+        </tbody>
+      </tgroup>
+    </table>
+
+    </section>
+
+</section>
+

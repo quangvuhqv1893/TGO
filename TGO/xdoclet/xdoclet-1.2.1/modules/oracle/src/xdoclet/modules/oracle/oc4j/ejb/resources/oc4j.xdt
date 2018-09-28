@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+<!DOCTYPE orion-ejb-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+<orion-ejb-jar deployment-version="<XDtConfig:configParameterValue paramName='Version'/>">
+
+   <enterprise-beans>
+
+      <!-- Session Beans deployment -->
+
+      <XDtEjbSession:forAllSessionBeans>
+        <XDtEjb:ifIsAConcreteEJBean>
+          <XDtMerge:merge file="oc4j-{0}.xml">
+            <session-deployment name="<XDtEjb:ejbName/>"                 
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="persistence-filename">persistence-filename="<XDtClass:classTagValue tagName='oc4j.bean' paramName='persistence-filename'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="timeout">timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='timeout'/>"</XDtClass:ifHasClassTag>
+              <XDtMerge:merge file="oc4j-{0}-attributes.xml"></XDtMerge:merge>
+              <XDtMerge:merge file="xdoclet/modules/oracle/oc4j/ejb/resources/oc4j-sessionentity-attributes.xdt">
+              </XDtMerge:merge>
+            >
+
+                <XDtMerge:merge file="oc4j-{0}-settings.xml"></XDtMerge:merge>
+
+                <XDtMerge:merge file="xdoclet/modules/oracle/oc4j/ejb/resources/oc4j-bean-settings.xdt">
+                </XDtMerge:merge>
+
+            </session-deployment>
+          </XDtMerge:merge>
+        </XDtEjb:ifIsAConcreteEJBean>
+      </XDtEjbSession:forAllSessionBeans>
+
+      <!-- Entity Beans deployment -->
+
+      <XDtEjbEntity:forAllEntityBeans>
+        <XDtEjb:ifIsAConcreteEJBean>
+          <XDtMerge:merge file="oc4j-{0}.xml">
+            <entity-deployment name="<XDtEjb:ejbName/>"
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="clustering-schema">clustering-schema="<XDtClass:classTagValue tagName='oc4j.bean' paramName='clustering-schema'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="data-source">data-source="<XDtClass:classTagValue tagName='oc4j.bean' paramName='data-source'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="exclusive-write-access">exclusive-write-access="<XDtClass:classTagValue tagName='oc4j.bean' paramName='exclusive-write-access' values='true,false'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="do-select-before-insert">do-select-before-insert="<XDtClass:classTagValue tagName='oc4j.bean' paramName='do-select-before-insert'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="instance-cache-timeout">instance-cache-timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='instance-cache-timeout'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="isolation">isolation="<XDtClass:classTagValue tagName='oc4j.bean' paramName='isolation' values='serializable,uncommitted,committed,repeatable_reads'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="locking-mode">locking-mode="<XDtClass:classTagValue tagName='oc4j.bean' paramName='locking-mode' values='pessimistic,optimistic,read-only,old_pessimistic'/>"</XDtClass:ifHasClassTag>              
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="max-instances-per-pk">max-instances-per-pk="<XDtClass:classTagValue tagName='oc4j.bean' paramName='max-instances-per-pk'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="min-instances-per-pk">min-instances-per-pk="<XDtClass:classTagValue tagName='oc4j.bean' paramName='min-instances-per-pk'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="update-changed-fields-only">update-changed-fields-only="<XDtClass:classTagValue tagName='oc4j.bean' paramName='update-changed-fields-only' values='true,false'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="disable-wrapper-cache">disable-wrapper-cache="<XDtClass:classTagValue tagName='oc4j.bean' paramName='disable-wrapper-cache' values='true,false'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="delay-updates-until-commit">delay-updates-until-commit="<XDtClass:classTagValue tagName='oc4j.bean' paramName='delay-updates-until-commit' values='true,false'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="ejb.persistence" paramName="table-name">table="<XDtClass:classTagValue tagName='ejb.persistence' paramName='table-name'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifDoesntHaveClassTag tagName="ejb.persistence" paramName="table-name">
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="table">table="<XDtClass:classTagValue tagName='oc4j.bean' paramName='table'/>"</XDtClass:ifHasClassTag>
+              </XDtClass:ifDoesntHaveClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="validity-timeout">validity-timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='validity-timeout'/>"</XDtClass:ifHasClassTag>
+
+              <XDtMerge:merge file="oc4j-{0}-attributes.xml"></XDtMerge:merge>
+              <XDtMerge:merge file="xdoclet/modules/oracle/oc4j/ejb/resources/oc4j-sessionentity-attributes.xdt">
+              </XDtMerge:merge> 
+              >
+
+              <XDtEjbPersistent:forAllPersistentFields>
+                <XDtMerge:merge file="xdoclet/modules/oracle/oc4j/ejb/resources/oc4j-cmp-mapping.xdt">
+                </XDtMerge:merge>
+              </XDtEjbPersistent:forAllPersistentFields>
+
+              <XDtClass:forAllClassTags tagName="ejb.finder">
+                <XDtClass:ifHasClassTag tagName="ejb.finder" paramName="oc4j-query">
+                  <finder-method<XDtClass:ifHasClassTag tagName="ejb.finder" paramName="oc4j-query-is-partial"> partial="<XDtClass:classTagValue tagName='ejb.finder' paramName='oc4j-query-is-partial' values='true,false'/>"</XDtClass:ifHasClassTag> query="<XDtClass:classTagValue tagName='ejb.finder' paramName='oc4j-query'/>">
+                    <method>
+                      <ejb-name><XDtEjb:ejbName/></ejb-name>
+                      <method-name><XDtClass:classTagValue tagName="ejb.finder" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+                      <method-params>
+                        <XDtParameter:forAllParameterTypes paramName="signature">
+                          <method-param><XDtClass:currentToken/></method-param>
+                        </XDtParameter:forAllParameterTypes>
+                      </method-params>
+                    </method>
+                  </finder-method>
+                </XDtClass:ifHasClassTag>
+              </XDtClass:forAllClassTags>
+
+              <XDtMerge:merge file="oc4j-{0}-settings.xml"></XDtMerge:merge>
+
+              <XDtMerge:merge file="xdoclet/modules/oracle/oc4j/ejb/resources/oc4j-bean-settings.xdt">
+              </XDtMerge:merge>
+
+            </entity-deployment>
+          </XDtMerge:merge>
+        </XDtEjb:ifIsAConcreteEJBean>
+      </XDtEjbEntity:forAllEntityBeans>
+
+      <!-- Message Driven Beans deployment -->
+      <XDtEjbMdb:forAllMDBeans>
+        <XDtEjb:ifIsAConcreteEJBean>
+          <XDtMerge:merge file="oc4j-{0}.xml">
+            <message-driven-deployment name="<XDtEjb:ejbName/>"
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="cache-timeout">cache-timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='cache-timeout'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="connection-factory-location">connection-factory-location="<XDtClass:classTagValue tagName='oc4j.bean' paramName='connection-factory-location'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="destination-location">destination-location="<XDtClass:classTagValue tagName='oc4j.bean' paramName='destination-location'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="max-instances">max-instances="<XDtClass:classTagValue tagName='oc4j.bean' paramName='max-instances'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="min-instances">min-instances="<XDtClass:classTagValue tagName='oc4j.bean' paramName='min-instances'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="subscription-name">subscription-name="<XDtClass:classTagValue tagName='oc4j.bean' paramName='subscription-name'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="listener-threads">listener-threads="<XDtClass:classTagValue tagName='oc4j.bean' paramName='listener-threads'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="transaction-timeout">transaction-timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='transaction-timeout'/>"</XDtClass:ifHasClassTag>
+              <XDtMerge:merge file="oc4j-{0}-attributes.xml"></XDtMerge:merge>
+            >
+
+              <XDtMerge:merge file="oc4j-{0}-settings.xml"></XDtMerge:merge>
+
+              <XDtMerge:merge file="xdoclet/modules/oracle/oc4j/ejb/resources/oc4j-bean-settings.xdt">
+              </XDtMerge:merge>
+ 
+            </message-driven-deployment>
+          </XDtMerge:merge>
+        </XDtEjb:ifIsAConcreteEJBean>
+      </XDtEjbMdb:forAllMDBeans>
+
+    </enterprise-beans>
+
+   <XDtMerge:merge file="oc4j-assembly-descriptor.xml">
+   </XDtMerge:merge>
+
+</orion-ejb-jar>

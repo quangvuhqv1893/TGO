@@ -1,0 +1,141 @@
+ /*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ * this class was prodiuced by xdoclet automagically...
+ */
+package <XDtPackage:packageOf><XDtEjbFacade:remoteFacadeClass/></XDtPackage:packageOf>;
+
+import java.util.*;
+
+/**
+ * This class is remote adapter to <XDtEjb:ejbName/>. It provides convenient way to access
+ * facade session bean. Inverit from this class to provide reasonable caching and event handling capabilities.
+ *
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="remote_facade_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/> */
+
+public class <XDtClass:classOf><XDtEjbFacade:remoteFacadeClass/></XDtClass:classOf> extends Observable
+{
+    static <XDtClass:classOf><XDtEjbFacade:remoteFacadeClass/></XDtClass:classOf> _instance = null;
+    public static <XDtClass:classOf><XDtEjbFacade:remoteFacadeClass/></XDtClass:classOf> getInstance() {
+        if(_instance == null) {
+	   _instance = new <XDtClass:classOf><XDtEjbFacade:remoteFacadeClass/></XDtClass:classOf>();
+	}
+	return _instance;
+    }
+
+  <XDtEjbIntf:ifRemoteEjb>
+  /**
+   * cached remote session interface
+   */
+  <XDtEjbIntf:componentInterface type="remote"/> _session = null;
+  </XDtEjbIntf:ifRemoteEjb>
+  /**
+   * return session bean remote interface
+   */
+   protected <XDtEjbIntf:componentInterface type="remote"/> getSession() {
+      try {
+   	if(_session == null) {
+	   _session = <XDtEjbUtilObj:utilClass/>.getHome().create();
+	}
+	return _session;
+      } catch(Exception ex) {
+        // just catch it here and return null.
+        // somebody can provide better solution
+	ex.printStackTrace();
+	return null;
+      }
+   }
+
+<XDtMethod:forAllMethods>
+   <XDtEjbIntf:ifIsInterfaceMethod superclasses="false" interface="remote">
+     <XDtMethod:ifHasMethodTag tagName="ejb.facade-method">
+     
+     <XDtMethod:ifIsNotOfType type="void">
+     	   <XDtMethod:ifMethodTagValueEquals tagName="ejb.facade-method" paramName="cache" value="true">
+	      <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+   <XDtMethod:methodType/> _<XDtMethod:methodName/>Cached;
+   boolean _<XDtMethod:methodName/>WasSet = false;		
+	      </XDtType:ifIsPrimitive>
+	      <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+   <XDtMethod:methodType/> _<XDtMethod:methodName/>Cached = null;
+	      </XDtType:ifIsNotPrimitive>
+	  </XDtMethod:ifMethodTagValueEquals>
+     </XDtMethod:ifIsNotOfType>
+     
+   public <XDtMethod:methodType/> <XDtMethod:methodName/> ( <XDtParameter:parameterList/> )
+	  <XDtMethod:exceptionList append="java.rmi.RemoteException" skip="javax.ejb.EJBException"/>
+   {
+      <XDtMethod:ifIsOfType type="void">
+      getSession().<XDtMethod:methodName/>( <XDtParameter:parameterList includeDefinition="false"/> );
+         <XDtMethod:ifMethodTagValueEquals tagName="ejb.facade-method" paramName="invalidate" value="true">
+      invalidate();
+         </XDtMethod:ifMethodTagValueEquals>
+     </XDtMethod:ifIsOfType>
+      <XDtMethod:ifIsNotOfType type="void">
+        <XDtMethod:methodType/> retval;
+         <XDtMethod:ifMethodTagValueEquals tagName="ejb.facade-method" paramName="cache" value="true">
+	    <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+        if(!_<XDtMethod:methodName/>WasSet) {
+            _<XDtMethod:methodName/>Cached =  getSession().<XDtMethod:methodName/>( <XDtParameter:parameterList includeDefinition="false"/> );
+	    _<XDtMethod:methodName/>WasSet = true;
+	}
+        retval = _<XDtMethod:methodName/>Cached;
+	    </XDtType:ifIsPrimitive>
+	    
+	    <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+ 	   synchronized(this) {
+           if(_<XDtMethod:methodName/>Cached == null) {
+                  _<XDtMethod:methodName/>Cached =  getSession().<XDtMethod:methodName/>( <XDtParameter:parameterList includeDefinition="false"/> );
+	   }
+           }
+           retval = _<XDtMethod:methodName/>Cached;
+	    </XDtType:ifIsNotPrimitive>
+	    
+	 </XDtMethod:ifMethodTagValueEquals>
+ 	 
+	 <XDtMethod:ifMethodTagValueNotEquals tagName="ejb.facade-method" paramName="cache" value="true">
+       retval =  getSession().<XDtMethod:methodName/>( <XDtParameter:parameterList includeDefinition="false"/> );
+            <XDtMethod:ifMethodTagValueEquals tagName="ejb.facade-method" paramName="invalidate" value="true">
+       invalidate();
+            </XDtMethod:ifMethodTagValueEquals>
+	 </XDtMethod:ifMethodTagValueNotEquals>
+
+
+      return retval;
+      </XDtMethod:ifIsNotOfType>
+
+
+   }
+     </XDtMethod:ifHasMethodTag >
+   </XDtEjbIntf:ifIsInterfaceMethod>
+</XDtMethod:forAllMethods>
+
+  /**
+   * override this method to provide feedback to interested objects
+   * in case collections were changed.
+   */
+  public void invalidate() {
+  
+  <XDtMethod:forAllMethods>
+   <XDtEjbIntf:ifIsInterfaceMethod superclasses="false" interface="remote">
+      <XDtMethod:ifMethodTagValueEquals tagName="ejb.facade-method" paramName="cache" value="true">
+         <XDtMethod:ifMethodTagValueNotEquals tagName="ejb.facade-method" paramName="immutable" value="true">
+	     <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+      _<XDtMethod:methodName/>WasSet = false;
+	     </XDtType:ifIsPrimitive>
+	     <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+      if(_<XDtMethod:methodName/>Cached != null) {
+          synchronized(_<XDtMethod:methodName/>Cached) {
+              _<XDtMethod:methodName/>Cached = null;
+          }
+      }
+	     </XDtType:ifIsNotPrimitive>	     
+         </XDtMethod:ifMethodTagValueNotEquals>
+      </XDtMethod:ifMethodTagValueEquals>
+   </XDtEjbIntf:ifIsInterfaceMethod>
+  </XDtMethod:forAllMethods>
+
+  	setChanged();
+	notifyObservers();
+  }
+}

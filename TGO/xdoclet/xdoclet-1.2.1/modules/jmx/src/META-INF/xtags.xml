@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- common jmx tags -->
+  <namespace>
+    <name>jmx</name>
+    <usage-description>jmx tags</usage-description>
+    <condition-description>Any class may be an mbean</condition-description>
+    <condition type="or">
+      <condition type="constructor"/>
+      <condition type="method"/>
+      <condition type="class"/>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>jmx.mbean</name>
+        <usage-description>
+           The jmx.mbean tag identifies the class as an mbean.  It can be used to
+           generate the interface for a standard mbean and the jboss specific
+           xmbean xml descriptor and service.xml file format.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>identifies the class as an mbean</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>
+             Specifies the superclass for the standard mbean interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+             Specifies the object name for mlet or it can be used as a default in an extension template.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+             Specifies a description for the mbean that can be used in mbean infos.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistPolicy</name>
+          <usage-description>
+             Specifies the persistence policy for this mbean
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>OnUpdate</option>
+                <option>NoMoreOftenThan</option>
+                <option>Never</option>
+                <option>OnTimer</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>persistPeriod</name>
+          <usage-description>
+             Specifies when the mbean state will be saved.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistLocation</name>
+          <usage-description>
+             Specifies the location for the mbean's state to be saved.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistName</name>
+          <usage-description>
+             Specifies the name to identify the mbeans saved state with.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistence-manager</name>
+          <usage-description>
+             Specifies the fully qualified class name of a persistence manager for this mbean (JBoss specific).
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>currencyTimeLimit</name>
+          <usage-description>
+             Specifies how long the mbeans state may be considered valid.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>state-action-on-update</name>
+          <usage-description>
+             Specifies what the jboss state management should do when an attribute is updated
+             on a started mbean. (jboss specific).
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>descriptor</name>
+          <usage-description>
+             Specifies an additional custom descriptor for the mbean that can be used in mbean infos.
+             To make this work as an xdoclet parameter, you need to escape the double quotes:
+             descriptor="name=\"name\" value=\"value\""
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>class</level>
+        <name>jmx.mlet-entry</name>
+        <usage-description>
+           The jmx.mlet-entry tag allows you to specify entries for a generated mlet.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>well, you need the jmx.mbean tag also.</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>archive</name>
+          <usage-description>
+             Specifies the ARCHIVE property for an mlet configuration.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>codebase</name>
+          <usage-description>
+             Specifies the path to the package for the mbean class.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>method</level>
+        <name>jmx.managed-operation</name>
+        <usage-description>
+             Defines a jmx managed operation.  This method will be included in a
+             standard mbean interface and marked as a managed operation in xmbean metadata.
+             jmx.managed-parameter tags must be used to describe the parameters.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+             The jmx.managed-operation tag can be used on any method.
+        </condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="not">
+            <condition type="tag-exists">
+              <condition-parameter>jmx.managed-attribute</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>impact</name>
+          <usage-description>
+             Specifies the impact of the operation.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>ACTION_INFO</default>
+              <options>
+                <option>ACTION</option>
+                <option>INFO</option>
+                <option>ACTION_INFO</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+             Specifies a description for the managed operation that can be used in mbean infos.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>method</level>
+        <name>jmx.managed-attribute</name>
+        <usage-description>
+             Defines a jmx managed attribute.  This method will be included in a
+             standard mbean interface and an attribute based on its name will be
+             included as a managed atribute in xmbean metadata. This must be included
+             on any getter or setter you want exposed in a standard mbean. For xmbeans,
+             the methods with these tags will be identified as the getMethod and setMethod
+             for the attribute.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+             The jmx.managed-attribute tag can be used on any method.
+        </condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="not">
+            <condition type="tag-exists">
+              <condition-parameter>jmx.managed-operation</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>access</name>
+          <usage-description>
+             Specifies the access to the managed-attribute: read-only, write-only or read-write.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>read-write</default>
+              <options>
+                <option>read-only</option>
+                <option>write-only</option>
+                <option>read-write</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+             Specifies a description for the managed attribute that can be used in mbean infos.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistPolicy</name>
+          <usage-description>
+             Specifies the persistence policy for this mbean
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>OnUpdate</option>
+                <option>NoMoreOftenThan</option>
+                <option>Never</option>
+                <option>OnTimer</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>persistPeriod</name>
+          <usage-description>
+             Specifies when the mbean state will be saved.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistLocation</name>
+          <usage-description>
+             Specifies the location for the mbean's state to be saved.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistName</name>
+          <usage-description>
+             Specifies the name to identify the mbeans saved state with.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>currencyTimeLimit</name>
+          <usage-description>
+             Specifies how long the mbeans state may be considered valid.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>state-action-on-update</name>
+          <usage-description>
+             Specifies what the jboss state management should do when an attribute is updated
+             on a started mbean. (jboss specific).
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+             Specifies the (initial) value for the managed attribute. This is
+             used in the jboss *-service.xml file and the xmbean descriptor.
+             In both cases the result is the value is set as the initial value
+             of the newly deployed mbean.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>descriptor</name>
+          <usage-description>
+             Specifies an additional custom descriptor for the mbean that can be used in mbean infos.
+             This should be of the form name="name" value="value".  To make this work as an xdoclet
+             parameter, you need to escape the double quotes: descriptor="name=\"name\" value=\"value\""
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+
+      <tag>
+        <level>constructor</level>
+        <name>jmx.managed-constructor</name>
+        <usage-description>
+             Defines a jmx managed constructor.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+             The jmx.managed-constructor tag can be used on any constructor. The jmx.managed-parameter tags are used to generate parameter descriptions.
+        </condition-description>
+        <condition type="constructor"/>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+             Specifies a description for the constructor.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>servicefile</name>
+          <usage-description>
+             If we are generating a JBoss *-service.xml file, if the * matches the parameter value this constructor will be used with the managed-parameter values provided.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>class</level>
+        <name>jmx.notification</name>
+        <usage-description>
+             Defines a jmx notification.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>
+             The jmx.notification tag can be used multiple times in any mbean.
+        </condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+             Specifies the description for the notification.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+             Specifies the name for the notification.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistPolicy</name>
+          <usage-description>
+             Specifies the persistence policy for this mbean
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>OnUpdate</option>
+                <option>NoMoreOftenThan</option>
+                <option>Never</option>
+                <option>OnTimer</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>persistPeriod</name>
+          <usage-description>
+             Specifies when the mbean state will be saved. Not sure how this applies to notifications.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistLocation</name>
+          <usage-description>
+             Specifies the location for the mbean's state to be saved. Not sure how this applies to notifications.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>persistName</name>
+          <usage-description>
+             Specifies the name to identify the mbeans saved state with. Not sure how this applies to notifications.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>currencyTimeLimit</name>
+          <usage-description>
+             Specifies how long the mbeans state may be considered valid. Not sure how this applies to notifications.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>descriptor</name>
+          <usage-description>
+             Specifies an additional custom descriptor for the mbean that can be used in mbean infos.
+             This should be of the form name="name" value="value".  To make this work as an xdoclet
+             parameter, you need to escape the double quotes: descriptor="name=\"name\" value=\"value\""
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>constructor, method</level>
+        <name>jmx.managed-parameter</name>
+        <usage-description>
+             Defines an argument for a managed operation or managed constructor.  
+             NOTE: this tag is somewhat defective in that some of the info (type) can be 
+             determined automatically and there is no check that the number of parameters 
+             or their types specified actually match the method.  You should expect the 
+             usage of this tag to change without notice.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>
+             jmx.managed-parameter tag can be used on constructors and operations with arguments. 
+        </condition-description>
+        <condition type="or">
+          <condition type="and">
+            <condition type="constructor"/>
+            <condition type="tag-exists">
+              <condition-parameter>jmx.managed-constructor</condition-parameter>
+            </condition>
+          </condition>
+          <condition type="and">
+            <condition type="method"/>
+            <condition type="tag-exists">
+              <condition-parameter>jmx.managed-operation</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+             Specifies a name for the operation or constructor argument. This can be different from the name used in java code.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+             Specifies a description for the operation or constructor argument.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+             The type of the argument.  This should be determined from the method signature.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+             A string representation of the value for the managed argument.  Only useful for constructor arguments.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+
+    </tags>
+  </namespace>
+</xdoclet>

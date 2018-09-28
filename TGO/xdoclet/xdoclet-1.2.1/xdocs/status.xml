@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>News and Status</title>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="News and Status">
+            <p>
+                This document contains the latest news and status regarding the XDoclet project.
+                It is here you'll find announcements related to XDoclet.
+            </p>
+            <subsection name="Current Status">
+                <p>                
+                    We are working on XDoclet 2. Click <a 
+                    href="http://xdoclet.codehaus.org/">here</a> for more 
+                    information. Please note that XDoclet 2 development has just 
+                    started and that it is still far from useable. 
+                </p>
+                <p>
+                    Development on the XDoclet 1.2 codebase is happening on the <code>xdoclet-all</code> module.
+                </p>
+            </subsection>
+            <subsection name="November ??, 2003 :: XDoclet 1.2 Released">
+            	<p>
+                    It's been a long time coming, but it's here at last. Over 30 bugs fixed since beta 3.
+                    For a detailed changelog, please refer to
+                    <a href="changelogs/xdoclet_1_2.html">XDoclet 1.2 Change Log</a>.
+            	</p>
+            </subsection>
+            <subsection name="October 30, 2003 :: XDoclet Shipped with MacOSX Panther XCode Developer Tools">
+            	<p>
+            		<i>I've just installed Panther and since you don't get stuff like CVS installed by default, I 
+            		decided to open up the XCode CD and install the developer tools. To my surprise there are some 
+            		Java tools tucked away including Ant, XDoclet, log4j and JBoss.</i>
+            	</p>
+            	<p>
+            		<a href="http://www.simongbrown.com/blog/2003/10/27/1067298208000.html">Simon</a> and 
+            		<a href="http://www.raibledesigns.com/page/rd/20031028#a_href_http_www_simongbrown">Matt</a> blogged about it.
+            	</p>
+            </subsection>
+            <subsection name="June 18, 2003 :: XDoclet 1.2 Beta 3 Re-released">
+                <p>
+                    Due to a packaging error in this release (XJavaDoc was not included), we decided to 
+                    re-release XDoclet 1.2 Beta 3.
+                </p>
+            </subsection>
+            <subsection name="June 13, 2003 :: XDoclet 1.2 Beta 3 Released">
+                <p>
+                    This is the last milestone towards our next big release. Over 160 bugs are fixed.
+                    For a detailed changelog, please refer to
+                    <a href="changelogs/xdoclet_1_2_beta3.html">XDoclet 1.2 Beta 3 Change Log</a>.
+                </p>
+            </subsection>
+            <subsection name="May, 2003 :: Award for Business Integration and Data Tools">
+                <p>
+                    XDoclet won the <a href="http://www.sdmagazine.com/documents/s=8241/sdm0306g/sdm0306g.html#biztools">Award
+                    for Business Integration and Data Tools</a> (SD Magazine 05/2003)!
+                </p>
+            </subsection>
+            <subsection name="April, 2003 :: TheServerSide Interviews Aslak Hellesoy on XDoclet">
+                <p>
+                    <a href="http://www.theserverside.com/resources/article.jsp?l=XdocletInterview">TheServerSide Interviews Aslak Hellesoy on XDoclet.</a>
+                </p>
+            </subsection>
+            <subsection name="January 27, 2003 :: JBoss-IDE 1.0 Alpha Released">
+                <p>
+                    <a href="http://www.jboss.org/developers/projects/jboss/jbosside.jsp">JBoss-IDE</a> is a
+                    new project with the aim to provide a world class IDE for JBoss. Features are:
+                    <ul>
+                        <li>The debugging and monitoring of JBoss servers and the controlling of there life cycles.</li>
+                        <li>A very comfortable and sophisticated support for XDoclet.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="December 28, 2002 :: XDoclet 1.2 Beta 2 Released">
+                <p>
+                    This is the second milestone towards our next big release. Over 50 bugs are fixed.
+                    For a detailed changelog, please refer to
+                    <a href="changelogs/xdoclet_1_2_beta2.html">XDoclet 1.2 Beta 2 Change Log</a>.
+                    Happy New Year 2003!
+                </p>
+            </subsection>
+            <subsection name="December 27, 2002 :: Java Development with Ant">
+                <p>
+                    Near-final release of <a href="http://www.ehatchersolutions.com/JavaDevWithAnt/">JavaDevWithAnt</a>
+                    demonstrating Ant, XDoclet, Struts, JUnit, Cactus, and Lucene. Very interesting stuff!
+                </p>
+            </subsection>
+            <subsection name="December 17, 2002 :: Using Value Objects">
+                <p>
+                    <a href="team-list.html">Marcus Brito</a> wrote a very detailed document on Value Objects.
+                    It is available <a href="valueobjects.html">here</a>.
+                </p>
+            </subsection>
+            <subsection name="December 11, 2002 :: xPetStore 2.0 Released">
+                <p>
+                    <a href="http://xpetstore.sourceforge.net/">xPetStore</a>: using XDoclet to implement
+                    Sun Microsystems' Java Pet Store J2EE BluePrint Application, this application is the
+                    ultimate example of XDoclet's power. Also uses <a href="http://jakarta.apache.org/struts/">Struts</a>
+                    and <a href="http://www.opensymphony.com/sitemesh/">SiteMesh</a>.
+                </p>
+            </subsection>
+            <subsection name="December 11, 2002 :: Hibernate Support">
+                <p>
+                    As from XDoclet 1.2 Beta 2, XDoclet <a href="tags/hibernate-tags.html">supports</a> the
+                    fantastic <a href="http://www.hibernate.org">Hibernate</a> object/relational
+                    persistence and query service for Java.
+                </p>
+            </subsection>
+            <subsection name="October 03, 2002 :: XDoclet Team starts using JIRA for Issue Tracking">
+                <p>
+                    We decided to use <a href="http://www.atlassian.com/software/jira/">JIRA</a>
+                    for issue tracking and project development. We would like to thank
+                    <a href="http://www.atlassian.com">Atlassian</a> for their support!
+                </p>
+            </subsection>
+            <subsection name="October 02, 2002 :: XDoclet 1.2 Beta 1 Released">
+                <p>
+                    This is the first milestone towards our next big release. We believe it's fit for use,
+                    but there's probably a few bugs left and the documentation still needs some work. Bug reports,
+                    as always, are welcome. For a detailed changelog, please refer to
+                    <a href="changelogs/xdoclet_1_2_beta1.html">XDoclet 1.2 Beta 1 Change Log</a>.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

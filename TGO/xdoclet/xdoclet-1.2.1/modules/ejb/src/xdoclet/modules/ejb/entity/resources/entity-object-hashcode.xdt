@@ -1,0 +1,99 @@
+      <XDtType:ifIsOfType type="boolean" value="return-type">
+      result = 37*result + (<XDtMethod:propertyName/> ? 0 : 1);
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="long" value="return-type">
+      result = 37*result + (int)(<XDtMethod:propertyName/>^(<XDtMethod:propertyName/>>>>32));
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="float" value="return-type">
+      result = 37*result + Float.floatToIntBits(<XDtMethod:propertyName/>);
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="double" value="return-type">
+      {
+         long l = Double.doubleToLongBits(<XDtMethod:propertyName/>);
+         result = 37*result + (int)(l^(l>>>32));
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="byte" value="return-type">
+      {
+         long l = <XDtMethod:propertyName/>;
+         result = 37*result + (int)(l^(l>>>32));
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="boolean[]" value="return-type">
+      if (<XDtMethod:propertyName/> != null) {
+        for (int i=0; i<<XDtMethod:propertyName/>.length; i++)
+        {
+          result = 37*result + (<XDtMethod:propertyName/>[i] ? 0 : 1);
+        }
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="long[]" value="return-type">
+      if (<XDtMethod:propertyName/> != null) {
+        for (int i=0; i<<XDtMethod:propertyName/>.length; i++)
+        {
+          result = 37*result + (int)(<XDtMethod:propertyName/>[i]^(<XDtMethod:propertyName/>[i]>>>32));
+        }
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="float[]" value="return-type">
+      if (<XDtMethod:propertyName/> != null) {
+        for (int i=0; i<<XDtMethod:propertyName/>.length; i++)
+        {
+          result = 37*result + Float.floatToIntBits(<XDtMethod:propertyName/>[i]);
+        }
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="double[]" value="return-type">
+      if (<XDtMethod:propertyName/> != null) {
+        for (int i=0; i<<XDtMethod:propertyName/>.length; i++)
+        {
+          long l = Double.doubleToLongBits(<XDtMethod:propertyName/>[i]);
+          result = 37*result + (int)(l^(l>>>32));
+        }
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsOfType type="byte[]" value="return-type">
+      if (<XDtMethod:propertyName/> != null) {
+        for (int i=0; i<<XDtMethod:propertyName/>.length; i++)
+        {
+          long l = <XDtMethod:propertyName/>[i];
+          result = 37*result + (int)(l^(l>>>32));
+        }
+      }
+      </XDtType:ifIsOfType>
+      <XDtType:ifIsPrimitiveArray value="<XDtMethod:methodType/>">
+       <XDtType:ifIsNotOfType type="boolean[]" value="return-type">
+        <XDtType:ifIsNotOfType type="long[]" value="return-type">
+         <XDtType:ifIsNotOfType type="float[]" value="return-type">
+          <XDtType:ifIsNotOfType type="double[]" value="return-type">
+          <XDtType:ifIsNotOfType type="byte[]" value="return-type">
+      if (<XDtMethod:propertyName/> != null) {
+        for (int i=0; i<<XDtMethod:propertyName/>.length; i++)
+        {
+          result = 37*result + (int) <XDtMethod:propertyName/>[i];
+        }
+      }
+          </XDtType:ifIsNotOfType>
+          </XDtType:ifIsNotOfType>
+         </XDtType:ifIsNotOfType>
+        </XDtType:ifIsNotOfType>
+       </XDtType:ifIsNotOfType>
+      </XDtType:ifIsPrimitiveArray>
+      <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+       <XDtType:ifIsNotOfType type="boolean" value="return-type">
+        <XDtType:ifIsNotOfType type="long" value="return-type">
+         <XDtType:ifIsNotOfType type="float" value="return-type">
+          <XDtType:ifIsNotOfType type="double" value="return-type">
+          <XDtType:ifIsNotOfType type="byte" value="return-type">
+           <XDtType:ifIsNotPrimitiveArray value="<XDtMethod:methodType/>">
+      result = 37*result + (int) <XDtMethod:propertyName/>;
+           </XDtType:ifIsNotPrimitiveArray>
+           </XDtType:ifIsNotOfType>
+          </XDtType:ifIsNotOfType>
+         </XDtType:ifIsNotOfType>
+        </XDtType:ifIsNotOfType>
+       </XDtType:ifIsNotOfType>
+      </XDtType:ifIsPrimitive>
+      <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+      result = 37*result + ((this.<XDtMethod:propertyName/> != null) ? this.<XDtMethod:propertyName/>.hashCode() : 0);
+      </XDtType:ifIsNotPrimitive>

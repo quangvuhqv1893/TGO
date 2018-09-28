@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+<meta charset="utf-8"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>Địa điểm</title>
+
+<!-- Bootstrap -->
+<link href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet"></link>
+<link href="../static/css/touroperator_style.css"
+	th:href="@{/css/touroperator_style.css}" rel="stylesheet"></link>
+<style>
+.pagination-centered {
+	text-align: center;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
+}
+</style>
+</head>
+<body>
+	<div id="header">
+
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div>
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<img src="../static/image/logo.png" th:src="@{/image/logo.png}"></img>
+				</div>
+				<div class="container">
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav">
+							<li><a th:href="@{/home}">Trang chủ</a></li>
+							<li><a href="#">Địa điểm</a></li>
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#">Trợ giúp</a></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"><b
+									th:text="${operator.companyNameViet}"></b><b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a th:href="@{/operator/info}">Thông tin công ty</a></li>
+									<li><a href="#">Trợ giúp</a></li>
+									<li><a href="#">Cài đặt</a></li>
+									<li class="divider"></li>
+									<li><a th:href="@{/logout}" onclick="return confirm('Bạn muốn thoát?')">Đăng xuất</a></li>
+
+								</ul></li>
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div id="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 sidebar">
+					<h3>Tìm hướng dẫn viên</h3>
+					<form th:action="@{/operator/search}" th:method="GET">
+						<div class="form-group">
+							<label for="language">Ngôn ngữ</label> 
+							<select name="language" class="form-control" >
+							<!-- <option th:value="${language}" selected="selected" th:text="${language}"></option> -->
+							<option></option>
+							<option th:each="language:${listLanguage}" th:text="${language.language}"></option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="location">Địa điểm</label> 
+							<select name="location" class="form-control">
+							<!-- <option th:value="${location}" selected="selected" th:text="${location}"></option> -->
+							<option></option>
+							<option th:each="location:${listLocation}" th:text="${location.locationName}"></option>
+							</select>
+						</div>
+					<!-- 	<label for="exampleInputPassword1">Tìm theo tên</label> 
+						<div class="form-group">	
+							<input type="text" name="guidename" placeholder=""></input>
+						</div> -->
+						<div class="form-group">
+							<div class="form-check">
+								<label for="gender">Giới tính</label>
+								<select name="gender" class="form-control">
+									<!-- <option  th:value="${gender}" selected="selected"></option> -->
+									<option></option>
+									<option value="male" >Nam</option>
+									<option value="female">Nữ</option>
+								</select>
+								<!-- <label class="form-check-label"> <input name="male" value="true" type="checkbox"
+									class="form-check-input"></input> Nam
+								</label> <label class="form-check-label"> <input name="female" value="true" type="checkbox"
+									class="form-check-input"></input> Nữ -->
+								<!-- </label> -->
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="form-check">
+								<label for="type">Loại hướng dẫn viên</label>
+								<select name="type" class="form-control">
+									<!-- <option th:value="${type1}" selected="selected"></option> -->
+									<option></option>
+									<option value="notNull"  >Hướng dẫn viên chuyên nghiệp</option>
+									<option value="NULL" >Hướng dẫn viên nghiệp dư</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- <div class="form-group">
+							<div class="radio-group">
+                                        <input type="radio" name="exp" class="radio_org" value="NOT_NULL" checked="checked"/><b>Hướng dẫn viên chuyên nghiệp</b><br/>
+                                        <input type	="radio" name="exp" class="radio_org" value="NULL"/><b>Hướng dẫn viên nghiệp dư</b>
+                                    </div>
+						</div> -->
+						<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+					</form>
+
+				</div>
+
+				<div class="col-md-9">
+					<a th:href="@{/operator}" class="btn btn-success">
+					<span class="glyphicon glyphicon-arrow-left"></span> quay lại
+					</a><br/><br/>
+
+					<th:block th:if= "${not #lists.isEmpty(listGuide)}">
+					<table class="table" style="margin-left: 100px" >
+						<thead>
+							<tr>
+								<th><b>Tên</b></th>
+								<!-- <th><b>Ngôn ngữ</b></th> -->
+								<th><b>Giới tính</b></th>
+								<th><b>Mã thẻ</b></th>
+								<th><b>Loại thẻ</b></th>
+								<th><b>Kinh nghiệm</b></th>
+							</tr>
+						</thead>
+						<tbody th:each="guide : ${listGuide}">
+							<tr >
+								
+								<td><a target="_blank" th:href="@{/operator/showGuide/(guideid=${guide.id})}" th:text="${guide.user.fullname}"></a></td>
+								<!-- <td th:each="language:${guide.languages}" th:text="${language.language}"></td> -->
+								<td th:text="${guide.gender}"></td>
+								<td th:text="${guide.cardnumber}"></td>
+								<td th:text="${guide.cardtype}"></td>
+								<td th:text="${guide.experience}"></td>
+								<td><button type="button"
+								class="btn btn-primary btn-condensed hidden" >
+								gửi yêu cầu
+							</button></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row">
+				<div class="form-group col-md-1 hidden">
+					<select class="form-control pagination" id="pageSizeSelect">
+						<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+							th:value="${pageSize}"
+							th:selected="${pageSize} == ${selectedPageSize}"></option>
+					</select>
+				</div>
+				<div th:if="${listGuide.totalPages > 1}"
+					class="form-group col-md-11 pagination-centered">
+					<ul class="pagination">
+						<li th:class="${listGuide.number == 0} ? disabled"><a
+							class="pageLink"
+							th:href="@{/operator/search/(language=${language}, location=${location},gender=${gender},type=${type}, pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+						</li>
+						<li th:class="${listGuide.number == 0} ? disabled"><a
+							class="pageLink"
+							th:href="@{/operator/search/(language=${language}, location=${location},gender=${gender},type=${type}, pageSize=${selectedPageSize}, page=${listGuide.number})}">&larr;</a>
+						</li>
+						<li
+							th:class="${listGuide.number == (page - 1)} ? 'active pointer-disabled'"
+							th:each="page : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+							<a class="pageLink"
+							th:href="@{/operator/search/(language=${language}, location=${location},gender=${gender},type=${type}, pageSize=${selectedPageSize}, page=${page})}"
+							th:text="${page}"></a>
+						</li>
+						<li
+							th:class="${listGuide.number + 1 == listGuide.totalPages} ? disabled">
+							<a class="pageLink"
+							th:href="@{/operator/search/(language=${language}, location=${location},gender=${gender},type=${type}, pageSize=${selectedPageSize}, page=${listGuide.number + 2})}">&rarr;</a>
+						</li>
+						<li
+							th:class="${listGuide.number + 1 == listGuide.totalPages} ? disabled">
+							<a class="pageLink"
+							th:href="@{/operator/search/(language=${language}, location=${location},gender=${gender},type=${type}, pageSize=${selectedPageSize}, page=${listGuide.totalPages})}">&raquo;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<p style="color: red">lưu ý*: click vào tên hdv để biết thông tin chi tiết</p>
+					</th:block>
+					<!--  <b th:if="${tour!=null}">
+					<strong>Mã tour: <b th:text="${tour.id}"></b> </strong> <br></br> <strong>Tên
+						tour: <b th:text="${tour.tourName}"></b></strong> <br></br> <br></br>
+						<strong>Địa điểm: <b th:text="${location}"></b> </strong> <br></br></b>
+					
+					<ul class="tour-guide-box" th:each="guide,iterStat:${guides}">
+						<li>
+						<form th:attr="action='/tour/operatorrequest/'+${tour.id}+'/'+${guide.id}"
+														th:method="POST">
+							<div class="container-fluid find-guider">
+								<div class="row">
+
+									<div class="col-sm-3" >
+										<a th:attr="href='/operator/'+${guide.id}"><b th:text="${iterStat.count }+') Tên hướng dẫn viên '">  </b></a> <a th:attr="href='/operator/'+${guide.id}" th:text="${guide.user.fullname}"></a>
+									</div>
+									<div class="col-sm-3" th:if="${guide.gender!=null}">
+										<a href="#"><b>Giới tính   </b></a> <b th:text="${guide.gender}"></b>
+									</div>
+									<div class="col-sm-3" >
+										<a href="#"><b>Ngôn ngữ  </b></a> <b th:each="lang:${guide.languages}" th:text="${lang.language}+'-'"></b>
+									</div>
+									<div class="col-sm-3" >
+										<a href="#"><b>Nơi hoạt động  </b></a> <b th:each="location:${guide.locations}" th:text="${location.locationName}+'-'"></b>
+									</div>
+									<div class="col-sm-2">
+										<button type="submit" class="btn btn-default">
+											Gửi yêu cầu</button>
+									</div>
+									<br></br>
+
+								</div>
+
+							</div>
+							</form> 
+						</li>
+						
+
+
+					</ul> -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="../static/js/jquery-3.2.1.min.js"
+		th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../static/js/bootstrap.min.js"
+		th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../static/js/operator.js" th:src="@{/js/operator.js}"></script>
+</body>
+</html>

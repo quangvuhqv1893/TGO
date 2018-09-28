@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+        <title>Branches and Tags</title>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Branches and Tags">
+            <p>
+                The branches are a feature of CVS that allows the development to be partitioned
+                so that one stream does not affect the other. They prove to be useful, when
+                there is a need to perform modifications that are hard to perform as a
+                consecutive gradual transitions that work well in the usual course of
+                development. When files that are depended upon by numerous other files need to
+                be substantially changed all the other would have to be modified along with
+                them. That would require that a lone developer performs all these changes in his
+                own snapshot and then checks them all in, causing the sources to leap forward.
+                As your project grows, situations arise that this is no longer possible. It's good to
+                have version control on the gradual changes as opposed to quantum-leap changes.
+                It's also important to have the larges set of eyes possible looking at the code
+                as soon as possible. On the other hand, we strive to keep XDoclet CVS tree
+                compilable and working at all times. This calls for usage of branches whenever
+                vast modifications of the sources are needed.
+            </p>
+            <p>
+                The
+                <a href="http://www.red-bean.com/cvsbook/">CVS book</a> describes multiple
+                approaches to performing development using branches. The simplest approach
+                called
+                <em>Flying Fish technique</em> will fit our needs best.
+                It involves creating a branch when there is a need for a separate thread of
+                development, and abandoning the branch once all the changes are merged with the
+                trunk.
+            </p>
+            <subsection name="Branches">
+                <p>
+                    XDoclet CVS has following branches:
+                </p>
+                <table>
+                    <tr>
+                        <th>Branch Name</th>
+                        <th>Description</th>
+                        <th>Date Branched</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>MODULE_REFACTORING_BRANCH</code>
+                        </td>
+                        <td>Module refactoring branch</td>
+                        <td>05/2002</td>
+                        <td>CLOSED</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>XDOCLET_MAVEN</code>
+                        </td>
+                        <td>Maven integration branch</td>
+                        <td>07/2002</td>
+                        <td>CLOSED</td>
+                    </tr>
+                </table>
+            </subsection>
+            <subsection name="Tags">
+                <table>
+                    <tr>
+                        <th>Tag Name</th>
+                        <th>Description</th>
+                        <th>Date Tagged</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>XDoclet-v1-2beta1</code>
+                        </td>
+                        <td>XDoclet 1.2 Beta 1 Tag</td>
+                        <td>02/10/2002</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>XDoclet-v1-2beta2</code>
+                        </td>
+                        <td>XDoclet 1.2 Beta 2 Tag (includes some small fixes not included in the distribution)</td>
+                        <td>06/01/2003</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>XDoclet-v1-2beta3</code>
+                        </td>
+                        <td>XDoclet 1.2 Beta 3 Tag (includes some small fixes not included in the distribution)</td>
+                        <td>17/06/2003</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>XDoclet-v1-2</code>
+                        </td>
+                        <td>XDoclet 1.2 Final Release tag</td>
+                        <td>24/11/2003</td>
+                    </tr>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>

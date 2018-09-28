@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+
+<!DOCTYPE pramati-j2ee-server>
+
+<pramati-j2ee-server>
+  <description><![CDATA[<XDtI18n:getString resource="generated_by_xdoclet"/>]]></description>
+  <vhost-name>default</vhost-name>
+  <ejb-module>
+    <name><XDtConfig:configParameterValue paramName="JarName"/></name>
+
+    <XDtEjb:forAllBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+     <ejb>
+      <name><XDtEjb:ejbName/></name>
+
+      <!-- max-pool-size -->
+      <XDtClass:ifHasClassTag tagName="pramati:bean" paramName="max-pool-size">
+       <max-pool-size><XDtClass:classTagValue tagName="pramati:bean" paramName="max-pool-size"/></max-pool-size>
+      </XDtClass:ifHasClassTag>
+
+      <!-- min-pool-size -->
+      <XDtClass:ifHasClassTag tagName="pramati:bean" paramName="min-pool-size">
+       <min-pool-size><XDtClass:classTagValue tagName="pramati:bean" paramName="min-pool-size"/></min-pool-size>
+      </XDtClass:ifHasClassTag>
+
+      <!-- low-activity-interval -->
+      <XDtClass:ifHasClassTag tagName="pramati:bean" paramName="low-activity-interval">
+       <low-activity-interval><XDtClass:classTagValue tagName="pramati:bean" paramName="low-activity-interval"/></low-activity-interval>
+      </XDtClass:ifHasClassTag>
+
+      <!-- is-secure -->
+      <XDtClass:ifHasClassTag tagName="pramati:bean" paramName="is-secure">
+       <is-secure><XDtClass:classTagValue tagName="pramati:bean" paramName="is-secure"/></is-secure>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifDoesntHaveClassTag tagName="pramati:bean" paramName="is-secure">
+       <is-secure>false</is-secure>
+      </XDtClass:ifDoesntHaveClassTag>
+
+      <!-- jndi-name -->
+      <jndi-name><XDtEjbHome:jndiName type="remote"/></jndi-name>
+
+      <XDtEjbSession:ifStatefulSession>
+      <!-- session-timeout -->
+      <XDtClass:ifHasClassTag tagName="pramati:bean" paramName="session-timeout">
+       <session-timeout><XDtClass:classTagValue tagName="pramati:bean" paramName="session-timeout"/></session-timeout>
+      </XDtClass:ifHasClassTag>
+      </XDtEjbSession:ifStatefulSession>
+
+      <XDtEjbEntity:ifEntity>
+      <!-- query-mapping -->
+      <XDtClass:forAllClassTags tagName="ejb:finder">
+      <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="pramati-query-name">
+       <query-mapping>
+        <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+        <query-name><XDtClass:classTagValue tagName="ejb:finder" paramName="pramati-query-name"/></query-name>
+        <XDtParameter:forAllParameterTypes paramName="signature">
+         <method-param><XDtClass:currentToken/></method-param>
+        </XDtParameter:forAllParameterTypes>
+       </query-mapping>
+      </XDtClass:ifHasClassTag>
+      </XDtClass:forAllClassTags>
+      </XDtEjbEntity:ifEntity>
+
+      <!-- ejb-ref -->
+      <XDtClass:forAllClassTags tagName="pramati:ejb-ref">
+       <ejb-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="pramati:ejb-ref" paramName="ejb-ref-name"/></ejb-ref-name>
+        <ejb-link><XDtClass:classTagValue tagName="pramati:ejb-ref" paramName="ejb-link"/></ejb-link>
+       </ejb-ref>
+      </XDtClass:forAllClassTags>
+
+      <!-- ejb-local-ref -->
+      <XDtClass:forAllClassTags tagName="pramati:ejb-local-ref">
+       <ejb-local-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="pramati:ejb-local-ref" paramName="ejb-ref-name"/></ejb-ref-name>
+        <ejb-link><XDtClass:classTagValue tagName="pramati:ejb-local-ref" paramName="ejb-link"/></ejb-link>
+       </ejb-local-ref>
+      </XDtClass:forAllClassTags>
+
+      <!-- resource-mapping -->
+      <XDtClass:forAllClassTags tagName="pramati:resource-mapping">
+       <resource-mapping>
+        <resource-name><XDtClass:classTagValue tagName="pramati:resource-mapping" paramName="resource-name"/></resource-name>
+        <resource-type><XDtClass:classTagValue tagName="pramati:resource-mapping" paramName="resource-type"/></resource-type>
+        <resource-link><XDtClass:classTagValue tagName="pramati:resource-mapping" paramName="resource-link"/></resource-link>
+       </resource-mapping>
+      </XDtClass:forAllClassTags>
+
+      <!-- resource-env-ref -->
+      <XDtClass:forAllClassTags tagName="pramati:resource-env-ref">
+       <resource-mapping>
+        <resource-env-ref-name><XDtClass:classTagValue tagName="pramati:resource-env-ref" paramName="resource-env-ref-name"/></resource-env-ref-name>
+        <resource-env-ref-type><XDtClass:classTagValue tagName="pramati:resource-env-ref" paramName="resource-env-ref-type"/></resource-env-ref-type>
+        <resource-env-ref-link><XDtClass:classTagValue tagName="pramati:resource-env-ref" paramName="resource-env-ref-link"/></resource-env-ref-link>
+       </resource-mapping>
+      </XDtClass:forAllClassTags>
+
+      <XDtEjbMdb:ifMessageDriven>
+      <!-- server-session  -->
+      <XDtClass:ifHasClassTag tagName="pramati:server-session">
+       <server-session>
+        <max-messages><XDtClass:classTagValue tagName="pramati:server-session" paramName="max-messages"/></max-messages>
+        <min-pool-size><XDtClass:classTagValue tagName="pramati:server-session" paramName="min-pool-size"/></min-pool-size>
+        <max-pool-size><XDtClass:classTagValue tagName="pramati:server-session" paramName="max-pool-size"/></max-pool-size>
+       </server-session>
+      </XDtClass:ifHasClassTag>
+
+      <!-- thread-pool -->
+      <XDtClass:ifHasClassTag tagName="pramati:thread-pool">
+       <thread-pool>
+        <min-pool-size><XDtClass:classTagValue tagName="pramati:thread-pool" paramName="min-pool-size"/></min-pool-size>
+        <max-pool-size><XDtClass:classTagValue tagName="pramati:thread-pool" paramName="max-pool-size"/></max-pool-size>
+       </thread-pool>
+      </XDtClass:ifHasClassTag>
+
+      <!-- destination-mapping <!ELEMENT destination-mapping (destination-link, conn-factory)> -->
+      <XDtClass:ifHasClassTag tagName="pramati:destination-mapping">
+       <destination-mapping>
+        <destination-link><XDtClass:classTagValue tagName="pramati:destination-mapping" paramName="destination-link"/></destination-link>
+        <conn-factory><XDtClass:classTagValue tagName="pramati:destination-mapping" paramName="conn-factory"/></conn-factory>
+       </destination-mapping>
+      </XDtClass:ifHasClassTag>
+      </XDtEjbMdb:ifMessageDriven>
+
+      <!-- run-as-principal -->
+      <XDtClass:ifHasClassTag tagName="pramati:bean" paramName="run-as-principal">
+       <run-as-principal><XDtClass:classTagValue tagName="pramati:bean" paramName="run-as-principal"/></run-as-principal>
+      </XDtClass:ifHasClassTag>
+
+     </ejb>
+    </XDtEjb:ifIsAConcreteEJBean>
+    </XDtEjb:forAllBeans>
+
+  </ejb-module>
+</pramati-j2ee-server>

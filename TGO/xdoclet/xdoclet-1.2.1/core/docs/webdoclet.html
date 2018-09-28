@@ -1,0 +1,863 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - Web</TITLE>
+<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 5.0">
+<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>&lt;webdoclet/&gt; Task</H2>
+<P>This task allows you to generate various web-related files using nested
+subtasks and template files.</P>
+<P>You don't have to deal with monolithic web.xml or taglib.tld files, you set
+the deployment meta-data per component. You don't have to worry about outdating
+deployment meta-data whenever you touch the code. The deployment meta-data is
+continuously integrated. And the whole process is, in its nature, round-trip.</P>
+<P>See <A HREF="doclet_all.html">Parameters And Nested Elements Applicable To
+All Doclet Tasks</A>.</P>
+<H3><A NAME="nested">Nested Elements</A></H3>
+<H3><A NAME="subtask_deploymentdescriptor">deploymentdescriptor</A></H3>
+<P>Creates web.xml deployment descriptor.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">xmlencoding</TD>
+    <TD VALIGN="top">The encoding of the ejb-jar.xml file.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;UTF-8&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">destdir</TD>
+    <TD VALIGN="top">Destination directory for output deployment descriptor
+      file.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is destdir parameter of
+      webdoclet task</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">mergedir</TD>
+    <TD VALIGN="top">Merge directory where webdoclet looks for files to be
+      merged with generated files.</TD>
+    <TD ALIGN="center" VALIGN="top">No, required, if the merge feature used</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">servletspec</TD>
+    <TD VALIGN="top">The version of Servlet spec webdoclet should adhere,
+      currently &quot;2.2&quot; and &quot;2.3&quot; defined. If, for example,
+      &quot;2.3&quot; specified, then webdoclet will generate Servlet
+      2.3-compatible web.xml file.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;2.3&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">smallicon</TD>
+    <TD VALIGN="top">The file name for small GIF or JPEG icon image used to
+      represent the parent element in a GUI tool.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">largeicon</TD>
+    <TD VALIGN="top">The file name for small GIF or JPEG icon image used to
+      represent the parent element in a GUI tool.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">displayname</TD>
+    <TD VALIGN="top">The display-name element contains a short name that is
+      intended to be displayed by tools. The display name need not be unique.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">description</TD>
+    <TD VALIGN="top">Provides text describing the web application. The
+      description should include any information that WAR producer wants to
+      provide to the consumer of WAR (i.e., to the Deployer). Typically, the
+      tools used by WAR consumer will display the description when processing
+      the parent element that contains the description.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">distributable</TD>
+    <TD VALIGN="top">If &quot;true&quot; indicates that this web application is
+      programmed appropriately to be deployed into a distributed servlet
+      container, &quot;false&quot; otherwise.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;true&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">contextparam nested elements</TD>
+    <TD VALIGN="top">Contains the declaration of a web application’s servlet
+      context initialization parameters. It's a nested element and has these
+      parameters:
+      <P>name: Contains the name of a parameter. Each parameter name must be
+      unique in the web application.<BR>
+      value: Contains the value of a parameter.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">sessiontimeout</TD>
+    <TD VALIGN="top">Defines the default session timeout interval for all
+      sessions created in this web application. The specified timeout must be
+      expressed in a whole number of minutes. If the timeout is 0 or less, the
+      container ensures the default behavior of sessions is never to time out.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;0&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">welcomefile nested elements</TD>
+    <TD VALIGN="top">An ordered list of welcomefile nested elements. The
+      welcomefile element contains file name to use as a default welcome file,
+      such as index.html.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">taglib nested elements</TD>
+    <TD VALIGN="top">used to describe a JSP tag library. It's a nested element
+      and has these parameters:
+      <P>uri: Describes a URI, relative to the location of the web.xml document,
+      identifying a Tag Library used in the Web Application.<BR>
+      location: the location (as a resource relative to the root of the web
+      application) where to find the Tag Libary Description file for the tag
+      library.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD>validateXml</TD>
+    <TD>Validates the generated xml file according to the DTD file contained
+      inside xdoclet.jar.</TD>
+    <TD>No, default is false</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7" height="2313">
+    <TR>
+      <TH WIDTH="20%" ALIGN="left" HEIGHT="19"><B>Merge File Name</B></TH>
+      <TH ALIGN="left" HEIGHT="19" valign="top"><B>Description</B></TH>
+      <TD VALIGN="top" HEIGHT="19"><B>Required</B></TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="209">web-settings.xml</TD>
+      <TD HEIGHT="209" valign="top">The file where you specify the global settings for the
+        web application according to the following DTD:
+        <P>&lt;!ELEMENT icon (small-icon?, large-icon?)&gt;<BR>
+        &lt;!ELEMENT small-icon (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT large-icon (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT display-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT distributable EMPTY&gt;<BR>
+        &lt;!ELEMENT context-param (param-name, param-value, description?)&gt;<BR>
+        &lt;!ELEMENT param-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT param-value (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="209">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="114">filter-mappingss.xml</TD>
+      <TD HEIGHT="114" valign="top">The file where filter-mappings are defined according to
+        the following DTD:
+        <P DIR="ltr">&lt;!ELEMENT filter-mapping (filter-name, (url-pattern |
+        servlet-name))&gt;<BR>
+        &lt;!ELEMENT filter-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT servlet-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT url-pattern (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="114">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="133">web-sec-rolerefs-{0}.xml</TD>
+      <TD HEIGHT="133" valign="top">The file where per servlet security role-refs are defined
+        according to the following DTD. {0}designates the servlet class name.
+        <P>&lt;!ELEMENT security-role-ref (description?, role-name,
+        role-link)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT role-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT role-link (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="133">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="95">servlet-mappings.xml</TD>
+      <TD HEIGHT="95" valign="top">The file where servlet mappings are defined according to
+        the following DTD:
+        <P>&lt;!ELEMENT servlet-mapping (servlet-name, url-pattern)&gt;<BR>
+        &lt;!ELEMENT servlet-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT url-pattern (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="95">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="95">mime-mappings.xml</TD>
+      <TD HEIGHT="95" valign="top">The file where mime type mapping are defined according to
+        the following DTD:
+        <P>&lt;!ELEMENT mime-mapping (extension, mime-type)&gt;<BR>
+        &lt;!ELEMENT extension (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT mime-type (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="95">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="114">error-pages.xml</TD>
+      <TD HEIGHT="114" valign="top">The file where error pages are defined according to the
+        following DTD:
+        <P>&lt;!ELEMENT error-page ((error-code | exception-type), location)&gt;<BR>
+        &lt;!ELEMENT error-code (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT exception-type (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT location (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="114">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="98">taglibs.xml</TD>
+      <TD HEIGHT="98" valign="top">The file where taglibs are defined according to the
+        following DTD:
+        <P>&lt;!ELEMENT taglib (taglib-uri, taglib-location)&gt;<BR>
+        &lt;!ELEMENT taglib-uri (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT taglib-location (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="98">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="114">ejb-resourcerefs-{0}.xml</TD>
+      <TD HEIGHT="114" valign="top">The file where EJB resource references are defined for
+        the servlet or filter according to the following DTD:
+        <P>&lt;!ELEMENT resource-env-ref (description?, resource-env-ref-name,
+        resource-env-ref-type)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT resource-env-ref-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT resource-env-ref-type (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="114">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="285">web-security.xml</TD>
+      <TD HEIGHT="285" valign="top">The file where security settings for the web application
+        are defined according to the following DTD:
+        <P>&lt;!ELEMENT security-constraint (display-name?,
+        web-resource-collection+, auth-constraint?, user-data-constraint?)&gt;<BR>
+        &lt;!ELEMENT web-resource-collection (web-resource-name, description?,
+        url-pattern*, http-method*)&gt;<BR>
+        &lt;!ELEMENT web-resource-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT url-pattern (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT http-method (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT user-data-constraint (description?,
+        transport-guarantee)&gt;<BR>
+        &lt;!ELEMENT transport-guarantee (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT login-config (auth-method?, realm-name?,
+        form-login-config?)&gt;<BR>
+        &lt;!ELEMENT auth-method (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT realm-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT form-login-config (form-login-page, form-error-page)&gt;<BR>
+        &lt;!ELEMENT form-login-page (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT form-error-page (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="285">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="95">web-sec-roles.xml</TD>
+      <TD HEIGHT="95" valign="top">The file where security role names for the web application
+        are defined according to the following DTD:
+        <P>&lt;!ELEMENT security-role (description?, role-name)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT role-name (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="95">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="152">web-env-entries-{0}.xml</TD>
+      <TD HEIGHT="152" valign="top">The file where environment entries for the servlet or
+        filter are defined according to the following DTD. {0}designates the
+        servlet or filter class name.
+        <P>&lt;!ELEMENT env-entry (description?, env-entry-name,
+        env-entryvalue?, env-entry-type)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT env-entry-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT env-entry-value (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT env-entry-type (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="152">No</TD>
+    </TR>
+    <TR>
+      <TD HEIGHT="190">web-ejbrefs-{0}.xml</TD>
+      <TD HEIGHT="190" valign="top">The file where EJB refrences for the servlet or filter
+        are defined according to the following DTD. {0}designates the servlet or
+        filter class name.
+        <P>&lt;!ELEMENT ejb-ref (description?, ejb-ref-name, ejb-ref-type, home,
+        remote, ejb-link?)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT ejb-ref-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT ejb-ref-type (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT home (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT remote (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT ejb-link (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="190">No</TD>
+    </TR>
+    <tr>
+      <TD HEIGHT="190">web-ejbrefs-local-{0}.xml</TD>
+      <TD HEIGHT="190" valign="top">The file where local EJB references for the servlet or
+        filter are defined according to the following DTD. {0}designates the
+        servlet or filter class name. Applicable only to 2.3+ versions of
+        Servlet specification.
+        <P>&lt;!ELEMENT ejb-local-ref (description?, ejb-ref-name, ejb-ref-type,
+        local-home, local, ejb-link?)&gt;<BR>
+        &lt;!ELEMENT description (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT ejb-ref-name (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT ejb-ref-type (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT local-home (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT local (#PCDATA)&gt;<BR>
+        &lt;!ELEMENT ejb-link (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top" HEIGHT="190">No</TD>
+    </tr>
+    <TR>
+      <TD>welcomefiles.xml</TD>
+      <TD valign="top">Specify welcome files in this file according to the
+      following DTD, alternatively you can also use &lt;welcomeFiles/&gt; nested
+      element.<P>&lt;!ELEMENT welcome-file-list (welcome-file+)&gt;<br>
+      &lt;!ELEMENT welcome-file (#PCDATA)&gt;</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD height="19">servlets.xml</TD>
+      <TD valign="top" height="19">Specify other servlets in this files.</TD>
+      <TD ALIGN="center" VALIGN="top" height="19">No</TD>
+    </TR>
+    <TR>
+      <TD height="19">filters.xml</TD>
+      <TD valign="top" height="19">Specify other filters in this files.</TD>
+      <TD ALIGN="center" VALIGN="top" height="19">No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<P>Remember you should preserve the package directory structure in mergedir. If
+the bean is test.bank.AccountBean then ejb-env-entries-Account.xml should be
+located at test/bank directory in mergedir.</P>
+<H3><A NAME="subtask_jsptaglib">jsptaglib</A></H3>
+<P>Creates taglib.tld deployment descriptor.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">xmlencoding</TD>
+    <TD VALIGN="top">The encoding of the taglib.tld file.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;UTF-8&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">destdir</TD>
+    <TD VALIGN="top">Destination directory for output deployment descriptor
+      file.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is destdir parameter of
+      webdoclet task</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">mergedir</TD>
+    <TD VALIGN="top">Merge directory where webdoclet looks for files to be
+      merged with generated files.</TD>
+    <TD ALIGN="center" VALIGN="top">No, required, if the merge feature used</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">taglibversion</TD>
+    <TD VALIGN="top">The taglib version.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;1.0&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">jspversion</TD>
+    <TD VALIGN="top">The version of JSP spec webdoclet should adhere, currently
+      &quot;1.2&quot; and &quot;1.1&quot; defined. If, for example,
+      &quot;1.2&quot; specified, then webdoclet will generate JSP 1.2-compatible
+      taglib.tld file.</TD>
+    <TD ALIGN="center" VALIGN="top">No, default is &quot;1.2&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">smallicon</TD>
+    <TD VALIGN="top">The file name for small GIF or JPEG icon image used to
+      represent the parent element in a GUI tool.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">largeicon</TD>
+    <TD VALIGN="top">The file name for small GIF or JPEG icon image used to
+      represent the parent element in a GUI tool.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">displayname</TD>
+    <TD VALIGN="top">The display-name element contains a short name that is
+      intended to be displayed by tools. The display name need not be unique.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">description</TD>
+    <TD VALIGN="top">Provides text describing the web application. The
+      description should include any information that JSP producer wants to
+      provide to the consumer of tag library.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+  <TR>
+    <TD>validateXml</TD>
+    <TD>Validates the generated xml file according to the DTD file contained
+      inside xdoclet.jar.</TD>
+    <TD>No, default is false</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+    <TR>
+      <TH WIDTH="20%" ALIGN="left" HEIGHT="19"><B>Merge File Name</B></TH>
+      <TH ALIGN="left" HEIGHT="19"><B>Description</B></TH>
+      <TD VALIGN="top" HEIGHT="19"><B>Required</B></TD>
+    </TR>
+    <TR>
+      <TD>taglib-settings.xml</TD>
+      <TD>The file where you specify the global settings for the tag library
+        according to the following DTD:<FONT FACE="Arial" SIZE="2">
+        <P ALIGN="LEFT">&lt;!ELEMENT tlib-version (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT jsp-version (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT short-name (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT uri (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT display-name (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT small-icon (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT large-icon (#PCDATA) &gt;<BR>
+        &lt;!ELEMENT description(#PCDATA) &gt;</FONT></TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD>taglib-validator.xml</TD>
+      <TD>The file where custom validators can be included.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD>taglib-listener.xml</TD>
+      <TD>The file where custom listeners can be included.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD>taglib-tag.xml</TD>
+      <TD>The file where custom tags can be included.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<P>Remember you should preserve the package directory structure in mergedir. If
+the bean is test.bank.AccountBean then ejb-env-entries-Account.xml should be
+located at test/bank directory in mergedir.</P>
+<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+<H4><A NAME="web_filter">@web:filter</A></H4>
+<P>Declares the class as a Filter class, with the specified <I>name</I>, <I>display-name</I>,
+<I>icon</I> and <I>description</I>. Applicable to Servlet 2.3 only.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[name]</I>: String</TD>
+    <TD>The name for the filter. Unique within the application.</TD>
+  </TR>
+  <TR>
+    <TD><I>[display-name]</I>: String</TD>
+    <TD>The display name of the filter.</TD>
+  </TR>
+  <TR>
+    <TD><I>[icon]</I>: String</TD>
+    <TD>The icon for the filter.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>A description for the filter.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_filter-init-param">@web:filter-init-param</A></H4>
+<P>Declares init parameters for the Filter with the specified parameter <I>name</I>,
+<I>value</I> and <I>description</I>. Applicable to Servlet 2.3 only.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the init parameter.</TD>
+  </TR>
+  <TR>
+    <TD><I>[value]</I>: String</TD>
+    <TD>The value for the parameter.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description of the parameter.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_filter-mapping">@web:filter-mapping</A></H4>
+<P>Defines the mapping for the Filter. Either <I>url-pattern</I> or <I>servlet-name</I>
+should be specified. Applicable to Servlet 2.3 only.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[url-pattern]</I>: String</TD>
+    <TD>The url pattern the filter should match.</TD>
+  </TR>
+  <TR>
+    <TD><I>[servlet-name]</I>: String</TD>
+    <TD>The servlet name for the filter.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_servlet">@web:servlet</A></H4>
+<P>Declares the class as a Servlet class, with the specified <I>name</I>, <I>display-name</I>,
+<I>icon</I> and <I>description</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the servlet - unique within the application.</TD>
+  </TR>
+  <TR>
+    <TD><I>[display-name]</I>: String</TD>
+    <TD>An optional display name for the servlet.</TD>
+  </TR>
+  <TR>
+    <TD><I>[icon]</I>: String<I></I></TD>
+    <TD>An optional icon for the servlet.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the servlet.</TD>
+  </TR>
+  <TR>
+    <TD><I>[load-on-startup]</I>: String</TD>
+    <TD>The optional load-on-startup value.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_servlet-init-param">@web:servlet-init-param</A></H4>
+<P>Declares init parameters for the Servlet with the specified parameter <I>name</I>,
+<I>value</I> and <I>description</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the servlet init parameter.</TD>
+  </TR>
+  <TR>
+    <TD><I>value</I>: String</TD>
+    <TD>The value of the servlet init parameter.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the servlet parameter.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_servlet-mapping">@web:servlet-mapping</A></H4>
+<P>Defines the mapping for the Servlet to the specified <I>url-pattern</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>url-pattern</I>: String</TD>
+    <TD>A url pattern for the servlet to match.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_security-role-ref">@web:security-role-ref</A></H4>
+<P>Defines a security role reference with the name <I>role-name</I> to a
+security role link named <I>role-link</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>role-name</I>: String</TD>
+    <TD>The name of the role reference.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[role-link]</I>: String</TD>
+    <TD>The name of the role link.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_resource-env-ref">@web:resource-env-ref</A></H4>
+<P>Defines a resource environment reference with the specified <I>name</I>, <I>type</I>
+and <I>description</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the resource environment refernece.</TD>
+  </TR>
+  <TR>
+    <TD><I>type</I>: String</TD>
+    <TD>The type of the referenced resource.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description of the resource reference.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_resource-ref">@web:resource-ref</A></H4>
+<P>Defines a resource reference with the specified <I>name</I>, <I>type</I>, <I>description</I>,
+authentication (<I>auth</I>) and <I>scope</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the resource reference.</TD>
+  </TR>
+  <TR>
+    <TD><I>type</I>: String</TD>
+    <TD>The type of the referenced resource.</TD>
+  </TR>
+  <TR>
+    <TD><I>auth</I>: &quot;Application&quot; | &quot;Container&quot;</TD>
+    <TD>The authentication for the resource.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the resource reference.</TD>
+  </TR>
+  <TR>
+    <TD><I>[scope]</I>: &quot;Shareable&quot; | &quot;Unshareable&quot;</TD>
+    <TD>The scope of the resource.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_security-role">@web:security-role</A></H4>
+<P>Defines a security role with the specified <I>role-name</I> and <I>description</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>role-name</I>: String</TD>
+    <TD>The role name.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>The description of the role.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_env-entry">@web:env-entry</A></H4>
+<P>Defines a environment entry with the specified <I>name</I>, <I>type</I> and <I>value</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the env-entry.</TD>
+  </TR>
+  <TR>
+    <TD><I>type</I>: String</TD>
+    <TD>The type of the env-entry.</TD>
+  </TR>
+  <TR>
+    <TD><I>[value]</I>: String</TD>
+    <TD>The value of the env-entry.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_ejb-ref">@web:ejb-ref</A></H4>
+<P>Defines a remote EJB reference with the specified <I>name</I>, <I>type</I>, <I>home</I>
+interface name, <I>remote</I> interface name, <I>link</I> name, and <I>description</I>.
+The value of the <I>link</I> parameter must be the ejb-name of an enterprise
+bean in the same J2EE application unit.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name or the ejb reference.</TD>
+  </TR>
+  <TR>
+    <TD><I>type</I>: String</TD>
+    <TD>The expected type of the referenced enterprise bean. Must be one of the
+      following: Entity or Session.</TD>
+  </TR>
+  <TR>
+    <TD><I>home</I>: String</TD>
+    <TD>The home interface of the referenced ejb.</TD>
+  </TR>
+  <TR>
+    <TD><I>remote</I>: String<BR>
+    <TD>The remote interface of the referenced ejb.</TD>
+  </TR>
+  <TR>
+    <TD><I>[link]</I>: String</TD>
+    <TD>The link to the EJB.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the ejb-ref.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="web_ejb-local-ref">@web:ejb-local-ref</A></H4>
+<P>Defines a local EJB reference with the specified <I>name</I>, <I>type</I>, <I>home</I>
+interface name, <I>local</I> interface name, <I>link</I> name, and <I>description</I>.
+The value of the <I>link</I> parameter must be the ejb-name of an enterprise
+bean in the same J2EE application unit.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the ejb-local-ref.</TD>
+  </TR>
+  <TR>
+    <TD><I>type</I>: String</TD>
+    <TD>The expected type of the referenced enterprise bean. Must be one of the
+      following: Entity or Session.</TD>
+  </TR>
+  <TR>
+    <TD><I>home</I>: String</TD>
+    <TD>The local home interface of the ejb ref.</TD>
+  </TR>
+  <TR>
+    <TD><I>local</I>: String</TD>
+    <TD>The local interface of the referenced ejb.</TD>
+  </TR>
+  <TR>
+    <TD><I>[link]</I>: String</TD>
+    <TD>The link to the ejb.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the ejb-ref</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jsp_validator-init-param">@jsp:validator-init-param</A></H4>
+<P>Declares init parameters for the Validator with the specified parameter <I>name</I>,
+<I>value</I> and <I>description</I>.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the validator init param.</TD>
+  </TR>
+  <TR>
+    <TD><I>value</I>: String</TD>
+    <TD>The value of the validator init param</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the validator.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jsp_tag">@jsp:tag</A></H4>
+<P>Declares the class as a class implementing a JSP tag and specifies various
+properties of that tag.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>The name of the JSP tag.</TD>
+  </TR>
+  <TR>
+    <TD><I>[tei-class]</I>: String</TD>
+    <TD>The tei class for the JSP.</TD>
+  </TR>
+  <TR>
+    <TD><I>[body-content]</I>: &quot;JSP&quot; | &quot;empty&quot; |
+      &quot;tagdependent&quot;</TD>
+    <TD>The body content field for the tag.</TD>
+  </TR>
+  <TR>
+    <TD><I>[display-name]</I>: String</TD>
+    <TD>An optional display name for the tag.</TD>
+  </TR>
+  <TR>
+    <TD><I>[small-icon]</I>: String</TD>
+    <TD>An optional small icon for the tag.</TD>
+  </TR>
+  <TR>
+    <TD><I>[large-icon]</I>: String</TD>
+    <TD>An optional large icon for the tag.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description for the tag.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jsp_variable">@jsp:variable</A></H4>
+<P>Declares a JSP tag variable and information on the scripting variables
+defined.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[name-given]</I>: String</TD>
+    <TD>The variable name as a constant.</TD>
+  </TR>
+  <TR>
+    <TD><I>[name-from-attribute]</I>: String</TD>
+    <TD>The name of an attribute whose (translation time) value will give the
+      name of the variable. One of name-given or name-from-attribute is
+      required.</TD>
+  </TR>
+  <TR>
+    <TD><I>[class]</I>: String</TD>
+    <TD>Name of the class of the variable. java.lang.String is default.</TD>
+  </TR>
+  <TR>
+    <TD><I>[declare]</I>: boolean</TD>
+    <TD>Whether the variable is declared or not. True is the default.</TD>
+  </TR>
+  <TR>
+    <TD><I>[scope]</I>: &quot;NESTED&quot; | &quot;AT_BEGIN&quot; |
+      &quot;AT_END&quot;</TD>
+    <TD>The scope of the scripting variable defined. NESTED is default.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description of the variable.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jsp_attribute">@jsp:attribute</A></H4>
+<P>Declares the specified field a JSP tag attribute. This tag should be placed
+on getter methods.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[required]</I>: boolean</TD>
+    <TD>Whether the attribute is required.</TD>
+  </TR>
+  <TR>
+    <TD><I>[rtexprvalue]</I>: boolean</TD>
+    <TD>Whether the attribute is a runtime attribute.</TD>
+  </TR>
+  <TR>
+    <TD><I>[type]</I>: String</TD>
+    <TD>The type of the attribute.</TD>
+  </TR>
+  <TR>
+    <TD><I>[description]</I>: String</TD>
+    <TD>An optional description of the attribute.</TD>
+  </TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+<!DOCTYPE sun-cmp-mappings PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<!-- <XDtI18n:getString resource="generated_by_xdoclet"/> -->
+
+<sun-cmp-mappings>
+<XDtComment:comment>
+* In theory, the file could contain a number of mappings, to different schemas.
+* For now, we'll just assume there's only one.
+</XDtComment:comment>
+    <sun-cmp-mapping>
+        <schema><XDtConfig:configParameterValue paramName="CmpSchema"/></schema>
+<XDtEjb:forAllBeans>
+<XDtEjb:ifIsAConcreteEJBean>
+<XDtEjbEntity:ifEntity>
+<XDtEjbCmp:ifEntityIsCmp>
+        <entity-mapping>
+            <ejb-name><XDtEjb:ejbName/></ejb-name>
+            <table-name><XDtClass:classTagValue tagName="ejb.persistence" paramName="table-name"/></table-name>
+<XDtEjbCmp:forAllCmpFields>
+            <cmp-field-mapping>
+                <field-name><XDtMethod:propertyName/></field-name>
+                <column-name><XDtMethod:methodTagValue tagName="ejb.persistence" paramName="column-name"/></column-name>
+<XDtMethod:ifMethodTagValueEquals tagName="ejb.persistence" paramName="read-only" value="true">
+                <read-only/>
+</XDtMethod:ifMethodTagValueEquals>
+<XDtMethod:ifHasMethodTag tagName="sunone.fetched-with">
+                <fetched-with>
+<XDtMethod:ifHasMethodTag tagName="sunone.fetched-with" paramName="level">
+                    <level><XDtMethod:methodTagValue tagName="sunone.fetched-with" paramName="level"/></level>
+</XDtMethod:ifHasMethodTag>
+<XDtMethod:ifHasMethodTag tagName="sunone.fetched-with" paramName="named-group">
+                    <named-group><XDtMethod:methodTagValue tagName="sunone.fetched-with" paramName="named-group"/></named-group>
+</XDtMethod:ifHasMethodTag>
+<XDtMethod:ifMethodTagValueEquals tagName="sunone.fetched-with" paramName="none" value="true">
+                    <none/>
+</XDtMethod:ifMethodTagValueEquals>
+                </fetched-with>
+</XDtMethod:ifHasMethodTag>
+            </cmp-field-mapping>
+</XDtEjbCmp:forAllCmpFields>
+<XDtEjbRel:ifHasRelationships>
+<XDtEjbRel:forAllRelationships>
+<XDtEjbRel:ifLeftNavigable>
+            <cmr-field-mapping>
+                <cmr-field-name><XDtEjbRel:leftFieldName/></cmr-field-name>
+<XDtMethod:forAllMethodTags tagName="sunone.relation">
+                <column-pair>
+                    <column-name><XDtMethod:methodTagValue tagName="sunone.relation" paramName="column"/></column-name>
+                    <column-name><XDtMethod:methodTagValue tagName="sunone.relation" paramName="target"/></column-name>
+                </column-pair>
+</XDtMethod:forAllMethodTags>
+<XDtMethod:ifHasMethodTag tagName="sunone.fetched-with">
+                <fetched-with>
+<XDtMethod:ifHasMethodTag tagName="sunone.fetched-with" paramName="level">
+                    <level><XDtMethod:methodTagValue tagName="sunone.fetched-with" paramName="level"/></level>
+</XDtMethod:ifHasMethodTag>
+<XDtMethod:ifHasMethodTag tagName="sunone.fetched-with" paramName="named-group">
+                    <named-group><XDtMethod:methodTagValue tagName="sunone.fetched-with" paramName="named-group"/></named-group>
+</XDtMethod:ifHasMethodTag>
+<XDtMethod:ifMethodTagValueEquals tagName="sunone.fetched-with" paramName="none" value="true">
+                    <none/>
+</XDtMethod:ifMethodTagValueEquals>
+                </fetched-with>
+</XDtMethod:ifHasMethodTag>
+            </cmr-field-mapping>
+</XDtEjbRel:ifLeftNavigable>
+</XDtEjbRel:forAllRelationships>
+</XDtEjbRel:ifHasRelationships>
+
+<XDtComment:comment>
+* The secondary-table element is not currently supported
+</XDtComment:comment>
+<XDtClass:ifHasClassTag tagName="sunone.consistency">
+            <consistency>
+<XDtClass:ifClassTagValueEquals tagName="sunone.consistency" paramName="none" value="true">
+                <none/>
+</XDtClass:ifClassTagValueEquals>
+<XDtClass:ifClassTagValueEquals tagName="sunone.consistency" paramName="check-modified-at-commit" value="true">
+                <check-modified-at-commit/>
+</XDtClass:ifClassTagValueEquals>
+<XDtClass:ifClassTagValueEquals tagName="sunone.consistency" paramName="lock-when-loaded" value="true">
+                <lock-when-loaded/>
+</XDtClass:ifClassTagValueEquals>
+<XDtComment:comment>
+* the order of these last two is significant, as they may be used together (the only ones which can)
+</XDtComment:comment>
+<XDtClass:ifClassTagValueEquals tagName="sunone.consistency" paramName="lock-when-modified" value="true">
+                <lock-when-modified/>
+</XDtClass:ifClassTagValueEquals>
+<XDtClass:ifClassTagValueEquals tagName="sunone.consistency" paramName="check-all-at-commit" value="true">
+                <check-all-at-commit/>
+</XDtClass:ifClassTagValueEquals>
+            </consistency>
+</XDtClass:ifHasClassTag>
+        </entity-mapping>
+</XDtEjbCmp:ifEntityIsCmp>
+</XDtEjbEntity:ifEntity>
+</XDtEjb:ifIsAConcreteEJBean>
+</XDtEjb:forAllBeans>
+    </sun-cmp-mapping>
+</sun-cmp-mappings>

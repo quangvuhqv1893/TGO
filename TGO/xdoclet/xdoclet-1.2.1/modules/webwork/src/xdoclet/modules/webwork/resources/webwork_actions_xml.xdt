@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<actions>
+<XDtMerge:merge file="Action.xml">
+</XDtMerge:merge>
+<XDtClass:forAllClasses type="webwork.action.Action">
+	<XDtClass:forAllClassTags tagName="webwork:action"><action name="<XDtClass:fullClassName />" alias="<XDtClass:classTagValue tagName="webwork:action" paramName="name" />">
+		<XDtClass:ifHasClassTag tagName="webwork:action" paramName="success"><view name="success"><XDtClass:classTagValue tagName="webwork:action" paramName="success" /></view></XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="webwork:action" paramName="error"><view name="error"><XDtClass:classTagValue tagName="webwork:action" paramName="error" /></view></XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="webwork:action" paramName="input"><view name="input"><XDtClass:classTagValue tagName="webwork:action" paramName="input" /></view></XDtClass:ifHasClassTag>
+		<XDtClass:forAllClassTags tagName="webwork:view"><view name="<XDtClass:classTagValue tagName="webwork:view" paramName="name" />"><XDtClass:classTagValue tagName="webwork:view" paramName="value" /></view>
+		</XDtClass:forAllClassTags>
+<XDtMethod:forAllMethods>
+<XDtMethod:forAllMethodTags tagName="webwork:command">
+		<command name="<XDtWebWork:commandName/>">
+			<XDtMethod:ifHasMethodTag tagName="webwork:command" paramName="success"><view name="success"><XDtMethod:methodTagValue tagName="webwork:command" paramName="success" /></view></XDtMethod:ifHasMethodTag >
+			<XDtMethod:ifHasMethodTag tagName="webwork:command" paramName="error"><view name="error"><XDtMethod:methodTagValue tagName="webwork:command" paramName="error" /></view></XDtMethod:ifHasMethodTag >
+			<XDtMethod:ifHasMethodTag tagName="webwork:command" paramName="input"><view name="input"><XDtMethod:methodTagValue tagName="webwork:command" paramName="input" /></view></XDtMethod:ifHasMethodTag >
+			<XDtMethod:forAllMethodTags tagName="webwork:view"><view name="<XDtMethod:methodTagValue tagName="webwork:view" paramName="name" />"><XDtMethod:methodTagValue tagName="webwork:view" paramName="value" /></view>
+			</XDtMethod:forAllMethodTags>
+		</command>
+</XDtMethod:forAllMethodTags>
+</XDtMethod:forAllMethods>
+	</action>
+</XDtClass:forAllClassTags>
+</XDtClass:forAllClasses>
+</actions>

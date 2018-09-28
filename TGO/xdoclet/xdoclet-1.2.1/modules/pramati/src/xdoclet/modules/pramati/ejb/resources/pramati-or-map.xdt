@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+
+<!DOCTYPE or-mapping>
+
+<or-mapping>
+  <ejb-jar>
+    <jar-name><XDtConfig:configParameterValue paramName="JarName"/></jar-name>
+    <datasource/>
+
+    <XDtEjb:forAllBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+    <XDtEjbCmp:ifEntityIsCmp>
+     <ejb>
+      <!-- concurrency-type -->
+      <concurrency-type>pessimistic-concurrency</concurrency-type>
+
+      <!-- exclusion-type -->
+      <XDtClass:ifHasClassTag tagName="pramati:persistence" paramName="exclusion-type">
+       <exclusion-type><XDtClass:classTagValue tagName="pramati:persistence" paramName="exclusion-type"/></exclusion-type>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifDoesntHaveClassTag tagName="pramati:persistence" paramName="exclusion-type">
+       <exclusion-type>exclusive</exclusion-type>
+      </XDtClass:ifDoesntHaveClassTag>
+
+      <!-- ejb-name -->
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+
+      <!-- datasource-name -->
+      <XDtClass:ifHasClassTag tagName="ejb:persistence" paramName="datasource">
+       <datasource-name><XDtClass:classTagValue tagName="ejb:persistence" paramName="datasource"/></datasource-name>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifDoesntHaveClassTag tagName="ejb:persistence" paramName="datasource">
+       <datasource-name><XDtConfig:configParameterValue paramName="Datasource"/></datasource-name>
+      </XDtClass:ifDoesntHaveClassTag>
+
+      <!-- table-name -->
+      <table-name><XDtClass:classTagValue tagName="ejb:persistence" paramName="table-name"/></table-name>
+
+      <!-- field-mapping -->
+      <XDtEjbPersistent:forAllPersistentFields>
+       <XDtMethod:ifHasMethodTag tagName="ejb.persistence">
+        <field-mapping>
+         <cmp-field><XDtMethod:propertyName/></cmp-field>
+         <db-field><XDtMethod:methodTagValue tagName="ejb.persistence" paramName="column-name"/></db-field>
+        </field-mapping>
+       </XDtMethod:ifHasMethodTag>
+      </XDtEjbPersistent:forAllPersistentFields>
+
+      <!-- deferred-key -->
+      <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+       <XDtMethod:ifHasMethodTag tagName="ejb.persistence">
+        <deferred-key>
+         <db-field><XDtMethod:methodTagValue tagName="ejb.persistence" paramName="column-name"/></db-field>
+        </deferred-key>
+       </XDtMethod:ifHasMethodTag>
+      </XDtEjbPersistent:forAllPersistentFields>
+
+     </ejb>
+    </XDtEjbCmp:ifEntityIsCmp>
+    </XDtEjb:ifIsAConcreteEJBean>
+    </XDtEjb:forAllBeans>
+
+    </ejb-jar>
+</or-mapping>

@@ -1,0 +1,50 @@
+   private static <XDtEjbDao:daoClass/> dao = null;
+
+   protected static synchronized <XDtEjbDao:daoClass/> getDao()
+   {
+      if (dao != null) {
+         return dao;
+      } else {
+<XDtClass:ifHasClassTag tagName="ejb.dao" paramName="impl-class">
+         dao = (<XDtEjbDao:daoClass/>) new <XDtClass:classTagValue tagName="ejb.dao" paramName="impl-class"/>();
+</XDtClass:ifHasClassTag>
+<XDtClass:ifDoesntHaveClassTag tagName="ejb.dao" paramName="impl-class">
+<XDtClass:ifHasClassTag tagName="ejb.dao" paramName="impl-jndi">
+         try{
+            javax.naming.InitialContext ctx = new javax.naming.InitialContext();
+            Object ref = ctx.lookup("java:comp/env/<XDtClass:classTagValue tagName="ejb.dao" paramName="impl-jndi"/>");
+            String daoStr = (String) javax.rmi.PortableRemoteObject.narrow(ref, String.class);
+            dao = (<XDtEjbDao:daoClass/>) Class.forName(daoStr).newInstance();
+         } catch (javax.naming.NamingException e) {
+            throw new IllegalStateException("<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="DAO_IMPL_JNDI_NOT_SPECIFIED" arguments="<XDtClass:classTagValue tagName='ejb.dao' paramName='impl-jndi'/>"/>: " + e.getLocalizedMessage());
+         } catch (Exception e) {
+            throw new IllegalStateException("<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="DAO_JNDI_EXCEPTION" arguments="<XDtClass:classTagValue tagName='ejb.dao' paramName='impl-jndi'/>"/>: " + e.getLocalizedMessage());
+         }
+</XDtClass:ifHasClassTag>
+<XDtClass:ifDoesntHaveClassTag tagName="ejb.dao" paramName="impl-jndi">
+         dao = new <XDtEjbDao:daoClass/>();
+</XDtClass:ifDoesntHaveClassTag>
+</XDtClass:ifDoesntHaveClassTag>
+         dao.init();
+         return dao;
+      }
+   }
+
+<XDtMethod:forAllMethods>
+<XDtMethod:ifHasMethodTag tagName="dao.call">
+    public <XDtMethod:methodType/> <XDtMethod:methodName/>(<XDtParameter:parameterList/>)
+            <XDtMethod:exceptionList/>
+    {
+<XDtMethod:ifIsNotAbstract>
+        super.<XDtMethod:methodName/>(<XDtParameter:parameterList includeDefinition="false"/>);
+</XDtMethod:ifIsNotAbstract>
+<XDtMethod:ifHasMethodTag tagName="dao.call" paramName="name">
+        <XDtMethod:ifDoesntReturnVoid>return </XDtMethod:ifDoesntReturnVoid>getDao().<XDtMethod:methodTagValue tagName="dao.call" paramName="name"/>(<XDtParameter:parameterList includeDefinition="false"/>);
+</XDtMethod:ifHasMethodTag>
+<XDtMethod:ifDoesntHaveMethodTag tagName="dao.call" paramName="name">
+        <XDtMethod:ifDoesntReturnVoid>return </XDtMethod:ifDoesntReturnVoid>getDao().<XDtEjbIntf:interfaceMethodName/>(<XDtParameter:parameterList includeDefinition="false"/>);
+</XDtMethod:ifDoesntHaveMethodTag>
+    }
+
+</XDtMethod:ifHasMethodTag>
+</XDtMethod:forAllMethods>

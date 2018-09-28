@@ -1,0 +1,64 @@
+  <XDtEjbBmp:ifUseSoftLocking>
+   public int version = 0;
+  </XDtEjbBmp:ifUseSoftLocking>
+
+ <XDtEjbPersistent:forAllPersistentFields>
+  <XDtMethod:ifHasMethod name="<XDtMethod:getterMethod />">
+   <XDtMethod:ifIsAbstract>
+   public <XDtMethod:methodType/> <XDtMethod:propertyName/>;
+   </XDtMethod:ifIsAbstract>
+  </XDtMethod:ifHasMethod>
+ </XDtEjbPersistent:forAllPersistentFields>
+
+  <XDtEjbBmp:ifUseSoftLocking>
+   public int getVersion()
+   {
+      return this.version;
+   }
+
+   public void setVersion( int version )
+   {
+      this.version = version;
+      makeDirty();
+   }
+  </XDtEjbBmp:ifUseSoftLocking>
+
+  <XDtEjbPersistent:forAllPersistentFields>
+   public <XDtMethod:methodType/> <XDtMethod:getterMethod/>() <XDtMethod:exceptionList/>
+   {
+     <XDtMethod:ifIsAbstract>
+      return this.<XDtMethod:propertyName/>;
+     </XDtMethod:ifIsAbstract>
+     <XDtMethod:ifIsNotAbstract>
+      return super.<XDtMethod:getterMethod/>();
+     </XDtMethod:ifIsNotAbstract>
+   }
+
+  <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+   public void <XDtMethod:setterMethod/>( <XDtMethod:methodType/> <XDtMethod:propertyName/> ) <XDtMethod:exceptionList method="<XDtMethod:setterMethod/>"/>
+   {
+     <XDtMethod:ifIsNotAbstract method="<XDtMethod:setterMethod/>">
+      super.<XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);
+     </XDtMethod:ifIsNotAbstract>
+     <XDtMethod:ifIsAbstract>
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+     </XDtMethod:ifIsAbstract>
+      makeDirty();
+   }
+  </XDtMethod:ifHasMethod>
+  </XDtEjbPersistent:forAllPersistentFields>
+
+   public boolean isModified()
+   {
+      return dirty;
+   }
+
+   protected void makeDirty()
+   {
+      dirty = true;
+   }
+
+   protected void makeClean()
+   {
+      dirty = false;
+   }

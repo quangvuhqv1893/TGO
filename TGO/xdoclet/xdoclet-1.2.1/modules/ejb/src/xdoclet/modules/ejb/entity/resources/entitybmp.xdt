@@ -1,0 +1,26 @@
+/*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ */
+package <XDtPackage:packageOf><XDtEjbBmp:entityBmpClass/></XDtPackage:packageOf>;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="bmp_layer_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/> */
+public class <XDtClass:classOf><XDtEjbBmp:entityBmpClass/></XDtClass:classOf>
+   extends <XDtClass:fullClassName/>
+   implements javax.ejb.EntityBean<XDtClass:ifHasClassTag tagName="ejb:bean" paramName="remote-business-interface">, <XDtClass:classTagValue tagName="ejb:bean" paramName="remote-business-interface" /></XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="ejb:bean" paramName="local-business-interface">, <XDtClass:classTagValue tagName="ejb:bean" paramName="local-business-interface" /></XDtClass:ifHasClassTag>
+{
+   <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-cmp11.xdt">
+   </XDtMerge:merge>
+
+   <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-body.xdt">
+   </XDtMerge:merge>
+
+   <XDtEjbValueObj:ifUsingValueObject>
+   <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value.xdt">
+   </XDtMerge:merge>
+   </XDtEjbValueObj:ifUsingValueObject>
+
+   <XDtMerge:merge file="entitybmp-custom.xdt">
+   </XDtMerge:merge>
+}

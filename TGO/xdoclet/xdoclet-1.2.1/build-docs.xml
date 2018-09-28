@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+
+<project name="XDoclet Documentation" default="all-docs" basedir=".">
+    <property name="xdoclet.root.dir" value="${basedir}"/>
+    <property file="${xdoclet.root.dir}/build.properties"/>
+
+    <!-- =================================================================== -->
+    <!-- Generate all the docs                                               -->
+    <!-- =================================================================== -->
+    <!-- TODO: comment ant-docs back in when it's fixed -->
+    <target name="all-docs" depends="ant-docs, api, document"/>
+
+    <!-- =================================================================== -->
+    <!-- Define classpath                                                    -->
+    <!-- =================================================================== -->
+    <path id="doc.class.path">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${dist.lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <pathelement location="${ant.home}/lib/ant.jar"/>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Define xdoclet                                                      -->
+    <!-- =================================================================== -->
+    <taskdef
+        name="xdoclet"
+        classname="xdoclet.DocletTask"
+        classpathref="doc.class.path"
+    />
+
+    <!-- =================================================================== -->
+    <!-- Generates xdoc docs for all tasks and subtasks, using XDoclet's     -->
+    <!-- antdoc subtask which recognises Ant classes and generates           -->
+    <!-- documentation for them                                              -->
+    <!-- =================================================================== -->
+    <target
+        name="ant-docs"
+        description="Generates xdocs for all tasks and subtasks"
+    >
+        <!--
+        The xdoclet antdocs subtask is a subtask scanning sources and 
+        generating Ant task/subtask documentation.
+        
+        It's possible to let antdoc generate docs for fileset too,
+        but currently the javadocs make them too ugly. To try it
+        out, just add the next 2 attributes to the target and uncomment
+        the last fileset below.
+
+        depends="discover-ant,warn-if-ant-sources-not-available"
+        if="ant.src.exists"
+        -->
+
+        <mkdir dir="${docs.ant.dir}"/>
+        <xdoclet destdir="${docs.ant.dir}">
+
+            <fileset dir="${modules.all-src.dir}">
+                <exclude name="**/ModulesGrandBuilderTask.java"/>
+                <!-- exclude legacy wrappers -->
+                <exclude name="xdoclet/ejb/EjbDocletTask.java"/>
+                <exclude name="xdoclet/web/WebDocletTask.java"/>
+                <exclude name="xdoclet/jmx/JMXDocletTask.java"/>
+            </fileset>
+
+            <!--fileset dir="${ant.src}">
+                <include name="org/apache/tools/ant/types/FileSet.java"/>
+            </fileset-->
+
+            <antdocs destdir="${docs.ant.dir}">
+               <configParam
+                   name="org.apache.tools.ant.types.FileSet"
+                   value="http://ant.apache.org/manual/CoreTypes/fileset.html"
+               />
+            </antdocs>
+        </xdoclet>
+    </target>
+
+    <target name="discover-ant">
+       <available file="${ant.src}" type="dir" property="ant.src.exists"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Verifies that Ant sources are available. Needed in order to         -->
+    <!-- generate correct docs for FileSet and friends                       -->
+    <!-- =================================================================== -->
+    <target name="warn-if-ant-sources-not-available" unless="ant.src.exists">
+        <fail>
+        ${ant.src} is not defined or doesn't exist. In order to generate
+        Task documentation you must have Ant's latest sources (preferrably from CVS)
+        and point it out with the system variable ant.src. Example:
+
+        prompt: SET ANT_OPTS=-Dant.src=D:\jakarta-ant-1.5Beta3\src\main
+        prompt: ant -f build-docs.xml ant-docs
+        </fail>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates the API documentation                                       -->
+    <!-- =================================================================== -->
+    <target name="api">
+        <mkdir dir="${docs.api.dir}"/>
+        <javadoc packagenames="${packages}"
+                 sourcepath="${core.src.dir}"
+                 destdir="${docs.api.dir}"
+                 author="yes"
+                 version="yes"
+                 use="yes"
+                 windowtitle="${Name} ${version} API"
+                 doctitle="${Name} ${version} API"
+                 footer="&lt;a href=&quot;http://xdoclet.sourceforge.net/&quot;&gt;http://xdoclet.sourceforge.net/&lt;/a&gt;">
+            <classpath refid="doc.class.path"/>
+
+            <link href="http://java.sun.com/j2se/1.4/docs/api/"/>
+            <!--<link href="http://ant.apache.org/manual/api/"/>-->
+            <link href="http://java.sun.com/j2ee/1.4/docs/api/"/>
+            <link href="http://www.junit.org/junit/javadoc/3.8.1/"/>
+
+            <tag name="ant.element" scope="types" description="ant.element"/>
+            <tag name="ant.attribute" scope="types" description="ant.attribute"/>
+            <tag name="ant.required" scope="methods" description="ant.element"/>
+            <tag name="ant.not-required" scope="methods" description="ant.element"/>
+            <tag name="ant.ignore" scope="methods" description="ant.element"/>
+            <tag name="xdoclet.taghandler" scope="types" description="xdoclet.taghandler"/>
+            <tag name="doc.tag" scope="methods" description="doc.tag"/>
+            <tag name="doc.param" scope="methods" description="doc.param"/>
+            <tag name="msg.bundle" scope="fields" description="msg.bundle"/>
+            <tag name="created" scope="types" description="created"/>
+            <tag name="todo" description="To do:"/>
+        </javadoc>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Generate template tags documentation from source                    -->
+    <!-- =================================================================== -->
+    <target name="document">
+        <mkdir dir="${docs.templates.dir}"/>
+        <taskdef
+            name="document"
+            classname="xdoclet.modules.doc.DocumentDocletTask"
+            classpathref="doc.class.path"
+        />
+
+        <document destdir="${docs.templates.dir}">
+            <fileset dir="${modules.all-src.dir}">
+                <include name="**/*TagsHandler.java" />
+            </fileset>
+
+            <documenttags/>
+        </document>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Generate todo-list from source (@todo tags)                         -->
+    <!-- =================================================================== -->
+    <target name="todo">
+        <mkdir dir="${docs.todo.dir}" />
+        <taskdef name="todo"
+                 classname="xdoclet.modules.doc.DocumentDocletTask"
+                 classpathref="doc.class.path"
+        />
+
+        <todo destdir="${docs.todo.dir}" >
+            <fileset dir="${modules.all-src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+
+            <info/>
+        </todo>
+    </target>
+</project>

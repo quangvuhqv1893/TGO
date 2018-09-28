@@ -1,0 +1,24 @@
+ <XDtTagDef:tagDef namespace="Doc" handler="xdoclet.modules.doc.DocumentationTagsHandler"/>
+
+<html>
+<head>
+<base target="tags_toc">
+</head>
+<body bgcolor="#ffffff">
+
+   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+      <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+         <TD COLSPAN=2><FONT SIZE="+2"><B>XDoclet Standard Template Namespaces</B></FONT></TD>
+      </TR>
+
+    <XDtDoc:forAllNamespaces>
+      <TR>
+         <TD WIDTH="20%"><B><A HREF="<XDtDoc:namespace/>_toc.html"><XDtDoc:namespace/></A></B></TD>
+         <TD WIDTH="80%"><XDtClass:firstSentenceDescription/></TD>
+      </TR>
+    </XDtDoc:forAllNamespaces>
+
+   </TABLE>
+
+</body>
+</html>

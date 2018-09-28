@@ -1,0 +1,40 @@
+
+    <XDtHibernate:forAllSubclasses>
+      <XDtClass:ifHasClassTag tagName="hibernate.joined-subclass" superclasses="false">
+        <XDtHibernate:logMapping/>
+        <joined-subclass
+            name="<XDtClass:fullTransformedClassName />"
+          <XDtClass:ifHasClassTag tagName="hibernate.joined-subclass" paramName="table" superclasses="false">
+            table="<XDtClass:classTagValue tagName="hibernate.joined-subclass" paramName="table" default="false" />"
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="hibernate.joined-subclass" paramName="schema" superclasses="false">
+            schema="<XDtClass:classTagValue tagName="hibernate.joined-subclass" paramName="schema" default="false" />"
+          </XDtClass:ifHasClassTag>
+          <XDtConfig:ifConfigParamEquals paramName="version" value="2.0">
+            dynamic-update="<XDtClass:classTagValue tagName="hibernate.joined-subclass" paramName="dynamic-update" default="false" />"
+            dynamic-insert="<XDtClass:classTagValue tagName="hibernate.joined-subclass" paramName="dynamic-insert" default="false" />"
+          </XDtConfig:ifConfigParamEquals>
+          <XDtClass:ifHasClassTag tagName="hibernate.joined-subclass" paramName="proxy" superclasses="false">
+            proxy="<XDtClass:classTagValue tagName="hibernate.joined-subclass" paramName="proxy" />"
+          </XDtClass:ifHasClassTag>
+        >
+        
+        <key
+            column="<XDtClass:classTagValue tagName="hibernate.joined-subclass-key" paramName="column" />"
+            <XDtClass:ifHasClassTag tagName="hibernate.joined-subclass-key" paramName="foreign-key" superclasses="false">
+            foreign-key="<XDtClass:classTagValue tagName="hibernate.joined-subclass-key" paramName="foreign-key" />"
+            </XDtClass:ifHasClassTag>
+        />
+        
+        <XDtMethod:forAllMethods superclasses="false" sort="true">
+            <XDtMerge:merge file="xdoclet/modules/hibernate/resources/hibernate-properties.xdt">
+            </XDtMerge:merge>
+        </XDtMethod:forAllMethods>
+
+        <XDtMerge:merge file="xdoclet/modules/hibernate/resources/hibernate-joined-subclass.xdt">
+        </XDtMerge:merge>
+        
+        </joined-subclass>
+        
+      </XDtClass:ifHasClassTag>
+    </XDtHibernate:forAllSubclasses>

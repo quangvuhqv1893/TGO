@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jrun-web-app PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<jrun-web-app>
+  <XDtConfig:ifHasConfigParam paramName="contextRoot">
+  <context-root><XDtConfig:configParameterValue paramName="contextRoot"/></context-root>
+  </XDtConfig:ifHasConfigParam>
+  <XDtConfig:ifHasConfigParam paramName="reload">
+  <reload><XDtConfig:configParameterValue paramName="reload"/></reload>
+  </XDtConfig:ifHasConfigParam>
+  <XDtConfig:ifHasConfigParam paramName="compile">
+  <compile><XDtConfig:configParameterValue paramName="compile"/></compile>
+  </XDtConfig:ifHasConfigParam>
+  <XDtConfig:ifHasConfigParam paramName="loadSystemClassesFirst">
+  <load-system-classes-first><XDtConfig:configParameterValue paramName="loadSystemClassesFirst"/></load-system-classes-first>
+  </XDtConfig:ifHasConfigParam>
+
+  <XDtMerge:merge file="session-config.xml">
+  <!--
+    Define session-config in a file called session-config.xml and place
+    it in your merge directory.
+  -->
+  </XDtMerge:merge>
+  <XDtClass:forAllClasses>
+  <XDtClass:forAllClassTags tagName="jrun:ejb-ref">
+  <ejb-ref>
+    <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="ejb-ref-name"/></ejb-ref-name>
+    <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="jndi-name"/></jndi-name>
+  </ejb-ref>
+  </XDtClass:forAllClassTags>
+  <XDtClass:forAllClassTags tagName="jrun:ejb-local-ref">
+  <ejb-local-ref>
+    <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="ejb-ref-name"/></ejb-ref-name>
+    <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="jndi-name"/></jndi-name>
+  </ejb-local-ref>
+  </XDtClass:forAllClassTags>
+  <XDtClass:forAllClassTags tagName="jrun:resource-env-ref">
+  <resource-env-ref>
+    <resource-env-ref-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="resource-env-ref-name" /></resource-env-ref-name>
+    <jndi-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="jndi-name" /></jndi-name>
+  </resource-env-ref>
+  </XDtClass:forAllClassTags>
+  <XDtClass:forAllClassTags tagName="jrun:resource-ref">
+  <resource-ref>
+    <res-ref-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="res-ref-name" /></res-ref-name>
+    <jndi-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="jndi-name" /></jndi-name>
+    <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="user">
+    <user><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="user" /></user>
+    </XDtClass:ifHasClassTag>
+    <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="password">
+    <password><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="password" /></password>
+    </XDtClass:ifHasClassTag>
+  </resource-ref>
+  </XDtClass:forAllClassTags>
+  </XDtClass:forAllClasses>
+  <XDtMerge:merge file="virtual-mapping.xml">
+  <!--
+    Define virtual-mapping* in a file called virtual-mapping.xml and place
+    it in your merge directory.
+  -->
+  </XDtMerge:merge>
+</jrun-web-app>

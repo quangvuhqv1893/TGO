@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE mbean PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<mbean>
+  <XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="description"><description><XDtClass:classTagValue tagName="jmx.mbean" paramName="description" default="(no description)"/></description></XDtClass:ifHasClassTag>
+  <descriptors>
+    <persistence<XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="persistPolicy" values="OnUpdate,NoMoreOftenThan,Never,OnTimer"> persistPolicy="<XDtClass:classTagValue tagName="jmx.mbean" paramName="persistPolicy"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="persistPeriod">
+                 persistPeriod="<XDtClass:classTagValue tagName="jmx.mbean" paramName="persistPeriod"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="persistLocation">
+                 persistLocation="<XDtClass:classTagValue tagName="jmx.mbean" paramName="persistLocation"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="persistName">
+                 persistName="<XDtClass:classTagValue tagName="jmx.mbean" paramName="persistName"/>"</XDtClass:ifHasClassTag>/>
+    <XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="currencyTimeLimit">
+    <currencyTimeLimit value="<XDtClass:classTagValue tagName="jmx.mbean" paramName="currencyTimeLimit"/>"/>
+    </XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="state-action-on-update"><state-action-on-update value="<XDtClass:classTagValue tagName="jmx.mbean" paramName="state-action-on-update"/>"/>
+    </XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="display-name"><display-name value="<XDtClass:classTagValue tagName="jmx.mbean" paramName="display-name"/>"/></XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="persistence-manager">
+    <persistence-manager value="<XDtClass:classTagValue tagName="jmx.mbean" paramName="persistence-manager"/>"/></XDtClass:ifHasClassTag >
+      <XDtClass:forAllClassTags  tagName="jmx.descriptor">
+      <descriptor name="<XDtClass:classTagValue tagName="jmx.descriptor" paramName="name"/>" value="<XDtClass:classTagValue tagName="jmx.descriptor" paramName="value"/>"/></XDtClass:forAllClassTags>
+  </descriptors>
+  <class><XDtClass:fullClassName/></class>
+
+  <XDtConstructor:forAllConstructors superclasses="false" sort="false">
+    <XDtConstructor:ifHasConstructorTag tagName="jmx.managed-constructor">
+  <constructor>
+    <description><XDtConstructor:constructorTagValue tagName="jmx.managed-constructor" paramName="description" default="(no description)"/></description>
+    <name><XDtClass:fullClassName/></name>
+    <XDtConstructor:forAllConstructorTags tagName="jmx.managed-parameter">
+    <parameter>
+      <description><XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="description" default="(no description)"/></description>
+      <name><XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="name"/></name>
+      <type><XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="type" expandClassName="true"/></type>
+    </parameter>
+    </XDtConstructor:forAllConstructorTags>
+  </constructor>
+    </XDtConstructor:ifHasConstructorTag>
+  </XDtConstructor:forAllConstructors>
+
+  <!--attributes-->
+  <XDtProperty:forAllPropertiesWithTag superclasses="<XDtClass:classTagValue tagName='jmx.mbean' paramName='superclasses' default='true'/>" tagName="jmx.managed-attribute">
+  <attribute access="<XDtProperty:paramValueWithTag tagName='jmx.managed-attribute' paramName='access' values='read-only,write-only,read-write' default='read-write'/>"<XDtProperty:ifHasGetMethodWithTag tagName="jmx.managed-attribute"> getMethod="<XDtMethod:currentMethodName/>"</XDtProperty:ifHasGetMethodWithTag><XDtProperty:ifHasSetMethodWithTag tagName="jmx.managed-attribute"> setMethod="<XDtMethod:currentMethodName/>"</XDtProperty:ifHasSetMethodWithTag>>
+
+    <description><XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="description" default="(no description)"/></description>
+    <name><XDtMethod:methodNameWithoutPrefix/></name>
+    <type><XDtJMX:managedAttributeType/></type>
+    <descriptors>
+      <persistence<XDtProperty:ifHasParamWithTag  tagName="jmx.managed-attribute" paramName="persistPolicy" values="OnUpdate,NoMoreOftenThan,Never,OnTimer"> persistPolicy="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="persistPolicy"/>"</XDtProperty:ifHasParamWithTag ><XDtProperty:ifHasParamWithTag  tagName="jmx.managed-attribute" paramName="persistPeriod">
+                   persistPeriod="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="persistPeriod"/>"</XDtProperty:ifHasParamWithTag ><XDtProperty:ifHasParamWithTag  tagName="jmx.mbean" paramName="persistLocation">
+                   persistLocation="<XDtProperty:paramValueWithTag tagName="jmx.mbean" paramName="persistLocation"/>"</XDtProperty:ifHasParamWithTag ><XDtProperty:ifHasParamWithTag  tagName="jmx.mbean" paramName="persistName">
+                   persistName="<XDtProperty:paramValueWithTag tagName="jmx.mbean" paramName="persistName"/>"
+</XDtProperty:ifHasParamWithTag >/>
+     <XDtProperty:ifHasParamWithTag tagName="jmx.managed-attribute" paramName="persistence-manager">
+      <persistence-manager value="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="persistence-manager"/>"/></XDtProperty:ifHasParamWithTag >
+     <XDtProperty:ifHasParamWithTag  tagName="jmx.managed-attribute" paramName="currencyTimeLimit">
+      <currencyTimeLimit value="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="currencyTimeLimit"/>"/></XDtProperty:ifHasParamWithTag >
+     <XDtProperty:ifHasParamWithTag  tagName="jmx.managed-attribute" paramName="value">
+      <value value="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="value"/>"/></XDtProperty:ifHasParamWithTag >
+     <XDtProperty:ifHasParamWithTag  tagName="jmx.managed-attribute" paramName="state-action-on-update">
+      <state-action-on-update value="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="state-action-on-update"/>"/></XDtProperty:ifHasParamWithTag><XDtProperty:ifHasParamWithTag  tagName="jmx.managed-attribute" paramName="display-name">
+      <display-name value="<XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="display-name"/>"/></XDtProperty:ifHasParamWithTag >
+
+      <XDtProperty:ifHasGetMethodWithTag  tagName="jmx.descriptor">
+      <XDtMethod:forAllMethodTags  tagName="jmx.descriptor">
+      <descriptor name="<XDtMethod:methodTagValue tagName="jmx.descriptor" paramName="name"/>" value="<XDtMethod:methodTagValue tagName="jmx.descriptor" paramName="value"/>"/></XDtMethod:forAllMethodTags>
+      </XDtProperty:ifHasGetMethodWithTag>
+      <XDtProperty:ifHasSetMethodWithTag  tagName="jmx.descriptor">
+      <XDtMethod:forAllMethodTags  tagName="jmx.descriptor">
+      <descriptor name="<XDtMethod:methodTagValue tagName="jmx.descriptor" paramName="name"/>" value="<XDtMethod:methodTagValue tagName="jmx.descriptor" paramName="value"/>"/></XDtMethod:forAllMethodTags>
+      </XDtProperty:ifHasSetMethodWithTag>
+    </descriptors>
+  </attribute>
+  </XDtProperty:forAllPropertiesWithTag>
+
+<!--artificial attributes-->
+  <XDtClass:forAllClassTags  tagName="jmx.managed-attribute">
+    <attribute access="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='access' values='read-only,write-only,read-write' default='read-write'/>">
+
+    <description><XDtClass:classTagValue tagName="jmx.managed-attribute" paramName="description" default="(no description)"/></description>
+    <name><XDtClass:classTagValue tagName="jmx.managed-attribute" paramName="name"/></name>
+    <type><XDtClass:classTagValue tagName="jmx.managed-attribute" paramName="type"/></type>
+    <descriptors>
+      <persistence<XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="persistPolicy" values="OnUpdate,NoMoreOftenThan,Never,OnTimer"> persistPolicy="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='persistPolicy'/>"</XDtClass:ifHasClassTag ><XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="persistPeriod">
+                   persistPeriod="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='persistPeriod'/>"</XDtClass:ifHasClassTag ><XDtClass:ifHasClassTag  tagName="jmx.mbean" paramName="persistLocation">
+                   persistLocation="<XDtClass:classTagValue tagName='jmx.mbean' paramName='persistLocation'/>"</XDtClass:ifHasClassTag ><XDtClass:ifHasClassTag  tagName="jmx.mbean" paramName="persistName">
+                   persistName="<XDtClass:classTagValue tagName='jmx.mbean' paramName='persistName'/>"
+</XDtClass:ifHasClassTag >/>
+     <XDtClass:ifHasClassTag tagName="jmx.managed-attribute" paramName="persistence-manager">
+      <persistence-manager value="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='persistence-manager'/>"/></XDtClass:ifHasClassTag >
+     <XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="currencyTimeLimit">
+      <currencyTimeLimit value="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='currencyTimeLimit'/>"/></XDtClass:ifHasClassTag >
+     <XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="value">
+      <value value="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='value'/>"/></XDtClass:ifHasClassTag >
+     <XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="state-action-on-update">
+      <state-action-on-update value="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='state-action-on-update'/>"/></XDtClass:ifHasClassTag><XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="display-name">
+      <display-name value="<XDtClass:classTagValue tagName='jmx.managed-attribute' paramName='display-name'/>"/></XDtClass:ifHasClassTag >
+
+      <XDtClass:ifHasClassTag  tagName="jmx.managed-attribute" paramName="interceptor-classes">
+      <descriptor name="interceptor-classes" value="<XDtMethod:classTagValue tagName='jmx.managed-attribute' paramName='interceptor-classes'/>"/>
+      </XDtClass:ifHasClassTag>
+    </descriptors>
+    </attribute>
+  </XDtClass:forAllClassTags>
+
+<!--operations -->
+  <XDtMethod:forAllMethods superclasses="<XDtClass:classTagValue tagName='jmx.mbean' paramName='superclasses' default='true'/>" sort="false">
+    <XDtMethod:ifHasMethodTag tagName="jmx.managed-operation">
+  <operation impact="<XDtMethod:methodTagValue tagName="jmx.managed-operation" paramName="impact" values="ACTION,INFO,ACTION_INFO" default="ACTION_INFO"/>">
+    <description><XDtMethod:methodTagValue tagName="jmx.managed-operation" paramName="description" default="(no description)"/></description>
+    <name><XDtMethod:methodName/></name>
+    <XDtMethod:forAllMethodTags tagName="jmx.managed-parameter">
+    <parameter>
+      <description><XDtMethod:methodTagValue tagName="jmx.managed-parameter" paramName="description" default="(no description)"/></description>
+      <name><XDtMethod:methodTagValue tagName="jmx.managed-parameter" paramName="name"/></name>
+      <type><XDtMethod:methodTagValue tagName="jmx.managed-parameter" paramName="type" expandClassName="true"/></type>
+    </parameter>
+    </XDtMethod:forAllMethodTags>
+    <return-type><XDtMethod:methodType/></return-type>
+    <descriptors>
+      <XDtMethod:forAllMethodTags  tagName="jmx.descriptor">
+      <descriptor name="<XDtMethod:methodTagValue tagName="jmx.descriptor" paramName="name"/>" value="<XDtMethod:methodTagValue tagName="jmx.descriptor" paramName="value"/>"/></XDtMethod:forAllMethodTags>
+    </descriptors>
+  </operation>
+    </XDtMethod:ifHasMethodTag>
+  </XDtMethod:forAllMethods>
+
+<!--artificial operations-->
+  <XDtClass:forAllClassTags tagName="jmx.managed-operation">
+  <operation impact="<XDtClass:classTagValue tagName="jmx.managed-operation" paramName="impact" values="ACTION,INFO,ACTION_INFO" default="ACTION_INFO"/>">
+    <description><XDtClass:classTagValue tagName="jmx.managed-operation" paramName="description" default="(no description)"/></description>
+    <name><XDtClass:classTagValue tagName="jmx.managed-operation" paramName="name"/></name>
+    <XDtClass:classTagValueMatch tagName="jmx.managed-operation" paramName="name"/>
+    <XDtClass:forAllClassTags tagName="jmx.managed-parameter" >
+    <XDtClass:ifClassTagValueMatches tagName="jmx.managed-parameter" paramName="managed-operation">
+    <parameter>
+      <description><XDtClass:classTagValue tagName="jmx.managed-parameter" paramName="description" default="(no description)"/></description>
+      <name><XDtClass:classTagValue tagName="jmx.managed-parameter" paramName="name"/></name>
+      <type><XDtClass:classTagValue tagName="jmx.managed-parameter" paramName="type"/></type>
+    </parameter>
+    </XDtClass:ifClassTagValueMatches>
+    </XDtClass:forAllClassTags>
+    <return-type><XDtClass:classTagValue tagName="jmx.managed-operation" paramName="return-type"/></return-type>
+    <descriptors>
+      <descriptor name="interceptor-classes" value="<XDtClass:classTagValue tagName="jmx.managed-operation" paramName="interceptor-classes"/>"/>
+    </descriptors>
+  </operation>
+  </XDtClass:forAllClassTags>
+
+
+<!--notifications -->
+  <XDtClass:forAllClassTags superclasses="<XDtClass:classTagValue tagName='jmx.mbean' paramName='superclasses' default='true'/>" tagName="jmx.notification">
+  <notification>
+    <XDtClass:ifHasClassTag tagName="jmx.notification" paramName="description">
+    <description><XDtClass:classTagValue tagName="jmx.notification" paramName="description"/></description></XDtClass:ifHasClassTag>
+    <name><XDtClass:classTagValue tagName="jmx.notification" paramName="name"/></name>
+    <XDtClass:forAllClassTagTokens tagName="jmx.notification" paramName="notificationType">
+    <notification-type><XDtClass:currentToken/></notification-type>
+    </XDtClass:forAllClassTagTokens>
+    <descriptors>
+      <persistence<XDtClass:ifHasClassTag tagName="jmx.notification" paramName="persistPolicy" values="OnUpdate, NoMoreOftenThan,Never,OnTimer"> persistPolicy="<XDtClass:classTagValue tagName="jmx.notification" paramName="persistPolicy"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.notification" paramName="persistPeriod">
+                   persistPeriod="<XDtClass:classTagValue tagName="jmx.notification" paramName="persistPeriod"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.notification" paramName="persistLocation">
+                   persistLocation="<XDtClass:classTagValue tagName="jmx.notification" paramName="persistLocation"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.notification" paramName="persistName">
+                   persistName="<XDtClass:classTagValue tagName="jmx.notification" paramName="persistName"/>"
+</XDtClass:ifHasClassTag>/>
+     <XDtClass:ifHasClassTag tagName="jmx.notification" paramName="currencyTimeLimit">
+      <currencyTimeLimit value="<XDtClass:classTagValue tagName="jmx.notification" paramName="currencyTimeLimit"/>"/></XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="jmx.notification" paramName="descriptor">
+    <descriptor <XDtClass:classTagValue tagName="jmx.notification" paramName="descriptor"/>/></XDtClass:ifHasClassTag>
+    </descriptors>
+  </notification>
+  </XDtClass:forAllClassTags>
+
+
+</mbean>

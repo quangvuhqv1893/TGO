@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jaws PUBLIC "-//JBoss//DTD JAWS 3.0//EN" "http://www.jboss.org/j2ee/dtd/jaws_3_0.dtd">
+
+<jaws>
+   <datasource>java:/DefaultDS</datasource>
+   <type-mapping>Hypersonic SQL</type-mapping>
+
+   <enterprise-beans>
+
+      <entity>
+         <ejb-name>inherited/cmp/InheritedCMPSub</ejb-name>
+
+         <row-locking></row-locking>
+
+      </entity>
+
+      <entity>
+         <ejb-name>inherited/cmp/InheritedCMPSuper</ejb-name>
+
+         <row-locking></row-locking>
+
+      </entity>
+
+   </enterprise-beans>
+
+</jaws>

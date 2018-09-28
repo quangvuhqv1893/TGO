@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- libelis tags -->
+  <namespace>
+    <name>lido</name>
+    <usage-description>JDO tags specific for Libelis' Lido.</usage-description>
+    <condition-description>classes to be persistence-capable on class and field level</condition-description>
+    <condition type="or">
+      <condition type="field"/>
+      <condition type="class"/>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>lido.future</name>
+        <usage-description>
+            Future tag for Lido go here. Do not use this tag, it's only present to make the xml validator happy
+        </usage-description>
+        <unique>true</unique>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

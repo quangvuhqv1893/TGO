@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>WebWork Action definitions</title>
+<body bgcolor="#eeeeee">
+<h1>Actions</h1>
+
+<h2>Action listing</h2>
+<table border="1" bgcolor="white">
+<tr><th>Name</th><th>Java class</th></tr>
+<XDtClass:forAllClasses type="webwork.action.Action"><XDtClass:forAllClassTags tagName="webwork:action">
+<tr><td><code><a href="#<XDtClass:classTagValue tagName="webwork:action" paramName="name" />"><XDtClass:classTagValue tagName="webwork:action" paramName="name" /></a></code></td>
+<td><code><XDtClass:fullClassName/></code></td>
+</XDtClass:forAllClassTags></XDtClass:forAllClasses>
+</table>
+
+<h2>Action descriptions</h2>
+<XDtClass:forAllClasses type="webwork.action.Action"><XDtClass:forAllClassTags tagName="webwork:action">
+<a name="<XDtClass:classTagValue tagName="webwork:action" paramName="name" />">
+<table border="1" bgcolor="white">
+<tr>
+<th>Name</th><td><code><XDtClass:classTagValue tagName="webwork:action" paramName="name" /></code></td>
+</tr>
+<tr>
+<th>Description</th><td><XDtClass:firstSentenceDescription/></td>
+</tr>
+<tr>
+<th>Java class</th><td><code><a href="<XDtWebWork:javaDocHtmlFile/>"><XDtClass:fullClassName/></a></code></td>
+</tr>
+
+<tr><th colspan="2">Views</th></tr>
+<XDtClass:ifHasClassTag tagName="webwork:action" paramName="success">
+<tr>
+<th>Success</th><td><code><XDtClass:classTagValue tagName="webwork:action" paramName="success" /></code></td>
+</tr>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="webwork:action" paramName="error">
+<tr>
+<th>Error</th><td><code><XDtClass:classTagValue tagName="webwork:action" paramName="error" /></code></td>
+</tr>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="webwork:action" paramName="input">
+<tr>
+<th>Input</th><td><code><XDtClass:classTagValue tagName="webwork:action" paramName="input" /></code></td>
+</tr>
+</XDtClass:ifHasClassTag>
+
+<XDtClass:ifHasClassTag tagName="webwork:action" paramName="views">
+<tr><th>Other views</th><td>
+<XDtClass:forAllClassTagTokens tagName="webwork:action" paramName="views" delimiter=",">
+   <XDtClass:currentToken/><br>
+</XDtClass:forAllClassTagTokens>
+</td></tr>
+</XDtClass:ifHasClassTag>
+
+</table>
+<br>
+</XDtClass:forAllClassTags></XDtClass:forAllClasses>
+
+</body>
+</html>

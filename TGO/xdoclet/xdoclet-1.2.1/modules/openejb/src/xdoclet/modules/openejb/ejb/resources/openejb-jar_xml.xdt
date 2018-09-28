@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<openejb-jar xmlns="http://www.openejb.org/openejb-jar/1.1">
+
+   <XDtEjbSession:forAllSessionBeans>
+      <ejb-deployment ejb-name="<XDtEjb:ejbName/>"
+        <XDtEjb:ifRemoteEjb>
+         deployment-id="<XDtEjbHome:jndiName type="remote"/>"
+        </XDtEjb:ifRemoteEjb>
+        <XDtEjbSession:ifStatelessSession>
+         container-id="Default Stateless Container"/>
+        </XDtEjbSession:ifStatelessSession>
+        <XDtEjbSession:ifStatefulSession>
+         container-id="Default Stateful Container"/>
+        </XDtEjbSession:ifStatefulSession>
+   </XDtEjbSession:forAllSessionBeans>
+
+</openejb-jar>

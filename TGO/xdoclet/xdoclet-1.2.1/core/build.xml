@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+
+<project name="XDoclet Core" default="jar" basedir=".">
+
+    <property name="xdoclet.root.dir" value="${basedir}/.."/>
+    <property file="${xdoclet.root.dir}/build.properties"/>
+
+    <!-- =================================================================== -->
+    <!-- Define class path                                                   -->
+    <!-- =================================================================== -->
+    <path id="core.class.path">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Define junit class path                                             -->
+    <!-- =================================================================== -->
+    <path id="junit.class.path">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${dist.lib.dir}">
+        </fileset>
+      <!--  <pathelement path="${core.classes.dir}" /> -->
+
+        <!-- append the external classpath lastly -->
+        <pathelement path="${java.class.path}" />
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Init properties                                                     -->
+    <!-- =================================================================== -->
+    <target name="init">
+
+        <!-- Checks if the core xdoclet.jar is uptodate -->
+        <uptodate property="xdoclet.jar.uptodate" targetfile="${xdoclet.jar}">
+            <srcfiles dir="${core.src.dir}"/>
+        </uptodate>
+
+        <filterset id="xdoclet.filters">
+            <filter token="VERSION" value="${version}" />
+            <filter token="DATE" value="${TODAY}" />
+            <filter token="TIME" value="${TSTAMP}" />
+        </filterset>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Prepares the build directory                                        -->
+    <!-- =================================================================== -->
+    <target name="prepare" depends="init">
+        <mkdir dir="${core.classes.dir}"/>
+        <mkdir dir="${dist.lib.dir}"/>
+
+        <copy todir="${core.classes.dir}">
+            <fileset dir="${core.src.dir}" includes="**/*.properties" />
+            <fileset dir="${core.src.dir}" includes="**/*.xdt" />
+            <fileset dir="${core.src.dir}" includes="META-INF/**/*" />
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Runs JUnit tests                                                    -->
+    <!-- =================================================================== -->
+    <target name="junit" depends="jar" description="Runs all JUnit tests">
+        <mkdir dir="${build.reports.xml.dir}"/>
+        <junit fork="yes">
+            <classpath refid="junit.class.path"/>
+            <batchtest todir="${build.reports.xml.dir}">
+                <fileset dir="${core.classes.dir}">
+                    <include name="**/*Test.class"/>
+                </fileset>
+            <formatter type="xml"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Generates test reports                                              -->
+    <!-- =================================================================== -->
+    <target name="junit-report" depends="junit" description="Generates JUnit test reports">
+        <mkdir dir="${build.reports.html.dir}"/>
+        <junitreport todir="${build.reports.html.dir}">
+            <fileset dir="${build.reports.xml.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.reports.html.dir}"/>
+        </junitreport>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Beautify the code                                                   -->
+    <!-- =================================================================== -->
+    <target name="beautify" depends="prepare">
+        <taskdef name="pretty" classname="org.acm.seguin.ant.Pretty"
+                 classpath="${lib.dir}/prettyprinter.jar"/>
+
+        <pretty settingsDir="${config.dir}" cvs="true" compileDir="${core.classes.dir}">
+            <fileset dir="${core.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+        </pretty>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Compiles the source code                                            -->
+    <!-- =================================================================== -->
+    <target name="compile" depends="beautify">
+        <mkdir dir="${modules.all-src.dir}"/>
+        <copy todir="${modules.all-src.dir}">
+            <fileset dir="${core.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <filterset refid="xdoclet.filters"/>
+        </copy>
+
+        <javac
+            destdir="${core.classes.dir}"
+            classpathref="core.class.path"
+            debug="${compile.debug}"
+            deprecation="${compile.deprecation}"
+            optimize="${compile.optimize}"
+            nowarn="${compile.nowarn}"
+            srcdir="${modules.all-src.dir}"
+        >
+            <include name="xdoclet/*.java"/>
+            <include name="xdoclet/ant/**/*.java"/>
+            <include name="xdoclet/loader/**/*.java"/>
+            <include name="xdoclet/tagshandler/**/*.java"/>
+            <include name="xdoclet/template/**/*.java"/>
+            <include name="xdoclet/util/**/*.java"/>
+        </javac>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates the jar archives                                            -->
+    <!-- =================================================================== -->
+    <target name="jar" depends="compile,externalizer">
+        <jar jarfile="${xdoclet.jar}" basedir="${core.classes.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Cleans up generated stuff                                           -->
+    <!-- =================================================================== -->
+    <target name="clean" depends="init">
+        <delete file="${xdoclet.jar}"/>
+        <delete dir="${core.build.dir}"/>
+        <delete dir="${dist.src.dir}"/>
+        <delete dir="${dist.lib.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Runs externalizer, it generates Messages.properties files for each  -->
+    <!-- package.                                                            -->
+    <!-- =================================================================== -->
+    <target
+        name="externalizer"
+        depends="build-externalizer"
+        unless="xdoclet.jar.uptodate"
+    >
+        <!-- Define classpath required for running externalizer -->
+        <path id="externalizer.class.path">
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${dist.lib.dir}">
+                <!-- include previously built jars -->
+                <include name="*.jar"/>
+            </fileset>
+            <pathelement location="${core.classes.dir}"/>
+        </path>
+
+        <!-- Define the xdoclet task -->
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="externalizer.class.path"
+        />
+
+        <echo message="Copying resources..."/>
+        <!-- copy to l10n build dir, for building the locale-specific messages jar -->
+        <!-- don't copy to classes dir; if the localised messages aren't in the main jar(s) it's easier to switch them off if required -->
+        <copy todir="${l10n.build.dir}">
+            <fileset dir="${core.resources.dir}" includes="**/*.properties"/>
+        </copy>
+
+        <echo message="Generating message bundle files for core..."/>
+        <!-- generate into classes dir, the base language messages will be built into the jar -->
+        <xdoclet destdir="${core.classes.dir}">
+            <fileset dir="${core.src.dir}">
+                <include name="**/*Messages.java" />
+            </fileset>
+            <externalizer tagName="msg.bundle" keyParamName="id" valueParamName="msg"/>
+        </xdoclet>
+        <!-- also generate into l10n build dir, to make it easier to build the translators' base language jar -->
+        <xdoclet destdir="${l10n.build.dir}">
+            <fileset dir="${core.src.dir}">
+                <include name="**/*Messages.java" />
+            </fileset>
+            <externalizer tagName="msg.bundle" keyParamName="id" valueParamName="msg"/>
+        </xdoclet>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Builds the xdoclet module, which contains the externalizer          -->
+    <!-- =================================================================== -->
+    <target name="build-externalizer" depends="compile">
+        <ant dir="${modules.dir}/xdoclet"/>
+    </target>
+
+</project>

@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jbosscmp-jdbc PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<jbosscmp-jdbc>
+   <XDtMerge:merge file="jbosscmp-jdbc-defaults.xml">
+   <defaults>
+     <XDtConfig:ifHasConfigParam paramName="datasource">
+       <XDtConfig:ifHasConfigParam paramName="datasourcemapping">
+     <datasource><XDtConfig:configParameterValue paramName="datasource"/></datasource>
+     <datasource-mapping><XDtConfig:configParameterValue paramName="datasourcemapping"/></datasource-mapping>
+       </XDtConfig:ifHasConfigParam>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="createTable">
+     <create-table><XDtConfig:configParameterValue paramName="createTable"/></create-table>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="removeTable">
+     <remove-table><XDtConfig:configParameterValue paramName="removeTable"/></remove-table>
+     </XDtConfig:ifHasConfigParam>
+     <XDTConfig:ifConfigParamEquals paramName="Version" value="3.2">
+       <XDTConfig:ifHasConfigParam paramName="post-table-create">
+       <post-table-create>
+         <sql-statement><XDTConfig:configParameterValue paramName="post-table-create"/></sql-statement>
+       </post-table-create>
+       </XDTConfig:ifHasConfigParam>
+     </XDTConfig:ifConfigParamEquals>
+     <XDtConfig:ifHasConfigParam paramName="readOnly">
+     <read-only><XDtConfig:configParameterValue paramName="readOnly"/></read-only>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="readTimeOut">
+     <read-time-out><XDtConfig:configParameterValue paramName="readTimeOut"/></read-time-out>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="rowLocking">
+     <row-locking><XDtConfig:configParameterValue paramName="rowLocking"/></row-locking>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="pkConstraint">
+     <pk-constraint><XDtConfig:configParameterValue paramName="pkConstraint"/></pk-constraint>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="fkConstraint">
+     <fk-constraint><XDtConfig:configParameterValue paramName="fkConstraint"/></fk-constraint>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="preferredRelationMapping">
+     <preferred-relation-mapping><XDtConfig:configParameterValue paramName="preferredRelationMapping"/></preferred-relation-mapping>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="readAhead">
+     <read-ahead><XDtConfig:configParameterValue paramName="readAhead"/></read-ahead>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="listCacheMax">
+     <list-cache-max><XDtConfig:configParameterValue paramName="listCacheMax"/></list-cache-max>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="fetchSize">
+     <fetch-size><XDtConfig:configParameterValue paramName="fetchSize"/></fetch-size>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="unknownPk">
+     <unknown-pk><XDtConfig:configParameterValue paramName="unknownPk"/></unknown-pk>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="createEntityCommand">
+     <create-entity-command><XDtConfig:configParameterValue paramName="createEntityCommand"/></create-entity-command>
+     </XDtConfig:ifHasConfigParam>
+     <XDtConfig:ifHasConfigParam paramName="entityCommand">
+     <entity-command><XDtConfig:configParameterValue paramName="entityCommand"/></entity-command>
+     </XDtConfig:ifHasConfigParam>
+   </defaults>
+   </XDtMerge:merge>
+
+   <enterprise-beans>
+
+  <XDtMerge:merge file="jbosscmp-jdbc-beans.xml">
+     <!--
+       To add beans that you have deployment descriptor info for, add
+       a file to your XDoclet merge directory called jbosscmp-jdbc-beans.xml
+       that contains the <entity></entity> markup for those beans.
+     -->
+  </XDtMerge:merge>
+
+<XDtEjbCmp:forAllCmpEntityBeans>
+  <XDtEjb:ifIsAConcreteEJBean>
+  <XDtEjbCmp:ifUsingCmp2>
+      <entity>
+    <XDtMerge:merge file="jbosscmp-jdbc-db-settings-{0}.xml">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+      <XDtClass:ifHasClassTag tagName="jboss:datasource" paramName="name" paramNum="0">
+         <datasource><XDtClass:classTagValue tagName="jboss:datasource" paramName="name" paramNum="0"/></datasource>
+         <datasource-mapping><XDtClass:classTagValue tagName="jboss:datasource" paramName="mapping" paramNum="1"/></datasource-mapping>
+      </XDtClass:ifHasClassTag>
+	  <XDtClass:ifHasClassTag tagName="jboss:persistence" paramName="datasource">
+		 <datasource><XDtClass:classTagValue tagName="jboss:persistence" paramName="datasource"/></datasource>
+		 <datasource-mapping><XDtClass:classTagValue tagName="jboss:persistence" paramName="datasource-mapping"/></datasource-mapping>
+	  </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:create-table,jboss:create-table" paramName="create-table,create">
+         <create-table><XDtClass:classTagValue tagName="jboss:persistence,jboss:create-table,jboss:create-table" paramName="create-table,create" paramNum="0"/></create-table>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:remove-table,jboss:remove-table" paramName="remove-table,remove">
+         <remove-table><XDtClass:classTagValue tagName="jboss:persistence,jboss:remove-table,jboss:remove-table" paramName="remove-table,remove" paramNum="0"/></remove-table>
+      </XDtClass:ifHasClassTag>
+<XDTConfig:ifConfigParamEquals paramName="Version" value="3.2">
+      <XDtClass:ifHasClassTag tagName="jboss.persistence" paramName="post-table-create">
+         <post-table-create>
+           <sql-statement><XDtClass:classTagValue tagName="jboss.persistence" paramName="post-table-create" paramNum="0"/></sql-statement>
+         </post-table-create>
+      </XDtClass:ifHasClassTag>
+</XDTConfig:ifConfigParamEquals>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:read-only,jboss:read-only" paramName="read-only,read-only">
+         <read-only><XDtClass:classTagValue tagName="jboss:persistence,jboss:read-only,jboss:read-only" paramName="read-only,read-only" paramNum="0"/></read-only>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:time-out,jboss:time-out" paramName="read-time-out,time-out">
+         <read-time-out><XDtClass:classTagValue tagName="jboss:persistence,jboss:time-out,jboss:time-out" paramName="read-time-out,time-out" paramNum="0"/></read-time-out>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:row-locking,jboss:row-locking" paramName="row-locking,row-locking">
+         <row-locking><XDtClass:classTagValue tagName="jboss:persistence,jboss:row-locking,jboss:row-locking" paramName="row-locking,row-locking" paramNum="0"/></row-locking>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:pk-constraint,jboss:pk-constraint" paramName="pk-constraint,pk-constraint">
+         <pk-constraint><XDtClass:classTagValue tagName="jboss:persistence,jboss:pk-constraint,jboss:pk-constraint" paramName="pk-constraint,pk-constraint" paramNum="0"/></pk-constraint>
+      </XDtClass:ifHasClassTag>
+	  <XDtClass:ifHasClassTag tagName="jboss:read-ahead">
+	     <read-ahead>
+	        <strategy><XDtClass:classTagValue tagName="jboss:read-ahead" paramName="strategy" values="on-load,on-find,none"/></strategy>
+			<XDtClass:ifHasClassTag tagName="jboss:read-ahead" paramName="page-size">
+			<page-size><XDtClass:classTagValue tagName="jboss:read-ahead" paramName="page-size"/></page-size>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="jboss:read-ahead" paramName="eager-load-group">
+			<eager-load-group><XDtClass:classTagValue tagName="jboss:read-ahead" paramName="eager-load-group"/></eager-load-group>
+			</XDtClass:ifHasClassTag>
+         </read-ahead>
+      </XDtClass:ifHasClassTag>
+	  <XDtClass:ifHasClassTag tagName="jboss:persistence" paramName="list-cache-max">
+	     <list-cache-max><XDtClass:classTagValue tagName="jboss:persistence" paramName="list-cache-max"/></list-cache-max>
+	  </XDtClass:ifHasClassTag>
+	  <XDtClass:ifHasClassTag tagName="jboss:persistence" paramName="fetch-size">
+	     <fetch-size><XDtClass:classTagValue tagName="jboss:persistence" paramName="fetch-size"/></fetch-size>
+	  </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="ejb.persistence,jboss.persistence,jboss.table-name" paramName="table-name,table-name">
+         <table-name><XDtClass:classTagValue tagName="ejb.persistence,jboss.persistence,jboss.table-name" paramName="table-name,table-name" paramNum="0"/></table-name>
+      </XDtClass:ifHasClassTag>
+    </XDtMerge:merge>
+
+    <XDtMerge:merge file="jbosscmp-jdbc-{0}.xml">
+      <XDtEjbCmp:forAllCmpFields>
+        <XDtMethod:ifDoesntHaveMethodTag tagName="jboss:not-persisted-field">
+          <XDtMethod:forAllMethodTags tagName="ejb:persistent-field|ejb.persistence">
+         <cmp-field>
+            <field-name><XDtMethod:propertyName/></field-name>
+			<XDtMethod:ifHasMethodTag tagName="jboss.persistence" paramName="read-only">
+			<read-only><XDtMethod:methodTagValue tagName="jboss.persistence" paramName="read-only"/></read-only>
+			</XDtMethod:ifHasMethodTag>
+			<XDtMethod:ifHasMethodTag tagName="jboss.persistence" paramName="read-time-out">
+			<read-time-out><XDtMethod:methodTagValue tagName="jboss.persistence" paramName="read-time-out"/></read-time-out>
+			</XDtMethod:ifHasMethodTag>
+			<XDtMethod:ifDoesntHaveMethodTag tagName="jboss:dvc-property">
+            <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:column-name,jboss:column-name" paramName="column-name,name">
+			<XDtComment:comment>
+				Please note that tagName contains 3 alternatives and paramName contains 2 alternatives. This is
+				necessary so XDoclet can catch:
+				    1) @ejb.persistence column-name="xxx"
+					2) @jboss.column-name name="xxx"
+					3) @jboss.column-name xxx
+				There is similar syntax in other places.
+			</XDtComment:comment>
+            <column-name><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:column-name,jboss:column-name" paramName="column-name,name" paramNum="0"/></column-name>
+            </XDtMethod:ifHasMethodTag>
+		    <XDtMethod:ifHasMethodTag tagName="jboss:persistence" paramName="not-null" value="true">
+			<not-null/>
+		    </XDtMethod:ifHasMethodTag>
+
+            <XDtComment:comment>
+              according to the DTD, jdbc-type and sql-type are a pair, one can't exist without the other...
+              probably need a cleaner way of doing what I do below...
+            </XDtComment:comment>
+            <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:jdbc-type,jboss:jdbc-type" paramName="jdbc-type,type">
+            <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:sql-type,jboss:sql-type" paramName="sql-type,type">
+            <jdbc-type><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:jdbc-type,jboss:jdbc-type" paramName="jdbc-type,type" paramNum="0"/></jdbc-type>
+            <sql-type><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:sql-type,jboss:sql-type" paramName="sql-type,type" paramNum="0"/></sql-type>
+            </XDtMethod:ifHasMethodTag>
+            </XDtMethod:ifHasMethodTag>
+
+			</XDtMethod:ifDoesntHaveMethodTag>
+			<XDtMethod:ifHasMethodTag tagName="jboss:dvc-property">
+			<XDtMethod:forAllMethodTags tagName="jboss:dvc-property">
+			<property>
+			  <property-name><XDtMethod:methodTagValue tagName="jboss:dvc-property" paramName="name"/></property-name>
+			  <XDtMethod:ifHasMethodTag tagName="jboss:dvc-property" paramName="column-name">
+			  <column-name><XDtMethod:methodTagValue tagName="jboss:dvc-property" paramName="column-name"/></column-name>
+			  </XDtMethod:ifHasMethodTag>
+			  <XDtMethod:ifHasMethodTag tagName="jboss:dvc-property" paramName="not-null" value="true">
+			  <not-null/>
+			  </XDtMethod:ifHasMethodTag>
+			  <XDtMethod:ifHasMethodTag tagName="jboss:dvc-property" paramName="jdbc-type">
+			  <jdbc-type><XDtMethod:methodTagValue tagName="jboss:dvc-property" paramName="jdbc-type"/></jdbc-type>
+			  </XDtMethod:ifHasMethodTag>
+			  <XDtMethod:ifHasMethodTag tagName="jboss:dvc-property" paramName="sql-type">
+			  <sql-type><XDtMethod:methodTagValue tagName="jboss:dvc-property" paramName="sql-type"/></sql-type>
+			  </XDtMethod:ifHasMethodTag>
+			</property>
+			</XDtMethod:forAllMethodTags>
+			</XDtMethod:ifHasMethodTag>
+
+		    <XDtMethod:ifHasMethodTag tagName="jboss:persistence" paramName="auto-increment">
+			<auto-increment/>
+		    </XDtMethod:ifHasMethodTag>
+		    <XDtConfig:ifConfigParamGreaterOrEquals paramName="version" value="3.2">
+		    <XDtMethod:ifHasMethodTag tagName="jboss:persistence" paramName="dbindex">
+		    <dbindex/>
+		    </XDtMethod:ifHasMethodTag>
+		    <XDtMethod:ifHasMethodTag tagName="jboss:persistence" paramName="check-dirty-after-get">
+		    <check-dirty-after-get><XDtMethod:methodTagValue tagName="jboss:persistence" paramName="check-dirty-after-get"/></check-dirty-after-get>
+		    </XDtMethod:ifHasMethodTag>
+		    </XDtConfig:ifConfigParamGreaterOrEquals>
+        </cmp-field>
+          </XDtMethod:forAllMethodTags>
+        </XDtMethod:ifDoesntHaveMethodTag>
+      </XDtEjbCmp:forAllCmpFields>
+      <XDtClass:forAllClassTags tagName="jboss:cmp-field">
+         <cmp-field>
+            <field-name><XDtClass:classTagValue tagName="jboss:cmp-field" paramName="field-name"/></field-name>
+            <column-name><XDtClass:classTagValue tagName="jboss:cmp-field" paramName="column-name"/></column-name>
+         </cmp-field>
+      </XDtClass:forAllClassTags>
+
+      <XDtClass:ifHasClassTag tagName="jboss:load-group" paramName="name">
+         <load-groups>
+            <XDtClass:forAllClassTags tagName="jboss:load-group">
+               <load-group>
+                  <XDtClass:ifHasClassTag tagName="jboss:load-group" paramName="description">
+                     <description><![CDATA[<XDtClass:classTagValue tagName="jboss:load-group" paramName="description"/>]]></description>
+                  </XDtClass:ifHasClassTag>
+                  <XDtClass:ifDoesntHaveClassTag tagName="jboss:load-group" paramName="description">
+                     <description/>
+                  </XDtClass:ifDoesntHaveClassTag>
+                  <load-group-name><XDtClass:classTagValue tagName="jboss:load-group" paramName="name"/></load-group-name>
+                  <XDtEjbCmp:forAllCmpFields>
+                     <XDtMethod:forAllMethodTags tagName="jboss:load-group">
+                        <XDtJBoss:ifMethodTagMatchesClassTag paramName="name">
+                           <field-name><XDtMethod:propertyName/></field-name>
+                        </XDtJBoss:ifMethodTagMatchesClassTag>
+                     </XDtMethod:forAllMethodTags>
+                  </XDtEjbCmp:forAllCmpFields>
+                  <XDtMethod:forAllMethods>
+                     <XDtMethod:ifHasMethodTag tagName="ejb.relation">
+                        <XDtMethod:forAllMethodTags tagName="jboss:load-group">
+                           <XDtJBoss:ifMethodTagMatchesClassTag paramName="name">
+                              <field-name><XDtMethod:propertyName/></field-name>
+                           </XDtJBoss:ifMethodTagMatchesClassTag>
+                        </XDtMethod:forAllMethodTags>
+                     </XDtMethod:ifHasMethodTag>
+                  </XDtMethod:forAllMethods>
+               </load-group>
+            </XDtClass:forAllClassTags>
+         </load-groups>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:ifHasClassTag tagName="jboss:eager-load-group" paramName="name">
+         <eager-load-group><XDtClass:classTagValue tagName="jboss:eager-load-group" paramName="name"/></eager-load-group>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:ifHasClassTag tagName="jboss:lazy-load-group" paramName="name">
+         <lazy-load-groups>
+            <XDtClass:forAllClassTags tagName="jboss:lazy-load-group">
+               <load-group-name><XDtClass:classTagValue tagName="jboss:lazy-load-group" paramName="name"/></load-group-name>
+            </XDtClass:forAllClassTags>
+         </lazy-load-groups>
+      </XDtClass:ifHasClassTag>
+
+      <XDtClass:forAllClassTags tagName="jboss:declared-sql">
+        <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="signature">
+         <query>
+		    <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="description"/>]]></description>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifDoesntHaveClassTag tagName="jboss:declared-sql" paramName="description">
+			<description/>
+			</XDtClass:ifDoesntHaveClassTag>
+            <query-method>
+               <method-name><XDtClass:classTagValue tagName="jboss:declared-sql" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+               <method-params>
+          <XDtParameter:forAllParameterTypes paramName="signature">
+                  <method-param><XDtParameter:currentToken/></method-param>
+          </XDtParameter:forAllParameterTypes>
+               </method-params>
+            </query-method>
+
+            <declared-sql>
+          <XDtClass:ifHasClassTag tagName="jboss:declared-sql,jboss:declared-sql,jboss:declared-sql,jboss:declared-sql" paramName="distinct,ejb-name,field-name,alias">
+                <select>
+             <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="distinct" value="true">
+                   <distinct/>
+             </XDtClass:ifHasClassTag>
+             <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="ejb-name">
+                   <ejb-name><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="ejb-name"/>]]></ejb-name>
+
+               <XDtComment:comment>field-name can only exist if ejb-name does...</XDtComment:comment>
+               <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="field-name">
+                   <field-name><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="field-name"/>]]></field-name>
+               </XDtClass:ifHasClassTag>
+             </XDtClass:ifHasClassTag>
+             <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="alias">
+                   <alias><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="alias"/>]]></alias>
+             </XDtClass:ifHasClassTag>
+                </select>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="from">
+                <from><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="from"/>]]></from>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="where">
+                <where><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="where"/>]]></where>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="order">
+                <order><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="order"/>]]></order>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="other">
+                <other><![CDATA[<XDtClass:classTagValue tagName="jboss:declared-sql" paramName="other"/>]]></other>
+          </XDtClass:ifHasClassTag>
+            </declared-sql>
+			<XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="strategy">
+			<read-ahead>
+				<strategy><XDtClass:classTagValue tagName="jboss:declared-sql" paramName="strategy" values="on-load,on-find,none"/></strategy>
+				<XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="page-size">
+				  <page-size><XDtClass:classTagValue tagName="jboss:declared-sql" paramName="page-size"/></page-size>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="jboss:declared-sql" paramName="eager-load-group">
+				  <eager-load-group><XDtClass:classTagValue tagName="jboss:declared-sql" paramName="eager-load-group"/></eager-load-group>
+				</XDtClass:ifHasClassTag>
+			</read-ahead>
+      </XDtClass:ifHasClassTag>
+         </query>
+        </XDtClass:ifHasClassTag>
+      </XDtClass:forAllClassTags>
+	  <XDtClass:forAllClassTags tagName="jboss:query">
+	     <XDtClass:ifHasClassTag tagName="jboss:query" paramName="signature">
+         <query>
+		    <XDtClass:ifHasClassTag tagName="jboss:query" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="jboss:query" paramName="description"/>]]></description>
+			</XDtClass:ifHasClassTag>
+            <query-method>
+               <method-name><XDtClass:classTagValue tagName="jboss:query" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+               <method-params>
+               <XDtParameter:forAllParameterTypes paramName="signature">
+                  <method-param><XDtParameter:currentToken/></method-param>
+               </XDtParameter:forAllParameterTypes>
+               </method-params>
+            </query-method>
+			<XDtClass:ifHasClassTag tagName="jboss:query" paramName="query">
+			<jboss-ql><![CDATA[<XDtClass:classTagValue tagName="jboss:query" paramName="query"/>]]></jboss-ql>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifClassTagValueEquals tagName="jboss:query" paramName="dynamic" value="true">
+			<dynamic-ql/>
+			</XDtClass:ifClassTagValueEquals>
+
+			<XDtClass:ifHasClassTag tagName="jboss:query" paramName="strategy">
+			<read-ahead>
+				<strategy><XDtClass:classTagValue tagName="jboss:query" paramName="strategy" values="on-load,on-find,none"/></strategy>
+				<XDtClass:ifHasClassTag tagName="jboss:query" paramName="page-size">
+				  <page-size><XDtClass:classTagValue tagName="jboss:query" paramName="page-size"/></page-size>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="jboss:query" paramName="eager-load-group">
+				  <eager-load-group><XDtClass:classTagValue tagName="jboss:query" paramName="eager-load-group"/></eager-load-group>
+				</XDtClass:ifHasClassTag>
+			</read-ahead>
+      </XDtClass:ifHasClassTag>
+	     </query>
+	     </XDtClass:ifHasClassTag>
+	  </XDtClass:forAllClassTags>
+    </XDtMerge:merge>
+
+	<XDtConfig:ifConfigParamGreaterOrEquals paramName="version" value="3.2">
+    <XDtClass:ifHasClassTag tagName="jboss:unknown-pk">
+	<unknown-pk>
+		<unknown-pk-class><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="class"/></unknown-pk-class>
+		<XDtClass:ifHasClassTag tagName="jboss:unknown-pk" paramName="field-name">
+		<field-name><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="field-name"/></field-name>
+		</XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="jboss:unknown-pk" paramName="readonly">
+		<read-only><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="readonly"/></read-only>
+		</XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="jboss:unknown-pk" paramName="read-time-out">
+		<read-time-out><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="read-time-out"/></read-time-out>
+		</XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="jboss:unknown-pk" paramName="column-name">
+		<column-name><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="column-name"/></column-name>
+		</XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="jboss:unknown-pk" paramName="jdbc-type">
+		<jdbc-type><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="jdbc-type"/></jdbc-type>
+		<sql-type><XDtClass:classTagValue tagName="jboss:unknown-pk" paramName="sql-type"/></sql-type>
+		</XDtClass:ifHasClassTag>
+		<XDtClass:ifHasClassTag tagName="jboss:unknown-pk" paramName="auto-increment">
+		<auto-increment/>
+		</XDtClass:ifHasClassTag>
+	</unknown-pk>
+    </XDtClass:ifHasClassTag>
+	<XDtClass:ifHasClassTag tagName="jboss:entity-command" paramName="name">
+	<entity-command name="<XDtClass:classTagValue tagName="jboss:entity-command" paramName="name"/>"<XDtClass:ifHasClassTag tagName="jboss:entity-command" paramName="class"> class="<XDtClass:classTagValue tagName="jboss:entity-command" paramName="class"/>"</XDtClass:ifHasClassTag>>
+	  <XDtClass:forAllClassTags tagName="jboss:entity-command-attribute">
+	    <XDtClass:ifHasClassTag tagName="jboss:entity-command-attribute" paramName="name">
+	    <XDtClass:ifHasClassTag tagName="jboss:entity-command-attribute" paramName="value">
+		<attribute name="<XDtClass:classTagValue tagName="jboss:entity-command-attribute" paramName="name"/>"><XDtClass:classTagValue tagName="jboss:entity-command-attribute" paramName="value"/></attribute>
+	    </XDtClass:ifHasClassTag>
+	    </XDtClass:ifHasClassTag>
+	  </XDtClass:forAllClassTags>
+	</entity-command>
+	</XDtClass:ifHasClassTag>
+<!-- jboss 3.2 features -->
+<!-- optimistic locking does not express the exclusions needed -->
+	<XDtClass:ifHasClassTag tagName="jboss:optimistic-locking">
+        <optimistic-locking>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="group-name">
+            <group-name><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="group-name"/></group-name>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="modified-strategy">
+            <modified-strategy/>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="read-strategy">
+            <read-strategy/>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="version-column">
+            <version-column/>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="timestamp-column">
+            <timestamp-column/>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="key-generator-factory">
+            <key-generator-factory><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="key-generator-factory"/></key-generator-factory>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="field-type">
+            <field-type><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="field-type"/></field-type>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="field-name">
+            <field-name><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="field-name"/></field-name>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="column-name">
+            <column-name><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="column-name"/></column-name>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="jdbc-type">
+            <jdbc-type><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="jdbc-type"/></jdbc-type>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:optimistic-locking" paramName="sql-type">
+            <sql-type><XDtClass:classTagValue tagName="jboss:optimistic-locking" paramName="sql-type"/></sql-type>
+          </XDtClass:ifHasClassTag>
+        </optimistic-locking>
+	</XDtClass:ifHasClassTag>
+	<XDtClass:ifHasClassTag tagName="jboss:audit">
+        <audit>
+            <created-by/>
+            <created-time/>
+            <updated-by/>
+            <updated-time/>
+        </audit>
+	</XDtClass:ifHasClassTag>
+	<XDtClass:ifHasClassTag tagName="jboss:audit-created-by, jboss:audit-created-time, jboss:audit-updated-by, jboss:audit-updated-time">
+        <audit>
+          <XDtClass:ifHasClassTag tagName="jboss:audit-created-by">
+            <created-by>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-created-by" paramName="field-name">
+                <field-name><XDtClass:classTagValue tagName="jboss:audit-created-by" paramName="field-name"/></field-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-created-by" paramName="column-name">
+                <column-name><XDtClass:classTagValue tagName="jboss:audit-created-by" paramName="column-name"/></column-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-created-by" paramName="jdbc-type">
+                <jdbc-type><XDtClass:classTagValue tagName="jboss:audit-created-by" paramName="jdbc-type"/></jdbc-type>
+                <sql-type><XDtClass:classTagValue tagName="jboss:audit-created-by" paramName="sql-type"/></sql-type>
+              </XDtClass:ifHasClassTag>
+            </created-by>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:audit-created-time">
+            <created-time>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-created-time" paramName="field-name">
+                <field-name><XDtClass:classTagValue tagName="jboss:audit-created-time" paramName="field-name"/></field-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-created-time" paramName="column-name">
+                <column-name><XDtClass:classTagValue tagName="jboss:audit-created-time" paramName="column-name"/></column-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-created-time" paramName="jdbc-type">
+                <jdbc-type><XDtClass:classTagValue tagName="jboss:audit-created-time" paramName="jdbc-type"/></jdbc-type>
+                <sql-type><XDtClass:classTagValue tagName="jboss:audit-created-time" paramName="sql-type"/></sql-type>
+              </XDtClass:ifHasClassTag>
+            </created-time>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:audit-updated-by">
+            <updated-by>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-updated-by" paramName="field-name">
+                <field-name><XDtClass:classTagValue tagName="jboss:audit-updated-by" paramName="field-name"/></field-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-updated-by" paramName="column-name">
+                <column-name><XDtClass:classTagValue tagName="jboss:audit-updated-by" paramName="column-name"/></column-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-updated-by" paramName="jdbc-type">
+                <jdbc-type><XDtClass:classTagValue tagName="jboss:audit-updated-by" paramName="jdbc-type"/></jdbc-type>
+                <sql-type><XDtClass:classTagValue tagName="jboss:audit-updated-by" paramName="sql-type"/></sql-type>
+              </XDtClass:ifHasClassTag>
+            </updated-by>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="jboss:audit-updated-time">
+            <updated-time>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-updated-time" paramName="field-name">
+                <field-name><XDtClass:classTagValue tagName="jboss:audit-updated-time" paramName="field-name"/></field-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-updated-time" paramName="column-name">
+                <column-name><XDtClass:classTagValue tagName="jboss:audit-updated-time" paramName="column-name"/></column-name>
+              </XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="jboss:audit-updated-time" paramName="jdbc-type">
+                <jdbc-type><XDtClass:classTagValue tagName="jboss:audit-updated-time" paramName="jdbc-type"/></jdbc-type>
+                <sql-type><XDtClass:classTagValue tagName="jboss:audit-updated-time" paramName="sql-type"/></sql-type>
+              </XDtClass:ifHasClassTag>
+            </updated-time>
+          </XDtClass:ifHasClassTag>
+        </audit>
+	</XDtClass:ifHasClassTag>
+	</XDtConfig:ifConfigParamGreaterOrEquals>
+      </entity>
+
+  </XDtEjbCmp:ifUsingCmp2>
+  </XDtEjb:ifIsAConcreteEJBean>
+</XDtEjbCmp:forAllCmpEntityBeans>
+
+   </enterprise-beans>
+
+<XDtEjbRel:ifHasRelationships>
+  <relationships>
+  <XDtEjbRel:forAllRelationships>
+    <ejb-relation>
+      <ejb-relation-name><XDtEjbRel:relationName/></ejb-relation-name>
+    <XDtJBEjbRel:ifIsRelationTableMapping>
+      <relation-table-mapping>
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="table-name">
+        <table-name><XDtJBEjbRel:relationTableAttribute paramName="table-name"/></table-name>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="datasource">
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="datasource-mapping">
+          <datasource><XDtJBEjbRel:relationTableAttribute paramName="datasource"/></datasource>
+          <datasource-mapping><XDtJBEjbRel:relationTableAttribute paramName="datasource-mapping"/></datasource-mapping>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="create-table">
+          <create-table><XDtJBEjbRel:relationTableAttribute paramName="create-table"/></create-table>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="remove-table">
+          <remove-table><XDtJBEjbRel:relationTableAttribute paramName="remove-table"/></remove-table>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="row-locking">
+          <row-locking><XDtJBEjbRel:relationTableAttribute paramName="row-locking"/></row-locking>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      <XDtJBEjbRel:ifHasRelationTableAttribute paramName="pk-constraint">
+          <pk-constraint><XDtJBEjbRel:relationTableAttribute paramName="pk-constraint"/></pk-constraint>
+      </XDtJBEjbRel:ifHasRelationTableAttribute>
+      </relation-table-mapping>
+    </XDtJBEjbRel:ifIsRelationTableMapping>
+    <XDtJBEjbRel:ifIsForeignKeyMapping>
+      <foreign-key-mapping/>
+    </XDtJBEjbRel:ifIsForeignKeyMapping>
+
+<XDtComment:comment>
+	<foreign-key-mapping/> or <relation-table-mapping/> is required in JBoss versions < 3.0.2, so
+	if foreign-key-mapping or relation-table-mapping aren't explicitly specified, XDoclet will
+	add <foreign-key-mapping/> as it once did to support JBoss versions < 3.0.2
+</XDtComment:comment>
+    <XDtJBEjbRel:ifNotIsForeignKeyMapping>
+      <XDtJBEjbRel:ifNotIsRelationTableMapping>
+        <XDtConfig:ifConfigParamNotGreaterOrEquals paramName="Version" value="3.0.2">
+      <foreign-key-mapping/>
+        </XDtConfig:ifConfigParamNotGreaterOrEquals>
+      </XDtJBEjbRel:ifNotIsRelationTableMapping>
+    </XDtJBEjbRel:ifNotIsForeignKeyMapping>
+
+		<XDtComment:comment>
+			PLEASE note that JBoss has reversed semantics for foreign key mappings:
+			The foreign keys are declared on the *source* side of the relation, i.e,
+			on the side where the (primary) key fields come from, not on the side where
+			the foreign keys are.
+		</XDtComment:comment>
+      <ejb-relationship-role>
+          <ejb-relationship-role-name><XDtEjbRel:leftRoleName/></ejb-relationship-role-name>
+          <XDtJBEjbRel:ifLeftHasFKConstraint>
+          <fk-constraint><XDtJBEjbRel:leftFKConstraint/></fk-constraint>
+          </XDtJBEjbRel:ifLeftHasFKConstraint>
+          <XDtMethod:ifDoesntHaveMethodTag tagName="jboss:auto-key-fields">
+          <XDtJBEjbRel:ifRightHasFK>
+          <key-fields>
+            <XDtJBEjbRel:forAllRightForeignKeys>
+             <key-field>
+               <field-name><XDtJBEjbRel:relatedPKField/></field-name>
+               <column-name><XDtJBEjbRel:fkColumn/></column-name>
+               <XDtMethod:ifHasMethodTag tagName="jboss:relation" paramName="sql-type">
+                 <XDtMethod:ifHasMethodTag tagName="jboss:relation" paramName="jdbc-type">
+                 <jdbc-type><XDtMethod:methodTagValue tagName="jboss:relation" paramName="jdbc-type"/></jdbc-type>
+                 <sql-type><XDtMethod:methodTagValue tagName="jboss:relation" paramName="sql-type"/></sql-type>
+                 </XDtMethod:ifHasMethodTag>
+               </XDtMethod:ifHasMethodTag>
+               <XDtConfig:ifConfigParamGreaterOrEquals paramName="version" value="3.2">
+	             <XDtMethod:ifHasMethodTag tagName="jboss:relation" paramName="dbindex">
+		           <dbindex/>
+		         </XDtMethod:ifHasMethodTag>
+               </XDtConfig:ifConfigParamGreaterOrEquals>
+             </key-field>
+            </XDtJBEjbRel:forAllRightForeignKeys>
+          </key-fields>
+          </XDtJBEjbRel:ifRightHasFK>
+		  <XDtJBEjbRel:ifNotRightHasFK>
+		  <key-fields/>
+		  </XDtJBEjbRel:ifNotRightHasFK>
+          </XDtMethod:ifDoesntHaveMethodTag>
+
+          <XDtJBEjbRel:ifLeftHasReadAhead>
+          <read-ahead>
+            <strategy><XDtJBEjbRel:leftReadAheadStrategy/></strategy>
+            <XDtJBEjbRel:ifLeftHasReadAheadPageSize>
+            <page-size><XDtJBEjbRel:leftReadAheadPageSize/></page-size>
+            </XDtJBEjbRel:ifLeftHasReadAheadPageSize>
+            <XDtJBEjbRel:ifLeftHasReadAheadEagerLoadGroup>
+            <eager-load-group><XDtJBEjbRel:leftReadAheadEagerLoadGroup/></eager-load-group>
+            </XDtJBEjbRel:ifLeftHasReadAheadEagerLoadGroup>
+          </read-ahead>
+          </XDtJBEjbRel:ifLeftHasReadAhead>
+      </ejb-relationship-role>
+      <ejb-relationship-role>
+          <ejb-relationship-role-name><XDtEjbRel:rightRoleName/></ejb-relationship-role-name>
+          <XDtJBEjbRel:ifRightHasFKConstraint>
+          <fk-constraint><XDtJBEjbRel:rightFKConstraint/></fk-constraint>
+          </XDtJBEjbRel:ifRightHasFKConstraint>
+          <XDtMethod:ifDoesntHaveMethodTag tagName="jboss:auto-key-fields">
+          <XDtJBEjbRel:ifLeftHasFK>
+          <key-fields>
+            <XDtJBEjbRel:forAllLeftForeignKeys>
+             <key-field>
+               <field-name><XDtJBEjbRel:relatedPKField/></field-name>
+               <column-name><XDtJBEjbRel:fkColumn/></column-name>
+               <XDtMethod:ifHasMethodTag tagName="jboss:relation" paramName="jdbc-type">
+               <jdbc-type><XDtMethod:methodTagValue tagName="jboss:relation" paramName="jdbc-type"/></jdbc-type>
+               </XDtMethod:ifHasMethodTag>
+               <XDtMethod:ifHasMethodTag tagName="jboss:relation" paramName="sql-type">
+               <sql-type><XDtMethod:methodTagValue tagName="jboss:relation" paramName="sql-type"/></sql-type>
+               </XDtMethod:ifHasMethodTag>
+             </key-field>
+            </XDtJBEjbRel:forAllLeftForeignKeys>
+          </key-fields>
+          </XDtJBEjbRel:ifLeftHasFK>
+		  <XDtJBEjbRel:ifNotLeftHasFK>
+		  <key-fields/>
+		  </XDtJBEjbRel:ifNotLeftHasFK>
+          </XDtMethod:ifDoesntHaveMethodTag>
+
+          <XDtJBEjbRel:ifRightHasReadAhead>
+          <read-ahead>
+            <strategy><XDtJBEjbRel:rightReadAheadStrategy/></strategy>
+            <XDtJBEjbRel:ifRightHasReadAheadPageSize>
+            <page-size><XDtJBEjbRel:rightReadAheadPageSize/></page-size>
+            </XDtJBEjbRel:ifRightHasReadAheadPageSize>
+            <XDtJBEjbRel:ifRightHasReadAheadEagerLoadGroup>
+            <eager-load-group><XDtJBEjbRel:rightReadAheadEagerLoadGroup/></eager-load-group>
+            </XDtJBEjbRel:ifRightHasReadAheadEagerLoadGroup>
+          </read-ahead>
+          </XDtJBEjbRel:ifRightHasReadAhead>
+      </ejb-relationship-role>
+    </ejb-relation>
+  </XDtEjbRel:forAllRelationships>
+   <XDtMerge:merge file="jbosscmp-jdbc-relationships.xml"> 
+     <!-- 
+       To add jboss relationships for beans not managed by XDoclet, add
+       a file to your XDoclet merge directory called jbosscmp-jdbc-relationships.xml that contains
+       the <ejb-relation></ejb-relation> markups for those beans.
+     --> 
+   </XDtMerge:merge>
+  </relationships>
+</XDtEjbRel:ifHasRelationships>
+<XDtEjbRel:ifNotHasRelationships>
+    <XDtMerge:ifMergeFileExists file="jbosscmp-jdbc-relationships.xml"> 
+      <relationships>
+      <XDtMerge:merge file="jbosscmp-jdbc-relationships.xml"> 
+        <!-- 
+          To add jboss relationships for beans not managed by XDoclet, add
+          a file to your XDoclet merge directory called jbosscmp-jdbc-relationships.xml that contains
+          the <ejb-relation></ejb-relation> markups for those beans.
+        --> 
+      </XDtMerge:merge>
+    </relationships>
+  </XDtMerge:ifMergeFileExists>
+</XDtEjbRel:ifNotHasRelationships>
+
+<XDtJBoss:ifHasDVC>
+   <dependent-value-classes>
+     <XDtClass:forAllClasses>
+     <XDtClass:ifHasClassTag tagName="jboss:dvc">
+     <dependent-value-class>
+       <description><![CDATA[<XDtClass:firstSentenceDescription/>]]></description>
+       <class><XDtClass:fullClassName/></class>
+       <XDtMethod:forAllMethods>
+      <XDtMethod:ifHasMethodTag tagName="jboss:dvc-property">
+      <property>
+        <property-name><XDtMethod:propertyName/></property-name>
+        <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:column-name,jboss:column-name" paramName="column-name,name">
+        <column-name><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:column-name,jboss:column-name" paramName="column-name,name" paramNum="0"/></column-name>
+        </XDtMethod:ifHasMethodTag>
+        <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:jdbc-type,jboss:jdbc-type" paramName="jdbc-type,type">
+        <jdbc-type><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:jdbc-type,jboss:jdbc-type" paramName="jdbc-type,type" paramNum="0"/></jdbc-type>
+        </XDtMethod:ifHasMethodTag>
+        <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:sql-type,jboss:sql-type" paramName="sql-type,type">
+        <sql-type><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:sql-type,jboss:sql-type" paramName="sql-type,type" paramNum="0"/></sql-type>
+        </XDtMethod:ifHasMethodTag>
+      </property>
+      </XDtMethod:ifHasMethodTag>
+      </XDtMethod:forAllMethods>
+     </dependent-value-class>
+   </XDtClass:ifHasClassTag>
+   </XDtClass:forAllClasses>
+   <XDtMerge:merge file="jbosscmp-jdbc-dvc.xml">
+   <!-- merge point: jbosscmp-jdbc-dvc.xml -->
+   </XDtMerge:merge>
+   </dependent-value-classes>
+</XDtJBoss:ifHasDVC>
+
+    <XDtMerge:merge file="jbosscmp-jdbc-typemappings.xml">
+    </XDtMerge:merge>
+
+	<XDtMerge:merge file="jbosscmp-jdbc-entity-commands.xml">
+	</XDtMerge:merge>
+</jbosscmp-jdbc>

@@ -1,0 +1,65 @@
+<project name="mockdoclet-sample" default="compile" basedir=".">
+
+  <path id="classpath">
+    <pathelement location="target/classes"/>
+    <pathelement path="ant.jar"/>
+    <pathelement path="log4j.jar"/>
+    <pathelement path="junit.jar"/>
+    <pathelement path="xdoclet-1.2b2.jar"/>
+    <pathelement path="xdoclet-xjavadoc-1.2b2.jar"/>
+    <pathelement path="commons-logging.jar"/>
+  </path>
+
+  <target name="prepare" unless="no.prepare" description="Prepare src for compilation">
+    <mkdir dir="src/test" />
+
+    <taskdef name="mockdoclet" classname="org.mockmaker.doclet.MockObjectDocletTask" classpathref="classpath" />
+
+    <!-- MockDoclet task -->
+    <mockdoclet destdir="src/test">
+
+      <!-- Process all src files -->
+      <fileset dir="src/sample"/>
+
+      <!-- Generate Mock Object classes -->
+      <mockobject />
+
+    </mockdoclet>
+
+  </target>
+
+  <target name="compile" description="Compile classes">
+    <mkdir dir="target/classes" />
+    <javac srcdir="src/main;src/test" destdir="target/classes" classpathref="classpath" />
+    <copy todir="target/classes">
+      <fileset dir="src/main">
+        <include name="**/*.j"/>
+        <include name="**/*.xml"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="jar" depends="compile" description="Make a distribution file (JAR)">
+    <jar destfile="mockdoclet.jar">
+      <fileset dir="target/classes">
+        <include name="org/**"/>
+        <include name="META-INF/**"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="source" description="Make a distribution source file (JAR)">
+    <jar destfile="mockdoclet-src.jar">
+      <fileset dir="src/main"/>
+      <fileset dir="src/sample"/>
+      <fileset dir=".">
+        <include name="build.xml"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="clean-mock" description="Clean up mock files">
+    <delete dir="src/test" />
+  </target>
+
+</project>

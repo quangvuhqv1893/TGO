@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="MyFirstPagination"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<title>Management</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<style type="text/css">
+body {
+	background-color: azure;
+}
+
+h4 {
+	float: left;
+	margin-top: 10px;
+	margin-left: 30px;
+}
+
+h5 {
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+img {
+	margin-left: 130px;
+	border-top-right-radius: 50%;
+	border-bottom-right-radius: 50%;
+	border-bottom-left-radius: 50%;
+	border-top-left-radius: 50%;
+	width: 100px;
+	height: 100px;
+}
+
+.dropdown-menu {
+	display: none;
+	position: absolute;
+}
+
+li:hover .dropdown-menu {
+	display: block;
+}
+
+.dropdown-menu li {
+	margin-left: 0 !important;
+}
+
+.dropdown-menu ul {
+	display: none!mportant;
+}
+</style>
+<link href="../static/image/favicon.ico" th:href="@{/image/favico.ico}"
+	rel="shortcut icon"></link>
+</head>
+<body>
+	<div id="header">
+
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Logo</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Trang chủ</a></li>
+						<li><a href="#">Địa điểm</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Trợ giúp</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><b >HELLO</b><b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Thông tin cá nhân</a></li>
+								<li><a href="#">Cài đặt</a></li>
+								<li class="divider"></li>
+								<li><a th:href="@{/logout}">Đăng xuất</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+		</nav>
+	</div>
+	<br></br>
+	<br></br>
+	<img src="../static/image/adminPIC.jpg" th:src="@{/image/adminPIC.jpg}"></img>
+	<br></br>
+	<h4>
+		<a th:href="@{/danhsachtour}"> DANH SÁCH TOUR</a> <br></br> <a
+			th:href="@{/danhsachhuongdanvien}"> DANH SÁCH HƯỚNG DẪN VIÊN</a> <br></br>
+		<a th:href="@{/danhsachcongtyluhanh}">DANH SÁCH CÔNG TY LỮ HÀNH</a>
+	</h4>
+	<div class="container">
+
+		<div ng-controller="listdata">
+			<form class="form-inline">
+				<div class="form-group">
+					<label>Search</label> <input type="text" ng-model="search"
+						class="form-control" placeholder="Search"></input>
+				</div>
+			</form>
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th ng-click="sort('id')">Id <span
+							class="glyphicon sort-icon" ng-show="sortKey=='id'"
+							ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th ng-click="sort('name')">TOUR_NAME <span
+							class="glyphicon sort-icon" ng-show="sortKey=='name'"
+							ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th ng-click="sort('name')">TOUR_PRICE <span
+							class="glyphicon sort-icon" ng-show="sortKey=='name'"
+							ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th ng-click="sort('name')">TOUR_TIME <span
+							class="glyphicon sort-icon" ng-show="sortKey=='name'"
+							ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th ng-click="sort('name')">STATUS <span
+							class="glyphicon sort-icon" ng-show="sortKey=='name'"
+							ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:unless="${#lists.isEmpty(tours)}">
+						<tr th:each="tour,iterStat : ${tours}"
+							dir-paginate="val in dataCongTy|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+							<td th:text="${tour.id}"></td>
+							<td th:text="${tour.tourName}"></td>
+							<td th:text="${tour.tourPrice}"></td>
+							<td th:text="${tour.tourTime}"></td>
+							<td th:text="${tour.status}"></td>
+							<td><form th:method="get"
+									th:attr="action='/tour/delete/'+${page}+'/'+${tour.id}">
+									<button type="submit">Remove</button>
+								</form></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+			<dir-pagination-controls max-size="5" direction-links="true"
+				boundary-links="true"> </dir-pagination-controls>
+		</div>
+	</div>
+	<ul>
+		<li><form th:method="get"
+				th:attr="action='/danhsachtour/page/'+${previouspage}">
+				<button type="submit">Previous</button>
+			</form></li>
+		<li>Page <b th:text="${page}"></b></li>
+		<li><form th:method="get"
+				th:attr="action='/danhsachtour/page/'+${nextpage}">
+				<button type="submit">Next</button>
+			</form></li>
+	</ul>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<script src="dirPagination.js"></script>
+	<script>
+		var app = angular.module('MyFirstPagination',
+				[ 'angularUtils.directives.dirPagination' ]);
+		app.controller('listdata', function($scope, $http) {
+			$scope.dataTOUR = [ {
+				"id" : 1,
+				"name" : "Ca Mau nua ngay"
+			}, {
+				"id" : 2,
+				"name" : "Tham qua HO Tien"
+			}, {
+				"id" : 3,
+				"name" : "ROYAL CITY"
+			}, {
+				"id" : 4,
+				"name" : "VINCOM Ba trieu"
+			}, {
+				"id" : 5,
+				"name" : "VINCOM Ba trieu"
+			}, {
+				"id" : 6,
+				"name" : "srte"
+			}, {
+				"id" : 7,
+				"name" : "srte"
+			}, {
+				"id" : 8,
+				"name" : "srte"
+			}, {
+				"id" : 9,
+				"name" : "srte"
+			}, {
+				"id" : 10,
+				"name" : "srte"
+			}, {
+				"id" : 11,
+				"name" : "srte"
+			}, {
+				"id" : 12,
+				"name" : "srte"
+			}, {
+				"id" : 13,
+				"name" : "srte"
+			}, {
+				"id" : 14,
+				"name" : "srte"
+			}, {
+				"id" : 15,
+				"name" : "srte"
+			},
+
+			];
+			$scope.sort = function(keyname) {
+				$scope.sortKey = keyname; //set the sortKey to the param passed
+				$scope.reverse = !$scope.reverse; //if true make it false and vice versa
+			}
+		});
+	</script>
+</body>
+</html>

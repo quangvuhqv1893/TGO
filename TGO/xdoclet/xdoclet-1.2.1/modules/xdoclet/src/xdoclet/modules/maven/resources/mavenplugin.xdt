@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project
+    xmlns:j="jelly:core"
+    xmlns:jelxml="jelly:xml"
+    xmlns:jelant="jelly:ant"
+    xmlns:maven="jelly:maven"
+    xmlns:m="maven">
+
+   <XDtMavenplugin:forAllTasks>
+    <goal
+        description="<XDtMavenplugin:elementName/>"
+        name="xdoclet:<XDtMavenplugin:elementName/>">
+
+        <taskdef name="<XDtMavenplugin:elementName/>" classname="<XDtClass:fullClassName/>">
+            <classpath>
+
+	        <path refid="maven.dependency.classpath"/>
+
+                <pathelement path="${plugin.getDependencyPath('xdoclet:xdoclet')}"/>
+                <pathelement path="${plugin.getDependencyPath('xdoclet:xjavadoc')}"/>
+                <pathelement path="${plugin.getDependencyPath('xdoclet:xdoclet-xdoclet-module')}"/>
+                <pathelement path="${plugin.getDependencyPath('commons-collections:commons-collections')}"/>
+                <pathelement path="${plugin.getDependencyPath('commons-logging:commons-logging')}"/>
+                <pathelement path="${plugin.getDependencyPath('log4j:log4j')}"/>
+
+            </classpath>
+        </taskdef>
+
+        <<XDtMavenplugin:elementName/>>
+		<!--
+           <XDtClass:forAllClassTags tagName="ant.attribute" superclasses="true">
+            <XDtClass:classTagValue tagName="ant.attribute" paramName="name"/>="${maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtClass:classTagValue tagName="ant.attribute" paramName="name"/>}"
+           </XDtClass:forAllClassTags>
+		   -->
+         <XDtMethod:forAllMethods superclasses="true">
+          <XDtMethod:ifIsPublic>
+          <XDtMethod:ifIsSetter>
+          <XDtMethod:ifDoesntHaveMethodTag tagName="ant.ignore">
+            <jelant:setProperty name="<XDtMethod:propertyName/>" value="${maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMethod:propertyName/>}"/>
+          </XDtMethod:ifDoesntHaveMethodTag>
+          </XDtMethod:ifIsSetter>
+          </XDtMethod:ifIsPublic>
+         </XDtMethod:forAllMethods>
+
+		 <XDtMavenplugin:ifHasSubElements>
+      <XDtMavenplugin:forAllSubElements>
+       <XDtMavenplugin:ifIsASubTask>
+
+            <j:set var="subelement_index" value="0"/>
+            <j:forEach begin="0" end="20" indexVar="subelement_index">
+              <j:set var="subelement_index_var_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}"/>
+              <j:if test="${context.getVariable(subelement_index_var_name) == 'true'}">
+                <<XDtMavenplugin:subElementName/>>
+                 <XDtMethod:forAllMethods superclasses="true">
+                  <XDtMethod:ifIsPublic>
+                   <XDtMavenplugin:ifIsANestedElement>
+                     <XDtClass:setMatchValue value="<XDtMavenplugin:nestedElementName/>">
+                     <XDtClass:pushClass value="<XDtMavenplugin:nestedElementType/>">
+                     <XDtType:ifIsOfType type="org.apache.tools.ant.types.EnumeratedAttribute">
+					<j:set var="prop_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}.<XDtClass:matchValue/>"/>
+					<jelant:setProperty name="<XDtClass:matchValue/>" value="${context.getVariable(prop_name)}"/>
+                     </XDtType:ifIsOfType>
+                     <XDtType:ifIsNotOfType type="org.apache.tools.ant.types.EnumeratedAttribute">
+                <j:set var="nested_element_index" value="0"/>
+                <j:forEach begin="0" end="10" indexVar="nested_element_index">
+                    <j:set var="prop_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}.<XDtClass:matchValue/>.${nested_element_index}"/>
+                    <j:if test="${context.getVariable(prop_name) != null}">
+                    <<XDtClass:matchValue/>>
+                      <XDtMethod:forAllMethods superclasses="true">
+                       <XDtMethod:ifIsPublic>
+                       <XDtMethod:ifIsSetter>
+                        <j:set var="prop_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}.<XDtClass:matchValue/>.${nested_element_index}.<XDtMethod:propertyName/>"/>
+                        <jelant:setProperty name="<XDtMethod:propertyName/>" value="${context.getVariable(prop_name)}"/>
+                       </XDtMethod:ifIsSetter>
+                       </XDtMethod:ifIsPublic>
+                      </XDtMethod:forAllMethods>
+                    </<XDtClass:matchValue/>>
+                    </j:if>
+                </j:forEach>
+                     </XDtType:ifIsNotOfType>
+                     </XDtClass:pushClass>
+                     </XDtClass:setMatchValue>
+
+                   </XDtMavenplugin:ifIsANestedElement>
+                   <XDtMavenplugin:ifIsNotANestedElement>
+                   <XDtMethod:ifIsSetter>
+                    <j:set var="prop_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}.<XDtMethod:propertyName/>"/>
+                    <jelant:setProperty name="<XDtMethod:propertyName/>" value="${context.getVariable(prop_name)}"/>
+                   </XDtMethod:ifIsSetter>
+                   </XDtMavenplugin:ifIsNotANestedElement>
+                  </XDtMethod:ifIsPublic>
+                 </XDtMethod:forAllMethods>>
+                </<XDtMavenplugin:subElementName/>>
+              </j:if>
+            </j:forEach>
+
+       </XDtMavenplugin:ifIsASubTask>
+       <XDtMavenplugin:ifIsNotASubTask>
+        <XDtMavenplugin:ifIsAFileSet>
+            <j:set var="fileset_index" value="0"/>
+            <j:forEach begin="0" end="10" indexVar="fileset_index">
+                <j:set var="fileset_index_var_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.fileset.${fileset_index}"/>
+                <j:if test="${context.getVariable(fileset_index_var_name) != null}">
+                    <j:set var="fileset_source_directory_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.fileset.${fileset_index}.sourcedir"/>
+                    <j:if test="${context.getVariable(fileset_source_directory_name) == null}">
+                        <j:set var="fileset_source_directory" value="${pom.build.sourceDirectory}"/>
+                    </j:if>
+                    <j:if test="${context.getVariable(fileset_source_directory_name) != null}">
+                        <j:set var="fileset_source_directory" value="${context.getVariable(fileset_source_directory_name)}"/>
+                    </j:if>
+                    <fileset dir="${fileset_source_directory}">
+                        <j:set var="fileset_index_include_var_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.fileset.${fileset_index}.include"/>
+                        <j:set var="fileset_index_exclude_var_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.fileset.${fileset_index}.exclude"/>
+                        <j:if test="${context.getVariable(fileset_index_include_var_name) != null}">
+                            <include name="${context.getVariable(fileset_index_include_var_name)}"/>
+                        </j:if>
+                        <j:if test="${context.getVariable(fileset_index_exclude_var_name) != null}">
+                            <exclude name="${context.getVariable(fileset_index_exclude_var_name)}"/>
+                        </j:if>
+                    </fileset>
+                </j:if>
+            </j:forEach>
+        </XDtMavenplugin:ifIsAFileSet>
+        <XDtMavenplugin:ifIsNotAFileSet>
+
+            <j:set var="subelement_index" value="0"/>
+            <j:forEach begin="0" end="20" indexVar="subelement_index">
+              <j:set var="subelement_index_var_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}"/>
+              <j:if test="${context.getVariable(subelement_index_var_name) != null}">
+                <<XDtMavenplugin:subElementName/>>
+                 <XDtMethod:forAllMethods superclasses="true">
+                  <XDtMethod:ifIsPublic>
+                       <XDtMethod:ifIsSetter>
+                        <j:set var="subelement_index_var_name" value="maven.xdoclet.<XDtMavenplugin:elementName/>.<XDtMavenplugin:subElementName/>.${subelement_index}.<XDtMethod:propertyName/>"/>
+                        <jelant:setProperty name="<XDtMethod:propertyName/>" value="${context.getVariable(subelement_index_var_name)}"/>
+                       </XDtMethod:ifIsSetter>
+                  </XDtMethod:ifIsPublic>
+                 </XDtMethod:forAllMethods>
+                </<XDtMavenplugin:subElementName/>>
+              </j:if>
+            </j:forEach>
+
+        </XDtMavenplugin:ifIsNotAFileSet>
+       </XDtMavenplugin:ifIsNotASubTask>
+
+      </XDtMavenplugin:forAllSubElements>
+     </XDtMavenplugin:ifHasSubElements>
+
+        </<XDtMavenplugin:elementName/>>
+
+        <!--
+        In order to make it easier for the user of the XDoclet plugin, we automatically add the
+        destination folder to the compile path. This way, people don't have to deal with maven:addPath in their own
+        maven.xml scripts. This has been tested with Maven from CVS HEAD on 2002.12.15. (AH)
+        -->
+        <path id="<XDtMavenplugin:elementName/>.java.compile.src.set" location="${maven.xdoclet.<XDtMavenplugin:elementName/>.destDir}"/>
+        <maven:addPath id="maven.compile.src.set" refid="<XDtMavenplugin:elementName/>.java.compile.src.set"/>
+
+    </goal>
+
+   </XDtMavenplugin:forAllTasks>
+
+</project>

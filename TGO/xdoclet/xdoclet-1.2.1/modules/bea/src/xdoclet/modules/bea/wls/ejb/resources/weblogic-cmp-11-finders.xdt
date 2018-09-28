@@ -1,0 +1,21 @@
+    <XDtMethod:forAllMethods>
+     <XDtMethod:ifHasMethodTag tagName="weblogic:finder">
+      <finder>
+         <finder-name><XDtMethod:methodName/></finder-name>
+        <XDtParameter:forAllMethodParams>
+         <finder-param><XDtParameter:methodParamType/></finder-param>
+        <XDtMethod:ifHasMethodTag tagName="weblogic:finder" paramName="finder-query">
+         <finder-query><![CDATA[<XDtMethod:methodTagValue tagName="weblogic:finder" paramName="finder-query"/>]]></finder-query>
+        </XDtMethod:ifHasMethodTag>
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="7.0">
+        <XDtMethod:ifHasMethodTag tagName="weblogic.finder" paramName="finder-sql">
+         <finder-sql><![CDATA[<XDtMethod:methodTagValue tagName="weblogic.finder" paramName="finder-sql"/>]]></finder-sql>
+        </XDtMethod:ifHasMethodTag>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+        <XDtMethod:ifHasMethodTag tagName="weblogic:finder" paramName="find-for-update">
+         <find-for-update><XDtMethod:methodTagValue tagName="weblogic:finder,weblogic:finder" paramName="finder-update,find-for-update" values="true,false"/></find-for-update>
+        </XDtMethod:ifHasMethodTag>
+        </XDtParameter:forAllMethodParams>
+      </finder>
+     </XDtMethod:ifHasMethodTag>
+    </XDtMethod:forAllMethods>

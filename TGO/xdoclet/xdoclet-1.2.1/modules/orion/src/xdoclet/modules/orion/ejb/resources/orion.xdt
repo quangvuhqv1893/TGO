@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE orion-ejb-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<orion-ejb-jar deployment-version="<XDtConfig:configParameterValue paramName='version'/>">
+
+   <enterprise-beans>
+
+      <!-- Session Beans -->
+    <XDtEjbSession:forAllSessionBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+     <XDtMerge:merge file="orion-{0}.xml">
+      <session-deployment name="<XDtEjb:ejbName/>"
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="call-timeout">call-timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='call-timeout'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="copy-by-value">copy-by-value="<XDtClass:classTagValue tagName='orion:bean' paramName='copy-by-value' values='true,false'/>"</XDtClass:ifHasClassTag>
+								  <XDtEjb:ifRemoteEjb>
+									location="<XDtEjbHome:jndiName type='remote'/>"
+								  </XDtEjb:ifRemoteEjb>
+								  <XDtEjb:ifLocalEjb>
+									location="<XDtEjbHome:jndiName type='local'/>"
+								  </XDtEjb:ifLocalEjb>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="max-tx-retries">max-tx-retries="<XDtClass:classTagValue tagName='orion:bean' paramName='max-tx-retries'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="persistence-filename">persistence-filename="<XDtClass:classTagValue tagName='orion:bean' paramName='persistence-filename'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="timeout">timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='timeout'/>"</XDtClass:ifHasClassTag>
+                          <XDtMerge:merge file="orion-{0}-attributes.xml"></XDtMerge:merge>>
+         <XDtMerge:merge file="orion-{0}-settings.xml">
+         </XDtMerge:merge>
+
+ 		 <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-bean-settings.xdt">
+		 </XDtMerge:merge>
+
+      </session-deployment>
+     </XDtMerge:merge>
+    </XDtEjb:ifIsAConcreteEJBean>
+    </XDtEjbSession:forAllSessionBeans>
+
+      <!-- Entity Beans -->
+    <XDtEjbEntity:forAllEntityBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+     <XDtMerge:merge file="orion-{0}.xml">
+      <entity-deployment name="<XDtEjb:ejbName/>"
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="call-timeout">call-timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='call-timeout'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="clustering-schema">clustering-schema="<XDtClass:classTagValue tagName='orion:bean' paramName='clustering-schema'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="copy-by-value">copy-by-value="<XDtClass:classTagValue tagName='orion:bean' paramName='copy-by-value' values='true,false'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="data-source">data-source="<XDtClass:classTagValue tagName='orion:bean' paramName='data-source'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="exclusive-write-access">exclusive-write-access="<XDtClass:classTagValue tagName='orion:bean' paramName='exclusive-write-access' values='true,false'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="instance-cache-timeout">instance-cache-timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='instance-cache-timeout'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="isolation">isolation="<XDtClass:classTagValue tagName='orion:bean' paramName='isolation' values='serializable,uncommitted,committed,repeatable_read'/>"</XDtClass:ifHasClassTag>
+								  <XDtEjb:ifRemoteEjb>
+									location="<XDtEjbHome:jndiName type='remote'/>"
+								  </XDtEjb:ifRemoteEjb>
+								  <XDtEjb:ifLocalEjb>
+									location="<XDtEjbHome:jndiName type='local'/>"
+								  </XDtEjb:ifLocalEjb>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="max-instances">max-instances="<XDtClass:classTagValue tagName='orion:bean' paramName='max-instances'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="max-tx-retries">max-tx-retries="<XDtClass:classTagValue tagName='orion:bean' paramName='max-tx-retries'/>"</XDtClass:ifHasClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="pool-cache-timeout">pool-cache-timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='pool-cache-timeout'/>"</XDtClass:ifHasClassTag>
+                          <XDtEjbCmp:ifIsPersistent>table="<XDtEjbCmp:dbmsTable/>"</XDtEjbCmp:ifIsPersistent>
+                          <XDtClass:ifDoesntHaveClassTag tagName="ejb:persistence" paramName="table-name">
+                            <XDtClass:ifHasClassTag tagName="orion:bean" paramName="table">table="<XDtClass:classTagValue tagName='orion:bean' paramName='table'/>"</XDtClass:ifHasClassTag>
+                          </XDtClass:ifDoesntHaveClassTag>
+                          <XDtClass:ifHasClassTag tagName="orion:bean" paramName="validity-timeout">validity-timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='validity-timeout'/>"</XDtClass:ifHasClassTag>
+                          <XDtMerge:merge file="orion-{0}-attributes.xml"></XDtMerge:merge>>
+
+       <primkey-mapping>
+        <XDtClass:ifDoesntHaveClassTag tagName="ejb.bean" paramName="primkey-field" superclasses="true">
+          <cmp-field-mapping>
+              <fields>
+        </XDtClass:ifDoesntHaveClassTag>
+       <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+         <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+         </XDtMerge:merge>
+       </XDtEjbPersistent:forAllPersistentFields>
+        <XDtClass:ifDoesntHaveClassTag tagName="ejb.bean" paramName="primkey-field" superclasses="true">
+              </fields>
+          </cmp-field-mapping>
+        </XDtClass:ifDoesntHaveClassTag>
+       </primkey-mapping>
+
+       <XDtEjbPersistent:forAllPersistentFields not-pk="true">
+         <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+         </XDtMerge:merge>
+       </XDtEjbPersistent:forAllPersistentFields>
+
+       <XDtClass:forAllClassTags tagName="ejb:finder">
+        <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="orion-sql-query">
+         <finder-method<XDtClass:ifHasClassTag tagName="ejb:finder" paramName="orion-query-is-partial"> partial="<XDtClass:classTagValue tagName='ejb:finder' paramName='orion-query-is-partial' values='true,false'/>"</XDtClass:ifHasClassTag>
+            <XDtConfig:ifConfigParamNotGreaterOrEquals paramName="version" value="1.6.0">
+            query="<XDtClass:classTagValue tagName='ejb:finder' paramName='orion-sql-query'/>"</XDtConfig:ifConfigParamNotGreaterOrEquals>
+            <XDtConfig:ifConfigParamGreaterOrEquals paramName="version" value="1.6.0">
+            sql-query="<XDtClass:classTagValue tagName='ejb:finder' paramName='orion-sql-query'/>"</XDtConfig:ifConfigParamGreaterOrEquals>
+            >
+            <method>
+               <ejb-name><XDtEjb:ejbName/></ejb-name>
+               <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+               <method-params>
+                 <XDtParameter:forAllParameterTypes paramName="signature">
+                  <method-param><XDtClass:currentToken/></method-param>
+                 </XDtParameter:forAllParameterTypes>
+               </method-params>
+            </method>
+         </finder-method>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="orion-query">
+        <XDtClass:ifDoesntHaveClassTag tagName="ejb:finder" paramName="orion-sql-query">
+         <XDtConfig:ifConfigParamNotGreaterOrEquals paramName="DeploymentVersion" value="1.6.0">
+         <finder-method<XDtClass:ifHasClassTag tagName="ejb:finder" paramName="orion-query-is-partial"> partial="<XDtClass:classTagValue tagName='ejb:finder' paramName='orion-query-is-partial' values='true,false'/>"</XDtClass:ifHasClassTag>
+            query="<XDtClass:classTagValue tagName='ejb:finder' paramName='orion-query'/>">
+            <method>
+               <ejb-name><XDtEjb:ejbName/></ejb-name>
+               <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" delimiter=" (" tokenNumber="1"/></method-name>
+               <method-params>
+                 <XDtParameter:forAllParameterTypes paramName="signature">
+                  <method-param><XDtClass:currentToken/></method-param>
+                 </XDtParameter:forAllParameterTypes>
+               </method-params>
+            </method>
+         </finder-method>
+         </XDtConfig:ifConfigParamNotGreaterOrEquals>
+        </XDtClass:ifDoesntHaveClassTag>
+        </XDtClass:ifHasClassTag>
+       </XDtClass:forAllClassTags>
+
+         <XDtMerge:merge file="orion-{0}-settings.xml">
+         </XDtMerge:merge>
+
+ 		 <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-bean-settings.xdt">
+		 </XDtMerge:merge>
+
+      </entity-deployment>
+     </XDtMerge:merge>
+    </XDtEjb:ifIsAConcreteEJBean>
+    </XDtEjbEntity:forAllEntityBeans>
+
+      <!-- Message Driven Beans -->
+    <XDtEjbMdb:forAllMDBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+     <XDtMerge:merge file="orion-{0}.xml">
+      <message-driven-deployment name="<XDtEjb:ejbName/>"
+                                 <XDtClass:ifHasClassTag tagName="orion:bean" paramName="cache-timeout">cache-timeout="<XDtClass:classTagValue tagName='orion:bean' paramName='cache-timeout'/>"</XDtClass:ifHasClassTag>
+                                 <XDtClass:ifHasClassTag tagName="orion:bean" paramName="connection-factory-location">connection-factory-location="<XDtClass:classTagValue tagName='orion:bean' paramName='connection-factory-location'/>"</XDtClass:ifHasClassTag>
+                                 <XDtClass:ifHasClassTag tagName="orion:bean" paramName="destination-location">destination-location="<XDtClass:classTagValue tagName='orion:bean' paramName='destination-location'/>"</XDtClass:ifHasClassTag>
+                                 <XDtClass:ifHasClassTag tagName="orion:bean" paramName="max-instances">max-instances="<XDtClass:classTagValue tagName='orion:bean' paramName='max-instances'/>"</XDtClass:ifHasClassTag>
+                                 <XDtClass:ifHasClassTag tagName="orion:bean" paramName="min-instances">min-instances="<XDtClass:classTagValue tagName='orion:bean' paramName='min-instances'/>"</XDtClass:ifHasClassTag>
+                                 <XDtMerge:merge file="orion-{0}-attributes.xml"></XDtMerge:merge>>
+         <XDtMerge:merge file="orion-{0}-settings.xml">
+         </XDtMerge:merge>
+
+ 		 <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-bean-settings.xdt">
+		 </XDtMerge:merge>
+
+      </message-driven-deployment>
+     </XDtMerge:merge>
+    </XDtEjb:ifIsAConcreteEJBean>
+    </XDtEjbMdb:forAllMDBeans>
+
+   </enterprise-beans>
+
+   <XDtMerge:merge file="orion-assembly-descriptor.xml">
+   </XDtMerge:merge>
+
+</orion-ejb-jar>

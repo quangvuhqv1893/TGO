@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title> Tur Guido </title>
+        <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}"></link>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="logo">
+                    <img src="../static/image/logo.png" th:src="@{/image/logo.png}" width="100%"/>
+                </div>
+                <div class="register">
+                    <a id="txt_sign_in">Sign in</a>
+                    <span>|</span>
+                    <a id="txt_sign_up">Sign up</a>
+                </div>
+            </div>
+            <div class="introduction">
+                <div class="the-ground">
+                    <div class="story slide-active">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img1.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 1st place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img2.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 2nd place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img3.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 3rd place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img4.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 4th place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img5.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 5th place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img6.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 6th place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img7.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 7th place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img8.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 8th place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img9.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 9th place...
+                        </div>
+                    </div>
+                    <div class="story">
+                        <img src="../static/image/img1.jpg" th:src="@{/image/img10.jpg}"/>
+                        <div class="short-story">
+                            This is short story about 10th place...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="left-intro">
+                <div class="intro">
+                    <span class="brand"><h1>Welcome</h1></span>
+                    <p class="brief-intro"></p>
+                    <button class="btn btn-action-call" id="join_us">Join us</button>
+                </div>
+            </div>
+            <div class="form-container hidden" >  <!-- th:classappend="${param.error} ? '' : 'hidden'" -->
+                <div class="form-register">
+                    <div class="btn btn-close" id="close_form">&times;</div>
+                    <div class="under">
+                        <div class="social-sign-in">
+                            <span> Sign in now </span>
+                            <div class="fb-sign-in"><span>Facebook</span></div>
+                            <div class="g-sign-in"><span>Google+</span></div>
+                            <div class="form-sign-up">
+                                or
+                                <a id="txt_sign_up">Sign up</a>
+                            </div>
+                        </div>
+                        <div class="line-sep"></div>
+                        <div class="form-sign">
+                            <!-- <p th:if="${param.error}" class="messError"></p> -->
+                            <!-- <p th:if="${param.logout}" class="success">You have been logged out</p> -->
+                            <div  class="messError hidden">
+                            <p th:if="${param.error}"  id="error">Invalid username or password</p>
+                            </div>
+                            <form class="form" name = "formRegister" id="form1" th:method="POST"><!-- onsubmit="actionFormLogRL();" th:method="POST" -->
+                            	<div class="form-wrap">
+	                            	<div class="form-left" >
+		                            		<div>
+			                                <input id="username" style="width:90%" type="text" name="username" class="fill-in" placeholder="*Username" required="required"/>
+			                                </div>
+			                                <div>
+			                                <input id="password" style="width:90%" type="password" name="password" class="fill-in" placeholder="*Password" required="required"/>
+			                                </div>
+			                                <div class="signup-group hidden">
+			                                <div>
+		                                    <input style="width:90%" id="re-password" type="password" name="repassword" class="fill-in" placeholder="*Re-Password"/>
+		                                    </div>
+		                                    <div>
+		                                    <input style="width:90%" id="email" type="email" name="email" class="fill-in" placeholder="*Email"/>
+		                                    </div>
+		                                    <div>
+		                                    <input style="width:90%" id="phonenumber" type="tel" pattern="^(84|0)(1\d{9}|9\d{8})$" name="phonenumber" class="fill-in" placeholder="*Số điện thoại"/>
+		                                   	</div>
+		                                   	<div>
+		                                   	<input style="width:90%" id ="address" name="address" type="text" class="fill-in" placeholder="*Địa chỉ"/>
+		                                   	</div>
+		                                   	<div>
+		                                   	<input style="width:90%" id ="fullname" name = "fullname" type="text" class="fill-in" placeholder="*Họ tên người đăng kí"/>
+		                                   	</div>
+		                                   	<div id="" class="radio-group">
+		                                        <input type="radio" name="org_ind" class="radio_org" value="operator">Công ty</input>
+		                                        <input type	="radio" name="org_ind" class="radio_org" value="guide">Hướng dẫn viên</input>
+		                                    </div>
+		                                    
+		                                </div>
+	                            	</div>
+	                            	<div class="form-right">
+			                        	<div id="operator-infos" class="hidden">
+			                        	<input id="nameViet" style="width:100%" type ="text" name ="namevViet" class="fill-in" placeholder="*Tên công ty"/>
+			                        	<input id="representative" style="width:100%"  type ="text" name ="representative" class ="fill-in" placeholder="*Tên người đại diện"/>
+			                        	<input id = "businessRegistrationCode" pattern ="^\d{3,5}$"   style="width:100%"  type ="text" name ="businessRegistrationCode" class ="fill-in" placeholder="*Mã số kinh doanh"/>
+			                        	<input id="taxCode" pattern ="^\d{9}$" style="width:100%" type ="text" name ="taxCode" class ="fill-in" placeholder="*Mã số thuế"/>
+			                        	</div>
+			                        	<div id="guide-infos" class="hidden">
+			                        		<div>
+			                        			<label style="margin-right: 5%;">*Ngày sinh: </label>
+												<input id="birthdate" style="width:68%" type="date" name ="birthdate" class="fill-in"/>
+			                        		</div>
+			                        		<div>
+			                        			<label style="margin-right: 7%;" for="language">*Ngôn ngữ:</label> 
+												<select style="width:70%" name="language" class="fill-in" >
+												<option th:each="language:${listLanguage}" th:text="${language.language}"></option>
+												</select>
+			                        		</div>
+			                        		<div>
+			                        			<label style="margin-right: 7%;" for="location">*Địa điểm:</label> 
+												<select style="width:70%" name="location" class="fill-in">
+												<option th:each="location:${listLocation}" th:text="${location.locationName}"></option>
+												</select>
+			                        		</div>
+			                        		<div>
+			                        		<label style="margin-right: 4%;">*Số thẻ hdv:</label>
+			                        			<input style="width:70%" pattern ="^\d{9}$" id ="cardnumber"  type ="text" name ="cardnumber" class ="fill-in"/>
+			                        		 </div>
+			                        		 <div>
+			                        			 <label style ="margin-right: 4%;">*Loại thẻ: &emsp;&#32;&#32;&#32;</label> 
+			                        			 <select style ="width:70%" name="cardType" class=" fill-in" placeholder="loại thẻ">
+														<!-- <option></option> -->
+														<option value="nội địa"  >Nội địa</option>
+														<option value="quốc tế" >Quốc tế</option>
+												</select>
+											</div>
+											<div>
+												<label>*Ngày hết hạn: </label>
+												<input id="dateExpiration" style="width:68%" type="date" name ="dateExpiration" class="fill-in"/>
+											</div>
+											<div>
+												<label style ="margin-right: 7%;">Kinh nghiệm</label>
+												<input min="0" style="width:10%" type="number" name ="year" class="fill-in"/> Năm 
+												<input min="0" style="width:10%" type="number" name ="month" class="fill-in"/> Tháng 
+												<input min="0" style="width:10%" type="number" name ="day" class="fill-in"/> Ngày 
+											</div>
+											<!-- <div>
+											<label style="width:20%">Ngày hết hạn: </label><input style="width:70%%" type="date" name ="expDate" class="fill-in" placeholder="Ngày hết hạn thẻ"/>
+											</div> -->
+											 <div style="width:100%" class="radio-group">
+		                                      <input type="radio" name="gender" class="radio" value="male">Nam</input>
+		                                        <input type	="radio" name="gender" class="radio" value="female">Nữ</input>
+		                                    </div>
+											
+			                        	</div>
+	                            	</div>
+                            	</div>
+                           
+                                <button type="button" id="btn_sign_in_up" class="btn btn-submit">Sign in</button>
+                                
+                            </form>
+                            <p style="color:red; margin-bottom: -4%; margin-left: -62%;">*: là các trường bắt buộc</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel">
+                <div class="prev">&laquo;</div>
+                <div class="window">
+                    <div class="list">
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner1.png' th:src='@{/image/partner1.png}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner2.jpg' th:src='@{/image/partner2.jpg}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner3.jpg' th:src='@{/image/partner3.jpg}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner4.png' th:src='@{/image/partner4.png}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner5.png' th:src='@{/image/partner5.png}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner6.jpg' th:src='@{/image/partner6.jpg}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner7.jpg' th:src='@{/image/partner7.jpg}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner8.jpg' th:src='@{/image/partner8.jpg}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner9.jpg' th:src='@{/image/partner9.jpg}'/>
+                        </div>
+                        <div class="item">
+                            <img class="partner-logo" src='../static/image/partner10.jpg' th:src='@{/image/partner10.jpg}'/>
+                        </div>                
+                    </div>
+                </div>
+                <div class="next">&raquo;</div>
+            </div>
+        </div>
+        <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script> 
+        <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+    </body>
+</html>

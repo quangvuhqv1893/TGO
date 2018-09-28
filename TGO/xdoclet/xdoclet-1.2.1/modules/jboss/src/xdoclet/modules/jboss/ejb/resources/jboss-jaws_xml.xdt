@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jaws PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<jaws>
+ <XDtConfig:ifHasConfigParam paramName="Datasource">
+   <datasource><XDtConfig:configParameterValue paramName="Datasource"/></datasource>
+ </XDtConfig:ifHasConfigParam>
+ <XDtConfig:ifHasConfigParam paramName="Typemapping">
+   <type-mapping><XDtConfig:configParameterValue paramName="Typemapping"/></type-mapping>
+ </XDtConfig:ifHasConfigParam>
+ <XDtConfig:ifConfigParamEquals paramName="Version" value="2.4">
+  <XDtConfig:ifHasConfigParam paramName="Debug">
+   <debug><XDtConfig:configParameterValue paramName="Debug"/></debug>
+  </XDtConfig:ifHasConfigParam>
+ </XDtConfig:ifConfigParamEquals>
+
+   <enterprise-beans>
+
+     <XDtEjbCmp:forAllCmpEntityBeans>
+     <XDtEjb:ifIsAConcreteEJBean>
+     <XDtEjbCmp:ifNotUsingCmp2>
+      <entity>
+       <XDtMerge:merge file="jaws-db-settings-{0}.xml">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+      </XDtMerge:merge>
+
+      <XDtMerge:merge file="jaws-{0}.xml">
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifDoesntHaveMethodTag tagName="jboss:not-persisted-field">
+        <XDtMethod:forAllMethodTags tagName="ejb:persistent-field|ejb.persistence">
+         <cmp-field>
+            <field-name><XDtMethod:propertyName/></field-name>
+           <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:column-name" paramName="column-name,name" paramNum="0">
+            <column-name><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:column-name" paramName="column-name,name" paramNum="0"/></column-name>
+           </XDtMethod:ifHasMethodTag>
+           <XDtMethod:ifDoesntHaveMethodTag tagName="ejb:persistence,jboss:column-name" paramName="column-name,name" paramNum="0">
+            <column-name><XDtMethod:propertyName/></column-name>
+           </XDtMethod:ifDoesntHaveMethodTag>
+           <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:jdbc-type" paramName="jdbc-type,type" paramNum="0">
+            <jdbc-type><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:jdbc-type" paramName="jdbc-type,type" paramNum="0"/></jdbc-type>
+           </XDtMethod:ifHasMethodTag>
+           <XDtMethod:ifHasMethodTag tagName="ejb:persistence,jboss:sql-type" paramName="sql-type" paramNum="0">
+            <sql-type><XDtMethod:methodTagValue tagName="ejb:persistence,jboss:sql-type" paramName="sql-type" paramNum="0"/></sql-type>
+           </XDtMethod:ifHasMethodTag>
+         </cmp-field>
+        </XDtMethod:forAllMethodTags>
+        </XDtMethod:ifDoesntHaveMethodTag>
+        </XDtMethod:forAllMethods>
+        <XDtClass:forAllClassTags tagName="jboss:cmp-field">
+         <cmp-field>
+            <field-name><XDtClass:classTagValue tagName="jboss:cmp-field" paramName="field-name"/></field-name>
+            <column-name><XDtClass:classTagValue tagName="jboss:cmp-field" paramName="column-name"/></column-name>
+         </cmp-field>
+        </XDtClass:forAllClassTags>
+
+       <XDtClass:forAllClassTags tagName="jboss:finder-query">
+         <finder>
+            <name><XDtClass:classTagValue tagName="jboss:finder-query" paramName="name"/></name>
+            <query><![CDATA[<XDtClass:classTagValue tagName="jboss:finder-query" paramName="query"/>]]></query>
+            <XDtClass:ifHasClassTag tagName="jboss:finder-query" paramName="order">
+            <order><XDtClass:classTagValue tagName="jboss:finder-query" paramName="order"/></order>
+            </XDtClass:ifHasClassTag>
+            <XDtClass:ifDoesntHaveClassTag tagName="jboss:finder-query" paramName="order">
+            <order></order></XDtClass:ifDoesntHaveClassTag><XDtClass:ifHasClassTag tagName="jboss:finder-query" paramName="read-ahead">
+            <read-ahead><XDtClass:classTagValue tagName="jboss:finder-query" paramName="read-ahead" values="true,false"/></read-ahead></XDtClass:ifHasClassTag>
+         </finder>
+       </XDtClass:forAllClassTags>
+     </XDtMerge:merge>
+
+       <XDtMerge:merge file="jaws-db-more-settings-{0}.xml">
+        <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:read-only" paramName="read-only" paramNum="0">
+         <read-only><XDtClass:classTagValue tagName="jboss:persistence,jboss:read-only" paramName="read-only" paramNum="0"/></read-only>
+        </XDtClass:ifHasClassTag>
+         <XDtEjbCmp:ifIsPersistent><table-name><XDtEjbCmp:dbmsTable/></table-name></XDtEjbCmp:ifIsPersistent>
+        <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:tuned-updates" paramName="tune" paramNum="0">
+         <tuned-updates><XDtClass:classTagValue tagName="jboss:persistence,jboss:tuned-updates" paramName="tune" paramNum="0"/></tuned-updates>
+        </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:create-table,jboss:create-table" paramName="create-table,create">
+         <create-table><XDtClass:classTagValue tagName="jboss:persistence,jboss:create-table" paramName="create" paramNum="0"/></create-table>
+        </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:remove-table,jboss:remove-table" paramName="remove-table,remove">
+         <remove-table><XDtClass:classTagValue tagName="jboss:persistence,jboss:remove-table" paramName="remove" paramNum="0"/></remove-table>
+        </XDtClass:ifHasClassTag>
+        <XDtConfig:ifConfigParamEquals paramName="Version" value="3.0">
+        <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:select-for-update" paramName="select-for-update" paramNum="0">
+         <row-locking><XDtClass:classTagValue tagName="jboss:persistence,jboss:select-for-update" paramName="select-for-update" paramNum="0"/></row-locking>
+        </XDtClass:ifHasClassTag>
+        </XDtConfig:ifConfigParamEquals>
+        <XDtConfig:ifConfigParamNotEquals paramName="Version" value="3.0">
+        <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:select-for-update" paramName="select-for-update" paramNum="0">
+         <select-for-update><XDtClass:classTagValue tagName="jboss:persistence,jboss:select-for-update" paramName="select-for-update" paramNum="0"/></select-for-update>
+        </XDtClass:ifHasClassTag>
+ </XDtConfig:ifConfigParamNotEquals>
+
+        <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:time-out" paramName="time-out" paramNum="0">
+         <time-out><XDtClass:classTagValue tagName="jboss:persistence,jboss:time-out" paramName="time-out" paramNum="0"/></time-out>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="jboss:persistence,jboss:pk-constraint" paramName="pk-constraint" paramNum="0">
+         <pk-constraint><XDtClass:classTagValue tagName="jboss:persistence,jboss:pk-constraint" paramName="pk-constraint" paramNum="0"/></pk-constraint>
+        </XDtClass:ifHasClassTag>
+      </XDtMerge:merge>
+
+      </entity>
+
+  </XDtEjbCmp:ifNotUsingCmp2>
+  </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbCmp:forAllCmpEntityBeans>
+
+   </enterprise-beans>
+
+
+</jaws>

@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- Web Application tags -->
+  <namespace>
+    <name>web</name>
+    <usage-description>These tags are used to specify information about web application
+    components (servlets, filters &amp; listeners).  They are used in generating the
+    WEB-INF/web.xml file.</usage-description>
+    <condition-description>Servlet, Filter, Listener</condition-description>
+    <condition type="or">
+      <condition type="type">
+        <condition-parameter>javax.servlet.Servlet</condition-parameter>
+      </condition>
+      <condition type="type">
+        <condition-parameter>javax.servlet.Filter</condition-parameter>
+      </condition>
+      <condition type="type">
+        <condition-parameter>javax.servlet.ServletContextListener</condition-parameter>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>web.filter</name>
+        <usage-description>Declares the class as a Filter class, with
+                the specified name, display-name, icon and description.
+                Applicable to Servlet 2.3 only</usage-description>
+        <unique>true</unique>
+        <condition-description>Filter</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Filter</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name for the filter. Unique within the application</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>The display name of the filter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>icon</name>
+          <usage-description>The icon for the filter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>A description for the filter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.filter-init-param</name>
+        <usage-description>Declares init parameters for the Filter with
+                the specified parameter name, value and description. Applicable
+                to Servlet 2.3 only.</usage-description>
+        <unique>true</unique>
+        <condition-description>Filter</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Filter</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the init parameter</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>The value for the parameter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description of the parameter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.filter-mapping</name>
+        <usage-description>Defines the mapping for the Filter. Either
+                url-pattern or servlet-name should be specified. Applicable to
+                Servlet 2.3 only</usage-description>
+        <unique>true</unique>
+        <condition-description>Filter</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Filter</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>url-pattern</name>
+          <usage-description>The url pattern the filter should match</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>servlet-name</name>
+          <usage-description>The servlet name for the filter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.servlet</name>
+        <usage-description>Declares the class as a Servlet class, with
+                the specified name, display-name, icon and description</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the servlet - unique within the application</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>The display name of the servlet</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>icon</name>
+          <usage-description>The icon for the servlet</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>A description for the servlet</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>load-on-startup</name>
+          <usage-description>Integer indicating order in which the servlet should be loaded.</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>run-as</name>
+          <usage-description>Specifies the run-as identity (the name of
+                    a security role) to be used for the execution of the web
+                    application.</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.servlet-init-param</name>
+        <usage-description>Declares init parameters for the Servlet with
+                the specified parameter name, value and description</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the init parameter</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>The value for the parameter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description of the parameter</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.servlet-mapping</name>
+        <usage-description>Defines the mapping for the Servlet to the
+                specified url-pattern</usage-description>
+        <unique>true</unique>
+        <condition-description>Filter</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Filter</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>url-pattern</name>
+          <usage-description>The url pattern the filter should match</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.listener</name>
+        <usage-description>Declares the class as a Listener class</usage-description>
+        <unique>true</unique>
+        <condition-description>Listener</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.ServletContextListener</condition-parameter>
+          </condition>
+        </condition>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.security-role-ref</name>
+        <usage-description>Defines a security role reference with the
+                name role-name to a security role link named role-link</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>The name of the role reference</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>role-link</name>
+          <usage-description>The name of the role link</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.resource-env-ref</name>
+        <usage-description>Defines a resource environment reference with
+                the specified name, type and description</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the resource environment reference</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The type of the referenced resource</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description of the resource reference</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.resource-ref</name>
+        <usage-description>Defines a resource reference with the
+                specified name, type, description, authentication (auth) and scope</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the resource reference</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The type of the referenced resource</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>auth</name>
+          <usage-description>The authentication for the resource.  "Application" | "Container"</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>Application</option>
+                <option>Container</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description for the resource reference</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>scope</name>
+          <usage-description>The scope of the resource.  "Shareable" | "Unshareable"</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>Shareable</option>
+                <option>Unshareable</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>
+          The physical jndi-name of the resource. Note: it currently is used only in 1-2
+          of the app server modules, but those modules will also support this consolidated standard tag soon.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.security-role</name>
+        <usage-description>Defines a security role with the specified
+                role-name and description</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>The role name</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>The description of the role</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.env-entry</name>
+        <usage-description>Defines a environment entry with the specified
+                description, name, type and value</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>A description of the env-entry</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the env-entry</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The type of the env-entry</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>The value of the env-entry</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.ejb-ref</name>
+        <usage-description>Defines a remote EJB reference with the
+                specified name, type, home interface name, remote interface name,
+                link name, and description. The value of the link parameter must
+                be the ejb-name of an enterprise bean in the same J2EE
+                application unit</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name or the ejb reference</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The expected type of the referenced
+                    enterprise bean. Must be one of the following: Entity or Session</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>Entity</option>
+                <option>Session</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>home</name>
+          <usage-description>The home interface of the referenced ejb</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>remote</name>
+          <usage-description>The remote interface of the referenced ejb</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>link</name>
+          <usage-description>The link to the EJB</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description for the ejb-ref</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>web.ejb-local-ref</name>
+        <usage-description>Defines a local EJB reference with the
+                specified name, type, home interface name, local interface name,
+                link name, and description. The value of the link parameter must
+                be the ejb-name of an enterprise bean in the same J2EE
+                application unit.</usage-description>
+        <unique>true</unique>
+        <condition-description>Servlet</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.Servlet</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name or the ejb reference</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The expected type of the referenced
+                    enterprise bean. Must be one of the following: Entity or Session</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>Entity</option>
+                <option>Session</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>home</name>
+          <usage-description>The home interface of the referenced ejb</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>local</name>
+          <usage-description>The local interface of the referenced ejb</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>link</name>
+          <usage-description>The link to the EJB</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description for the ejb-ref</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+  <!-- Tag Library tags -->
+  <namespace>
+    <name>jsp</name>
+    <usage-description>These tags are used to give information about JSP custom tags
+    and tag library validators, used in generating the tag library descriptor (TLD)
+    file.</usage-description>
+    <condition-description>JSP Tag or Tag Library Validator</condition-description>
+    <condition type="or">
+      <condition type="type">
+        <condition-parameter>javax.servlet.jsp.tagext.Tag</condition-parameter>
+      </condition>
+      <condition type="type">
+        <condition-parameter>javax.servlet.jsp.tagext.TagLibraryValidator</condition-parameter>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>jsp.validator-init-param</name>
+        <usage-description>Declares init parameters for the Validator
+                with the specified parameter name, value and description</usage-description>
+        <unique>true</unique>
+        <condition-description>Tag Library Validator</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.jsp.tagext.TagLibraryValidator</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the validator init param</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>The value of the validator init param</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description for the validator</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>jsp.tag</name>
+        <usage-description>Declares the class as a class implementing a
+                JSP tag and specifies various properties of that tag</usage-description>
+        <unique>true</unique>
+        <condition-description>Tag</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.jsp.tagext.Tag</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the JSP tag</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>tei-class</name>
+          <usage-description>The tei class for the JSP</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>body-content</name>
+          <usage-description>The body content field for the tag.</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+          <option-sets>
+            <option-set>
+              <default>JSP</default>
+              <options>
+                <option>tagdependent</option>
+                <option>JSP</option>
+                <option>empty</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>An optional display name for the tag</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>small-icon</name>
+          <usage-description>An optional small icon for the tag</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>large-icon</name>
+          <usage-description>An optional large icon for the tag</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description for the tag</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>jsp.variable</name>
+        <usage-description>Declares a JSP tag variable and information
+                on the scripting variables defined.</usage-description>
+        <unique>true</unique>
+        <condition-description>Tag</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.jsp.tagext.Tag</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name-given</name>
+          <usage-description>The variable name as a constant</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>name-from-attribute</name>
+          <usage-description>The name of an attribute whose
+                    (translation time) value will give the name of the variable.
+                    One of name-given or name-from-attribute is required</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>class</name>
+          <usage-description>Name of the class of the variable.
+                    java.lang.String is default</usage-description>
+          <mandatory>false</mandatory>
+          <default>java.lang.String</default>
+        </parameter>
+        <parameter type="bool">
+          <name>declare</name>
+          <usage-description>Whether the variable is declared or not.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>scope</name>
+          <usage-description>The scope of the scripting variable defined.</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>NESTED</default>
+              <options>
+                <option>NESTED</option>
+                <option>AT_BEGIN</option>
+                <option>AT_END</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description of the variable</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>jsp.attribute</name>
+        <usage-description>Declares the specified field a JSP tag
+                attribute. This tag should be placed on getter methods</usage-description>
+        <unique>true</unique>
+        <condition-description>Tag</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.servlet.jsp.tagext.Tag</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="bool">
+          <name>required</name>
+          <usage-description>Whether the attribute is required</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="bool">
+          <name>rtexprvalue</name>
+          <usage-description>Whether the attribute is a runtime attribute</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The type of the attribute</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>An optional description of the attribute</usage-description>
+          <mandatory>false</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

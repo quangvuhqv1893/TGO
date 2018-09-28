@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jboss-web PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<jboss-web>
+
+  <XDtConfig:ifConfigParamNotEquals paramName="Securitydomain" value="">
+   <security-domain><XDtConfig:configParameterValue paramName="Securitydomain"/></security-domain>
+  </XDtConfig:ifConfigParamNotEquals>
+  <XDtConfig:ifConfigParamNotEquals paramName="Contextroot" value="">
+   <context-root><XDtConfig:configParameterValue paramName="Contextroot"/></context-root>
+  </XDtConfig:ifConfigParamNotEquals>
+  <XDtConfig:ifConfigParamNotEquals paramName="Virtualhost" value="">
+   <virtual-host><XDtConfig:configParameterValue paramName="Virtualhost"/></virtual-host>
+  </XDtConfig:ifConfigParamNotEquals>
+
+   <!-- Resource Environment References -->
+  <XDtConfig:ifConfigParamGreaterOrEquals paramName="version" value="3.0">
+  <XDtMerge:merge file="jbossweb-resource-env-ref.xml">
+   <!--
+     For additional resouce-env-ref tags add a merge file called jbossweb-resource-env-ref.xml
+   -->
+  </XDtMerge:merge>
+  <XDtJBossWeb:forAllResourceEnvRefs>
+   <resource-env-ref>
+     <resource-env-ref-name><XDtClass:classTagValue tagName="jboss:resource-env-ref" paramName="resource-env-ref-name"/></resource-env-ref-name>
+	 <jndi-name><XDtClass:classTagValue tagName="jboss:resource-env-ref" paramName="jndi-name"/></jndi-name>
+   </resource-env-ref>
+  </XDtJBossWeb:forAllResourceEnvRefs>
+  </XDtConfig:ifConfigParamGreaterOrEquals>
+
+   <!-- Resource references -->
+  <XDtMerge:merge file="jbossweb-resource-ref.xml">
+   <!--
+     For additional resouce-ref tags add a merge file called jbossweb-resource-ref.xml
+   -->
+  </XDtMerge:merge>
+  <XDtJBossWeb:forAllResourceRefs>
+   <resource-ref>
+      <res-ref-name><XDtClass:classTagValue tagName="jboss:resource-ref" paramName="res-ref-name"/></res-ref-name>
+      <jndi-name><XDtClass:classTagValue tagName="jboss:resource-ref" paramName="jndi-name"/></jndi-name>
+   </resource-ref>
+  </XDtJBossWeb:forAllResourceRefs>
+
+   <!-- EJB References -->
+  <XDtMerge:merge file="jbossweb-ejb-ref.xml">
+   <!--
+     For additional ejb-ref tags add a merge file called jbossweb-ejb-ref.xml
+   -->
+  </XDtMerge:merge>
+  <XDtJBossWeb:forAllEjbRefs>
+   <ejb-ref>
+      <ejb-ref-name><XDtClass:classTagValue tagName="jboss:ejb-ref-jndi" paramName="ref-name"/></ejb-ref-name>
+      <jndi-name><XDtClass:classTagValue tagName="jboss:ejb-ref-jndi" paramName="jndi-name"/></jndi-name>
+   </ejb-ref>
+  </XDtJBossWeb:forAllEjbRefs>
+
+  <!-- EJB Local References -->
+  <XDtConfig:ifConfigParamGreaterOrEquals paramName="version" value="3.2">
+
+  <XDtMerge:merge file="jbossweb-ejb-local-ref.xml">
+   <!--
+     For additional ejb-local-ref tags add a merge file called jbossweb-ejb-local-ref.xml
+   -->
+  </XDtMerge:merge>
+  
+  <XDtJBossWeb:forAllLocalRefs tagName="jboss:ejb-local-ref">
+    <ejb-local-ref>
+      <ejb-ref-name>ejb/<XDtClass:classTagValue tagName="jboss:ejb-local-ref" paramName="ref-name"/></ejb-ref-name>
+      <local-jndi-name><XDtClass:classTagValue tagName="jboss:ejb-local-ref" paramName="jndi-name"/></local-jndi-name>
+    </ejb-local-ref>
+  </XDtJBossWeb:forAllLocalRefs>
+  </XDtConfig:ifConfigParamGreaterOrEquals>
+
+</jboss-web>
+
+
+

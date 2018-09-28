@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Current Planning</title>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Current Planning">
+            <p>
+                This document describes the current planning for XDoclet.
+            </p>
+            <section name="XDoclet 1.2">
+                <subsection name="XDoclet 1.2 Beta 1">
+                    <p>
+                        Released on 02/10/2002.
+                    </p>
+                </subsection>
+                <subsection name="XDoclet 1.2 Beta 2">
+                    <p>
+                        Released end of 2002.
+                    </p>
+                </subsection>
+                <subsection name="XDoclet 1.2 Beta 3">
+                    <p>
+                        Released on 13/06/2003.
+                    </p>
+                </subsection>
+                <subsection name="XDoclet 1.2 Final">
+                    <p>
+                        Released at the end of November 2003.
+                    </p>
+                </subsection>
+                <subsection name="XDoclet 1.2.1">
+                    <p>
+                        Further bugfixes, to be released when appropriate in 2004.
+                    </p>
+                </subsection>
+            </section>
+        </section>
+        <section name="Road Map">
+            <p>
+                Check out the <a href="http://opensource.atlassian.com/projects/xdoclet/browse/XDT">XDoclet JIRA Road Map</a>.
+            </p>
+        </section>
+    </body>
+</document>

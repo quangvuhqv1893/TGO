@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE weblogic-rdbms-jar PUBLIC "-//BEA Systems, Inc.//DTD WebLogic 6.0.0 EJB RDBMS Persistence//EN" "http://www.bea.com/servers/wls600/dtd/weblogic-rdbms20-persistence-600.dtd">
+
+<weblogic-rdbms-jar>
+   <weblogic-rdbms-bean>
+      <ejb-name>simple/SimpleCMP</ejb-name>
+      <data-source-name>xdoclet.tests</data-source-name>
+      <table-name></table-name>
+      <field-map>
+         <cmp-field>aBoolean</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>aByte</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>aShort</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>aChar</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>id</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>anInt</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>aLong</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>aFloat</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>aDouble</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>anObject</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+      <field-map>
+         <cmp-field>anObjectArray</cmp-field>
+         <dbms-column></dbms-column>
+      </field-map>
+
+   </weblogic-rdbms-bean>
+
+   <create-default-dbms-tables>False</create-default-dbms-tables>
+
+</weblogic-rdbms-jar>

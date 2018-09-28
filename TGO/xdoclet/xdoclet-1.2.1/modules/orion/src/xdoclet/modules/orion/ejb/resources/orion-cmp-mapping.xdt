@@ -1,0 +1,190 @@
+
+          <XDtMethod:ifHasMethodTag tagName="ejb:persistence" paramName="column-name">
+            <XDtMethod:ifDoesntHaveMethodTag tagName="orion:persistence">
+            <XDtType:ifIsNotOfType value="return-type" type="javax.ejb.EJBObject,javax.ejb.EJBLocalObject,java.util.List,java.util.Vector,java.util.Collection,java.util.Map,java.util.Hashtable,java.util.Properties">
+              <cmp-field-mapping name="<XDtMethod:propertyName/>" persistence-name="<XDtMethod:methodTagValue tagName='ejb:persistence' paramName='column-name'/>" />
+            </XDtType:ifIsNotOfType>
+            </XDtMethod:ifDoesntHaveMethodTag>
+          </XDtMethod:ifHasMethodTag>
+          <XDtMethod:ifHasMethodTag tagName="orion:persistence">
+            <cmp-field-mapping
+              <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="ejb-class-name">
+                <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='ejb-class-name'/>">
+               ejb-reference-home="<XDtEjb:ejbName/>"
+                </XDtClass:pushClass>
+              </XDtMethod:ifHasMethodTag>
+               name="<XDtMethod:propertyName/>"
+              <XDtMethod:ifHasMethodTag tagName="ejb:persistence" paramName="column-name">
+               persistence-name="<XDtMethod:methodTagValue tagName='ejb:persistence' paramName='column-name'/>"
+              </XDtMethod:ifHasMethodTag>
+              <XDtMethod:ifDoesntHaveMethodTag tagName="ejb:persistence" paramName="column-name">
+                <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="persistence-name">
+                 persistence-name="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='persistence-name'/>"
+                </XDtMethod:ifHasMethodTag>
+              </XDtMethod:ifDoesntHaveMethodTag>
+              <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="sql-type">
+               persistence-type="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='sql-type'/>"
+              </XDtMethod:ifHasMethodTag>
+            >
+             <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+              <XDtMethod:ifDoesntHaveMethodTag tagName="orion:persistence" paramName="ejb-class-name">
+              <XDtType:ifIsNotOfType value="return-type" type="java.lang.Number,java.util.Date,java.io.Serializable,javax.ejb.EJBObject,javax.ejb.EJBLocalObject,javax.ejb.EJBHome,javax.ejb.EJBLocalHome,java.util.List,java.util.Vector,java.util.Collection,java.util.Map,java.util.Hashtable,java.util.Properties">
+               <fields>
+                 <XDtClass:pushClass value="<XDtMethod:methodType/>">
+                 <XDtEjbPersistent:forAllPersistentFields not-pk="true">
+                  <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                  </XDtMerge:merge>
+                 </XDtEjbPersistent:forAllPersistentFields>
+                 </XDtClass:pushClass>
+               </fields>
+              </XDtType:ifIsNotOfType>
+              </XDtMethod:ifDoesntHaveMethodTag>
+
+              <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="ejb-class-name">
+                <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='ejb-class-name'/>">
+               <entity-ref home="<XDtEjb:ejbName/>">
+                 <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+                  <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                  </XDtMerge:merge>
+                 </XDtEjbPersistent:forAllPersistentFields>
+                </XDtClass:pushClass>
+               </entity-ref>
+              </XDtMethod:ifHasMethodTag>
+
+              <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Vector" extent="concrete-type">
+               <list-mapping
+                 <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="table-name">
+                  table="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='table-name'/>"
+                 </XDtMethod:ifHasMethodTag>
+                  >
+                  <primkey-mapping>
+                    <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>">
+                    <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+                     <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                     </XDtMerge:merge>
+                    </XDtEjbPersistent:forAllPersistentFields>
+                    </XDtClass:pushClass>
+                  </primkey-mapping>
+                  <value-mapping
+                    <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="immutable">
+                     immutable="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='immutable' values='true,false'/>"
+                    </XDtMethod:ifHasMethodTag>
+                     type="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>"
+                     >
+                    <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>">
+                    <XDtEjbPersistent:forAllPersistentFields not-pk="true">
+                     <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                     </XDtMerge:merge>
+                    </XDtEjbPersistent:forAllPersistentFields>
+                    </XDtClass:pushClass>
+                  </value-mapping>
+               </list-mapping>
+              </XDtType:ifIsOfType>
+
+             <XDtType:ifIsOfType value="return-type" type="java.util.Set,java.util.Collection" extent="concrete-type">
+              <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+               <set-mapping
+              </XDtType:ifIsOfType>
+              <XDtType:ifIsOfType value="return-type" type="java.util.Collection" extent="concrete-type">
+               <collection-mapping
+              </XDtType:ifIsOfType>
+                 <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="table-name">
+                  table="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='table-name'/>"
+                 </XDtMethod:ifHasMethodTag>
+                  >
+                   <primkey-mapping>
+                    <XDtType:ifIsNotPrimitiveOrString value="<XDtEjbPk:pkClass/>">
+                      <fields>
+                     <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+                      <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                      </XDtMerge:merge>
+                     </XDtEjbPersistent:forAllPersistentFields>
+                      </fields>
+                    </XDtType:ifIsNotPrimitiveOrString>
+                    <XDtType:ifIsPrimitiveOrString value="<XDtEjbPk:pkClass/>">
+                     <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+                      <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                      </XDtMerge:merge>
+                     </XDtEjbPersistent:forAllPersistentFields>
+                    </XDtType:ifIsPrimitiveOrString>
+                   </primkey-mapping>
+                  <value-mapping
+                    <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="immutable">
+                     immutable="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='immutable' values='true,false'/>"
+                    </XDtMethod:ifHasMethodTag>
+                     type="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>"
+                     >
+                   <XDtType:ifIsOfType type="java.lang.String,java.lang.Number" value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>" extent="heirarchy">
+                     <cmp-field-mapping name="value" <XDtMethod:ifHasMethodTag tagName='orion:persistence' paramName='persistence-name'>
+                      persistence-name="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='persistence-name' />"
+                      </XDtMethod:ifHasMethodTag>
+                      />
+                   </XDtType:ifIsOfType>
+                   <XDtType:ifIsOfType type="java.lang.Object" value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>" extent="concrete-type">
+                     <cmp-field-mapping name="value" <XDtMethod:ifHasMethodTag tagName='orion:persistence' paramName='persistence-name'>
+                      persistence-name="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='persistence-name' />"
+                      </XDtMethod:ifHasMethodTag>
+                      />
+                   </XDtType:ifIsOfType>
+                   <XDtType:ifIsNotPrimitiveOrString value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>">
+                   <XDtType:ifIsNotOfType type="java.lang.Object" value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>" exent="concrete-type">
+                    <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>">
+                    <XDtEjbPersistent:forAllPersistentFields not-pk="true">
+                     <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                     </XDtMerge:merge>
+                    </XDtEjbPersistent:forAllPersistentFields>
+                    </XDtClass:pushClass>
+                   </XDtType:ifIsNotOfType>
+                   </XDtType:ifIsNotPrimitiveOrString>
+                  </value-mapping>
+              <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+               </set-mapping>
+              </XDtType:ifIsOfType>
+              <XDtType:ifIsOfType value="return-type" type="java.util.Collection" extent="concrete-type">
+               </collection-mapping>
+              </XDtType:ifIsOfType>
+             </XDtType:ifIsOfType>
+
+              <XDtType:ifIsOfType value="return-type" type="java.util.Map,java.util.Hashtable,java.util.Properties" extent="concrete-type">
+               <map-mapping
+                 <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="table-name">
+                  table="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='table-name'/>"
+                 </XDtMethod:ifHasMethodTag>
+                  >
+                  <primkey-mapping>
+                    <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>">
+                    <XDtEjbPersistent:forAllPersistentFields only-pk="true">
+                     <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                     </XDtMerge:merge>
+                    </XDtEjbPersistent:forAllPersistentFields>
+                    </XDtClass:pushClass>
+                  </primkey-mapping>
+                  <map-key-mapping type="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='key-type'/>">
+                  </map-key-mapping>
+                  <value-mapping
+                    <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="immutable">
+                     immutable="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='immutable' values='true,false'/>"
+                    </XDtMethod:ifHasMethodTag>
+                     type="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>"
+                     >
+                    <XDtClass:pushClass value="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='type'/>">
+                    <XDtEjbPersistent:forAllPersistentFields not-pk="true">
+                     <XDtMerge:merge file="xdoclet/modules/orion/ejb/resources/orion-cmp-mapping.xdt">
+                     </XDtMerge:merge>
+                    </XDtEjbPersistent:forAllPersistentFields>
+                    </XDtClass:pushClass>
+                  </value-mapping>
+               </map-mapping>
+              </XDtType:ifIsOfType>
+             </XDtType:ifIsNotPrimitive>
+
+              <XDtMethod:ifHasMethodTag tagName="orion:persistence" paramName="field-persistence-manager">
+               <field-persistence-manager class="<XDtMethod:methodTagValue tagName='orion:persistence' paramName='field-persistence-manager'/>">
+                 <XDtMethod:forAllMethodTags tagName="orion:field-persistence-manager-param">
+                  <property name="<XDtMethod:methodTagValue tagName='orion:field-persistence-manager-property' paramName='name'/>" value="<XDtMethod:methodTagValue tagName='orion:field-persistence-manager-property' paramName='value'/>"/>
+                 </XDtMethod:forAllMethodTags>
+               </field-persistence-manager>
+              </XDtMethod:ifHasMethodTag>
+
+            </cmp-field-mapping>
+          </XDtMethod:ifHasMethodTag>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+<!DOCTYPE ejb-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+<ejb-jar>
+   <!-- template: xdoclet/modules/borland/bes/ejb/resources/ejb-borland_2_0.xdt -->
+   <enterprise-beans>
+      <!-- Session Beans --> 
+      <XDtEjbSession:forAllSessionBeans>
+      <XDtEjb:ifIsAConcreteEJBean>
+      <session>
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+          <XDtEjb:ifRemoteEjb>
+          <bean-home-name><XDtEjbHome:homeInterface type="remote"/></bean-home-name>
+          </XDtEjb:ifRemoteEjb>
+          <XDtEjb:ifLocalEjb>
+          <bean-local-home-name><XDtEjbHome:homeInterface type="local"/></bean-local-home-name>
+          </XDtEjb:ifLocalEjb>
+          
+         <XDtClass:ifHasClassTag tagName="bes.bean" paramName="timeout">
+         <timeout><XDtClass:classTagValue tagName="bes.bean" paramName="timeout"/></timeout>
+        </XDtClass:ifHasClassTag>          
+ 
+         <XDtMerge:merge file="xdoclet/modules/borland/bes/ejb/resources/ejb-bean-settings_2_0.xdt">        
+         </XDtMerge:merge>
+      </session>
+      </XDtEjb:ifIsAConcreteEJBean>
+      </XDtEjbSession:forAllSessionBeans>
+
+      <!-- Message Driven Beans -->
+      <XDtEjbMdb:forAllMDBeans>
+      <XDtEjb:ifIsAConcreteEJBean>
+      <message-driven>
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+          <XDtClass:ifHasClassTag tagName="bes.bean" paramName="message-driven-destination-name">
+          <message-driven-destination-name><XDtClass:classTagValue tagName="bes.bean" paramName="message-driven-destination-name"/></message-driven-destination-name>
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="bes.bean" paramName="connection-factory-name">                           
+          <connection-factory-name><XDtClass:classTagValue tagName="bes.bean" paramName="connection-factory-name"/></connection-factory-name>
+          </XDtClass:ifHasClassTag>
+
+          <pool>              
+            <XDtClass:ifHasClassTag tagName="bes.bean" paramName="pool-max-size">                           
+             <max-size><XDtClass:classTagValue tagName="bes.bean" paramName="pool-max-size"/></max-size>
+            </XDtClass:ifHasClassTag>            
+            <XDtClass:ifHasClassTag tagName="bes.bean" paramName="pool-init-size">                           
+             <init-size><XDtClass:classTagValue tagName="bes.bean" paramName="pool-init-size"/></init-size>
+            </XDtClass:ifHasClassTag>            
+            <XDtClass:ifHasClassTag tagName="bes.bean" paramName="pool-wait-timeout">                           
+             <wait-timeout><XDtClass:classTagValue tagName="bes.bean" paramName="pool-wait-timeout"/></wait-timeout>
+            </XDtClass:ifHasClassTag>            
+          </pool>
+         <XDtMerge:merge file="xdoclet/modules/borland/bes/ejb/resources/ejb-bean-settings_2_0.xdt">        
+         </XDtMerge:merge>
+ 
+      </message-driven>
+      </XDtEjb:ifIsAConcreteEJBean>
+      </XDtEjbMdb:forAllMDBeans>
+    
+      <!-- Entity Beans -->
+      <XDtEjbEntity:forAllEntityBeans>
+      <XDtEjb:ifIsAConcreteEJBean>
+      <XDtEjbCmp:ifEntityIsCmp>
+      <entity>
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+         <XDtEjb:ifRemoteEjb>
+         <bean-home-name><XDtEjbHome:homeInterface type="remote"/></bean-home-name>
+         </XDtEjb:ifRemoteEjb>
+         <XDtEjb:ifLocalEjb>
+         <bean-local-home-name><XDtEjbHome:homeInterface type="local"/></bean-local-home-name>
+         </XDtEjb:ifLocalEjb>
+           
+        <XDtMerge:merge file="xdoclet/modules/borland/bes/ejb/resources/ejb-bean-settings_2_0.xdt">        
+        </XDtMerge:merge>
+     
+        <XDtEjbCmp:ifUsingCmp2>
+         <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+          <cmp2-info> 
+             <XDtEjbCmp:forAllCmpFields>
+	         <cmp-field>
+	           <field-name><XDtMethod:propertyName/></field-name>
+	           <column-name><XDtEjbCmp:dbmsColumn/></column-name>	
+	         </cmp-field>	          
+	         </XDtEjbCmp:forAllCmpFields>
+		     <table-name><XDtEjbCmp:dbmsTable/></table-name>
+          </cmp2-info>                    
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+        </XDtEjbCmp:ifUsingCmp2>    
+        <XDtMerge:merge file="xdoclet/modules/borland/bes/ejb/resources/ejb-bean-settings_2_0.xdt">        
+        </XDtMerge:merge>
+      </entity>                 
+      </XDtEjbCmp:ifEntityIsCmp>
+      </XDtEjb:ifIsAConcreteEJBean>
+      </XDtEjbEntity:forAllEntityBeans>                 
+   </enterprise-beans>
+    
+    
+   <datasource-definitions>
+      <XDtMerge:merge file="ejb-borland-datasources.xml">        
+     </XDtMerge:merge>
+   </datasource-definitions>
+   
+   
+   <XDtEjbEntity:forAllEntityBeans>
+   <XDtEjb:ifIsAConcreteEJBean>
+   <XDtEjbCmp:ifEntityIsCmp>
+   <table-properties>
+       <table-name><XDtClass:classTagValue tagName="ejb:persistence" paramName="table-name"/></table-name>      
+       <property>
+	      <prop-name>datasource</prop-name>
+	      <prop-type>java.lang.String</prop-type>
+          <XDtClass:ifHasClassTag tagName="bes.datasource" paramName="jndi-name">  
+          <prop-value><XDtClass:classTagValue tagName="bes.datasource" paramName="jndi-name"/></prop-value>          
+          </XDtClass:ifHasClassTag>                      
+          <XDtClass:ifDoesntHaveClassTag tagName="bes.datasource" paramName="jndi-name">
+          <prop-value><XDtConfig:configParameterValue paramName="datasource"/></prop-value>          
+          </XDtClass:ifDoesntHaveClassTag> 
+		</property>
+   </table-properties>
+   </XDtEjbCmp:ifEntityIsCmp>
+   </XDtEjb:ifIsAConcreteEJBean>
+   </XDtEjbEntity:forAllEntityBeans>     
+
+    
+   <!-- Relations -->
+    <XDtMerge:merge file="xdoclet/modules/borland/bes/ejb/resources/ejb-relations_2_0.xdt">        
+    </XDtMerge:merge>
+    
+    <!-- Authorization domain - merge file:ejb-borland-authorization-domain.xml-->
+ 
+    <XDtMerge:merge file="ejb-borland-authorization-domain.xml">        
+    </XDtMerge:merge>
+   
+</ejb-jar>

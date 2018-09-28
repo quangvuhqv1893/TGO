@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jdo PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<jdo>
+ <XDtJdo:forAllPackages>
+  <package name="<XDtPackage:packageName/>">
+   <XDtJdo:forAllClassesInPackage>
+  <XDtClass:ifHasClassTag tagName="jdo.persistence-capable" superclasses="false">  
+    <class name="<XDtClass:className/>"
+           identity-type="<XDtClass:classTagValue tagName="jdo.persistence-capable" paramName="identity-type" values="application,datastore,nondurable" default="datastore"/>"
+     <XDtClass:ifHasClassTag tagName="jdo.persistence-capable" paramName="objectid-class">
+           objectid-class="<XDtClass:classTagValue tagName="jdo.persistence-capable" paramName="objectid-class"/>"
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jdo.persistence-capable" paramName="requires-extent" superclasses="false">
+           requires-extent="<XDtClass:classTagValue tagName="jdo.persistence-capable" paramName="requires-extent"/>"
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jdo.persistence-capable" paramName="persistence-capable-superclass" superclasses="false">
+           persistence-capable-superclass="<XDtClass:classTagValue tagName="jdo.persistence-capable" paramName="persistence-capable-superclass"/>"
+     </XDtClass:ifHasClassTag>
+    > <!-- end class tag -->
+  <XDtClass:forAllClassTags tagName="jdo.class-vendor-extension" superclasses="false">  
+    <extension vendor-name="<XDtClass:classTagValue tagName="jdo.class-vendor-extension" paramName="vendor-name"/>"
+               key="<XDtClass:classTagValue tagName="jdo.class-vendor-extension" paramName="key"/>"
+               value="<XDtClass:classTagValue tagName="jdo.class-vendor-extension" paramName="value"/>">
+     <XDtClass:classTagValue tagName="jdo.class-vendor-extension" paramName="content" default=""/>
+   </extension>
+  </XDtClass:forAllClassTags>
+     <XDtJdo:forAllVendorExtensions level="class">
+      <XDtJdo:vendorExtension/>
+     </XDtJdo:forAllVendorExtensions> 
+     <XDtField:forAllFields superclasses="false">
+       <XDtField:ifHasFieldTag tagName="jdo.field">
+      <field name="<XDtField:fieldName/>" 
+         <XDtField:ifHasFieldTag tagName="jdo.field" paramName="persistence-modifier">
+             persistence-modifier="<XDtField:fieldTagValue tagName="jdo.field" paramName="persistence-modifier" values="persistent,transactional,none" default="persistent"/>"
+         </XDtField:ifHasFieldTag>
+         <XDtField:ifHasFieldTag tagName="jdo.field" paramName="primary-key">
+             primary-key="<XDtField:fieldTagValue tagName="jdo.field" paramName="primary-key"  values="true,false" default="false"/>"
+         </XDtField:ifHasFieldTag>
+         <XDtField:ifHasFieldTag tagName="jdo.field" paramName="null-value">
+             null-value="<XDtField:fieldTagValue tagName="jdo.field" paramName="null-value" values="exception,default,none" default="none"/>"
+         </XDtField:ifHasFieldTag>
+         <XDtField:ifHasFieldTag tagName="jdo.field" paramName="default-fetch-group">
+             default-fetch-group="<XDtField:fieldTagValue tagName="jdo.field" paramName="default-fetch-group" values="true,false" default="true"/>"
+         </XDtField:ifHasFieldTag>
+         <XDtField:ifHasFieldTag tagName="jdo.field" paramName="embedded">
+             embedded="<XDtField:fieldTagValue tagName="jdo.field" paramName="embedded" values="true,false" default="true"/>"
+         </XDtField:ifHasFieldTag>
+      > <!-- end field tag -->
+           <XDtField:ifFieldTagValueEquals tagName="jdo.field" paramName="collection-type" value="collection">
+             <collection
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="element-type">
+                 element-type="<XDtField:fieldTagValue tagName="jdo.field" paramName="element-type" expandClassName="true"/>"
+               </XDtField:ifHasFieldTag>
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="embedded-element" values="true,false">
+                 embedded-element="<XDtField:fieldTagValue tagName="jdo.field" paramName="embedded-element" values="true,false" default="true"/>"
+               </XDtField:ifHasFieldTag>
+              > <!-- end collection tag -->
+  <XDtField:forAllFieldTags tagName="jdo.collection-vendor-extension" superclasses="false">  
+    <extension vendor-name="<XDtField:fieldTagValue tagName="jdo.collection-vendor-extension" paramName="vendor-name"/>"
+               key="<XDtField:fieldTagValue tagName="jdo.collection-vendor-extension" paramName="key"/>"
+               value="<XDtField:fieldTagValue tagName="jdo.collection-vendor-extension" paramName="value"/>">
+     <XDtField:fieldTagValue tagName="jdo.collection-vendor-extension" paramName="content" default=""/>
+   </extension>
+  </XDtField:forAllFieldTags>
+               <XDtJdo:forAllVendorExtensions level="collection">
+                <XDtJdo:vendorExtension/>
+               </XDtJdo:forAllVendorExtensions> 
+             </collection>
+           </XDtField:ifFieldTagValueEquals>
+           <XDtField:ifFieldTagValueEquals tagName="jdo.field" paramName="collection-type" value="map">
+              <map
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="key-type">
+                 key-type="<XDtField:fieldTagValue tagName="jdo.field" paramName="key-type" expandClassName="true"/>"
+               </XDtField:ifHasFieldTag>
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="embedded-key" values="true,false">
+                 embedded-key="<XDtField:fieldTagValue tagName="jdo.field" paramName="embedded-key" values="true,false" default="true"/>"
+               </XDtField:ifHasFieldTag>
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="value-type">
+                 value-type="<XDtField:fieldTagValue tagName="jdo.field" paramName="value-type" expandClassName="true"/>"
+               </XDtField:ifHasFieldTag>
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="embedded-value" values="true,false">
+                 embedded-value="<XDtField:fieldTagValue tagName="jdo.field" paramName="embedded-value" values="true,false" default="true"/>"
+               </XDtField:ifHasFieldTag>
+              > <!-- end map tag -->
+  <XDtField:forAllFieldTags tagName="jdo.map-vendor-extension" superclasses="false">  
+    <extension vendor-name="<XDtField:fieldTagValue tagName="jdo.map-vendor-extension" paramName="vendor-name"/>"
+               key="<XDtField:fieldTagValue tagName="jdo.map-vendor-extension" paramName="key"/>"
+               value="<XDtField:fieldTagValue tagName="jdo.map-vendor-extension" paramName="value"/>">
+     <XDtField:fieldTagValue tagName="jdo.map-vendor-extension" paramName="content" default=""/>
+   </extension>
+  </XDtField:forAllFieldTags>
+               <XDtJdo:forAllVendorExtensions level="map">
+                <XDtJdo:vendorExtension/>
+               </XDtJdo:forAllVendorExtensions> 
+             </map>
+           </XDtField:ifFieldTagValueEquals>
+           <XDtField:ifFieldTagValueEquals tagName="jdo.field" paramName="collection-type" value="array">
+             <array
+               <XDtField:ifHasFieldTag tagName="jdo.field" paramName="embedded-element" values="true,false">
+                 embedded-element="<XDtField:fieldTagValue tagName="jdo.field" paramName="embedded-element"/>"
+               </XDtField:ifHasFieldTag>
+             > <!-- end array tag -->
+  <XDtField:forAllFieldTags tagName="jdo.array-vendor-extension" superclasses="false">  
+    <extension vendor-name="<XDtField:fieldTagValue tagName="jdo.array-vendor-extension" paramName="vendor-name"/>"
+               key="<XDtField:fieldTagValue tagName="jdo.array-vendor-extension" paramName="key"/>"
+               value="<XDtField:fieldTagValue tagName="jdo.array-vendor-extension" paramName="value"/>">
+     <XDtField:fieldTagValue tagName="jdo.array-vendor-extension" paramName="content" default=""/>
+   </extension>
+  </XDtField:forAllFieldTags>
+               <XDtJdo:forAllVendorExtensions level="array">
+                <XDtJdo:vendorExtension/>
+               </XDtJdo:forAllVendorExtensions> 
+             </array>
+           </XDtField:ifFieldTagValueEquals>
+  <XDtField:forAllFieldTags tagName="jdo.field-vendor-extension" superclasses="false">  
+    <extension vendor-name="<XDtField:fieldTagValue tagName="jdo.field-vendor-extension" paramName="vendor-name"/>"
+               key="<XDtField:fieldTagValue tagName="jdo.field-vendor-extension" paramName="key"/>"
+               value="<XDtField:fieldTagValue tagName="jdo.field-vendor-extension" paramName="value"/>">
+     <XDtField:fieldTagValue tagName="jdo.field-vendor-extension" paramName="content" default=""/>
+   </extension>
+  </XDtField:forAllFieldTags>
+       <XDtJdo:forAllVendorExtensions level="field">
+        <XDtJdo:vendorExtension/>
+       </XDtJdo:forAllVendorExtensions> 
+      </field>
+       </XDtField:ifHasFieldTag>
+     </XDtField:forAllFields>
+    </class>
+  </XDtClass:ifHasClassTag>  
+   </XDtJdo:forAllClassesInPackage>
+   <XDtJdo:forAllClassesInPackage>
+  <XDtClass:ifHasClassTag tagName="jdo.package-vendor-extension" superclasses="false">  
+    <extension vendor-name="<XDtClass:classTagValue tagName="jdo.package-vendor-extension" paramName="vendor-name"/>"
+               key="<XDtClass:classTagValue tagName="jdo.package-vendor-extension" paramName="key"/>"
+               value="<XDtClass:classTagValue tagName="jdo.package-vendor-extension" paramName="value"/>">
+     <XDtClass:classTagValue tagName="jdo.package-vendor-extension" paramName="content" default=""/>
+   </extension>
+  </XDtClass:ifHasClassTag>  
+   </XDtJdo:forAllClassesInPackage>
+  </package> 
+ </XDtJdo:forAllPackages>
+
+ <XDtMerge:merge file="vendor-extensions.xml">
+    <!--
+    To use additional vendor extensions, create a vendor-extensions.xml file that
+    contains the additional extensions (in extension tags) and place it in your
+    projects merge dir.  
+    -->
+ </XDtMerge:merge>
+
+</jdo>
+
+
+
+

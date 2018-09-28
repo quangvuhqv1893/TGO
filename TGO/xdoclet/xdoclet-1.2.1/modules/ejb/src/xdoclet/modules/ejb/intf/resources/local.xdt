@@ -1,0 +1,24 @@
+/*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ */
+package <XDtPackage:packageOf><XDtEjbIntf:componentInterface type="local"/></XDtPackage:packageOf>;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="local_interface_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/> */
+public interface <XDtClass:classOf><XDtEjbIntf:componentInterface type="local"/></XDtClass:classOf>
+   extends <XDtEjbIntf:extendsFrom type="local"/><XDtClass:ifHasClassTag tagName="ejb:bean" paramName="local-business-interface">, <XDtClass:classTagValue tagName="ejb:bean" paramName="local-business-interface"/></XDtClass:ifHasClassTag>
+{
+  <XDtClass:ifDoesntHaveClassTag tagName="ejb:bean" paramName="local-business-interface">
+   <XDtMethod:forAllMethods>
+    <XDtEjbIntf:ifIsInterfaceMethod superclasses="false" interface="local">
+<XDtMethod:methodComment indent="3"/>
+   public <XDtMethod:methodType/> <XDtMethod:methodName/>( <XDtParameter:parameterList/> ) <XDtMethod:exceptionList/>;
+
+    </XDtEjbIntf:ifIsInterfaceMethod>
+   </XDtMethod:forAllMethods>
+  </XDtClass:ifDoesntHaveClassTag>
+
+   <XDtMerge:merge file="local-custom.xdt">
+   </XDtMerge:merge>
+}

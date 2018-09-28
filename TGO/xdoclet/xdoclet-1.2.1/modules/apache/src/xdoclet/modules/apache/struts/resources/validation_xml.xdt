@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>" ?>
+<!DOCTYPE form-validation PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+<XDtComment:comment>
+ Possible TODO items:
+   - Add support for localized form validation
+   - Add merge file for each form (should this be an override or an in-addition-to merge?)
+   - Any issues with Ant properties since validator variables look like them?  (i.e. ${var:min})
+</XDtComment:comment>
+<form-validation>
+  <XDtMerge:merge file="validation-global.xml">
+  <!--
+    Define global validation config in validation-global.xml
+  -->
+  </XDtMerge:merge>
+  <formset>
+  <XDtValidator:forAllForms>
+      <XDtValidator:ifFormHasFields>
+      <form name="<XDtValidator:formName/>">
+        <XDtValidator:forAllFields>
+              <field property="<XDtValidator:fieldName/>"
+                   <XDtMethod:ifHasMethodTag tagName="struts:validator" paramName="page">
+                     page="<XDtMethod:methodTagValue tagName="struts:validator" paramName="page"/>"
+                   </XDtMethod:ifHasMethodTag>
+                     depends="<XDtValidator:validatorList/>">
+                <XDtMethod:forAllMethodTags tagName="struts:validator">
+                <XDtMethod:ifHasMethodTag tagName="struts:validator" paramName="msgkey">
+                  <msg
+                    name="<XDtMethod:methodTagValue tagName="struts:validator" paramName="type"/>"
+                    key="<XDtMethod:methodTagValue tagName="struts:validator" paramName="msgkey"/>"/>
+                </XDtMethod:ifHasMethodTag>
+                <XDtMethod:ifHasMethodTag tagName="struts:validator" paramName="msgvalue">
+                  <msg
+                    name="<XDtMethod:methodTagValue tagName="struts:validator" paramName="type"/>"
+                    key="<XDtMethod:methodTagValue tagName="struts:validator" paramName="msgvalue"/>"
+                    resource="false"/>
+                </XDtMethod:ifHasMethodTag>
+                </XDtMethod:forAllMethodTags>
+
+                <XDtValidator:ifNoArg0>
+                  <arg0 key="<XDtClass:classTagValue tagName="struts:form" paramName="name"/>.<XDtValidator:fieldName/>"/>
+                </XDtValidator:ifNoArg0>
+                <XDtValidator:forAllFieldArgs>
+                  <arg<XDtValidator:argIndex/>
+                    <XDtValidator:ifArgIsForType>
+                      name="<XDtValidator:argName/>"
+                    </XDtValidator:ifArgIsForType>
+                    key="<XDtValidator:argValue/>"
+                    <XDtValidator:ifArgIsResource>
+                    </XDtValidator:ifArgIsResource>
+                    <XDtValidator:ifArgIsValue>
+                      resource="false"
+                    </XDtValidator:ifArgIsValue>
+                  />
+                </XDtValidator:forAllFieldArgs>
+                <XDtMethod:forAllMethodTags tagName="struts.validator-var">
+                  <var>
+                    <var-name><XDtMethod:methodTagValue tagName="struts:validator-var" paramName="name"/></var-name>
+                    <var-value><XDtMethod:methodTagValue tagName="struts:validator-var" paramName="value"/></var-value>
+                  </var>
+                </XDtMethod:forAllMethodTags>
+              </field>
+        </XDtValidator:forAllFields>
+      </form>
+      </XDtValidator:ifFormHasFields>
+  </XDtValidator:forAllForms>
+  </formset>
+</form-validation>

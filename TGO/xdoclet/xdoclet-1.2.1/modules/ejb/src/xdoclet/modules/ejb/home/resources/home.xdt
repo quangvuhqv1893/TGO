@@ -1,0 +1,39 @@
+/*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ */
+package <XDtPackage:packageOf><XDtEjbHome:homeInterface type="remote"/></XDtPackage:packageOf>;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="home_interface_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/> */
+public interface <XDtClass:classOf><XDtEjbHome:homeInterface type="remote"/></XDtClass:classOf>
+   extends <XDtEjbHome:extendsFrom type="remote"/>
+{
+ <XDtEjb:ifIsAConcreteEJBean>
+   public static final String COMP_NAME="java:comp/env/<XDtEjbHome:compName prefixWithEjbSlash="true" type="remote"/>";
+   public static final String JNDI_NAME="<XDtEjbHome:jndiName type="remote"/>";
+
+  <XDtEjbHome:forAllHomeMethods type="remote" tagName="ejb:create-method">
+<XDtComment:comment>TODO we might not have a currentMethod<XDtMethod:methodComment indent="3"/></XDtComment:comment>
+   public <XDtEjbHome:currentSignature/>
+      throws <XDtEjbHome:currentExceptions/>;
+  </XDtEjbHome:forAllHomeMethods>
+ </XDtEjb:ifIsAConcreteEJBean>
+
+  <XDtEjbHome:forAllHomeMethods type="remote" tagName="ejb:finder" superclasses="true">
+<XDtComment:comment>TODO we might not have a currentMethod<XDtMethod:methodComment indent="3"/></XDtComment:comment>
+   public <XDtEjbHome:currentSignature/>
+      throws <XDtEjbHome:currentExceptions/>;
+  </XDtEjbHome:forAllHomeMethods>
+
+  <XDtMethod:forAllMethods superclasses="false">
+   <XDtEjbHome:ifIsHomeMethod>
+<XDtMethod:methodComment indent="3"/>
+   public <XDtMethod:methodType/> <XDtEjbIntf:interfaceMethodName/>(<XDtParameter:parameterList/>)
+      <XDtMethod:exceptionList append="java.rmi.RemoteException" skip="javax.ejb.EJBException"/>;
+   </XDtEjbHome:ifIsHomeMethod>
+  </XDtMethod:forAllMethods>
+
+   <XDtMerge:merge file="home-custom.xdt">
+   </XDtMerge:merge>
+}

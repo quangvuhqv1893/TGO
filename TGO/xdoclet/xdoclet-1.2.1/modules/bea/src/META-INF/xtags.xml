@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- Bea Weblogic specific tags -->
+  <namespace>
+    <name>weblogic</name>
+    <usage-description>Tags for creation of WebLogic specific resources</usage-description>
+    <condition-description>all EJB types and Web components, on class and method level</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.servlet.Servlet</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.servlet.Filter</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.servlet.ServletContextListener</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.servlet.jsp.tagext.Tag</condition-parameter>
+        </condition>
+      </condition>
+      <condition type="or">
+        <condition type="method"/>
+        <condition type="class"/>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>weblogic.pool</name>
+        <usage-description>
+          Used to specify various options for instance pooling.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="int">
+          <name>max-beans-in-free-pool</name>
+          <usage-description>
+            WebLogic EJB maintains a free pool of beans for every bean class.
+            This property decides the maximum size of the pool.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="int">
+          <name>initial-beans-in-free-pool</name>
+          <usage-description>
+            WebLogic EJB maintains a free pool of beans for every bean class.
+            This property decides the initial size of the pool.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.message-driven</name>
+        <usage-description>
+          Used to specify various options for message driven beans.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to message driven EJBs.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>connection-factory-jndi-name</name>
+          <usage-description>
+            This parameter specifies the JNDI name of the JMS ConnectionFactory that the MessageDriven Bean should look up to create its Queues and Topics.
+            If not specified, it will default to weblogic.jms.MessageDrivenBeanConnectionFactory, which must have been declared in config.xml.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>jms-polling-interval-seconds</name>
+          <usage-description>
+            The jms-polling-interval-seconds determines the number of seconds between each attempt to reconnect to the JMS destination.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>jms-client-id</name>
+          <usage-description>
+            The JMS specification allows JMS consumers to specify an associated id.  This id is necessary for durable subscriptions to JMS topics
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>destination-jndi-name</name>
+          <usage-description>
+            The destination-jndi-name element is used to associate a message-driven bean with a JMS Queue or Topic that has been deployed in the WebLogic JNDI tree.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>initial-context-factory</name>
+          <usage-description>
+            This element specifies the initial ContextFactory that the container will
+            use to create its connection factories.  If not specified, it will default
+            to weblogic.jndi.WLInitialContextFactory.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>provider-url</name>
+          <usage-description>
+            This element specifies the URL provider to be put in the Properties used
+            by the InitialContext.  It is typically host:port and used in conjunction
+            with initial-context-factory and connection-factory-jndi-name.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.persistence</name>
+        <usage-description>
+          Used to specify various options for entity beans.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to Entity EJBs.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="bool">
+          <name>delay-updates-until-end-of-tx</name>
+          <usage-description>
+            Applicable to entity beans only (both container- and bean-managed). This optional optimization affects when changes to a bean's state
+            propogated to the persistent store. If this is set to "True" (which is the default) updates of the persistent store of all beans in the transaction will be performed just before the end of the transaction.
+            If this is set to "False" the pstore update of a bean will be performed at the conclusion of each method invoke.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>is-modified-method-name</name>
+          <usage-description>
+            Applies to bean managed persistence or EJB 1.1 container-managed
+            persistence entity EJBs.
+            EJB 2.0 entity EJBs do not need to implement an is-modified-method.
+            The EJB container can automatically detect which fields were modified in a transaction.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>finders-load-bean</name>
+          <usage-description>
+              Applicable to CMP entity beans only.  This optional optimization
+              affects whether the beans returned by a finder (or ejbSelect method) are
+              loaded immediately into the cache before the finder method returns.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <option-sets>
+              <option-set>
+                <options>
+                  <option>True</option>
+                  <option>False</option>
+                </options>
+              </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>db-is-shared</name>
+          <usage-description>
+            If the value is set to
+            "False" the container will assume that it has exclusive access to the
+            bean data in the persistence store. If it is set to "True" the bean
+            will assume that the bean data could be modified between transactions
+            and will therefore reload data at the beginning of each transaction.
+            Only used in versions prior to 7.0.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+             <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.cache</name>
+        <usage-description>
+          Used to specify various options for the caching.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+          Applicable to Entity Beans and Stateless Session Beans.
+        </condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+          <condition type="or">
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>Stateless</condition-parameter>
+            </condition>
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>BMP</condition-parameter>
+            </condition>
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>CMP</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="int">
+          <name>max-beans-in-cache</name>
+          <usage-description>
+            Maximum number of objects of this class that are allowed in memory.
+            Objects are kept in an LRU chain, and the ones dropped from the
+            end of the chain are passivated.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="int">
+          <name>idle-timeout-seconds</name>
+          <usage-description>
+            The cache (see "max-beans-in-cache" above) is scrubbed of
+            inactive objects after at least this many seconds. Objects
+            scrubbed are passivated.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="int">
+          <name>read-timeout-seconds</name>
+          <usage-description>
+            The read-timeout-seconds is the number of seconds between ejbLoad calls on
+            a Read-Only entity bean. If read-timeout-seconds is 0,
+            ejbLoad will only be called when the bean is brought into the cache.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>concurrency-strategy</name>
+          <usage-description>
+            The concurrency-strategy specifies how the container should manage concurrent
+            access to an entity bean.&lt;br/&gt;
+            The concurrent-strategy can be one of the following values:&lt;br/&gt;
+            -&amp;nbsp;"Exclusive": The exclusive locking scheme used in WebLogic Server
+            versions 3.1 through 5.1&lt;br/&gt;
+            -&amp;nbsp;"Database": A scheme where a separate Entity Bean instance is allocated
+            for each transaction and the locking and caching is handled by the
+            database.&lt;br/&gt;
+            -&amp;nbsp;"ReadOnly" : For read-only entity beans&lt;br/&gt;
+            -&amp;nbsp;"Optimistic" : (since v7.0) When using optimistic concurrency, no locks are
+                   held in the EJB container or database during a
+                   transaction.  The EJB container verifies that none
+                   of the data that was updated by a transaction has
+                   changed before committing the transaction.  If any
+                   updated data has been changed, the transaction is
+                   rolled back.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>Database</default>
+              <options>
+                <option>Exclusive</option>
+                <option>Database</option>
+                <option>ReadOnly</option>
+                <option>Optimistic</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>cache-type</name>
+          <usage-description>
+            The cache-type can be one of "NRU" or "LRU". The default is "NRU".
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Stateless Session Beans (WLS 6.1)</condition-description>
+          <condition type="and">
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>Stateless</condition-parameter>
+            </condition>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>NRU</default>
+              <options>
+                <option>NRU</option>
+                <option>LRU</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.cache-ref</name>
+        <usage-description>
+          Used to add a entity-cache-ref element to weblogic-ejb-jar.xml.
+          This element is used to refer to an application level entity cache, 
+          which can cache instances of multiple entity beans that are part 
+          of the same application. Application level entity caches are
+          declared in the weblogic-application.xml descriptor
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+          Applicable to Entity Beans
+        </condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="or">
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>BMP</condition-parameter>
+            </condition>
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>CMP</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>cache-name</name>
+          <usage-description>
+            The entity-cache-name element is used to name the application level
+            entity cache that an entity bean uses.  An application level entity
+            cache is a cache that may be shared by multiple entity beans in the
+            same application.  Application level entity caches are declared in the
+            weblogic-application.xml deployment descriptor.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>concurrency-strategy</name>
+          <usage-description>
+            The concurrency-strategy specifies how the container should manage concurrent 
+            access to an entity bean
+          </usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Database</default>
+              <options>
+                <option>Exclusive</option>
+                <option>Database</option>
+                <option>ReadOnly</option>
+                <option>Optimistic</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>cache-between-transactions</name>
+          <usage-description>
+            The cache-between-transactions element tells the EJB container whether
+            to cache the persistent data of an entity bean across (between)
+            transactions. true or false. false by default.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+        <parameter type="int">
+          <name>estimated-bean-size</name>
+          <usage-description>
+            The estimated-bean-size element is used to specify the estimated
+            average size of the instances of an entity bean in bytes.  This is the
+            average number of bytes of memory that is consumed by each instance
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.lifecycle</name>
+        <usage-description>
+          The lifecycle element is used to specify various options for the management of
+          the lifecycle of stateful beans.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to Entity Beans and Stateful Session Beans.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="and">
+              <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+              </condition>
+              <condition type="tag-param">
+                <condition-parameter>ejb.bean</condition-parameter>
+                <condition-parameter>type</condition-parameter>
+                <condition-parameter>Stateful</condition-parameter>
+              </condition>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>passivation-strategy</name>
+          <usage-description>
+            The passivation-strategy can be either "default" or "transaction". With
+            the "default" setting the container will attempt to keep a working set
+            of beans in the cache. With the "transaction" setting, the container will
+            passivate the bean after every transaction (or method call for a
+            non-transactional invocation).
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>default</default>
+              <options>
+                <option>default</option>
+                <option>transaction</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.ejb-reference-description</name>
+        <usage-description>Used to specify a reference to an EJB external to the current deployment-package. There must be an @ejb.ejb-ref tag too which points to the referenced bean.</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs and Web components</condition-description>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The jndi-name element gives the JNDI name where the bean or resource will be bound in WebLogic Server. References the tag @ejb.bean with "jndi-name" property  </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>ejb-ref-name</name>
+          <usage-description>EJB reference name, this is the reference that you put in the tag @ejb.ejb-ref with ref-name parameter</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.ejb-local-reference-description</name>
+        <usage-description>Used to specify a reference to an EJB.
+                           There must be an @ejb.ejb-ref tag too which points to the referenced bean.
+                           Only for Weblogic 6.1 and later</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The jndi-name element gives the JNDI name where the bean or resource will be bound in WebLogic Server. References the tag @ejb.bean with "jndi-name" property  </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>ejb-ref-name</name>
+          <usage-description>EJB reference name, this is the reference that you put in the tag @ejb.ejb-ref with ref-name parameter</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.resource-description</name>
+        <usage-description>Used to specify a reference to resource. There must be a matching @ejb.resource-ref tag too which points to the referenced resource.</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs and Web components</condition-description>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>Reference to the resource</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>res-ref-name</name>
+          <usage-description>The jndi-name from the @ejb.resource-ref tag</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.resource-env-description</name>
+        <usage-description>Used to specify a reference to resource. There must be a matching @ejb.resource-env-ref tag too which points to the referenced resource.</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>Reference to the resource</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>res-env-ref-name</name>
+          <usage-description>The name from the @ejb.resource-env-ref</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.clustering</name>
+        <usage-description>The clustering element is used to specify various options for
+                           how an entity bean will be invoked in a WebLogic cluster.  Setting
+                           home-is-clusterable to "True" enables clustering for both the home and
+                           remote stubs of the Entity bean.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="text">
+          <name>home-is-clusterable</name>
+          <usage-description>If "True," this bean can be deployed from multiple servers in a cluster.
+                             Calls to the home stub will be load-balanced between the servers on which
+                             this bean is deployed, and if a server hosting the bean is unreachable,
+                             the call will automatically failover to another server hosting the bean
+          </usage-description>
+          <mandatory/>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>True</option>
+                <option>False</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>home-load-algorithm</name>
+          <usage-description>
+              The home-load-algorithm specifies the algorithm to use for load-balancing
+              between replicas of this home.  If this property is not specified, the
+              algorithm specified by the server property weblogic.cluster.defaultLoadAlgorithm will be used.
+          </usage-description>
+          <mandatory/>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>RoundRobin</option>
+                <option>Random</option>
+                <option>WeightBased</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>home-call-router-class-name</name>
+          <usage-description>
+              The home-call-router-class-name specifies a custom class to be used for
+              routing home method calls.  This class must implement
+              weblogic.rmi.cluster.CallRouter.
+          </usage-description>
+          <mandatory/>
+        </parameter>
+        <parameter type="text">
+            <name>replication-type</name>
+            <usage-description>
+               The replication-type element describes how to replicate stateful session
+               beans in a cluster.
+            </usage-description>
+            <mandatory/>
+            <condition-description>Statefull Session beans</condition-description>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <option-sets>
+              <option-set>
+                <default>None</default>
+                <options>
+                  <option>InMemory</option>
+                  <option>None</option>
+                </options>
+              </option-set>
+            </option-sets>
+          </parameter>
+          <parameter type="text">
+            <name>stateless-bean-call-router-class-name</name>
+            <usage-description>
+               The stateless-bean-call-router-class-name specifies a custom class
+               to be used for routing bean method calls.  This class must implement
+               weblogic.rmi.cluster.CallRouter.  If specified, an instance of
+               this class will be called before each method call and be given the
+               opportunity to choose a server to route to based on the method
+               parameters.  It either returns a server name or null indicating
+               that the current load algorithm should be used to pick the server.
+            </usage-description>
+            <mandatory/>
+            <condition-description>Stateless Session beans</condition-description>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </parameter>
+          <parameter type="text">
+            <name>stateless-bean-is-clusterable</name>
+            <usage-description>
+               The valid values of the stateless-bean-is-clusterable parameter
+               are "True" or "False."
+               The parameter is applicable only to session EJBeans with a
+               session-type value of "Stateless" (see ejb-jar.dtd).
+               If home-is-clusterable is "True" and this parameter is also "true",
+               calls to this bean stub will be load-balanced between all the
+               the servers on which this bean is deployed, and if a server
+               hosting the bean becomes unreachable, the call will automatically
+               failover to another server hosting the bean.
+            </usage-description>
+            <mandatory/>
+            <condition-description>Stateless Session beans</condition-description>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <option-sets>
+                <option-set>
+                  <options>
+                    <option>True</option>
+                    <option>False</option>
+                  </options>
+                </option-set>
+             </option-sets>
+          </parameter>
+          <parameter type="text">
+            <name>stateless-bean-load-algorithm</name>
+            <usage-description>
+                The stateless-bean-load-algorithm specifies the algorithm to use
+                for load-balancing between replicas of this bean.  If this property
+                is not specified, the algorithm specified by the server property
+                weblogic.cluster.defaultLoadAlgorithm will be used.
+            </usage-description>
+            <mandatory/>
+            <condition-description>Stateless Session beans</condition-description>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+              <option-sets>
+                <option-set>
+                  <options>
+                    <option>RoundRobin</option>
+                    <option>Random</option>
+                    <option>WeightBased</option>
+                  </options>
+                </option-set>
+              </option-sets>
+          </parameter>
+          <parameter type="bool">
+            <name>stateless-bean-methods-are-idempotent</name>
+            <usage-description>
+                The value should be set to "True" only if the bean is written
+                such that repeated calls to the same method with the same arguments
+                has exactly the same effect as a single call. This allows the failover
+                handler to retry a failed call without knowing whether the call
+                actually completed on the failed server. Setting this property to
+                "true" makes it possible for the bean stub to automatically recover
+                from any failure as long as another server hosting the bean can be
+                reached.
+            </usage-description>
+            <mandatory>false</mandatory>
+            <condition-description>Stateless Session beans</condition-description>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.invalidation-target</name>
+        <usage-description>Only for Weblogic 6.1 or later</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to EJB 2.0 CMP EntityBeans</condition-description>
+        <parameter type="text">
+          <name>ejb-name</name>
+          <usage-description>Specifies a Read-Only Entity EJB which
+            should be invalidated when this CMP Entity EJB has been modified.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.enable-dynamic-queries</name>
+        <usage-description>Only for Weblogic 7.0 or greater</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to EJB 2.0 CMP EntityBeans</condition-description>
+        <parameter type="bool">
+          <name/>
+          <usage-description>Must be present for Dynamic Queries to be
+            enabled for the EJB.
+          </usage-description>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>        
+        <name>weblogic.transaction-isolation</name>
+        <usage-description>Set the transaction isolation level.</usage-description>
+        <unique/>
+        <parameter type="text">
+          <name/>
+          <usage-description/>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default></default>
+              <options>
+                <option>TRANSACTION_SERIALIZABLE</option>
+                <option>TRANSACTION_READ_COMMITTED</option>
+                <option>TRANSACTION_READ_UNCOMMITTED</option>
+                <option>TRANSACTION_REPEATABLE_READ</option>
+                <option>TRANSACTION_READ_COMMITTED_FOR_UPDATE</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.transaction-isolation</name>
+        <usage-description>Set the transaction isolation level.</usage-description>
+        <unique/>
+        <parameter type="text">
+          <name/>
+          <usage-description/>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default></default>
+              <options>
+                <option>TRANSACTION_SERIALIZABLE</option>
+                <option>TRANSACTION_READ_COMMITTED</option>
+                <option>TRANSACTION_READ_UNCOMMITTED</option>
+                <option>TRANSACTION_REPEATABLE_READ</option>
+                <option>TRANSACTION_READ_COMMITTED_FOR_UPDATE</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.allow-concurrent-calls</name>
+        <usage-description>
+            The allow-concurrent-calls specifies whether a stateful session bean
+            instance will allow concurrent method calls.  The value of this element may be either "True" or "False".
+            When a stateful session bean instance is currently in a method call and another (concurrent) method call arrives on the
+            server, the EJB specification requires that the server throw a RemoteException.  By default, allow-concurrent-calls is false, and the
+            EJB container will follow the EJB specification.  When this value is set to true, the EJB container will block the concurrent method call
+            and allow it to proceed when the previous call has completed.
+            Allowed values are: True, False
+        </usage-description>
+        <unique/>
+        <parameter type="bool">
+          <name/>
+          <usage-description/>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.enable-call-by-reference</name>
+        <usage-description>By default, EJB methods called from within the same server pass arguments by reference. This increases the performance of method invocation because parameters are not copied.
+                           If you set enable-call-by-reference to False, parameters to the EJB methods are copied (pass-by-value) in accordance with the EJB 1.1 specification. Pass by value is always necessary when the EJB is called remotely (not from within the server).
+                           Allowed values are True, False
+        </usage-description>
+        <unique/>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="bool">
+          <name/>
+          <usage-description/>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.run-as-identity-principal</name>
+        <usage-description>The run-as-identity-principal element specifies which security principal is
+                           to be used for the run-as identity. This tag is necessary if the role
+                           specified in the run-as element of the ejb-jar.xml descriptor does not map to
+                           a single security principal representing a User in the security realm. This
+                           could be true in two cases. One case is where the role maps to multiple
+                           security principals (see security-role-assignment element). In this case,
+                           the run-as-identity-principal element must be used to specify which of the
+                           security principals you would like to be used. The other case is where the
+                           role maps to a single security principal that represents a Group in the
+                           security realm. In this case the run-as-identity-principal element must be
+                           used to specify a particular User in the security realm.
+        </usage-description>
+        <unique/>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="text">
+          <name/>
+          <usage-description/>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.transaction-descriptor</name>
+        <usage-description>The transaction-descriptor specifies properties relating to transactions. Applicable to all bean types</usage-description>
+        <unique/>
+        <parameter type="int">
+          <name>trans-timeout-seconds</name>
+          <usage-description>Maximum duration of EJB container initiated transactions. If the transaction takes longer then the trans-timeout-seconds, the Weblogic Server will rollback the transaction.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.data-source-name</name>
+        <usage-description>The JNDI name of the WebLogic data source which should be used for all
+            database connectivity for this particular bean.</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to CMP EntityBeans</condition-description>
+        <parameter type="text">
+          <name/>
+          <usage-description/>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.pool-name</name>
+        <usage-description>The JNDI name of the WebLogic data source which should be used for all
+            database connectivity for this particular bean.</usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to CMP EntityBeans</condition-description>
+        <parameter type="text">
+          <name/>
+          <usage-description/>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.delay-database-insert-until</name>
+        <usage-description>Specifies the
+          precise time at which a new bean that uses RDBMS CMP is inserted into
+          the database.  By default, the database insert is done after ejbPostCreate.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="text">
+          <name></name>
+          <usage-description></usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>ejbPostCreate</default>
+              <options>
+                <option>ejbCreate</option>
+                <option>ejbPostCreate</option>
+                <option>commit</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>weblogic.automatic-key-generation</name>
+        <usage-description>Optional tag used to install the Automatic Sequence/Key 
+          Generation facility, intended for use with Simple (non-Compound)
+          Primary Keys.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all EJBs</condition-description>
+        <parameter type="text">
+          <name>generator-type</name>
+          <usage-description>Specifies the Key Generation Method that will be employed.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default></default>
+              <options>
+                <option>ORACLE</option>
+                <option>SQL_SERVER</option>
+                <option>NAMED_SEQUENCE_TABLE</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>generator-name</name>
+          <usage-description>The name of the Oracle sequence or the sequence table
+          to use.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="int">
+          <name>key-cache-size</name>
+          <usage-description>Size of key cache.  For type ORACLE, this value must match the
+            Oracle sequence increment value.  For type NAMED_SEQUENCE_TABLE, this tells how many keys
+            the Container will fetch in a single DBMS call.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.enable-tuned-updates</name>
+        <usage-description>enable-tuned-updates determines the UPDATE behavior for
+            EJB 1.1 CMP Entity Beans.
+            When this value is True, the CMP engine does a minimal update, only
+            modified fields are written to the database. If no fields have been
+            changed, there is no database update.
+            When this value is False, the CMP engine writes all fields at the end
+            of each transaction.
+        </usage-description>
+        <unique>true</unique>
+        <parameter type="bool">
+          <name>key-column</name>
+          <usage-description/>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.dbms-column-type</name>
+        <usage-description>If present, will map the current field to a Blob or Clob
+        in Oracle database.</usage-description>
+        <unique/>
+        <parameter type="text">
+          <name/>
+          <usage-description/>
+          <mandatory/>
+          <option-sets>
+            <option-set>
+              <default></default>
+              <options>
+                <option>OracleBlob</option>
+                <option>OracleClob</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.field-group</name>
+        <usage-description>
+            A field-group represents a subset of the cmp and cmr-fields of a bean.
+            Related fields in a bean can be put into groups which are faulted
+            into memory together as a unit.  A group can be associated with a
+            query or relationship, so that when a bean is loaded as the
+            result of executing a query or following a relationship, only the
+            fields mentioned in the group are loaded.
+        </usage-description>
+        <unique>false</unique>
+        <parameter type="text">
+          <name>group-name</name>
+          <usage-description>The name of a field group.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.select</name>
+        <usage-description>Extra properties for an ejb.select method.</usage-description>
+        <unique/>
+        <parameter type="bool">
+          <name>include-updates</name>
+          <usage-description>
+            The include-updates tag is used to specify that updates made during
+            the current transaction must be reflected in the result of a query.
+            If include-updates is set to 'True', the container will flush all
+            changes made by the current transaction to disk before executing the
+            query.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>group-name</name>
+          <usage-description/>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.column-map</name>
+        <usage-description>
+          The column-map element represents a mapping from a foreign key
+          column in one table in the database to a corresponding primary key
+          column.  The two columns may or may not be in the same table.  The
+          tables to which the column belong are implicit from the context in
+          which the column-map element appears in the deployment descriptor.
+          The key-column element is not specified if the foreign-key-column 
+          refers to a 'remote' bean.
+        </usage-description>
+        <unique/>
+        <parameter type="text">
+          <name>foreign-key-column</name>
+          <usage-description>A column of a foreign key in the database.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>key-column</name>
+          <usage-description>A column of a primary key in the database.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.target-column-map</name>
+        <usage-description>Used for unidirectional relations, to specify the column
+        map for the target end of the relation.</usage-description>
+        <unique/>
+        <parameter type="text">
+          <name>foreign-key-column</name>
+          <usage-description>A column of a foreign key in the database.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>key-column</name>
+          <usage-description>A column of a primary key in the database.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.relation</name>
+        <usage-description>???</usage-description>
+        <unique/>
+        <parameter type="text">
+          <name>join-table-name</name>
+          <usage-description/>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>group-name</name>
+          <usage-description/>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>weblogic.finder</name>
+        <usage-description>A descriptor for a particular finder method defined in
+        the home interface.</usage-description>
+        <unique>true</unique>
+        <parameter type="text">
+          <name>finder-query</name>
+          <usage-description>The WebLogic Query Language (WLQL) string used to create the SQL
+            string that will be used to retrieve values from the database for this
+            finder.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>finder-sql</name>
+          <usage-description>
+            A raw SQL string that will be used instead of the standard WLQL query
+            to retrieve values from the database for this finder.  Used for
+            version 7.0+
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>find-for-update</name>
+          <usage-description>When find-for-update
+            is true, a SELECT...FOR UPDATE statement is generated for the finder
+            method.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

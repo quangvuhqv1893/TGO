@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Best Practices</title>
+	</properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+	<body>
+	    <section name="Best Practices">
+	        <p>
+	            This document contains best practices when using XDoclet. Note that these
+	            are the opinions of the XDoclet team only, so they could be biased.
+	        </p>
+	        <subsection name="Caching the home interface">
+	            <p>
+                    Add the <code>cacheHomes="true"</code> parameter to the <code>&lt;utilobject/&gt;</code> task to have the utility
+                    objects cache the homes (you no longer need an EJBHomeFactory!):
+                </p>
+                <source>&lt;utilobject cacheHomes="true"/&gt;</source>
+                <p>
+                    Examples how to lookup the home interface using the utility object (it will narrow if needed, and
+                    uses the COMP name or JNDI name):
+                </p>
+<source>EmployeeManager employeeManager = EmployeeManagerUtil.getHome().create();
+Properties jndiEnvProps = ... ;
+CompanyHome companyHome = CompanyUtil.getLocalHome(jndiEnvProps);</source>
+            </subsection>
+            <subsection name="GUID Generator">
+                <p>
+                    Need an extremely reliable key generator? Add the <code>includeGUID="true"</code> parameter
+                    to the <code>&lt;utilobject/&gt;</code> task to have a key generator that features:
+                    <ul>
+                        <li>unique to the millisecond</li>
+                        <li>unique to the server IP address</li>
+                        <li>unique to the object hashcode</li>
+                        <li>unique to a SecureRandom</li>
+                        <li>String, 32 chars</li>
+                        <li>very performant</li>
+                        <li>EJB 2.0 spec compliant</li>
+                    </ul>
+                </p>
+                <source>&lt;utilobject includeGUID="true"/&gt;</source>
+                <p>To generate a unique key:</p>
+                <source>String id = SomeBeanUtil.generateGUID(this);</source>
+	        </subsection>
+	        <subsection name="Use a dot to seperate namespace and element">
+	        	<p>
+	        		To avoid getting Sun JavaDoc (JDK 1.4) warnings about unknown tags ("warning - @ejb:interface-method is an unknown tag"),
+	        		replace the : with a . (JavaDoc will ignore these tags).
+	        	</p>
+	        </subsection>
+	        <subsection name="Entity Beans Best Practices">
+	            <ul>
+	                <li>Try to avoid compound primary keys.</li>
+	                <li>Always set the <a href="valueobjects.html">Value Object</a> in ejbPostCreate(..), so that CMR fields are assigned correctly.</li>
+	            </ul>
+	        </subsection>
+	        <subsection name="Session Beans Best Practices">
+	            <ul>
+	                <li><a href="http://www-106.ibm.com/developerworks/java/library/j-ejb1008.html">Use the Session Facade pattern for safer data management.</a></li>
+	            </ul>
+	        </subsection>
+        </section>
+    </body>
+</document>

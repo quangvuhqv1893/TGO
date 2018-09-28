@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE mapping PUBLIC "<XDtXml:publicId/>"
+                         "<XDtXml:systemId/>">
+
+<!-- <XDtI18n:getString bundle="xdoclet.modules.exolab.castor.ejb.XDocletModulesCastorEjbMessages" resource="DO_NOT_EDIT"/> -->
+
+<mapping>
+
+  <XDtCastor:forAllClasses>
+    <XDtClass:ifHasClassTag tagName="castor:class">
+      <XDtMerge:merge file="xdoclet/modules/exolab/castor/ejb/resources/mapping-body.xdt">
+      </XDtMerge:merge>
+    </XDtClass:ifHasClassTag>
+  </XDtCastor:forAllClasses>
+
+  <XDtMerge:merge file="key-generator.xml">
+  <!--
+    <XDtI18n:getString bundle="xdoclet.modules.exolab.castor.ejb.XDocletModulesCastorEjbMessages" resource="MERGE_KEY_GENERATOR"/>
+   -->
+  </XDtMerge:merge>
+
+</mapping>
+

@@ -1,0 +1,37 @@
+
+    <XDtHibernate:forAllSubclasses>
+      <XDtClass:ifHasClassTag tagName="hibernate.subclass" superclasses="false">
+        <XDtHibernate:logMapping/>
+        <subclass
+            name="<XDtClass:fullTransformedClassName />"
+          <XDtConfig:ifConfigParamEquals paramName="version" value="2.0">
+            dynamic-update="<XDtClass:classTagValue tagName="hibernate.subclass" paramName="dynamic-update" default="false" />"
+            dynamic-insert="<XDtClass:classTagValue tagName="hibernate.subclass" paramName="dynamic-insert" default="false" />"
+          </XDtConfig:ifConfigParamEquals>
+          <XDtClass:ifHasClassTag tagName="hibernate.subclass" paramName="proxy" superclasses="false">
+            proxy="<XDtClass:classTagValue tagName="hibernate.subclass" paramName="proxy" />"
+          </XDtClass:ifHasClassTag>
+          <XDtClass:ifHasClassTag tagName="hibernate.subclass" paramName="discriminator-value" superclasses="false">
+            discriminator-value="<XDtClass:classTagValue tagName="hibernate.subclass" paramName="discriminator-value" />"
+          </XDtClass:ifHasClassTag>
+        >
+        
+            <XDtMethod:forAllMethods superclasses="false" sort="true">
+                <XDtMerge:merge file="xdoclet/modules/hibernate/resources/hibernate-properties.xdt">
+                </XDtMerge:merge>
+            </XDtMethod:forAllMethods>
+	    <XDtMerge:merge file="hibernate-properties-{0}.xml">
+	    <!--
+            	To add non XDoclet property mappings, create a file named
+                hibernate-properties-<XDtClass:className />.xml
+		containing the additional properties and place it in your merge dir.
+	    -->
+	    </XDtMerge:merge>
+  
+            <XDtMerge:merge file="xdoclet/modules/hibernate/resources/hibernate-subclass.xdt">
+            </XDtMerge:merge>
+	    
+        </subclass>
+        
+      </XDtClass:ifHasClassTag>
+    </XDtHibernate:forAllSubclasses>

@@ -1,0 +1,7 @@
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="pool-cache-timeout">pool-cache-timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='pool-cache-timeout'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="call-timeout">call-timeout="<XDtClass:classTagValue tagName='oc4j.bean' paramName='call-timeout'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="copy-by-value">copy-by-value="<XDtClass:classTagValue tagName='oc4j.bean' paramName='copy-by-value' values='true,false'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="jndi-name">location="<XDtClass:classTagValue tagName='oc4j.bean' paramName='jndi-name'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="max-instances">max-instances="<XDtClass:classTagValue tagName='oc4j.bean' paramName='max-instances'/>"</XDtClass:ifHasClassTag>
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="min-instances">min-instances="<XDtClass:classTagValue tagName='oc4j.bean' paramName='min-instances'/>"</XDtClass:ifHasClassTag>                          
+              <XDtClass:ifHasClassTag tagName="oc4j.bean" paramName="max-tx-retries">max-tx-retries="<XDtClass:classTagValue tagName='oc4j.bean' paramName='max-tx-retries'/>"</XDtClass:ifHasClassTag>

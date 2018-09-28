@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- webwork tags -->
+  <namespace>
+    <name>webwork</name>
+    <usage-description>WebWork</usage-description>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>webwork.action</name>
+        <usage-description>Define an action for this class</usage-description>
+        <unique>false</unique>
+        <condition-description>WebWork Actions</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>webwork.action.Action</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Action name.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>success</name>
+          <usage-description>Use the specified resource if SUCCESS is returned</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>error</name>
+          <usage-description>Use the specified resource if ERROR is returned</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>input</name>
+          <usage-description>Use the specified resource if INPUT is returned</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>views</name>
+          <usage-description>Provide a comma-separated list of actions views in the RETURN_VALUE=RESOURCE format
+          used by views.properties</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>webwork.command</name>
+        <usage-description>
+          Define a CommandDriven action using this method. Your action must fulfill the CommandDriven
+          requirements (like implementing CommandDriven.) See http://wiki.opensymphony.com/space/Using+CommandDriven+Actions
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>WebWork CommandDriven Actions</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>webwork.action.Action</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            Command action name. Will create an action named 'action.command', where 'action' is the contents of the 'name'
+            parameter in @webwork.action and 'command' is the contents of the 'name' parameter of this tag.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>success</name>
+          <usage-description>Use the specified resource if SUCCESS is returned by this CommandDriven action</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>error</name>
+          <usage-description>Use the specified resource if ERROR is returned by this CommandDriven action</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>input</name>
+          <usage-description>Use the specified resource if INPUT is returned by this CommandDriven action</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>views</name>
+          <usage-description>Provide a comma-separated list of actions views in the RETURN_VALUE=RESOURCE format
+          used by views.properties to specify additional properties for this CommandDriven action</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

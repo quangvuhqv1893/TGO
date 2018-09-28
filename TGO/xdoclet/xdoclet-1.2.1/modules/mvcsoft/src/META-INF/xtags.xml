@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- MVCSoft Persistence Manager tags -->
+  <namespace>
+    <name>MVCSoft</name>
+    <usage-description>MVCSoft Persistence Manager tags</usage-description>
+    <condition-description>Entity Beans - on class and method levels</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="method"/>
+        <condition type="class"/>
+      </condition>
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>mvcsoft.entity</name>
+        <usage-description>Sets various configuration options that apply
+                to the entity as a whole</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>table</name>
+          <usage-description>The name of the table to which the entity is persisted</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>cache</name>
+          <usage-description>Sets how entity data is synchronized with
+                    the database. Valid choices are CommitOptionA and CommitOptionBC</usage-description>
+          <mandatory>true</mandatory>
+          <default>CommitOptionBC</default>
+        </parameter>
+        <parameter type="text">
+          <name>insert</name>
+          <usage-description>Determines when a new entity is inserted
+                    into the database. Valid choices are AfterCreate,
+                    AfterPostCreate, and AtTransactionCompletion</usage-description>
+          <mandatory>true</mandatory>
+          <default>AtTransactionCompletion</default>
+        </parameter>
+        <parameter type="text">
+          <name>delete</name>
+          <usage-description>Determines when an entity is deleted from
+                    the database. Valid choices are AtRemove and
+                    AtTransactionCompletion</usage-description>
+          <mandatory>true</mandatory>
+          <default>AtTransactionCompletion</default>
+        </parameter>
+        <parameter type="text">
+          <name>locking-strategy</name>
+          <usage-description>Sets the locking strategy for concurrent
+                    entity access. Valid choices are None, Pessimistic, Counter,
+                    Timestamp, or FieldComparison</usage-description>
+          <mandatory>true</mandatory>
+          <default>FieldComparison</default>
+        </parameter>
+        <parameter type="text">
+          <name>lock-col-name</name>
+          <usage-description>Sets the database column name for the
+                    implementation of the locking strategies Counter and Timestamp</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>lock-col-sql-type</name>
+          <usage-description>Sets the database column type for the
+                    implementation of the locking strategies Counter and Timestamp</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>data-expires</name>
+          <usage-description>Specifies a time-out value for CommitOptionA and ReadOnly
+                    caches. The default is no expiration.</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>mvcsoft.uuid-key</name>
+        <usage-description>Configures the MVCSoft Persistence Manager to
+                provide a "universally unique identifier" value (of type String
+                or BigInteger) for a specified primary key field. The components
+                of this UUID are specified by indicating the source of a value
+                (e.g. counter, ip address, class hash code) and the number of
+                bytes for that value. See the MVCSoft documentation for more
+                information</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>key-field</name>
+          <usage-description>The name of the primary key field that
+                    should be configured with a UUID value when the entity is
+                    created, or the special string "Unknown Key" for the case of
+                    an unknown primary key</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>field-type</name>
+          <usage-description>The type of UUID created. Valid values are String and BigInteger</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>timestamp</name>
+          <usage-description>The number of bytes from a timestamp that should be included in the UUID</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>ipaddress</name>
+          <usage-description>The number of bytes from the IP address that should be included in the UUID</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>classhash</name>
+          <usage-description>The number of bytes from a hash of the container class that should be included in the UUID</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>classstarttime</name>
+          <usage-description>The number of bytes from the container start time that should be included in the UUID</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>counter</name>
+          <usage-description>The number of bytes from a counter that should be included in the UUID</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>mvcsoft.high-low-key</name>
+        <usage-description>Configures the MVCSoft Persistence Manager to
+                automatically and efficiently provide a sequence value for a
+                specified primary key field. (This strategy is also known as
+                "sequence blocks.") This strategy requires a database table to
+                hold the value for the next block of sequence numbers. See the
+                MVCSoft documentation for more information</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>key-field</name>
+          <usage-description>The name of the primary key field that
+                    should be configured with a sequence value when the entity
+                    is created, or the special string "Unknown Key" for the case
+                    of an unknown primary key</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>sequence-name</name>
+          <usage-description>The name that identifies a particular
+                    sequence. (Sequences may be reused across entity bean types
+                    if desired.)</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>non-transactional-pool-name</name>
+          <usage-description>The JNDI name of a DataSource that will
+                    provide a Connection that does not participate in the
+                    current transaction</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>chunk-size</name>
+          <usage-description>The number of sequences that are retrieved
+                    in a single database access. Setting this to a high value
+                    reduces database i/o (at the negligible cost of potentially
+                    "wasted" sequence numbers).</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>retry-count</name>
+          <usage-description>Sequence numbers are retrieved using
+                    optimistic concurrency. This value determines the number of
+                    retries in case of an optimistic rollback</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="int">
+          <name>table-name</name>
+          <usage-description>The name of the database table in which
+                    sequence values are stored</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>sequence-name-column</name>
+          <usage-description>The column name for the column that holds
+                    the "sequence name" information</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>sequence-name-sql-type</name>
+          <usage-description>The sql type for the column that holds
+                    the "sequence name" information</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>value-column</name>
+          <usage-description>The column name for the column that holds
+                    the last used sequence number</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>value-sql-type</name>
+          <usage-description>The sql type for the column that holds
+                    the last used sequence number</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>mvcsoft.unknown-key</name>
+        <usage-description>Configures the MVCSoft Persistence Manager
+                for the case of the unknown primary key. You must also specify a
+                uuid-key configuration or a high-low-key configuration to provide
+                a value for the unknown primary key at runtime</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>java-type</name>
+          <usage-description>The Java class that will be used to
+                    represent the unknown primary key at runtime. This should be
+                    compatible with the UUID or high-low strategy you choose for
+                    generating the value of this key</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>col-name</name>
+          <usage-description>The column name of the key in the entity
+                    database table</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>jdbc-type</name>
+          <usage-description>The JDBC type of the unknown key. This
+                    should be a constant from the java.sql.Types class</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>sql-type</name>
+          <usage-description>The sql type for the columnof the key in
+                    the entity database table</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>mvcsoft.fault-group</name>
+        <usage-description>Configures fault groups, which are named groups of fields that
+                are loaded as a unit for an EJB-QL query or "on-demand." For example:
+                @mvcsoft:fault-group name="sample_fault_group" fields="id,date,product,value"
+                It is possible to have fault groups that extend to related information. You can
+                specify an unlimited number of semi-colon-separated "nested" fault groups by
+                navigating through the cmr fields. An example of this for a fault group that
+                includes information from related customer, order, and line item beans is:
+                @mvcsoft:fault-group name="custgroup" fields="custName" nested="orders:shipAddress,billAddress;orders.lineItems:prodId,quantity,price"
+				You can load nested fault groups without any related fields. Just the ids will be
+				retrieved by the MVCSoft runtime. This is valuable in several situations, for
+				example where the related data already exists in the cache. You are still required
+				to use the syntax with the colon, but you are not required to list fields. For
+				example:
+				@mvcsoft:fault-group name="custgroup" fields="custName" nested="orders:;orders.lineItems:"
+				</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the fault group</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>fields</name>
+          <usage-description>A comma-separated list of fields in the
+                    entity that are members of the named fault group</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>nested</name>
+          <usage-description>A semi-colon-separated list of related fields in the
+                    form cmr1.cmr2.cmr3:field1,field2,field3</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>mvcsoft.query</name>
+        <usage-description>Configures finder and ejbSelect methods for:
+                (1) the fields that should be "eagerly loaded" within the transaction;
+                (2) whether or not the transaction data should be flushed before executing; and
+                (3) the sort order of the returned results.</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the finder or ejbSelect method</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>fault-group</name>
+          <usage-description>The name of the fault group that indicates
+                    which fields should be loaded when the query is executed</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>should-flush</name>
+          <usage-description>The EJB 2.0 specification mandates that
+                    changes within a transaction be visible to queries issued
+                    within that transaction. The MVCSoft Persistence Manager
+                    meets this requirement by flushing all pending changes to
+                    the database before issuing the query. It may be that the
+                    results of a particular query will never depend on these
+                    changes, in which case you can set should-flush to false</usage-description>
+          <mandatory>true</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>sort-order</name>
+          <usage-description>A comma-separated list of fields in the
+                    entity by which to sort the query. Optionally, asc or desc
+                    may be specified after the field name to indicate the
+                    direction of the sort. There cannot be any spaces between
+                    fields on which to sort. In other words, sort-order="id,
+                    value desc" will not work, but sort-order="id,value desc" will</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="bool">
+          <name>lightweight</name>
+          <usage-description>Whether or not the returned interfaces from an ejbSelect
+                    query are "lightweight interfaces" that bypass the J2EE stack.
+                    Note that finder methods cannot be configured to return lightweight values.
+                    </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.col-name</name>
+        <usage-description>The column name for the field in the table
+                where this bean will be persisted</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>Define the name of the column for the field</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.sql-type</name>
+        <usage-description>The SQL type for the column where this field
+                will be persisted</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>Define the name of the sql type for the field.  Example varchar(10)</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.jdbc-type</name>
+        <usage-description>The JDBC type for the column where this field
+                will be persisted. See the javadoc for "java.sql.Types" for a
+                list of valid types</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The jdbc type of the field.  Example VARCHAR</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.exclude-from-optimistic-lock</name>
+        <usage-description>Indicates that the field should not be used
+                in field-based comparisons for optimistic locking</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="bool">
+          <name>value</name>
+          <usage-description/>
+          <mandatory>true</mandatory>
+          <default>false</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.relation</name>
+        <usage-description>Configures the persistent storage of an EJB
+                2.0 relationship specified by the @ejb:relation tag. There are
+                two basic mechanisms for persistent storage of relationships: a
+                relationship table, which can be used for any relationship
+                cardinality (and must be used with many-many relationships); and
+                foreign keys in the entity table, which can be used for one-one,
+                one-many, and many-one relationships. An example of configuring
+                a relationship using foreign keys is: @mvcsoft.relation
+                map-style="foreign-key" role-with-key="ChildrenForParent"
+                key-aliases="id=parentid, id2=parentid2,id3=parentid3"
+                relationship-in-pk="true".  An example of configuring a
+                relationship using a relationship table is: @mvcsoft.relation
+                map-style="table" table-name="TestRelationship"
+                key-aliases="ParentHasChildren:id=parentid,id2=parentid2,id3=parentid3;ChildrenInParent:id=childid,id2=childid2,id3=childid3"</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>map-style</name>
+          <usage-description>Valid values are foreign-key or table</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>role-with-key</name>
+          <usage-description>For foreign-key mapped relationships only.
+                    Indicates the "side" of the relationship where the foreign
+                    keys are located. The source entity of that role will have
+                    those keys in its table. (In a one-one relationship, either
+                    role can be chosen. In a one-many relationship, the entity
+                    in the "many" role, e.g. OrderInLineItem, must have the keys.)</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>key-aliases</name>
+          <usage-description>Specifies the names of the database
+                    columns that persistently store a relationship. These names
+                    are mapped to entity primary key fields by a simple
+                    comma-separated list in the format key=alias,key=alias. For
+                    a table-mapped relationship, both participants can have
+                    aliases, so the format is role1:key=alias,key=alias;role2:key=alias,key=alias.</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+        <parameter type="text">
+          <name>relationship-in-pk</name>
+          <usage-description>For foreign-key mapped relationships only.
+                    Indicates that the foreign keys for the relationship are
+                    also components of the primary key for the entity</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.lightweight</name>
+        <usage-description>Indicates that a cmr field should return lightweight
+                local interfaces.</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="bool">
+          <name>value</name>
+          <usage-description/>
+          <mandatory>true</mandatory>
+          <default>false</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>mvcsoft.wrap</name>
+        <usage-description>Indicates that the method is a wrapper for a
+                query. (Wrapper methods allow the bean developer to efficiently
+                retrieve subsets of query results.) Example: @mvcsoft.wrap
+                query-name="findAll"</usage-description>
+        <unique>true</unique>
+        <condition-description>EntityBeans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>query-name</name>
+          <usage-description>Define the name of the associated finder or ejbSelect query</usage-description>
+          <mandatory>true</mandatory>
+          <default/>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

@@ -1,0 +1,159 @@
+ /*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ * this class must be processed by xdoclet in the second run!!!!
+ */
+package <XDtPackage:packageOf><XDtEjbFacade:entityFacadeClass/></XDtPackage:packageOf>;
+
+import java.util.*;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="session_facade_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/>
+*  @ejb.bean name="<XDtEjbFacade:facadeEjbName/>"
+*	type="<XDtEjbFacade:sessionType/>"
+*       view-type="<XDtEjbFacade:viewType/>"
+* 	jndi-name="<XDtEjbFacade:jndiName/>"
+* 	local-jndi-name="<XDtEjbFacade:localJndiName/>"
+<XDtEjbFacade:beanPermission/>
+<XDtEjbFacade:beanRef/>
+* @ejb.util generate="physical"
+* @ejb.remote-facade
+*/
+public abstract class <XDtClass:classOf><XDtEjbFacade:entityFacadeClass/></XDtClass:classOf> implements javax.ejb.SessionBean
+{
+
+   private javax.ejb.SessionContext _ctx;
+
+<XDtEjbFacade:ifUseLocalInterface>
+
+   private <XDtEjbHome:homeInterface type="local"/> getLocalHome() throws javax.naming.NamingException
+   {
+      return <XDtEjbUtilObj:utilClass/>.getLocalHome();
+   }
+
+</XDtEjbFacade:ifUseLocalInterface>
+
+<XDtEjbFacade:ifUseRemoteInterface>
+   private <<XDtEjbHome:homeInterface type="remote"/> getHome() throws  javax.naming.NamingException
+   {
+      return <XDtEjbUtilObj:utilClass/>.getHome();
+   }
+</XDtEjbFacade:ifUseRemoteInterface>
+
+   // finder methods
+<XDtEjbFacade:ifUseLocalInterface>
+  <XDtEjbHome:forAllHomeMethods type="local" tagName="ejb:finder">
+/**
+ * @ejb.interface-method
+ * @ejb.facade-method
+ * <XDtEjbHome:currentPermission/>
+*/
+	 <XDtEjbHome:ifIsCollectionType>
+	  public <XDtEjbHome:currentSignature/> throws <XDtEjbHome:currentExceptions/>,  javax.naming.NamingException{
+	 </XDtEjbHome:ifIsCollectionType>
+	 <XDtEjbHome:ifIsEnumerationType>
+	  public <XDtEjbHome:currentSignature/> throws <XDtEjbHome:currentExceptions/>,  javax.naming.NamingException{
+	 </XDtEjbHome:ifIsEnumerationType>
+	 <XDtEjbHome:ifIsInterfaceType>
+	   public <XDtEjbDataObj:dataObjectClass/> <XDtEjbHome:currentMethod/>(<XDtEjbHome:parameterListDefinition/>) throws <XDtEjbHome:currentExceptions/>,  javax.naming.NamingException {
+	 </XDtEjbHome:ifIsInterfaceType>
+	  	 <XDtEjbHome:currentType/> selected = getLocalHome().<XDtEjbHome:currentMethod/>( <XDtEjbHome:parameterList/> );
+
+		 <XDtEjbHome:ifIsCollectionType>
+		 	ArrayList retval = new ArrayList(selected.size());
+		 	for(Iterator i = selected.iterator(); i.hasNext();) {
+			   retval.add(((<XDtEjbIntf:componentInterface type="local"/>)i.next()).getData());
+			}
+		 </XDtEjbHome:ifIsCollectionType>
+		 <XDtEjbHome:ifIsEnumerationType>
+		 	Vector vec = new Vector();
+		 	for(; selected.hasMoreElements();) {
+			   vec.add(((<XDtEjbIntf:componentInterface type="local"/>)selected.nextElement()).getData());
+			}
+			retval = vec.enumeration();
+		 </XDtEjbHome:ifIsEnumerationType>
+		 <XDtEjbHome:ifIsInterfaceType>
+		        <XDtEjbDataObj:dataObjectClass/> retval = selected.getData();
+		 </XDtEjbHome:ifIsInterfaceType>
+
+		 return retval;
+	  }
+</XDtEjbHome:forAllHomeMethods>
+
+// create methods
+<XDtEjbHome:forAllHomeMethods  type="local" tagName="ejb:create-method">
+   /**
+    * @ejb.interface-method
+    * @ejb.facade-method invalidate="true"
+<XDtMethod:ifHasMethodTag tagName="ejb.permission">
+    * @ejb.permission <XDtMethod:methodTagValue tagName="ejb.permission"/>
+</XDtMethod:ifHasMethodTag>
+    */
+
+   public <XDtEjbDataObj:dataObjectClass/> <XDtEjbHome:currentMethod/>(<XDtEjbHome:parameterListDefinition/>)
+   throws <XDtEjbHome:currentExceptions/> , java.rmi.RemoteException ,  javax.naming.NamingException
+   {
+   	return getLocalHome().create(<XDtEjbHome:parameterList/>).getData();
+   }
+</XDtEjbHome:forAllHomeMethods>
+
+// update method
+ <XDtMethod:setCurrentMethod name="getData">
+  <XDtMethod:setCurrentMethod name="setData" parameters="<XDtEjbDataObj:dataObjectClass/>">
+   /**
+    * @ejb.interface-method
+    * @ejb.facade-method invalidate="true"
+<XDtMethod:ifHasMethodTag tagName="ejb.permission">
+    * @ejb.permission <XDtMethod:methodTagValue tagName="ejb.permission"/>
+</XDtMethod:ifHasMethodTag>
+     */
+   public <XDtEjbDataObj:dataObjectClass/> update(<XDtEjbDataObj:dataObjectClass/> data)
+   	throws java.rmi.RemoteException, javax.ejb.FinderException ,  javax.naming.NamingException
+   {
+   <XDtEjbIntf:componentInterface type="local"/> obj = 	getLocalHome().findByPrimaryKey(data.getPrimaryKey());
+      obj.setData(data);
+      return obj.getData();
+   }
+  </XDtMethod:setCurrentMethod>
+</XDtMethod:setCurrentMethod>
+
+//remove method
+<XDtMethod:setCurrentMethod name="ejbRemove">
+   /**
+    * @ejb.interface-method
+    * @ejb.facade-method invalidate="true"
+<XDtMethod:ifHasMethodTag tagName="ejb.permission">
+    * @ejb.permission <XDtMethod:methodTagValue tagName="ejb.permission"/>
+</XDtMethod:ifHasMethodTag>
+     */
+    public void removeEntity(<XDtEjbDataObj:dataObjectClass/> data)
+        throws java.rmi.RemoteException,  javax.ejb.RemoveException,  javax.ejb.FinderException,  javax.naming.NamingException
+    {
+    	getLocalHome().findByPrimaryKey(data.getPrimaryKey()).remove();
+    }
+</XDtMethod:setCurrentMethod>
+
+</XDtEjbFacade:ifUseLocalInterface>
+
+<XDtEjbFacade:ifUseRemoteInterface>
+
+/**
+ * nothing at the moment, I'm lazy right now.
+ * this pattern makes sense for using with local interfaces...
+ */
+
+</XDtEjbFacade:ifUseRemoteInterface>
+
+
+	/**
+	* @ejb.create-method
+	* @ejb.permission unchecked="true"
+	*/
+	public void ejbCreate() throws javax.ejb.CreateException {
+	}
+
+	public void setSessionContext(javax.ejb.SessionContext ctx) {
+		_ctx = ctx;
+	}
+
+}

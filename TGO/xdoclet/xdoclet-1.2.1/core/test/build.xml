@@ -1,0 +1,451 @@
+<?xml version="1.0"?>
+
+<project name="XDoclet Testsuite" default="main" basedir=".">
+
+    <property name="xdoclet.root.dir" value="${basedir}/../.."/>
+    <property file="${xdoclet.root.dir}/build.properties"/>
+
+    <!-- =================================================================== -->
+    <!-- Define class path                                                   -->
+    <!-- =================================================================== -->
+    <path id="testsuite.class.path">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${dist.lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${samples.lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+
+        <!-- append the external classpath lastly -->
+        <pathelement path="${java.class.path}" />
+    </path>
+
+    <!-- Init -->
+    <target name="init">
+        <property name="src.dir" value="src" />
+        <property name="resources.dir" value="resources" />
+        <property name="generated.src.dir" value="gen-src" />
+        <property name="generated.xml.dir" value="xml-src" />
+
+        <property name="web.dir" value="${src.dir}/web" />
+        <property name="java.dir" value="${src.dir}" />
+        <property name="generated.java.dir" value="${generated.src.dir}/java" />
+
+        <property name="config.dir" value="config" />
+        <property name="build.dir" value="build" />
+
+        <property name="ejb.dir"               value="${build.dir}/ejb"/>
+        <property name="ejb.classes.dir"       value="${ejb.dir}/classes"/>
+
+        <property name="junit.results.dir" value="${basedir}/build/junit/reports"/>
+    </target>
+
+    <!-- Prepare -->
+    <target name="prepare" depends="init">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${build.dir}/ejb" />
+        <mkdir dir="${build.dir}/web" />
+        <mkdir dir="${build.dir}/jmx" />
+        <mkdir dir="${build.dir}/junit/classes" />
+
+        <mkdir dir="${generated.src.dir}" />
+        <mkdir dir="${generated.java.dir}" />
+
+        <mkdir dir="${ejb.classes.dir}"/>
+
+        <mkdir dir="${junit.results.dir}" />
+        <mkdir dir="${build.dir}/junit/classes" />
+    </target>
+
+    <!-- Callable EJBDoclet + Unit Tests with a Parameter beans.name -->
+    <target name="process-ejb">
+        <antcall target="ejbdoclet">
+            <param name="dir.name" value="${dir.name}"/>
+            <param name="beans.name" value="${beans.name}"/>
+        </antcall>
+        <antcall target="compile-ejb">
+            <param name="dir.name" value="${dir.name}"/>
+            <param name="beans.name" value="${beans.name}"/>
+        </antcall>
+        <antcall target="unittest-ejb">
+            <param name="dir.name" value="${dir.name}"/>
+            <param name="beans.name" value="${beans.name}"/>
+        </antcall>
+    </target>
+
+    <!-- Callable EJBDoclet with a Parameter beans.name -->
+    <target name="ejbdoclet">
+        <property name="ejb.dd.dir" value="${generated.xml.dir}/${beans.name}"/>
+        <mkdir dir="${ejb.dd.dir}" />
+
+        <taskdef name="ejbdoclet"
+                 classname="xdoclet.modules.ejb.EjbDocletTask"
+                 classpathref="testsuite.class.path"
+        />
+
+        <ejbdoclet
+            destdir="${generated.java.dir}"
+            excludedtags="@version,@author"
+            ejbspec="2.0"
+            force="${xdoclet.force}">
+
+            <packageSubstitution packages="ejb" substituteWith="interfaces"/>
+
+            <fileset dir="${java.dir}">
+                <include name="${dir.name}/**/${beans.name}*Bean.java" />
+            </fileset>
+
+            <dataobject/>
+            <valueobject/>
+            <remoteinterface/>
+            <localinterface/>
+            <homeinterface />
+            <utilobject/>
+            <localhomeinterface/>
+            <entitypk/>
+            <entitycmp/>
+            <entitybmp/>
+            <session/>
+
+            <deploymentdescriptor destdir="${ejb.dd.dir}" useids="true" validatexml="true" />
+
+            <jboss
+                version="3.0"
+                xmlencoding="UTF-8"
+                destdir="${ejb.dd.dir}"
+                validatexml="false"
+            />
+
+            <!--
+            <weblogic
+                version="6.1"
+                xmlencoding="UTF-8"
+                destdir="${ejb.dd.dir}"
+                validatexml="true"
+                datasource="xdoclet.tests"
+                mergedir="${src.dir}"
+            />
+            -->
+
+            <jrun
+                version="4.0"
+                xmlencoding="UTF-8"
+                destdir="${ejb.dd.dir}"
+                validatexml="true"
+                />
+
+            <!--
+            <webSphere destdir="${build.dir}/ejb/META-INF" />
+            <orion/>
+            -->
+
+            <apachesoap destdir="${build.dir}/web" />
+
+            <strutsform />
+
+            <castormapping destdir="${build.dir}/ejb/classes" validatexml="false" />
+
+        </ejbdoclet>
+    </target>
+
+    <target name="compile-ejb">
+        <echo message="${dir.name}/ejb/interfaces/${beans.name}*.java" />
+
+        <javac
+            destdir="${ejb.classes.dir}"
+            debug="on">
+
+            <classpath refid="testsuite.class.path" />
+            <src path="${java.dir}"/>
+            <src path="${generated.java.dir}"/>
+
+            <include name="${dir.name}/bean/ejb/ejb/${beans.name}*.java" />
+            <include name="${dir.name}/bean/ejb/interfaces/${beans.name}*.java" />
+            <include name="${dir.name}/ref/ejb/ejb/${beans.name}*.java" />
+            <include name="${dir.name}/ref/ejb/interfaces/${beans.name}*.java" />
+        </javac>
+    </target>
+
+    <target name="unittest-ejb">
+        <javac destdir="${build.dir}/junit/classes" debug="on">
+            <classpath refid="testsuite.class.path" />
+            <src path="${java.dir}"/>
+
+            <include name="xdoclet/retest/**/${beans.name}*Test.java" />
+            <include name="xdoclet/retest/util/**" />
+            <include name="xdoclet/retest/test/*" />
+        </javac>
+
+        <junit
+            printsummary="yes"
+            haltonfailure="no"
+            haltonerror="no"
+            fork="true"
+            dir="${basedir}"
+            timeout="240000">
+
+            <classpath>
+                <path refid="testsuite.class.path" />
+                <pathelement path="${build.dir}/junit/classes" />
+                <pathelement path="${lib.dir}/junit.jar" />
+                <pathelement path="${ejb.classes.dir}" />
+                <pathelement path="${resources.dir}" />
+            </classpath>
+
+            <batchtest todir="${junit.results.dir}">
+                <fileset dir="${build.dir}/junit/classes">
+                    <include name="**/${beans.name}*Test.class" />
+                </fileset>
+            </batchtest>
+
+            <formatter type="plain" />
+            <formatter type="xml" />
+        </junit>
+    </target>
+
+    <target name="test-xdoclet" depends="prepare">
+
+        <javac destdir="${build.dir}/junit/classes" debug="on">
+            <classpath refid="testsuite.class.path" />
+            <src path="${java.dir}"/>
+
+            <include name="xdoclet/test/*" />
+            <include name="xdoclet/test/xdoclet/***Test.java" />
+            <include name="xdoclet/test/util/**" />
+            <include name="xdoclet/test/test/*" />
+        </javac>
+
+        <junit
+            printsummary="yes"
+            haltonfailure="no"
+            haltonerror="no"
+            fork="true"
+            dir="${basedir}"
+            timeout="240000">
+
+            <classpath>
+                <path refid="testsuite.class.path" />
+                <pathelement path="${build.dir}/junit/classes" />
+                <pathelement path="${lib.dir}/junit.jar" />
+                <pathelement path="${ejb.classes.dir}" />
+                <pathelement path="${resources.dir}" />
+                <pathelement path="${build.dir}/junit/classes" />
+            </classpath>
+
+            <batchtest todir="${junit.results.dir}">
+                <fileset dir="${build.dir}/junit/classes">
+                    <include name="**/test/xdoclet/**/*Test.class" />
+                </fileset>
+            </batchtest>
+
+            <formatter type="plain" />
+            <formatter type="xml" />
+        </junit>
+
+        <antcall target="junit-report"/>
+    </target>
+
+    <!-- Run WebDoclet -->
+    <target name="webdoclet" depends="prepare">
+
+        <taskdef name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask"
+            classpathref="testsuite.class.path"
+        />
+
+        <webdoclet
+            sourcepath="${java.dir}"
+            destdir="${generated.java.dir}"
+            classpathref="testsuite.class.path"
+            force="${xdoclet.force}">
+
+            <fileset dir="${java.dir}">
+                <include name="**/*Servlet.java" />
+                <include name="**/*Filter.java" />
+                <include name="**/*Tag.java" />
+                <include name="**/*Action.java" />
+            </fileset>
+
+            <deploymentdescriptor servletspec="2.3" destdir="${build.dir}/web/WEB-INF" >
+                <taglib uri="http://java.sun.com/jstl/ea/core" location="/WEB-INF/c.tld" />
+            </deploymentdescriptor>
+
+            <jsptaglib jspversion="1.2" destdir="${build.dir}/web/WEB-INF/tlds" shortname="j2ee" validateXml="false" />
+            <jbosswebxml destdir="${build.dir}/web/WEB-INF" />
+            <jrunwebxml destdir="${build.dir}/web/WEB-INF"  mergedir="${src.dir}" />
+            <webWorkConfigProperties />
+            <webWorkActionDocs javadocdir="api" mergedir="${src.dir}"/>
+
+        </webdoclet>
+    </target>
+
+    <target name="jmxdoclet" depends="prepare">
+
+        <taskdef name="jmxdoclet"
+            classname="xdoclet.modules.jmx.JMXDocletTask"
+            classpathref="testsuite.class.path"
+        />
+
+        <jmxdoclet
+            sourcepath="${java.dir}"
+            destdir="${generated.java.dir}"
+            classpathref="testsuite.class.path"
+            force="${xdoclet.force}">
+
+            <fileset dir="${java.dir}">
+                <include name="xdoclet/retest/bean/jmx/**/*.java" />
+            </fileset>
+
+            <!-- Create the {0}MBean interface for the MBean -->
+            <mbeaninterface mergedir="${src.dir}"/>
+
+            <!-- Create the mx4j specific description adaptor class for the MBean -->
+            <mx4jDescription />
+
+        </jmxdoclet>
+    </target>
+
+    <!-- Compile -->
+    <target name="compile" depends="webdoclet,jmxdoclet">
+
+        <!-- Compile web classes -->
+        <javac
+            srcdir="${java.dir};${generated.java.dir}"
+            destdir="${build.dir}/web/WEB-INF/classes"
+            includes="xdoclet/retest/bean/web/*.java"
+            debug="on">
+
+            <classpath refid="testsuite.class.path" />
+        </javac>
+
+        <javac
+            srcdir="${java.dir};${generated.java.dir}"
+            destdir="${build.dir}/jmx"
+            includes="xdoclet/retest/bean/jmx/*.java"
+            debug="on">
+
+            <classpath refid="testsuite.class.path" />
+        </javac>
+    </target>
+
+    <!-- Clean everything -->
+    <target name="clean" depends="init">
+        <delete dir="${build.dir}" />
+        <delete dir="${generated.src.dir}" />
+        <delete dir="${generated.xml.dir}" />
+    </target>
+
+    <target name="clean-build" depends="clean, main" />
+
+    <target name="junit-report">
+        <junitreport todir="${junit.results.dir}">
+            <fileset dir="${junit.results.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.results.dir}"/>
+        </junitreport>
+
+        <echo message=""/>
+        <echo message="*************************************************"/>
+        <echo message="Open ${junit.results.dir}/index.html"/>
+        <echo message="*************************************************"/>
+        <echo message=""/>
+    </target>
+
+    <!-- All Tests one by one to be callable in unit -->
+    <target name="test-SimpleSL" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="SimpleSL"/>
+        </antcall>
+    </target>
+
+    <target name="test-SimpleSF" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="SimpleSF"/>
+        </antcall>
+    </target>
+
+    <target name="test-CreateMethodSL" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="CreateMethodSL"/>
+        </antcall>
+    </target>
+
+    <target name="test-IFTagSL" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="IFTagSL"/>
+        </antcall>
+    </target>
+
+    <target name="test-SimpleCMP" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="SimpleCMP"/>
+        </antcall>
+    </target>
+
+    <target name="test-EjbRef" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="EjbRef"/>
+        </antcall>
+    </target>
+
+    <target name="test-Env" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="Env"/>
+        </antcall>
+    </target>
+
+    <target name="test-Resource" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="Resource"/>
+        </antcall>
+    </target>
+
+    <target name="test-Transaction" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="Transaction"/>
+        </antcall>
+    </target>
+
+    <target name="test-Security" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="Security"/>
+        </antcall>
+    </target>
+
+    <target name="test-InheritedCMP" depends="prepare">
+        <antcall target="process-ejb">
+            <param name="dir.name" value="xdoclet/retest"/>
+            <param name="beans.name" value="InheritedCMP"/>
+        </antcall>
+    </target>
+
+    <target name="main" depends="test-xdoclet">
+        <antcall target="test-SimpleSL"/>
+        <antcall target="test-SimpleSF"/>
+        <antcall target="test-CreateMethodSL"/>
+        <antcall target="test-IFTagSL"/>
+        <antcall target="test-SimpleCMP"/>
+        <antcall target="test-EjbRef"/>
+        <antcall target="test-Env"/>
+        <antcall target="test-Resource"/>
+        <antcall target="test-Transaction"/>
+        <antcall target="test-Security"/>
+        <antcall target="test-InheritedCMP"/>
+
+        <antcall target="junit-report"/>
+    </target>
+</project>

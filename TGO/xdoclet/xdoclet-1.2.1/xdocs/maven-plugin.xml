@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<document>
+
+    <properties>
+        <title>Maven XDoclet Plug-in</title>
+        <author email="ara_e_w@yahoo.com">Ara Abrahamian</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Maven XDoclet Plug-in">
+            <p>
+                <a href="http://maven.apache.org/">Maven</a> is an increasingly popular build tool,
+                and XDoclet maintains its own Maven plug-in. This plug-in is located in the same folder
+                as the other xdoclet jar files, and is named maven-xdoclet-plugin-&amp;lt;version&amp;gt;.jar.
+                Just drop it in your $MAVEN_HOME/plugins directory and you're ready to go. You might have
+                to delete your $MAVEN_HOME/plugins/*.cache files and previous un-zipped XDoclet plug-ins to
+                be able to get it to work properly.
+            </p>
+            <p>
+                The Maven XDoclet plug-in supports all standard tasks and subtasks of XDoclet.
+            </p>
+            <subsection name="How-to">
+                <p>
+                    1. XDoclet has a lot of modules.  So in order to keep the load time optimized to individual
+                    installations, you have to declare the necessary XDoclet-module jar
+                    files in your project.xml. Just include everything here as if you would with the classpath
+                    in a build.xml for Ant.  So if you want to use ejbdoclet with jboss, you should do:
+                </p>
+<source><![CDATA[
+<dependencies>
+    <dependency>
+        <groupId>xdoclet</groupId>
+        <artifactId>xdoclet-ejb-module</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>xdoclet</groupId>
+        <artifactId>xdoclet-jboss-module</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+    <!-- This one is needed because jboss-module depends on it -->
+    <dependency>
+        <groupId>xdoclet</groupId>
+        <artifactId>xdoclet-jmx-module</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>jboss</groupId>
+        <artifactId>jboss-j2ee</artifactId>
+        <version>3.2.1</version>
+    </dependency>
+</dependencies>]]></source>
+                <p>
+                    2. If you want XDoclet to run automatically before the compile step you should define a maven.xml file
+                    like this:
+                </p>
+<source><![CDATA[
+<project>
+
+    <preGoal name="java:compile">
+        <attainGoal name="xdoclet:ejbdoclet"/>
+    </preGoal>
+
+</project>]]></source>
+                <p>
+                    3. Now how does XDoclet know you want to run remoteinterface subtask or what is the remote interface class pattern?
+                    Well, you need to define some properties, but some properties have defaults. These defaults are important to understand,
+                    please go to the plugin.properties file and review them now.  For example, by default ejbdoclet has these defaults defined in its plugin.properties file:
+                </p>
+<source><![CDATA[
+#ejbdoclet default properties
+maven.xdoclet.ejbdoclet.destDir=${maven.build.dir}/xdoclet/ejbdoclet
+
+maven.xdoclet.ejbdoclet.fileset.0=true
+maven.xdoclet.ejbdoclet.fileset.0.include=**/*Bean.java
+
+maven.xdoclet.ejbdoclet.deploymentdescriptor.0=true
+maven.xdoclet.ejbdoclet.deploymentdescriptor.0.destDir=${maven.build.dir}/xdoclet/ejb/META-INF
+
+maven.xdoclet.ejbdoclet.entitybmp.0=true
+maven.xdoclet.ejbdoclet.entitycmp.0=true
+maven.xdoclet.ejbdoclet.entitypk.0=true
+maven.xdoclet.ejbdoclet.homeinterface.0=true
+maven.xdoclet.ejbdoclet.localhomeinterface.0=true
+maven.xdoclet.ejbdoclet.localinterface.0=true
+maven.xdoclet.ejbdoclet.remoteinterface.0=true
+maven.xdoclet.ejbdoclet.session.0=true
+maven.xdoclet.ejbdoclet.utilobject.0=true]]></source>
+                <p>
+                    So by default the destDir is target/xdoclet/ejbdoclet and all classes ending with "Bean" are processed.
+                    The entitybmp, entitycmp, etc subtasks are run, for instance because the 'maven.xdoclet.ejbdoclet.entitybmp.0' is set to 'true'.
+                    Basically for any task or subtask parameter you find in XDoclet documentation there's a counterpart in the
+                    maven plug-in too. But sometimes the capitalization is different than you might expect.  (Don't spend too much
+                    time trying to experiment with capitalization though, instead open up the plugin.jelly file and review it there.)  The destDir parameter of
+                    ejbdoclet is named maven.xdoclet.ejbdoclet.destDir for example. Any nested element with many
+                    cardinality (you can nest many of them inside ejbdoclet for example) and all subtasks are indexed.
+                    So you reference entitypk subtask of ejbdoclet with maven.xdoclet.ejbdoclet.entitypk.0 and if you
+                    want to specify the pattern attribute of it you define it like this: maven.xdoclet.ejbdoclet.entitypk.0.pattern={0}PK.
+                    As you review the plugin.jelly file, you will see why there is an index, the jelly file is actually a script, and it is using
+                    the indexes for iterating over the number of items that you have for your specific build.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

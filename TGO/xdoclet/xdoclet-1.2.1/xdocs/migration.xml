@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Migration from EJBDoclet to XDoclet</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Migration from EJBDoclet to XDoclet">
+            <p>
+                This page shows you which tags have been removed from EJBDoclet,
+                and wich tags you should use instead.
+            </p>
+            <subsection name="Class Level">
+                <table>
+                    <tr>
+                        <th>Old Tag</th>
+                        <th>Old Parameter</th>
+                        <th>Applicable</th>
+                        <th>New Tag</th>
+                    </tr>
+                    <tr>
+                        <td>@ejb:ejb-name</td>
+                        <td>
+                            <i>name</i>: String
+                        </td>
+                        <td>All</td>
+                        <td>@ejb.bean</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:entity-cmp</td>
+                        <td></td>
+                        <td>Entity</td>
+                        <td>@ejb.bean</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:cmp-version</td>
+                        <td>
+                            <i>version</i>: String
+                        </td>
+                        <td>Entity (2.0)</td>
+                        <td>@ejb.bean cmp-version=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:entity-bmp</td>
+                        <td></td>
+                        <td>Entity</td>
+                        <td>@ejb.bean</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:stateless-session</td>
+                        <td></td>
+                        <td>Stateless Session</td>
+                        <td>@ejb.bean</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:stateful-session</td>
+                        <td></td>
+                        <td>Stateful Session</td>
+                        <td>@ejb.bean</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:message-driven</td>
+                        <td></td>
+                        <td>Message Driven</td>
+                        <td>@ejb.bean</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:transaction-type</td>
+                        <td>
+                            <i>type</i>: "Bean" | &quot;Container&quot;
+                        </td>
+                        <td>Session</td>
+                        <td>@ejb.bean transaction-type=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:data-container</td>
+                        <td>
+                            <i>value</i>: &quot;true&quot; | false
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.data-object</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:data-method</td>
+                        <td>
+                            <i>value</i>: &quot;true&quot; | &quot;false&quot;
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.data-object  </td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:data-equals</td>
+                        <td>
+                            <i>value</i>: &quot;true&quot; | &quot;false&quot;
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.data-object</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:data-implements</td>
+                        <td>
+                            <i>interface1</i> [,
+                            <i>interface2</i>[,
+                            <i>interfaceN</i>]]
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.data-object</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:data-extends</td>
+                        <td>
+                            <i>base-class-name</i>: String
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.data-object</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:remote-extends</td>
+                        <td>
+                            <i>base-class-name</i>: String
+                        </td>
+                        <td>All</td>
+                        <td>@ejb.interface extends=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:home-extends</td>
+                        <td>
+                            <i>base-class-name</i>: String
+                        </td>
+                        <td>All</td>
+                        <td>@ejb.home extends=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:pk-extends</td>
+                        <td>
+                            <i>base-class-name</i>: String
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.pk extends=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:pk-implements</td>
+                        <td>
+                            <i>base-class-name</i>: String
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.pk implements=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:pk-serial</td>
+                        <td>
+                            <i>name</i>: String
+                        </td>
+                        <td>Entity</td>
+                        <td>@ejb.pk serial=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:pk-field</td>
+                        <td>
+                            <i>type</i>: String,
+                            <i>name</i>: String
+                        </td>
+                        <td>Entity Beans</td>
+                        <td>@ejb.pk</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:acknowledge-mode</td>
+                        <td>
+                            <i>mode</i>: &quot;Auto-acknowledge&quot; | &quot;Dups-ok-acknowledge&quot;
+                        </td>
+                        <td>Message Driven</td>
+                        <td>@ejb.bean acknowledge-mode=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:destination-type</td>
+                        <td>
+                            <i>type</i>: "javax.jms.Queue" | "javax.jms.Topic"
+                        </td>
+                        <td>Message Driven</td>
+                        <td>@ejb.bean destination-type=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:subscription-durability</td>
+                        <td>
+                            <i>durability</i>: "Durable" | "NonDurable"
+                        </td>
+                        <td>Message Driven</td>
+                        <td>@ejb.bean subscription-durability=</td>
+                    </tr>
+                    <tr>
+                        <td>@ejb:message-selector</td>
+                        <td>
+                            <i>selector</i>: String
+                        </td>
+                        <td>Message Driven</td>
+                        <td>@ejb.bean message-selector=</td>
+                    </tr>
+                    <tr>
+                        <td>@jboss:finder-order</td>
+                        <td>Example:
+                            <p>@jboss:finder-order findFoo foo,bar</p>
+                        </td>
+                        <td>CMP through JAWS</td>
+                        <td>@jboss.finder-query order=</td>
+                    </tr>
+                </table>
+            </subsection>
+            <subsection name="Method Level">
+                <table>
+                    <tr>
+                        <th>Old Tag</th>
+                        <th>Old Parameter</th>
+                        <th>Applicable</th>
+                        <th>New Tag</th>
+                    </tr>
+                    <tr>
+                        <td>@ejb:remote-method</td>
+                        <td></td>
+                        <td>All</td>
+                        <td>@ejb.interface-method view-type="remote"</td>
+                    </tr>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+    <!ENTITY oslash "&#248;">
+]>
+<document>
+    <properties>
+        <title>Related Tools</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Related Tools">
+            <p>
+                XDoclet's popularity has resulted in a number of related tools and APIs.
+            </p>
+
+            <subsection name="XDoclet Team">
+
+                <subsection name="XJavaDoc">
+                    <p>
+                        <a href="http://xdoclet.sourceforge.net/xjavadoc/">XJavaDoc</a> is a clone 
+                        of Sun's JavaDoc core. It is used by XDoclet and provides faster parsing 
+                        of Java source files than Sun's JavaDoc.
+                    </p>
+                    <p>
+                        XJavaDoc is also used by XDoclet GUI. XDoclet GUI takes advantage of
+                        XJavaDoc's code mutation capabilities (it can modify @tags programmatically).
+                    </p>
+                    <p>
+                        Here is an example usage of the XJavaDoc API:
+                    </p>
+
+<source><![CDATA[
+// Get a class
+XClass fooBar = XJavaDoc.getInstance().getClass("foo.Bar");
+// Get a method
+XMethod doIt = clazz.getMethod("doIt(java.lang.String[],int)");
+// Get the javadoc
+XDoc doItDoc = doIt.getDoc();
+// Get the value of a tag attribute
+XTag zap = doItDoc.getTag("zap");
+String zapBang = zap.getAttributeValue("bang");]]></source>
+
+                    <p>
+                        XJavaDoc resides in a separate xjavadoc module in XDoclet's CVS tree.
+                    </p>
+                </subsection>
+
+                <subsection name="CodeUnit">
+                    <p>
+                        CodeUnit is a JUnit extension that implements logic to compare two
+                        Java source files. It lets you compare two files on the AST level
+                        (strict), or on the API level (relaxed).
+                    </p>
+                    <p>
+                        CodeUnit is intended to be used to test the output of Java code generators 
+                        like XDoclet, Middlegen, UML2EJB and others.
+                    </p>
+                    <p>
+                        CodeUnit is used by extending the xjavadoc.CodeTestCase class and calling
+                        the assertApiEquals or assertAstEquals methods from the various testXxx() methods.
+                        Everything you need is in the XJavaDoc jar file.
+                    </p>
+                    <p>
+                        CodeUnit is currently not used by XDoclet 1.2.x, but it will be used in the
+                        upcoming XDoclet 2. It is also used in UML2EJB.
+                    </p>
+                    <p>
+                        Look at the xjavadoc.CodeTest class in the XJavaDoc sources for an example.
+                    </p>
+                </subsection>
+
+                <subsection name="XDoclet GUI">
+                    <p>
+                        XDoclet GUI is a tag editor for existing source code. It provides a structured view
+                        of java classes and documentation tags. It utilizes formal tag descriptions
+                        (xtags) contained in xdoclet modules and will allow you to insert tags only
+                        into appropriate classes/methods. While at the moment XDoclet GUI is a standalone tool,
+                        plugins for specific IDEs such as Eclipse, IDEA, Forte/Netbeans, JBuilder etc. can be developed
+                        in future.
+                    </p>
+
+                    <table>
+                        <tr>
+                            <td><center><a href="images/xdocletgui-ejbselect.gif"><img src="images/xdocletgui-ejbselect.gif" width="300" height="225" border="0" alt="Click to zoom"/></a></center></td>
+                            <td><center><a href="images/xdocletgui-castor.gif"><img src="images/xdocletgui-castor.gif" width="300" height="225" border="0" alt="Click to zoom"/></a></center></td>
+                        </tr>
+                    </table>
+
+                    <p>Source code is available in the XDoclet CVS, under the xdocletgui module.</p>
+
+                </subsection>
+            </subsection>
+            <subsection name="Third Party">
+                <subsection name="Middlegen">
+                    <p>
+                        <a href="http://middlegen.codehaus.org/">Middlegen</a> is a free general-purpose database-driven
+                        code generation engine based on <a href="http://java.sun.com/products/jdbc/">JDBC</a>,
+                        <a href="http://jakarta.apache.org/velocity/">Velocity</a>,
+                        <a href="http://ant.apache.org/">Ant</a> and
+                        <a href="http://xdoclet.sourceforge.net/">XDoclet</a>.
+                        If you already have a database, you can use Middlegen to generate...
+                        <ul>
+                            <li>EJB (CMP 2.0)</li>
+                            <li>JDO</li>
+                            <li>JSP/Struts</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Middlegen will (among other things) relieve you from the headaches involved with
+                        @ejb.relation tags. Support for Hibernate is on the way.
+                    </p>
+                </subsection>
+                <subsection name="AndroMDA">
+                    <p>(Previously known as UML2EJB)</p>
+                    <p>
+                        Did you ever think: "mmm... all this EJB stuff is too
+                        complex! There must be an easier way to program?" Read the
+                        good news: <a href="http://www.andromda.org/">AndroMDA</a>
+                        is here to help you! Generating EJBs
+                        quickly and reliably from models drawn in the graphical
+                        Unified Modeling Language is the main feature of
+                        <a href="http://www.andromda.org/">AndroMDA</a>.
+                    </p>
+                    <p>
+                        AndroMDA generates java sources with XDoclet @tags from UML models.
+                    </p>
+                </subsection>
+                <subsection name="JBossIDE">
+                    <p>
+                        <a href="http://www.jboss.org/developers/projects/jboss/jbosside.jsp">JBossIDE</a> is an 
+                        <a href="http://www.eclipse.org/">Eclipse</a> plugin with support for JBoss and XDoclet.
+                    </p>
+                </subsection>
+                <subsection name="MockDoclet">
+                    <p>
+                        <a href="http://joe.truemesh.com/mockdoclet/">MockDoclet</a> is an active code generation tool for
+                        automatically generating mock objects implementation classes from existing classes or interfaces
+                        in Java. Please note that this project is based on XDoclet 1.1.2 and is no longer maintained.
+                    </p>
+                    <p>
+                        Stig J&oslash;rgensen has ported the old MockDoclet to XDoclet 1.2b3, and it's now a standalone XDoclet module!
+                    </p>
+                </subsection>
+                <subsection name="XDoclet Templates">
+                    <p>
+                        <a href="http://www.dockter-its.de/service/index.html">XDoclet Templates</a> for <a href="http://www.eclipse.org/">Eclipse</a>.
+                    </p>
+                </subsection>
+                <subsection name="AppFuse">
+                    <p>
+                        <a href="http://static.raibledesigns.com/downloads/index.html">AppFuse</a>: an application meant to demonstrate
+                        how to use XDoclet with Struts to generate your Forms, web.xml, struts-config.xml, and validation.xml.
+                        It's also designed to show how you can use the different security packages
+                        (i.e. form-based authentication, SSLExt) and advanced Struts techniques (i.e. Tiles, Validator)
+                        to build your webapps.
+                    </p>
+                </subsection>
+                <subsection name="xPetStore">
+                    <p>
+                        <a href="http://xpetstore.sourceforge.net/">xPetStore</a>: using XDoclet to implement
+                        Sun Microsystems' Java Pet Store J2EE BluePrint Application, this application is the
+                        ultimate example of XDoclet's power. Also uses <a href="http://jakarta.apache.org/struts/">Struts</a>
+                        and <a href="http://www.opensymphony.com/sitemesh/">SiteMesh</a>.
+                    </p>
+                </subsection>
+                <subsection name="JavaGen">
+                    <p>
+                        <a href="http://www.javagen.com/">JavaGen</a> is an on-line
+                        code generator that processes UML models and generates EJB 2.0
+                        CMP classes.  The generated code is decorated with XDoclet
+                        attributes specific to JBoss 3.x.  It is very similar to AndroMDA.
+                    </p>
+                </subsection>
+            </subsection>
+        </section>
+    </body>
+</document>

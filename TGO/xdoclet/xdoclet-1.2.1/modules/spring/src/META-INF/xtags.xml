@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- Spring tags -->
+  <namespace>
+    <name>spring</name>
+    <usage-description>Tags for generating a bean-wiring file for the Spring framework.</usage-description>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>spring.bean</name>
+        <usage-description>
+          Defines a Spring bean.
+        </usage-description>
+        <unique>true</unique>
+        <parameter type="text">
+          <name>autowire</name>
+          <usage-description>
+            Set's the autowiring mode for the bean. "byName" wires beans to properties by
+            matching the bean's name to the property name. "byType" wires beans to properties
+            by matching a bean's type to the property type. "constructor" wires beans through
+            a constructor's parameters by matching types. "auto-detect" allows Spring to
+            choose between "byType" and "constructor" as it sees fit. "no" indicates that
+            no auto-wiring should be performed on this bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>no</option>
+                <option>byName</option>
+                <option>byType</option>
+                <option>constructor</option>
+                <option>auto-detect</option>
+              </options>              
+            </option-set>
+          </option-sets>          
+        </parameter>
+
+        <parameter type="text">
+          <name>dependency-check</name>
+          <usage-description>
+          Sets dependency checking rules on a bean. "none" indicates no dependency checking.
+          "simple" dependency checking includes primitives and String.
+          "objects" dependency checking includes collaborators (other beans).
+          "all" performs both "simple" and "objects" dependency checking.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>none</option>
+                <option>objects</option>
+                <option>simple</option>
+                <option>all</option>
+              </options>              
+            </option-set>
+          </option-sets>          
+        </parameter>
+        
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+            Describes the bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>        
+        
+        <parameter type="text">
+          <name>destroy-method</name>
+          <usage-description>
+          The name of an method to be invoked on bean factory shutdown.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>        
+
+        <parameter type="text">
+          <name>init-method</name>
+          <usage-description>
+          The name of an initialization method to be invoked upon bean instantiation.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+
+        <parameter type="bool">
+          <name>lazy-init</name>
+          <usage-description>
+          If "true", Spring will instantiate this bean when it's needed,
+          rather than at bean factory startup.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+        <parameter type="bool">
+          <name>singleton</name>
+          <usage-description>
+          If "true", one shared instance of this bean will be returned with
+          every call to getBean(). If "false" each call results in a new
+          instance.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>          
+        </parameter>
+      </tag>
+      
+      <tag>
+        <level>class</level>
+        <name>spring.property</name>
+        <usage-description>
+          Defines a property which may be defined in a superclass, but not
+          in this particular bean class.
+        </usage-description>
+        <unique>false</unique>
+        <parameter type="text">
+          <name>ref</name>
+          <usage-description>
+             The id of another bean to wire to the property.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>list</name>
+          <usage-description>
+             Comma-separated list of values to assign as a List to a
+             property of type java.util.List.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+             The name of the property to be wired.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+             The value to assign to the property.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>method</level>
+        <name>spring.constructor-arg</name>
+        <usage-description>
+          Wires a bean constructor argument.
+        </usage-description>
+        <unique>false</unique>
+        <parameter type="text">
+          <name>ref</name>
+          <usage-description>
+             The id of another bean to wire to the constructor argument.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>list</name>
+          <usage-description>
+             Comma-separated list of values to assign as a List to a
+             constructor argument of type java.util.List.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+             The value to assign to the constructor argument.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+      </tag>
+      
+      <tag>
+        <level>method</level>
+        <name>spring.property</name>
+        <usage-description>
+          Declares a bean property.
+        </usage-description>
+        <unique>false</unique>
+        <parameter type="text">
+          <name>ref</name>
+          <usage-description>
+             The id of another bean to wire to the property.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>list</name>
+          <usage-description>
+             Comma-separated list of values to assign as a List to a
+             property of type java.util.List.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+             The value to assign to the property.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>      
+    </tags>
+  </namespace>
+</xdoclet>

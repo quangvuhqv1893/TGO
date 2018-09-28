@@ -1,0 +1,12 @@
+try
+         {
+         <XDtEjbPersistent:forAllPersistentFields valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+           <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+            <XDtEjbValueObj:currentValueObjectAttribute/>.<XDtMethod:setterMethod/>( <XDtMethod:getterMethod/>() );
+           </XDtMethod:ifHasMethod>
+         </XDtEjbPersistent:forAllPersistentFields>
+                   }
+         catch (Exception e)
+         {
+            throw new javax.ejb.EJBException(e);
+         }

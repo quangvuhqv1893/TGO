@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- common jdo tags -->
+  <namespace>
+    <name>kodo</name>
+    <usage-description>JDO tags specific for Solarmetric's Kodo.</usage-description>
+    <condition-description>classes to be persistence-capable on class and field level</condition-description>
+    <condition type="or">
+      <condition type="field"/>
+      <condition type="class"/>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>kodo.table</name>
+        <usage-description>
+           The kodo.table tag gives access to the Kodo extensions at the class level to be included in the 
+           generated jdo metadata.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>The jdo.persistence-capable tag must be present</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>pk-column</name>
+          <usage-description>
+             This is only for classes using datastore identity. It specifies the primary key column 
+             for the table in which the class is held. This column must be of a numeric type and must not be 
+             mapped to any fields of the class. If the pk-column extension is not specified, Kodo will add its 
+             own primary key column, usually named JDOIDX.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>lock-column</name>
+          <usage-description>
+             Specifies the column used to record the version number of objects. Versioning is used to detect concurrent 
+             modification of objects during optimistic transactions. The given column must be of a numeric type and must 
+             not be mapped to any fields of the class. If the extension is not present, Kodo JDO will add its own lock 
+             column, usually named JDOLOCKX. You can prevent the creation of a lock column by specifying a value of none. 
+             In this case, concurrent modification violations will not be detected.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>JDOLOCKX</default>
+        </parameter>
+        <parameter type="text">
+          <name>class-column</name>
+          <usage-description>
+             This column stores the class name of the object represented by each table row. The column must be a string 
+             type, and must be large enough to hold the full class name of any persistent class mapped to the table. 
+             It must not be mapped to any fields of the class. If the extension is not present, Kodo JDO will add its 
+             own class column, usually named JDOCLASSX. If the table's corresponding persistent class has no persistent 
+             subclasses and you do not want a column to be generated, specify a value of none. 
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>JDOCLASSX</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>field</level>
+        <name>kodo.field</name>
+        <usage-description>
+           The kodo.field tag gives access to the Kodo extensions at the field level to be included in the 
+           generated jdo metadata.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>The jdo.field tag must be present</condition-description>
+        <condition type="field"/>
+        <parameter type="bool">
+          <name>blob</name>
+          <usage-description>
+               This extension can be used to explicitly mark fields that should be stored as serialized BLOB values. 
+               For example, Kodo JDO would normally store a field of type byte[] using a secondary table with a row 
+               for each byte value in the array; this type of storage allows for queries on the array. If the byte[] 
+               is large or contains information that should not be query-able, it may be more efficient to store it 
+               as a BLOB column of the main table. Fields that Kodo JDO cannot normally persist, such as user-defined 
+               interface fields or fields of type java.lang.Object are defaulted to use BLOB mappings. In these cases 
+               this extension is not necessary, though it is still allowed. 
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="int">
+          <name>column-length</name>
+          <usage-description>
+                String fields can specify the maximum length of the String that will be stored in the database column. 
+                The default maximum is 255 characters. Use a value of -1 to indicate that there should be no length 
+                limit on the String. In this case, the column will be created as a CLOB, or the correct database equivalent. 
+                Currently, this extension is used only when creating a schema using the schematool. In the future, this 
+                extension may be also used for performing runtime data validations.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>column-index</name>
+          <usage-description>
+               Specifies whether the column holding the data for the field should be indexed.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>ordered</name>
+          <usage-description>
+                By default, databases do not guarantee the order in which results are read. Thus, collection and array 
+                field elements may be retrieved from the database in a different order from the one in which they were 
+                stored. A value of true for this key, however, will ensure that the order of the elements in this field 
+                is retained during database reads. This flag is useful only for collection and array fields that 
+                represent a one-sided relationship, such as a collection of simple values or a 1-sided many-to-many 
+                relation. It cannot be used for one-to-many relations or shared many-to-many relations. 
+                See the order-column extension for more information.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>embedded</name>
+          <usage-description>
+                Specifies whether the field should be stored if possible as part of
+                the instance instead of as its own instance in the datastore. It defaults
+                to "true" for fields of primitive types, java.util.Date, and fields of
+                java.lang, java.math, and array types specified above. This attribute
+                is only a hint to the implementation. A compliant implementation
+                is permitted to support these types as first class instances in
+                the datastore. A portable application should not depend on the
+                embedded treatment of persistent fields.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>order-column</name>
+          <usage-description>
+                Specifies the column of the secondary table used to hold ordering information. This column must be of a numeric type. 
+                If the ordered extension is given but this extension is omitted, Kodo JDO will create its own order column, 
+                usually named JDOORDERX.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>JDOORDERX</default>
+          <condition-description>This extension is applicable only to collection fields that also have the ordered extension.</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>read-only</name>
+          <usage-description>
+                This extension is used for collection fields that represent a shared many-to-many mapping. In such mappings, 
+                one class can declare its field to be read-only in order to avoid duplicate inserts into the shared table. 
+                The value of this extension should be either true or false. Note that Kodo JDO typically makes one side of 
+                the relation read-only automatically; this extension is never strictly needed.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Must be used with collection or array valued persistent field</condition-description>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

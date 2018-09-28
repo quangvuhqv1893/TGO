@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- JOnAS specific tags -->
+  <namespace>
+    <name>jonas</name>
+    <usage-description>Tags for creation of JOnAS-specific resources</usage-description>
+
+    <condition-description>all EJB types</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="class"/>
+        <condition type="method"/>
+      </condition>
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+        </condition>
+      </condition>
+    </condition>
+
+    <tags>
+      <!-- jonas.bean -->
+      <tag>
+        <level>class</level>
+        <name>jonas.bean</name>
+        <usage-description>The jonas.bean element declares the JOnAS specific information for an enterprise bean.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>All EJB types, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>ejb-name</name>
+          <usage-description>The enterprise bean's name specified in the standard EJB deployment descriptor.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the enterprise bean's home. Concerns only the Entity and Session beans. Mandatory if version &lt; 2.5, but optional for Session beans for 2.5 onwards.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.resource -->
+      <tag>
+        <level>class</level>
+        <name>jonas.resource</name>
+        <usage-description>The jonas.resource element declares the JOnAS specific information for an external resource referenced by a bean.</usage-description>
+        <unique>false</unique>
+
+        <condition-description>All EJB types, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>res-ref-name</name>
+          <usage-description>The name of the resource reference specified in the standard EJB deployment descriptor.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the resource.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.resource-env -->
+      <tag>
+        <level>class</level>
+        <name>jonas.resource-env</name>
+        <usage-description>The jonas.resource-env element declares the JOnAS specific information for an external resource environment referenced by a bean.</usage-description>
+        <unique>false</unique>
+
+        <condition-description>All EJB types, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>resource-env-ref-name</name>
+          <usage-description>The name of the resource environment reference specified in the standard EJB deployment descriptor.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the resource environment.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.ejb-ref -->
+      <tag>
+        <level>class</level>
+        <name>jonas.ejb-ref</name>
+        <usage-description>The jonas.ejb-ref element declares the JOnAS specific information for a reference to another enterprise bean's home.</usage-description>
+        <unique>false</unique>
+
+        <condition-description>All EJB types, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>ejb-ref-name</name>
+          <usage-description>The name of the ejb reference specified in the standard EJB deployment descriptor.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the ejb.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- *************************************************************** -->
+      <!-- session bean specific tags -->
+      <!-- *************************************************************** -->
+
+      <!-- jonas.session-timeout -->
+      <tag>
+        <level>class</level>
+        <name>jonas.session-timeout</name>
+        <usage-description>The jonas.session-timeout element specifies the value of timeout in seconds for expiration of session instances.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Session Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="int">
+          <name>session-timeout</name>
+          <usage-description>The value of timeout in seconds for expiration of session instances.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- *************************************************************** -->
+      <!-- entity bean specific tags -->
+      <!-- *************************************************************** -->
+
+      <!-- jonas.is-modified-method-name -->
+      <tag>
+        <level>class</level>
+        <name>jonas.is-modified-method-name</name>
+        <usage-description>The jonas.is-modified-method-name element specifies the name of the is-modified method of an entity.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>is-modified-method-name</name>
+          <usage-description>The name of the is-modified method of an entity.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.shared -->
+      <tag>
+        <level>class</level>
+        <name>jonas.shared</name>
+        <usage-description>The jonas.shared element specifies if the bean state can be accessed outside JOnAS. This tag has only been present since version 2.4.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="bool">
+          <name>shared</name>
+          <usage-description>True if the bean state can be accessed outside JOnAS. The default is False.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.passivation-timeout -->
+      <tag>
+        <level>class</level>
+        <name>jonas.passivation-timeout</name>
+        <usage-description>The jonas.passivation-timeout element specifies the value of timeout in seconds for passivation of entity instances when no transaction are used.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="int">
+          <name>passivation-timeout</name>
+          <usage-description>The value of timeout in seconds for passivation of entity instances when no transaction are used.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.max-cache-size -->
+      <tag>
+        <level>class</level>
+        <name>jonas.max-cache-size</name>
+        <usage-description>The jonas.max-cache-size element defines the max number of instances that can be hold in memory. The default value is infinite. This tag has only been present since version 2.4.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="int">
+          <name>max-cache-size</name>
+          <usage-description>The max number of instances that can be hold in memory. The default value is infinite.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.min-pool-size -->
+      <tag>
+        <level>class</level>
+        <name>jonas.min-pool-size</name>
+        <usage-description>The jonas.min-pool-size element specify the number of instances that will be created to populate the pool when the bean is loaded for the first time. The default value is 0. This tag has only been present since version 2.4.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="int">
+          <name>min-pool-size</name>
+          <usage-description>The number of instances that will be created to populate the pool when the bean is loaded for the first time. The default value is 0.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.jdbc-mapping -->
+      <tag>
+        <level>class</level>
+        <name>jonas.jdbc-mapping</name>
+        <usage-description>The jonas.jdbc-mapping element declares the mapping of an entity with container-managed persistence to the underlying database.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the datasource.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="bool">
+          <name>automatic-pk</name>
+          <usage-description>True or False for use automatic generation of primary key.</usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+
+        <parameter type="text">
+          <name>jdbc-table-name</name>
+          <usage-description>The name of the relational table.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.cmp-field-jdbc-mapping -->
+      <tag>
+        <level>method</level>
+        <name>jonas.cmp-field-jdbc-mapping</name>
+        <usage-description>The jonas.cmp-field-jdbc-mapping element declares the mapping of a container-managed field of an entity to a column of a relational table.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, method level</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>field-name</name>
+          <usage-description>The field's name.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>jdbc-field-name</name>
+          <usage-description>The column name of the relational table.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- jonas.finder-method-jdbc-mapping -->
+      <tag>
+        <level>class</level>
+        <name>jonas.finder-method-jdbc-mapping</name>
+        <usage-description>The jonas.finder-method-jdbc-mapping element declares the SQL WHERE clause associated to a finder method of a container-managed persistence entity.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Entity Beans, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>method-name</name>
+          <usage-description>The method's name.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>method-params</name>
+          <usage-description>Identifies a single method among multiple methods with an overloaded method name.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>jdbc-where-clause</name>
+          <usage-description>The SQL WHERE clause.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+
+      <!-- *************************************************************** -->
+      <!-- message-driven specific tags -->
+      <!-- *************************************************************** -->
+
+      <!-- jonas.message-driven-destination -->
+      <tag>
+        <level>class</level>
+        <name>jonas.message-driven-destination</name>
+        <usage-description>The jonas.jonas-message-driven-destination element declares the JOnAS specific information for a the message driven bean destination.</usage-description>
+        <unique>true</unique>
+
+        <condition-description>Message Driven Bean, class level</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </condition>
+
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the message driven destination.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+
+  </namespace>
+
+</xdoclet>

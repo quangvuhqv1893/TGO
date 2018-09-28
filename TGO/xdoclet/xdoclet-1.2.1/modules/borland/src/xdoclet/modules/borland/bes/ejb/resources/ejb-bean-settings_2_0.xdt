@@ -1,0 +1,78 @@
+     
+          <!-- Begining of the bean settings  -->
+          <!-- template: xdoclet/modules/borland/bes/ejb/resources/ejb-bean-settings_2_0.xdt -->
+          <!-- ejb-ref(s) --> 
+          <XDtMerge:merge file="ejb-borland-ejb-refs-{0}.xml">
+          <XDtClass:forAllClassTags tagName="bes.ejb-ref">
+           <ejb-ref>
+             <ejb-ref-name><XDtClass:classTagValue tagName="bes.ejb-ref" paramName="ref-name"/></ejb-ref-name>
+             <jndi-name><XDtClass:classTagValue tagName="bes.ejb-ref" paramName="jndi-name"/></jndi-name>
+          </ejb-ref>
+          </XDtClass:forAllClassTags>
+          </XDtMerge:merge>
+          <XDtMerge:merge file="ejb-borland-ejb-local-refs-{0}.xml">          
+          <XDtClass:forAllClassTags tagName="bes.ejb-local-ref">
+          <!-- ejb-local-ref(s) --> 
+          <ejb-local-ref>
+             <ejb-ref-name><XDtClass:classTagValue tagName="bes.ejb-local-ref" paramName="ref-name"/></ejb-ref-name>
+             <jndi-name><XDtClass:classTagValue tagName="bes.ejb-local-ref" paramName="jndi-name"/></jndi-name>
+          </ejb-local-ref>
+          </XDtClass:forAllClassTags>
+          </XDtMerge:merge>
+
+   
+          <!-- resource-ref(s) --> 
+          <XDtMerge:merge file="ejb-borland-resource-refs-{0}.xml">
+          <XDtClass:forAllClassTags tagName="bes.resource-ref">
+          <resource-ref>
+             <XDtClass:ifHasClassTag tagName="bes.resource-ref" paramName="res-name">
+             <res-ref-name><XDtClass:classTagValue tagName="bes.resource-ref" paramName="res-name"/></res-ref-name>
+             </XDtClass:ifHasClassTag>
+             <XDtClass:ifHasClassTag tagName="ejb.resource-ref" paramName="res-ref-name">
+             <res-ref-name><XDtClass:classTagValue tagName="bes.resource-ref" paramName="res-ref-name"/></res-ref-name>
+             </XDtClass:ifHasClassTag>             
+             <jndi-name><XDtClass:classTagValue tagName="bes.resource-ref" paramName="jndi-name" /></jndi-name>
+	         <XDtClass:ifHasClassTag tagName="resource-ref" paramName="cmp-resource">
+             <cmp-resource><XDtClass:classTagValue tagName="bes.resource-ref" paramName="cmp-resource" /></cmp-resource>
+	         </XDtClass:ifHasClassTag>
+          <resource-ref>
+          </XDtClass:forAllClassTags>
+          </XDtMerge:merge>
+          
+          
+          <!-- resource-env-ref(s) -->
+          <XDtMerge:merge file="ejb-borland-resource-env-refs-{0}.xml">
+          <XDtClass:forAllClassTags tagName="bes.resource-env-ref">
+          <resource-env-ref>
+            <res-env-ref-name><XDtClass:classTagValue tagName="bes.resource-env-ref" paramName="name"/></res-env-ref-name>
+            <jndi-name><XDtClass:classTagValue tagName="bes.resource-env-ref" paramName="jndi-name" /></jndi-name>
+          </resource-env-ref>
+          </XDtClass:forAllClassTags>
+          </XDtMerge:merge>
+         
+         
+               
+          <!-- property(ies) -->   
+          <XDtMerge:merge file="ejb-borland-properties-{0}.xml">
+          <XDtClass:ifHasClassTag tagName="bes.property">
+          <XDtClass:forAllClassTags tagName="bes.property">
+          <property>
+	         <XDtClass:ifHasClassTag tagName="bes.property" paramName="prop-name">		
+             <prop-name><XDtClass:classTagValue tagName="bes.property" paramName="prop-name" /></prop-name>
+	         </XDtClass:ifHasClassTag>		  
+	         <XDtClass:ifHasClassTag tagName="bes.property" paramName="prop-type">		
+             <prop-type><XDtClass:classTagValue tagName="bes.property" paramName="prop-type" /></prop-type>
+	         </XDtClass:ifHasClassTag>		  
+	         <XDtClass:ifHasClassTag tagName="bes.property" paramName="prop-value">		
+             <prop-value><XDtClass:classTagValue tagName="bes.property" paramName="prop-value" /></prop-value>
+	         </XDtClass:ifHasClassTag>	
+          </property>
+          </XDtClass:forAllClassTags>
+          </XDtClass:ifHasClassTag>
+          </XDtMerge:merge>
+          
+          <!-- End of bean settings -->
+   
+   
+   
+   

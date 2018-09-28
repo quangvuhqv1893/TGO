@@ -1,0 +1,114 @@
+#header {
+	background-color: #ffffff;
+	border: none; 
+	text-align: center;
+}
+#calltoaction .jumbotron {
+	padding: 200px 0px 200px 0px;
+	text-align: center;
+	background: url('../img/vietnam.jpg') bottom no-repeat ;
+	background-size: cover;
+	margin: 0px 0px 0px 0px;
+}
+
+#calltoaction .jumbotron h1,p {
+	color: #ffffff;
+
+}
+.heading2 {
+	padding: 50px 0px 50px 0px;
+	text-align: center;
+	margin: 0px 0px 0px 0px;
+	background-color: #e3e3e3;
+}
+.customizetab {
+	font-size: 30;
+}
+.place {
+	
+	background-size: cover;
+	padding-right: 0;
+	padding-left: 0;
+
+}
+.place img{
+	width: 100%;
+	height: 200px;
+	opacity: 0.8;
+}
+
+.center {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: white;
+}
+#footer {
+	padding: 60px 0;
+	background-color: #3b5072;
+	margin-top: 20px;
+}
+#footer li a{
+	color: #ffffff;
+	text-align: center;
+	text-transform: uppercase;
+}
+#feature1 {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+#h2 {
+	margin-top: 30px;
+}
+
+.breadcrumb {
+	background-color: #ffffff;
+}
+
+div#headline {
+	margin-bottom: 30px;
+	margin-top: 30px;
+	border-bottom: 1px solid #8c8e91;
+}
+article {
+	margin-bottom: 30px;
+}
+article p {
+	color: black;
+	text-align: justify;
+	margin-top: 30px;
+}
+article h4 {
+	margin-top: 30px
+}
+article h2 {
+	margin-bottom: 40px;
+}
+article img {
+	width: 100%;
+}
+#news h3 {
+	border-bottom: 1px solid #8c8e91;
+}
+
+#news img{
+	width: 100%;
+	
+}
+#news div {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.related-topic {
+	border-top: 1px solid #ddd;
+}
+.related-topic img{
+	width: 100%;
+	height: 100px;
+}
+.related-topic div{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

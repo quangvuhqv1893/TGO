@@ -1,0 +1,272 @@
+  <XDtEjbCmp:ifNotUsingCmp2>
+   private boolean dirty = false;
+  </XDtEjbCmp:ifNotUsingCmp2>
+
+ <XDtEjbDataObj:ifIsWithDataContainer>
+  <XDtEjbDataObj:ifIsWithDataMethod>
+
+   public <XDtEjbDataObj:dataMostSuperObjectClass/> getData()
+   {
+      <XDtEjbDataObj:dataObjectClass/> dataHolder = null;
+      try
+      {
+         dataHolder = new <XDtEjbDataObj:dataObjectClass/>();
+
+      <XDtEjbPersistent:forAllPersistentFields>
+         dataHolder.<XDtMethod:setterMethod/>( <XDtMethod:getterMethod/>() );
+      </XDtEjbPersistent:forAllPersistentFields>
+
+      <XDtMethod:forAllMethods>
+       <XDtEjbDataObj:ifIsAggregate>
+         if( <XDtMethod:getterMethod/>() != null )
+            dataHolder.<XDtMethod:setterMethod/>( <XDtMethod:getterMethod/>().getData() );
+       </XDtEjbDataObj:ifIsAggregate>
+      </XDtMethod:forAllMethods>
+
+        <XDtEjbBmp:ifUseSoftLocking>
+         dataHolder.setVersion(getVersion());
+        </XDtEjbBmp:ifUseSoftLocking>
+      }
+      catch (RuntimeException e)
+      {
+         throw new javax.ejb.EJBException(e);
+      }
+
+      return dataHolder;
+   }
+  </XDtEjbDataObj:ifIsWithDataMethod>
+ </XDtEjbDataObj:ifIsWithDataContainer>
+
+ <XDtEjbDataObj:forAllSuperSetData>
+  <XDtEjbDataObj:ifIsWithDataContainer>
+   <XDtEjbDataObj:ifIsWithDataMethod>
+   public void setData( <XDtEjbDataObj:generateDataObjectClass/> dataHolder )
+   {
+     <XDtEjbBmp:ifUseSoftLocking>
+      if( getVersion() != dataHolder.getVersion() )
+         throw new IllegalStateException( <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="entity_dataholder_version"/> );
+
+     </XDtEjbBmp:ifUseSoftLocking>
+      try
+      {
+      <XDtEjbPersistent:forAllPersistentFields not-pk="true">
+        <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+         <XDtMethod:setterMethod/>( dataHolder.<XDtMethod:getterMethod/>() );
+        </XDtMethod:ifHasMethod>
+      </XDtEjbPersistent:forAllPersistentFields>
+
+      <XDtMethod:forAllMethods>
+       <XDtEjbDataObj:ifIsAggregate>
+         if( <XDtMethod:getterMethod/>() != null )
+            <XDtMethod:getterMethod/>().setData( dataHolder.<XDtMethod:getterMethod/>() );
+       </XDtEjbDataObj:ifIsAggregate>
+      </XDtMethod:forAllMethods>
+      }
+      catch (Exception e)
+      {
+         throw new javax.ejb.EJBException(e);
+      }
+   }
+   </XDtEjbDataObj:ifIsWithDataMethod>
+  </XDtEjbDataObj:ifIsWithDataContainer>
+ </XDtEjbDataObj:forAllSuperSetData>
+
+ <XDtMethod:forAllMethods>
+  <XDtMethod:ifHasMethodTag tagName="ejb:relationship">
+   <XDtMethod:forAllMethodTags tagName="ejb:relationship">
+   public <XDtMethod:methodType/> <XDtMethod:getterMethod/>()
+   {
+      try
+      {
+         javax.naming.InitialContext jndiContext = new javax.naming.InitialContext();
+         Object ref = jndiContext.lookup( <XDtMethod:methodTagValue tagName="ejb:relationship" paramName="home"/>.COMP_NAME );
+
+         <XDtMethod:methodTagValue tagName="ejb:relationship" paramName="home"/> home = (<XDtMethod:methodTagValue tagName="ejb:relationship" paramName="home"/>) javax.rmi.PortableRemoteObject.narrow( ref, <XDtMethod:methodTagValue tagName="ejb:relationship" paramName="home"/>.class );
+         java.util.Collection c = home.<XDtMethod:methodTagValue tagName="ejb:relationship" paramName="method"/>(<XDtMethod:methodTagValue tagName="ejb:relationship" paramName="params"/>);
+
+         return c;
+      }
+      catch (Exception e)
+      {
+         throw new javax.ejb.EJBException(e);
+      }
+   }
+   </XDtMethod:forAllMethodTags>
+  </XDtMethod:ifHasMethodTag>
+
+  <XDtEjbHome:ifIsCreateMethod>
+   <XDtEjbDao:ifUsingDao>
+   <XDtClass:ifClassTagValueEquals tagName="ejb.dao" paramName="create-methods" superclasses="false" value="true" default="true">
+   public <XDtMethod:methodType/> <XDtMethod:methodName/>(<XDtParameter:parameterList/>) <XDtMethod:exceptionList append="javax.ejb.CreateException"/>
+   {
+    <XDtMethod:ifIsNotAbstract>
+      super.<XDtMethod:methodName/>(<XDtParameter:parameterList includeDefinition="false"/>);
+
+    </XDtMethod:ifIsNotAbstract>
+      return getDao().create((<XDtClass:fullClassName/>) this);
+    <XDtComment:comment>
+    TODO : VO must be set to null?
+    </XDtComment:comment>
+   }
+   
+   </XDtClass:ifClassTagValueEquals>
+   </XDtEjbDao:ifUsingDao>
+
+   <XDtEjbHome:ifDoesntHavePostCreateMethod>
+   /**
+    * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="generated_ejbpostcreate"/>
+    *
+    * @see #<XDtMethod:currentMethodName />(<XDtParameter:parameterList/>)
+    */
+   public void <XDtEjbHome:ejbPostCreateSignature />(<XDtParameter:parameterList/>)
+   {
+   }
+
+   </XDtEjbHome:ifDoesntHavePostCreateMethod>
+  </XDtEjbHome:ifIsCreateMethod>
+ </XDtMethod:forAllMethods>
+ <XDtEjbDao:ifUsingDao>
+  <XDtClass:ifClassTagValueEquals tagName="ejb.dao" paramName="finder-methods" superclasses="false" value="true" default="true">
+  <XDtMethod:forAllMethods superclasses="false" sort="false">
+   <XDtEjbHome:ifIsFinderMethod>
+   public <XDtMethod:methodType/> <XDtMethod:methodName/>(<XDtParameter:parameterList/>) <XDtMethod:exceptionList/>
+   {
+    <XDtMethod:ifIsNotAbstract>
+      super.<XDtMethod:methodName/>(<XDtParameter:parameterList includeDefinition="false"/>);
+
+    </XDtMethod:ifIsNotAbstract>
+      return getDao().<XDtEjbIntf:interfaceMethodName/>(<XDtParameter:parameterList includeDefinition="false"/>);
+   }
+
+   </XDtEjbHome:ifIsFinderMethod>
+  </XDtMethod:forAllMethods>
+  </XDtClass:ifClassTagValueEquals>
+ </XDtEjbDao:ifUsingDao>
+   public void ejbLoad() <XDtMethod:exceptionList method="ejbLoad"/>
+   {
+    <XDtMethod:ifHasMethod name="ejbLoad">
+     <XDtMethod:ifIsNotAbstract method="ejbLoad">
+      super.ejbLoad();
+     </XDtMethod:ifIsNotAbstract>
+    </XDtMethod:ifHasMethod>
+     <XDtEjbDao:ifUsingDao>
+      getDao().load((<XDtEjbPk:pkClass/>) ctx.getPrimaryKey(), this);
+     </XDtEjbDao:ifUsingDao>
+     <XDtEjbCmp:ifNotUsingCmp2>
+      makeClean();
+     </XDtEjbCmp:ifNotUsingCmp2>
+   }
+
+   public void ejbStore() <XDtMethod:exceptionList method="ejbStore"/>
+   {
+     <XDtEjbCmp:ifNotUsingCmp2>
+      if (isModified())
+      {
+     </XDtEjbCmp:ifNotUsingCmp2>
+     <XDtMethod:ifHasMethod name="ejbStore">
+      <XDtMethod:ifIsNotAbstract method="ejbStore">
+         super.ejbStore();
+      </XDtMethod:ifIsNotAbstract>
+     </XDtMethod:ifHasMethod>
+     <XDtEjbDao:ifUsingDao>
+         getDao().store((<XDtClass:fullClassName/>) this);
+     </XDtEjbDao:ifUsingDao>
+     <XDtEjbBmp:ifUseSoftLocking>
+         setVersion( getVersion() + 1 );
+     </XDtEjbBmp:ifUseSoftLocking>
+     <XDtEjbCmp:ifNotUsingCmp2>
+         makeClean();
+      }
+     </XDtEjbCmp:ifNotUsingCmp2>
+   }
+
+   public void ejbActivate() <XDtMethod:exceptionList method="ejbActivate"/>
+   {
+    <XDtMethod:ifHasMethod name="ejbActivate">
+     <XDtMethod:ifIsNotAbstract method="ejbActivate">
+      super.ejbActivate();
+     </XDtMethod:ifIsNotAbstract>
+    </XDtMethod:ifHasMethod>
+   }
+
+   public void ejbPassivate() <XDtMethod:exceptionList method="ejbPassivate"/>
+   {
+    <XDtMethod:ifHasMethod name="ejbPassivate">
+     <XDtMethod:ifIsNotAbstract method="ejbPassivate">
+      super.ejbPassivate();
+     </XDtMethod:ifIsNotAbstract>
+    </XDtMethod:ifHasMethod>
+
+    <XDtComment:comment>
+    TODO : VO must be set to null
+    </XDtComment:comment>
+
+    <XDtEjbValueObj:ifUsingValueObject>
+    <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-clean.xdt">
+    </XDtMerge:merge>
+    </XDtEjbValueObj:ifUsingValueObject>
+   }
+
+  <XDtEjbDao:ifUsingDao>
+   private javax.ejb.EntityContext ctx = null;
+
+  </XDtEjbDao:ifUsingDao>
+   public void setEntityContext(javax.ejb.EntityContext ctx) <XDtMethod:exceptionList method="setEntityContext"/>
+   {
+    <XDtMethod:ifHasMethod name="setEntityContext" parameters="javax.ejb.EntityContext">
+     <XDtMethod:ifIsNotAbstract method="setEntityContext">
+      super.setEntityContext(ctx);
+     </XDtMethod:ifIsNotAbstract>
+    </XDtMethod:ifHasMethod>
+     <XDtEjbDao:ifUsingDao>
+      this.ctx = ctx;
+     </XDtEjbDao:ifUsingDao>
+   }
+
+   public void unsetEntityContext() <XDtMethod:exceptionList method="unsetEntityContext"/>
+   {
+    <XDtMethod:ifHasMethod name="unsetEntityContext">
+     <XDtMethod:ifIsNotAbstract method="unsetEntityContext">
+      super.unsetEntityContext();
+     </XDtMethod:ifIsNotAbstract>
+    </XDtMethod:ifHasMethod>
+     <XDtEjbDao:ifUsingDao>
+      this.ctx = null;
+     </XDtEjbDao:ifUsingDao>
+   }
+
+   public void ejbRemove() <XDtMethod:exceptionList method="ejbRemove" append="javax.ejb.RemoveException"/>
+   {
+    <XDtMethod:ifHasMethod name="ejbRemove">
+     <XDtMethod:ifIsNotAbstract method="ejbRemove">
+      super.ejbRemove();
+
+     </XDtMethod:ifIsNotAbstract>
+    </XDtMethod:ifHasMethod>
+     <XDtEjbDao:ifUsingDao>
+      getDao().remove((<XDtEjbPk:pkClass/>) ctx.getPrimaryKey());
+     </XDtEjbDao:ifUsingDao>
+    <XDtMethod:forAllMethods>
+     <XDtEjbDataObj:ifIsAggregate>
+      try
+      {
+         if( <XDtMethod:getterMethod/>() != null )
+            <XDtMethod:getterMethod/>().remove();
+      }
+      catch (java.rmi.RemoteException e)
+      {
+         throw new javax.ejb.EJBException(e);
+      }
+
+     </XDtEjbDataObj:ifIsAggregate>
+
+    </XDtMethod:forAllMethods>
+    <XDtComment:comment>
+    TODO : VO must be set to null
+    </XDtComment:comment>
+   }
+
+<XDtEjbDao:ifUsingDao>
+   <XDtMerge:merge file="xdoclet/modules/ejb/dao/resources/dao-methods.xdt">
+   </XDtMerge:merge>
+</XDtEjbDao:ifUsingDao>

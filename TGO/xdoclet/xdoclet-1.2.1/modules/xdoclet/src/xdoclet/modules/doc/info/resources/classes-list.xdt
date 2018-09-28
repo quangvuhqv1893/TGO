@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<LINK TITLE="Style" TYPE="text/css" REL="stylesheet" href="<XDtInfo:rootlink/>info.css">
+</HEAD>
+<BODY>
+  <TABLE WIDTH="100%">
+    <TR>
+      <TD NOWRAP="nowrap"><H2><XDtPackage:packageName/></H2></TD>
+    </TR>
+  </TABLE>
+
+  <H2>Classes</H2>
+  <P>
+    <TABLE WIDTH="100%">
+     <XDtClass:forAllClasses>
+      <XDtInfo:ifTagCountNotZero level="whole-class">
+      <TR>
+        <TD NOWRAP="nowrap"><A TARGET="classFrame" HREF="<XDtClass:className/>-details.html"><XDtClass:className/></A> (<XDtInfo:tagCount level="whole-class"/>)</TD>
+      </TR>
+      </XDtInfo:ifTagCountNotZero>
+     </XDtClass:forAllClasses>
+    </TABLE>
+  </P>
+</BODY>
+</HTML>

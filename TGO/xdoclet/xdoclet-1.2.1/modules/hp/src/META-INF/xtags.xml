@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- hpas tags -->
+  <namespace>
+    <name>hpas</name>
+    <usage-description>Define HPAS-specific deployment descriptors (hp-ejb-jar.xml) for EJB beans.</usage-description>
+    <condition-description>All EJB types</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="class"/>
+        <condition type="method"/>
+      </condition>
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+        </condition>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>hpas.bean</name>
+        <usage-description>Most of the class-level HPAS options are specified in
+          parameters of this tag.</usage-description>
+        <unique>true</unique>
+        <condition-description>class level of EJB</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="bool">
+          <name>read-only</name>
+          <usage-description>
+            Specifies whether the bean is marked as read only.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable only to entity beans.</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="bool">
+          <name>passivation</name>
+          <usage-description>
+             Determines whether the container can manage the passivation behaviour
+             of beans; indicates whether passivation is enabled for the bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>
+             Applicable to stateful session beans and entity beans. For stateful
+             session beans, if this parameter is used then the passivate-threshold
+             parameter must also be present.
+          </condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="and">
+              <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+              </condition>
+              <condition type="tag-param">
+                <condition-parameter>ejb:bean</condition-parameter>
+                <condition-parameter>type</condition-parameter>
+                <condition-parameter>Stateful</condition-parameter>
+              </condition>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>passivate-threshold</name>
+          <usage-description>
+             Specifies the number of beans for a deployed EJB above which the container
+             will attempt to passivate instances. Applicable to stateful session beans
+             only, when the passivation parameter has been used.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition type="and">
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="tag-param">
+              <condition-parameter>hpas.bean</condition-parameter>
+              <condition-parameter>passivation</condition-parameter>
+              <condition-parameter>true</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>session-timeout</name>
+          <usage-description>
+            Indicates the timeout for the session.
+***            Note, int used because do not know what the f**k is duration
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>concurrent-message-processing</name>
+          <usage-description>
+            Specifies whether concurrent message processing is enabled.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>max-messages</name>
+          <usage-description>
+             Specifies the maximum number of messages assigned to a single session. This
+             value is passed to the JMS server
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>max-message-threads</name>
+          <usage-description>
+            Specifies the maximum number of separate server sessions (threads) that
+            will be created to handle messages
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>message-thread-timeout</name>
+          <usage-description>
+            Specifies the amount of time after which an idle server session will
+            be available to be removed from the pool.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="bool">
+          <name>connection-retry</name>
+          <usage-description>
+           Specifies whether an exception listener is registered for the connection.
+           If no exception listener is established, there will be no connection failover.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-factory</name>
+          <usage-description>
+            Specifies the lookup string used to obtain the factory that will be
+            used to create the connection used by the MDB.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-destination</name>
+          <usage-description>
+            Specifies the lookup string for the destination topic or queue for which
+            the bean is registered as a listener.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Applicable to message driven beans only</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>hpas.pool</name>
+        <usage-description>Contains the information required to setup an object pool.</usage-description>
+        <unique>true</unique>
+        <condition-description>All beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="int">
+          <name>initial-size</name>
+          <usage-description>Specifies the initial size of the pool.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>cache-limit</name>
+          <usage-description>
+            Specifies the maximum size of the pool. When the cache-limit is reached,
+            pooled entries that are returned to the pool will be discarded; if the
+            cache-limit is reached, new objects may still be created.
+
+            NB: "integer or unlimited" is bullshit. How do I specify condition for this?
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>unlimited</default>
+        </parameter>
+        <parameter type="int">
+          <name>idle-timeout</name>
+          <usage-description>
+            Specifies the idle timeout for the pool.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>use-reaper</name>
+          <usage-description>
+           Specifies whether the pool should enforce the cache-limit. The reaper
+           can be disabled to optimize pool performance.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>reap-asynch</name>
+          <usage-description>
+            Specifies whether pool reaping should occur asynchronously with respect to
+            inserting or removing objects from the pool. Setting this to true makes pool
+            accesses faster but consumes more system resources.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>hpas.ejb-ref</name>
+        <usage-description>
+          A mapping of EJB references to deployed beans.
+
+          NB This is likely to be refactored in the future, to use extra parameters
+          on the @ejb:ejb-ref and @ejb:ejb-external-ref tags instead of the
+          @hpas.ejb-ref tag.
+        </usage-description>
+        <unique>false</unique>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+            Use "co-located" for references to EJBs in the same application, and
+            "distributed" for references to EJBs in other applications.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>co-located</default>
+              <options>
+                <option>co-located</option>
+                <option>distributed</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>ref-name</name>
+          <usage-description>
+            Specifies the mapping into the ejb-ref entry in the standard deployment
+            descriptor.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>
+            Specifies the actual name under which the bean is registered in the name
+            service.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>application</name>
+          <usage-description>
+            Specifies the name of the application in which the EJB component is deployed.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Only applies when type="distributed".</condition-description>
+          <condition type="tag-param">
+            <condition-parameter>hpas.ejb-ref</condition-parameter>
+            <condition-parameter>type</condition-parameter>
+            <condition-parameter>distributed</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>host</name>
+          <usage-description>Specifies the host name for the name server.</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Only applies when type="distributed".</condition-description>
+          <condition type="tag-param">
+            <condition-parameter>hpas.ejb-ref</condition-parameter>
+            <condition-parameter>type</condition-parameter>
+            <condition-parameter>distributed</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>port</name>
+          <usage-description>Specifies the port number for the name server</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Only applies when type="distributed".</condition-description>
+          <condition type="tag-param">
+            <condition-parameter>hpas.ejb-ref</condition-parameter>
+            <condition-parameter>type</condition-parameter>
+            <condition-parameter>distributed</condition-parameter>
+          </condition>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

@@ -1,0 +1,24 @@
+#
+# <XDtI18n:getString resource="do_not_edit"/>
+#
+# <XDtI18n:getString bundle="xdoclet.modules.java.javabean.XDocletModulesJavabeanMessages" resource="properties_for" arguments="<XDtClass:className/>"/>
+#
+<XDtClass:ifHasClassTag tagName="javabean.class" paramName="displayName">bean.displayName=<XDtClass:classTagValue tagName="javabean.class" paramName="displayName"/></XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="javabean.class" paramName="shortDescription">bean.shortDescription=<XDtClass:classTagValue tagName="javabean.class" paramName="shortDescription"/></XDtClass:ifHasClassTag>
+
+<XDtClass:forAllClassTags tagName="javabean.property" superclasses="false">
+<XDtClass:ifHasClassTag tagName="javabean.property" paramName="displayName">property.<XDtClass:classTagValue tagName="javabean.property" paramName="name"/>.displayName=<XDtClass:classTagValue tagName="javabean.property" paramName="displayName"/></XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="javabean.property" paramName="shortDescription">property.<XDtClass:classTagValue tagName="javabean.property" paramName="name"/>.shortDescription=<XDtClass:classTagValue tagName="javabean.property" paramName="shortDescription"/></XDtClass:ifHasClassTag>
+</XDtClass:forAllClassTags>
+
+<XDtMethod:forAllMethods superclasses="false" sort="true">
+   <XDtMethod:ifHasMethodTag tagName="javabean.method">
+<XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="displayName">method.<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>.displayName=<XDtMethod:methodTagValue tagName="javabean.method" paramName="displayName"/></XDtMethod:ifHasMethodTag>
+<XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="shortDescription">method.<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>.shortDescription=<XDtMethod:methodTagValue tagName="javabean.method" paramName="shortDescription"/></XDtMethod:ifHasMethodTag>
+      <XDtMethod:ifHasMethodTag tagName="javabean.param">
+         <XDtMethod:forAllMethodTags tagName="javabean.param">
+method.<XDtMethod:methodName/>.<XDtMethod:methodTagValue tagName="javabean.param" paramName="name"/>.displayName=<XDtMethod:methodTagValue tagName="javabean.param" paramName="displayName"/>
+         </XDtMethod:forAllMethodTags>
+      </XDtMethod:ifHasMethodTag>
+   </XDtMethod:ifHasMethodTag>
+</XDtMethod:forAllMethods>

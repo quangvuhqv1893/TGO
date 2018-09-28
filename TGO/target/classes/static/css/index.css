@@ -1,0 +1,373 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.header, .header a, .introduction, .left-intro, .left-intro button, .footer{
+    color: #fff;
+}
+
+a {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    display: flex;
+
+    width: 100%;
+    height: 70px;
+    background-color: rgba(50, 50, 50, 0.3);
+
+    align-items: center;
+    z-index: 1;
+}
+
+.header > .logo {
+    margin-left: 7%;
+    padding: 5px;
+
+    height: 90%;
+}
+
+.header > .register {
+    position: absolute;
+    right: 50px;
+}
+
+.introduction {
+    height: 100%;
+
+    background-color: #fff;
+}
+
+.introduction > .the-ground {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.introduction > .the-ground > .story {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 5s cubic-bezier(0.55, 0.06, 0.68, 0.19)
+}
+
+.introduction > .the-ground > .story > img {
+    height: 100%;
+    width: 100%;
+}
+
+.introduction > .the-ground > .story > .short-story {
+    height: 150px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    padding: 5px;
+
+    background: rgba(10, 10, 10, 0.2); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(50, 50, 50, 0.3), rgba(100, 100, 100, 0.6)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(50, 50, 50, 0.3), rgba(100, 100, 100, 0.6)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(50, 50, 50, 0.3), rgba(100, 100, 100, 0.6)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(50, 50, 50, 0.3), rgba(100, 100, 100, 0.6)); /* Standard syntax */
+}
+
+.left-intro {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 25%;
+    display: flex;
+    padding: 0 10px;
+
+    background: rgba(10, 10, 10, 0.2); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.1), rgba(50, 50, 50, 0.6), rgba(100, 100, 100, 0.6)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.1), rgba(50, 50, 50, 0.6), rgba(100, 100, 100, 0.6)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.1), rgba(50, 50, 50, 0.6), rgba(100, 100, 100, 0.6)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.1), rgba(50, 50, 50, 0.6), rgba(100, 100, 100, 0.6)); /* Standard syntax */
+}
+
+.left-intro > .intro {
+    padding: 10px 5px 10px 20px;
+    align-self: center;
+}
+
+.left-intro > .intro > .btn-action-call {
+    background-color: rgba(5, 62, 230, 0.9);
+    border: 0;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.slide-active {
+    opacity: 1!important;
+}
+
+.form-container {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 50, 50, 0.8);
+    z-index: 1000;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.form-register {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 500px;
+    background-color: #fff;
+    margin: 43px auto;
+    padding: 10px;
+    text-align: center;
+    background-image: url('../image/bus.png');
+    background-size: 50%;
+    background-repeat: repeat-x;
+    background-position: 70% 170%;
+    border: 2px solid #42c0fb;
+    border-radius: 5px;
+}
+
+.form-register * {
+    color: #808080;
+}
+
+.form-register > .btn-close {
+    color: #808080;
+    font-size: 20px;
+    margin-left: calc(100% - 30px);
+    cursor: pointer
+}
+
+.form-register > .under {
+    width: 100%;
+    height: 90%;
+    display: flex;
+}
+
+.under > .social-sign-in {
+    width: 40%;
+    height: 100%;
+}
+
+.social-sign-in > .fb-sign-in, .g-sign-in {
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    transition: background-color 0.5s ease;
+}
+
+.social-sign-in span {
+    display: flex;
+    padding-left: 70px;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.social-sign-in > .fb-sign-in {
+    border: 1px solid #475a96;
+    background: url('../image/fb.svg') no-repeat;
+    background-size: 50px 100%;
+}
+
+.social-sign-in > .fb-sign-in:hover {
+    background-color: #475a96;
+}
+.social-sign-in > .fb-sign-in:hover span{
+    color: #fff;
+}
+
+.social-sign-in > .g-sign-in {
+    border: 1px solid #dc4d40;
+    background: url('../image/g.svg') no-repeat;
+    background-size: 50px 100%;
+}
+
+.social-sign-in > .g-sign-in:hover {
+    background-color: #dc4d40;
+}
+
+.social-sign-in > .g-sign-in:hover span {
+    color: #fff;
+}
+
+.under > .line-sep {
+    height: 70%;
+    border: 1px solid #808080;
+    border-style: dashed;
+}
+
+.under > .form-sign {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-sign > .form {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.form .form-wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.form-wrap .form-left {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	margin-right: 20px;
+}
+
+.form-left,
+.form-right {
+	width: 50%;
+}
+
+.form .fill-in {
+    height: 30px;
+    padding: 2px;
+    line-height: 26px;
+    border: 1px solid #808080;
+    outline: none;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.signup-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-group > .radio-group {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.form > .btn-submit {
+	 margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    height: 40px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: rgba(5, 62, 230, 0.9);
+    color: #fff;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.carousel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    height: 150px;
+    width: calc(75% - 20px);
+
+    display: flex;
+    
+    background: rgba(50, 50, 50, 0.3);
+}
+
+.carousel > .prev,.next {
+    position: relative;
+    top: 0;
+
+    width: 2.5%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    color: rgba(255, 255, 255, 0.329);
+    font-size: 30px;
+
+    cursor: pointer;
+    transition: color 0.2s cubic-bezier(0, -0.54, 0.82, 0.35), font-size 0.2s cubic-bezier(0, -0.54, 0.82, 0.35);
+}
+
+.carousel > .prev:hover,.next:hover {
+    font-size: 50px;
+    color: #fff;
+}
+
+.carousel > .prev {
+    left: 0;
+}
+
+.carousel > .next {
+    right: 0;
+}
+
+.carousel > .window {
+    display: flex;
+    width: 95%;
+    overflow: hidden;
+}
+
+.list {
+    position: relative;
+    left: 0px;
+
+    display: flex;
+
+    transition: left ease-in-out 1s;
+}
+
+.list > .item {
+    width: 190px;
+    height: 100px;
+    
+    margin: auto 10px;
+}
+
+.item > .partner-logo {
+    width: inherit;
+    height: inherit;
+}

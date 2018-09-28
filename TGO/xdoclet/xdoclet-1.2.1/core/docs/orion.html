@@ -1,0 +1,365 @@
+<html>
+<head>
+<title>XDoclet - Orion</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>&lt;orion/&gt; subtask</h2>
+
+<h3><a name="orion">orion</a></h3>
+
+<p>Creates Orion-specific deployment descriptors (orion-ejb-jar.xml)
+for EJB beans.</p>
+
+<h4>Parameters</h4>
+<table border="1" cellpadding="2" cellspacing="0" width="100%">
+<tr>
+  <td width="12%" valign="top"><b>Attribute</b></td>
+  <td width="78%" valign="top"><b>Description</b></td>
+  <td width="10%" valign="top"><b>Required</b></td>
+</tr>
+<tr>
+    <td valign="top">xmlencoding</td>
+    <td valign="top">The encoding of the ejb-jar.xml file.</td>
+    <td align="center" valign="top">No, default is &quot;UTF-8&quot;</td>
+</tr>
+  <tr>
+    <td valign="top">destdir</td>
+    <td valign="top">Destination directory for output Orion-specific
+      deployment descriptor files.</td>
+    <td align="center" valign="top">No, default is destdir parameter of
+      ejbdoclet task</td>
+  </tr>
+<tr>
+    <td valign="top">mergedir</td>
+    <td valign="top">Merge directory where ejbdoclet looks for files to be
+      merged with generated files.</td>
+    <td align="center" valign="top">No, required, if the merge feature used</td>
+</tr>
+<tr>
+    <td valign="top">deploymentVersion</td>
+    <td valign="top">Orion deployment version.</td>
+    <td align="center" valign="top">No, default is &quot;1.5.2&quot;</td>
+</tr>
+<tr>
+    <td valign="top">validateXml</td>
+    <td valign="top">Validates the generated xml file according to the DTD file
+    contained inside xdoclet.jar.</td>
+    <td align="center" valign="top">No, default is false</td>
+</tr>
+</table>
+
+<h4>Merge Points</h4>
+<div align="left">
+  <table border="1" width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+      <td width="20%" align="left"><b>Merge File Name</b></td>
+      <td align="left"><b>Description</b></td>
+      <td valign="top"><b>Required</b></td>
+    </tr>
+    <tr>
+      <td>orion-{0}.xml</td>
+      <td>The file where per-bean orion settings are defined.
+      {0}designates the EJB name. See &lt;blabla-deployment&gt; elements in orion-ejb-jar.xml.</td>
+    <td align="center" valign="top">No</td>
+    </tr>
+    <tr>
+      <td>orion-{0}-attributes.xml</td>
+      <td>The file where per-bean deployment attributes are defined.
+      {0}designates the EJB name. See attributes of &lt;blabla-deployment&gt; elements in
+        orion-ejb-jar.xml. The file is a series of name=value lines, such as call-timeout/copy-by-value/etc
+        for a session-deployment.</td>
+    <td align="center" valign="top">No, Yes if you want to set some deployment
+      attributes for a bean.</td>
+    </tr>
+    <tr>
+      <td>orion-{0}-settings.xml</td>
+      <td>The file where per-bean deployment settings are defined.
+      {0}designates the EJB name. See nested elements of &lt;blabla-deployment&gt; elements in
+        orion-ejb-jar.xml. The file is the body of a &lt;blabla-deployment&gt;.
+        You can use this file instead of puting @orion:blabla tags in your
+        sources if you feel more comfortable or you think the settings are more
+        deployment-oriented, so better expressible as a separate file.</td>
+    <td align="center" valign="top">No</td>
+    </tr>
+    <tr>
+      <td>orion-assembly-descriptor.xml</td>
+      <td>The file where assembly/security role mappings are defined. See &lt;assembly-descriptor&gt;
+        in orion-ejb-jar.xml.</td>
+    <td align="center" valign="top">No, but nothing automatically generated</td>
+    </tr>
+  </table>
+</div>
+
+<p>Remember you should preserve the package directory structure in mergedir. If
+the bean is test.bank.AccountBean then orion-Account.xml should be
+located at test/bank directory in mergedir.</p>
+
+<h3><a name="class-level-tags">Class level Tags</a></h3>
+
+<h4><a name="bean">@orion:bean</a></h4>
+
+<p>All parameters of &lt;session-deployment/&gt;, &lt;entity-deployment/&gt; and
+&lt;message-driven-deployment/&gt; are placed under this class level tag.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>[call-timeout]</i>: Integer</td>
+   <td>The time (long millis in hex) to wait for an EJB if it is busy (before
+   throwing a RemoteException, treating it as a deadlock). 0 equals &quot;forever&quot;
+   and is the default. Applicable to session and entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[copy-by-value]</i>: Boolean</td>
+   <td>Whether or not to copy (clone) all the incoming/outgoing parameters in
+   EJB calls. Set this to 'false' if you're certain your application doesn't
+   assume copy-by-value semantics for a speed-up. The default is 'true'.
+   Applicable to session and entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[location]</i>: String</td>
+   <td>The JNDI-name this bean will be bound to. Applicable to session and
+   entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[max-tx-retries]</i>: Integer</td>
+   <td>The number of times to retry a transaction that was rolled back due to
+   system-level failures. The default is 0, i.e. no retries. Applicable to
+   session and entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[persistence-filename]</i>: String</td>
+   <td>Path to file where sessions are stored across restarts. Applicable to
+   session beans.</td>
+  </tr>
+  <tr>
+    <td><i>[timeout]</i>: String</td>
+   <td>Inactivity timeout in seconds. If the value is zero or negative timeouts
+   will be disabled. Applicable to session beans.</td>
+  </tr>
+  <tr>
+    <td><i>[clustering-schema]</i>: String</td>
+   <td>The name of the data-source used if using container-managed persistence.
+   Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[data-source]</i>: String</td>
+   <td>The name of the data-source used if using container-managed persistence.
+   Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[exclusive-write-access]</i>: Boolean</td>
+   <td>Whether or not the EJB-server has exclusive write (update) access to the
+   database backend. If it does it will speed up common bean operations and
+   enable better caching. The default is true. Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[instance-cache-timeout]</i>: Integer</td>
+   <td>The amount of time in seconds that an entity is to be kept in the
+   instance (assigned to an identity) state, specifying 'never' retains the
+   entities forever. The default is 60. Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[isolation]</i>: String</td>
+   <td>Specifies the isolation-level for database actions. The valid values are
+   'serializable', 'uncommitted', 'committed', 'repeatable_read'. Applicable to
+   entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[max-instances]</i>: Integer</td>
+   <td>The number of maximum instances to be kept instantiated or pooled. The
+   default is infinite. Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[pool-cache-timeout]</i>: Integer</td>
+   <td>The amount of time in seconds that an entity is to be kept in the
+   &quot;pooled&quot; (unassigned) state, specifying 'never' retains the entities forever.
+   The default is 60. Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[table]</i>: String</td>
+   <td>The name of the table in the database if using container-managed
+   persistence. Applicable to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[validity-timeout]</i>: Integer</td>
+   <td>The maximum amount of time (in millis) that an entity is valid in the
+   cache (before being reloaded).
+   Useful for loosely coupled environments where rare updates from legacy
+   systems occur. This attribute is only
+   valid when exclusive-write-access=&quot;true&quot; (the default). Applicable to entity
+   beans.</td>
+  </tr>
+  <tr>
+    <td><i>[cache-timeout]</i>: Integer</td>
+   <td>The number of seconds before a cached instance can be timed out. Can be
+   set to 'never' to never time out or to 0 (zero) to never cache. The default
+   is 60. Applicable to message driven beans.</td>
+  </tr>
+  <tr>
+    <td><i>[connection-factory-location]</i>: String</td>
+   <td>The JNDI location of the connection factory to use. Applicable to message
+   driven beans.</td>
+  </tr>
+  <tr>
+    <td><i>[destination-location]</i>: String</td>
+   <td>The JNDI location of the destination (queue/topic) to use. Applicable to
+   message driven beans.</td>
+  </tr>
+  <tr>
+    <td><i>[max-instances]</i>: Integer</td>
+   <td>The maximum number of bean instances to instantiate. The default is -1,
+   which implies an infinite number. Applicable to message driven beans.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[min-instances]</i>: Integer</td>
+   <td>The minimum number of bean instances to instantiate. The set amount will
+   be instantiated at startup, and there will always be at least the set amount
+   of instances active. The default is 0 (none). Applicable to message driven
+   beans.</td>
+  </tr>
+</table>
+
+<h3><a name="method-level-tags">Method level Tags</a></h3>
+
+<h4><a name="persistence">@orion:persistence</a></h4>
+
+<p>Defines persistence settings for a persistent fields. Persistent fields are
+public getter methods.  Applicable to Entity EJBs using CMP and all dependent
+objects. &lt;orion/&gt; sub-task loops over all persistent fields of the bean
+and sets up cmp-field-mapping and other needed elements for the field. If the
+persistent field is an EJB, EJBHome or a dependent serializable object it also
+loops over fields of that object and applies settings depending on the class
+type (whether it's EJB/EJBHome, depdendent object, whether the type is a
+collection and so on). Refer to orion-ejb-jar.xml for more details.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>[name]</i>: String</td>
+   <td>Define the name of the column for the field.</td>
+  </tr>
+  <tr>
+    <td><i>[ejb-reference-home]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types
+      javax.ejb.EJBObject, javax.ejb.EJBLocalObject, javax.ejb.EJBHome,
+      javax.ejb.EJBLocalHome. It sets the value of ejb-reference-home attribute
+      of cmp-field-mapping element for that persistent field.</td>
+  </tr>
+  <tr>
+    <td><i>[persistence-name]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types
+      javax.ejb.EJBObject, javax.ejb.EJBLocalObject, javax.ejb.EJBHome,
+      javax.ejb.EJBLocalHome. It sets the value of persistence-name attribute of
+      cmp-field-mapping element for that persistent field.</td>
+  </tr>
+  <tr>
+    <td><i>[sql-type]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types
+      javax.ejb.EJBObject, javax.ejb.EJBLocalObject, javax.ejb.EJBHome,
+      javax.ejb.EJBLocalHome. It sets the value of persistence-type attribute of
+      cmp-field-mapping element for that persistent field.</td>
+  </tr>
+  <tr>
+    <td><i>[home]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types
+      javax.ejb.EJBObject, javax.ejb.EJBLocalObject, javax.ejb.EJBHome,
+      javax.ejb.EJBLocalHome. It sets the value of home attribute of entity-ref
+      element for that persistent field.</td>
+  </tr>
+  <tr>
+    <td><i>[table-name]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types java.util.List,
+      java.util.Vector, java.util.Collection, java.util.Set, java.util.Map,
+      java.util.Hashtable and java.util.Properties. It sets the value of table
+      attribute of the corresponding blabla-mapping element for that persistent
+      field.</td>
+  </tr>
+  <tr>
+    <td><i>[type]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types java.util.List,
+      java.util.Vector, java.util.Collection, java.util.Set, java.util.Map,
+      java.util.Hashtable and java.util.Properties. It sets the value of table
+      attribute of primkey-mapping or value-mapping element for that persistent
+      field.</td>
+  </tr>
+  <tr>
+    <td><i>[immutable]</i>: boolean</td>
+   <td>Applicable to persistent fields that are one of types java.util.List,
+      java.util.Vector, java.util.Collection, java.util.Set, java.util.Map,
+      java.util.Hashtable and java.util.Properties. It sets the value of immutable
+      attribute of value-mapping element for that persistent field.</td>
+  </tr>
+  <tr>
+    <td><i>[key-type]</i>: String</td>
+   <td>Applicable to persistent fields that are one of types java.util.Map,
+      java.util.Hashtable and java.util.Properties. It sets the value of key-type
+      attribute of map-key-mapping element inside map-mapping element for that
+      persistent field.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[field-persistence-manager]</i>: String</td>
+   <td>Sets up a field-persistence-manager element and sets the class attribute
+      of the field-persistence-manager element to the class name specified.
+      Properties for the persistence manager can be specified by putting one or
+      more @orion:field-persistence-manager-property tags for the persistent
+      field.</td>
+  </tr>
+</table>
+
+<h4><a name="field-persistence-manager-property">@orion:field-persistence-manager-property</a></h4>
+
+<p>If <code>@orion:persistence field-persistence-manager</code> specified and there's
+some properties for the persistence manager, specify it as one or more
+<code>@orion:field-persistence-manager-property</code>
+tags for the persistent field.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>[name]</i>: String</td>
+   <td>The name of the property.</td>
+  </tr>
+  <tr>
+    <td><i>[value]</i>: String</td>
+   <td>The value of the property.</td>
+  </tr>
+</table>
+
+<h4><a name="finder">@ejb:finder</a></h4>
+
+<p>Defines Orion-specific finder settings for a finder method. Applicable to
+<a href="ejbdoclet.html#finder"><code>@ejb:finder</code></a>
+class level tags of Entity EJBs using CMP.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>[orion-query]</i>: String</td>
+   <td>Define the query for the finder. Depending on the value of orion-query-is-partial
+      parameter the query can be complete or partial. Orion's queries are in a proprietary
+      format, for instance &quot;$1 = $myField AND $myOtherField > 5&quot; which
+      is a partial query, specifying only the WHERE clause of a SQL SELECT
+      statement.</td>
+  </tr>
+  <tr>
+    <td><i>[</i>orion-query-is-partial<i>]</i>: boolean</td>
+   <td>Specifies whether the query string is complete or partial.</td>
+  </tr>
+</table>
+
+</body>
+</html>

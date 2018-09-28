@@ -1,0 +1,237 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - EJB</TITLE>
+<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 5.0">
+<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>Parameters Applicable To All Doclet Tasks</H2>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR VALIGN="top">
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <tr>
+    <TD>classpath</TD>
+    <TD>Classpath.</TD>
+    <TD>Yes</TD>
+  </tr>
+  <tr>
+    <TD>classpathref</TD>
+    <TD>Classpathref.</TD>
+    <TD>Yes</TD>
+  </tr>
+  <tr>
+    <TD>destdir</TD>
+    <TD>Destination directory for output files.</TD>
+    <TD>Yes</TD>
+  </tr>
+  <tr>
+    <TD>excludedtags</TD>
+    <TD>Specify tags that should not be automatically written to output files.
+      The normal behaviour is to include all @ tags from the source file to the
+      output files. This may cause trouble if you use cvs-like tag like
+      $Revision: 1.5 $ that will be overwritten at each build and causes a
+      difference for CVS even if the code himself is not changed. Example:
+      excludedtags=&quot;@version&quot;<BR>
+      For excluded tags, ejbdoclet will generate an hardcoded tag. Example:
+      @version XDOCLET 1.0</TD>
+    <TD>No</TD>
+  </tr>
+<tr>
+    <td valign="top">addedtags</td>
+    <td valign="top">Add some JavaDoc tags (or comments) to the generated classes.
+A special case is @xdoclet-generated.  If this is included, ejbdoclet will not consider
+the file if it is by error in the <i>fileset</i> of the ejbdoclet task.</td>
+    <td>No</td>
+</tr>
+  <tr>
+    <TD>packagenames</TD>
+    <TD>Comma separated list of package files (with terminating wildcard).</TD>
+    <TD VALIGN="middle" rowspan="2">One or the other</TD>
+  </tr>
+  <tr>
+    <TD><CODE>&lt;fileset/&gt;</CODE> nested element</TD>
+    <TD><CODE>&lt;fileset/&gt;</CODE> elements which specify which files should
+      be analyzed. Use it if source and generated files are in one directory, it
+      prevents ejbdoclet from analyzing the already generated files. Example:
+      <P><CODE>&lt;fileset dir=&quot;${srcdir}&quot;&gt;</CODE><BR>
+      &nbsp;&nbsp; <CODE>&lt;include name=&quot;**/*Bean.java&quot; /&gt;<BR>
+      &lt;/fileset&gt;</CODE></TD>
+  </tr>
+  <tr>
+    <TD>maxmemory</TD>
+    <TD>Specify max memory used by the launched javadoc session.</TD>
+    <TD>No</TD>
+  </tr>
+  <tr>
+    <TD>mergedir</TD>
+    <TD>Merge directory where ejbdoclet looks for files to be merged with
+    generated files.</TD>
+    <TD>No, required, if the merge feature used</TD>
+  </tr>
+  <tr>
+    <TD>sourcepath</TD>
+    <TD>Specify where to find source files.</TD>
+    <TD>Yes, unless nested <CODE>&lt;sourcepath&gt;</CODE> elements are
+      present.</TD>
+  </tr>
+  <tr>
+    <TD>force</TD>
+    <TD>Specify if the generation of files should be forced.  In normal cases,
+    the timestamp of generated file is checked against the timestamps of the
+    class (and its super classes) we generate from.  When this timestamp
+    checking should be bypassed (for example after the installtion of a new
+    xdoclet version) then the user should force the regeneration.  The easiest
+    way is to run the Ant build file with a parameter "-Dxdoclet.force=true" and
+    add the option "force=${xdoclet.force}" to the doclet call.</TD>
+    <TD>No</TD>
+  </tr>
+  <TR VALIGN="top">
+    <TD>&lt;sourcepath/&gt;</TD>
+    <TD>Specify where to find source files.</TD>
+    <TD>No</TD>
+  </TR>
+  </TABLE>
+
+<H2>Nested Elements Applicable To All Doclet Tasks</H2>
+<H3><a NAME="template">template</a></H3>
+<P>Executes a template file and generates output from that template. It's useful
+for cases where you created your own simple external template file and you want
+to execute it without having to write a xdoclet.SubTask-derived class.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">templateFile</TD>
+    <TD VALIGN="top">Path to the template file.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </TR>
+  <tr>
+    <TD VALIGN="top">destinationfile</TD>
+    <TD VALIGN="top">The destination file name. If a {0} is found it's assumed
+    that a per class output generation is needed, so {0} is substituted with
+    class name; otherwise a single file is generated with the specified name.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </tr>
+  <tr>
+    <TD VALIGN="top">ofType</TD>
+    <TD VALIGN="top">Applicable only to per class output generation. Specify
+    full qualified class name from which classes should be derived. Output
+    generation is performed only for classes of one of the types defined in this
+    property, it's a comma-separated list. You can control the extent in which
+    the type search occurs by using 'extent' property.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </tr>
+  <tr>
+    <TD VALIGN="top">extent</TD>
+    <TD VALIGN="top">You can control the extent in which the type search occurs.
+    Valid values are:<ul>
+      <li><i>&quot;concrete-type&quot;</i>: the class is itself one of the classes listed
+      in ofType attribute.</li>
+      <li><i>&quot;superclass&quot;</i>: the class is itself one of the classes listed in
+      ofType attribute or its superclass is one of the listed ones</li>
+      <li><i>&quot;hierarchy&quot;</i> which is the default: anywhere in its hierarchy it
+      derives from one of the listed classes.</li>
+    </ul>
+    <p>There's no distinction between a class and an interface.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </tr>
+  <tr>
+    <TD VALIGN="top">havingClassTag</TD>
+    <TD VALIGN="top">A class should have the class @tag defined in this property
+    in order to be processed and output generated for.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </tr>
+  <tr>
+    <TD VALIGN="top">subTaskClassName</TD>
+    <TD VALIGN="top">You can specify a user-defined xdoclet.TemplateSubTask-derived
+    class to be used as the subtask class. This way you can derive from one of
+    the built-in classes and override some of its methods and modify it to match
+    your needs.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </tr>
+  <TR>
+    <TD VALIGN="top">prefixWithPackageStructure</TD>
+    <TD VALIGN="top">Applicable only to per class output generation. If true,
+    then output is placed in a directory structure like the package structure.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+</TABLE>
+
+<h4>Nested Elements</h4>
+
+<h5>configParam</h5>
+
+<p>You can specify user-defined values using any number of configParam nested
+elements (nested to both subtask and the global task), and use the passed value
+in your template files.</p>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <tr>
+    <TD VALIGN="top">name</TD>
+    <TD VALIGN="top">name of the configuration parameter.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </tr>
+  <TR>
+    <TD VALIGN="top">value</TD>
+    <TD VALIGN="top">value of the configuration parameter.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </TR>
+</TABLE>
+
+<H3><a NAME="xmlTemplate">xmlTemplate</a></H3>
+<P>Like &lt;template/&gt; but the generated stuff is xml and you can validate it
+according to a DTD. All parameters and nested elements of &lt;template/&gt; are also
+applicable for &lt;xmlTemplate/&gt;.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD WIDTH="12%" VALIGN="top"><B>Attribute</B></TD>
+    <TD WIDTH="78%" VALIGN="top"><B>Description</B></TD>
+    <TD WIDTH="10%" VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">templateFile</TD>
+    <TD VALIGN="top">Path to the template file.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </TR>
+  <tr>
+    <TD VALIGN="top">destinationfile</TD>
+    <TD VALIGN="top">The destination file.</TD>
+    <TD ALIGN="center" VALIGN="top">Yes</TD>
+  </tr>
+  <tr>
+    <TD VALIGN="top">validateXML</TD>
+    <TD VALIGN="top">Whether to validate generated xml file or not. False by
+    default.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </tr>
+  <tr>
+    <TD VALIGN="top">publicId</TD>
+    <TD VALIGN="top">The public Id such as -//Sun Microsystems, Inc.//DTD
+    Enterprise JavaBeans 2.0//EN.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </tr>
+  <TR>
+    <TD VALIGN="top">dtdFileName</TD>
+    <TD VALIGN="top">The DTD file name and path.</TD>
+    <TD ALIGN="center" VALIGN="top">No</TD>
+  </TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

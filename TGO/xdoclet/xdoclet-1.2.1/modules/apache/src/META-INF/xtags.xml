@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- tags for apache Axis -->
+  <namespace>
+    <name>apacheAxis</name>
+    <usage-description>Tags for declaration of Apache Axis services</usage-description>
+    <condition-description>POJO</condition-description>
+    <condition type="type">
+		  <condition-parameter>java.lang.Object</condition-parameter>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>axis.service</name>
+        <usage-description>Declares the class an Axis SOAP service.</usage-description>
+        <unique>true</unique>
+        <condition-description>POJO</condition-description>
+        <condition type="type">
+            <condition-parameter>java.lang.Object</condition-parameter>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Define the service's name.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>scope</name>
+          <usage-description>Define the service scope.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Application</default>
+              <options>
+                <option>Request</option>
+                <option>Session</option>
+                <option>Application</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>provider</name>
+          <usage-description>
+            Specifies the provider type.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>"java:EJB" for EJBs, "java:RPC" for non-EJBs.</default>
+        </parameter>
+        <parameter type="bool">
+          <name>include-all</name>
+          <usage-description>
+            If set to true, all methods will be exposed,
+            without regard to whether or not they are tagged
+            with @axis.method.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>        
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>axis.method</name>
+        <usage-description>
+         Declares the method a SOAP service method. Does not have any
+         parameters.
+
+         Note: By default "create" methods of session bean is used, no need to
+         explicitly specify a method as axis.method.</usage-description>
+        <unique>true</unique>
+        <condition-description>Method level</condition-description>
+        <condition type="method"/>
+      </tag>
+    </tags>
+  </namespace>	
+  <!-- tags for apache SOAP -->
+  <namespace>
+    <name>apacheSoap</name>
+    <usage-description>Tags for declaration of Apache SOAP services</usage-description>
+    <condition-description>POJO</condition-description>
+    <condition type="type">
+		  <condition-parameter>java.lang.Object</condition-parameter>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>soap.service</name>
+        <usage-description>Declares the class a SOAP service.</usage-description>
+        <unique>true</unique>
+        <condition-description>POJO</condition-description>
+        <condition type="type">
+          <condition-parameter>java.lang.Object</condition-parameter>
+        </condition>
+        <parameter type="text">
+          <name>scope</name>
+          <usage-description>Define the service scope.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Page</default>
+              <options>
+                <option>Page</option>
+                <option>Request</option>
+                <option>Session</option>
+                <option>Application</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>provider</name>
+          <usage-description>
+            Specifies the provider class name. There's
+            special support for EJB beans, so if you do
+            not specify the provider parameter,
+            Apache Soap tries to assign the correct
+            provider name to the service based on the
+            type of the EJB bean. The provider name
+            for the EJB is taken from
+            statelessSessionEjbProvider or
+            statefulSessionEjbProvider or
+            entityEjbProvider configuration
+            parameters based on the EJBean type.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>urn</name>
+          <usage-description>
+            The URN for the service. 
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+            Sets the service type. The only valid value is "message".
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>message</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>checkMustUnderstands</name>
+          <usage-description>
+            Declares whether or not the server is to throw a Fault if there are SOAP
+            headers in the request which are marked as "MustUnderstand".
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>soap.method</name>
+        <usage-description>
+         Declares the method a SOAP service method. Does not have any
+         parameters.
+         Note: By default "create" methods of session bean is used, no need to
+         explicitly specify a method as soap.method. All methods declared in remote
+         interface of an EJB are automatically exposed to SOAP clients by default.
+         </usage-description>
+        <unique>true</unique>
+        <condition-description>Method level</condition-description>
+        <condition type="method"/>
+      </tag>
+    </tags>
+  </namespace>
+  <!-- struts specific tags -->
+  <namespace>
+    <name>struts</name>
+    <usage-description>
+      Defines a form bean and its attributes.
+    </usage-description>
+    <condition-description>Applicable to entity beans and struts actions</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="method"/>
+        <condition type="class"/>
+      </condition>
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>java.lang.Object</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>org.apache.struts.action.Action</condition-parameter>
+        </condition>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>struts.form</name>
+        <usage-description>Defines a form bean and its attributes.</usage-description>
+        <unique>false</unique>
+        <condition-description>Entity beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="type">
+            <condition-parameter>java.lang.Object</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Define a unique name for the form.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>Define which class the generated form must extend.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>implements</name>
+          <usage-description>Define which interface the generated form must implement.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>include-pk</name>
+          <usage-description>
+            Whether to include pk field in form. Default is true. If set to
+            false, individual pk fields can still be included.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="bool">
+          <name>include-all</name>
+          <usage-description>Whether to include all persistent fields in form. Default is false.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>struts.form-field</name>
+        <usage-description>Include property in specific struts form</usage-description>
+        <unique>false</unique>
+        <condition-description>property to be included</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="type">
+            <condition-parameter>java.lang.Object</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>form-name</name>
+          <usage-description/>
+          <mandatory>to include this property in specified form.</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>struts.action</name>
+        <usage-description>Defines the action class and its attributes</usage-description>
+        <unique>false</unique>
+        <condition-description>Struts Action</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>org.apache.struts.action.Action</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the action. Must be unique within
+                the bounds of the Struts application</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>path</name>
+          <usage-description>The path that the action will match.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>scope</name>
+          <usage-description>Define the scope of the action. "request" | "session" | "application"</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>request</default>
+              <options>
+                <option>request</option>
+                <option>session</option>
+                <option>application</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>input</name>
+          <usage-description>The path to the input for the Action</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>roles</name>
+          <usage-description>Comma-delimited list of security role names that are allowed
+                     access to this ActionMapping object. Since Struts 1.1.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>validate</name>
+          <usage-description>The validation flag for the action</usage-description>
+          <mandatory>true</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>parameter</name>
+          <usage-description>The optional parameter for the action</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>struts.action-forward</name>
+        <usage-description>Defines local forwards for a Struts action class</usage-description>
+        <unique>false</unique>
+        <condition-description>Struts Action</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>org.apache.struts.action.Action</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the forward</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>path</name>
+          <usage-description>The path of the forward</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>struts.action-exception</name>
+        <usage-description>Defines the action specific exception handling</usage-description>
+        <unique>false</unique>
+        <condition-description>Struts Action</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>org.apache.struts.action.Action</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>key</name>
+          <usage-description>
+             The key to use with this handler's message resource bundle
+             that will retrieve the error message template for this
+             exception.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+            Fully qualified Java class name of the exception type to
+            register with this handler.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>className</name>
+          <usage-description>
+            The configuration bean for this ExceptionHandler object.
+            If specified, className must be a subclass of the default
+            configuration bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>handler</name>
+          <usage-description>
+            Fully qualified Java class name for this exception handler.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>path</name>
+          <usage-description>
+             The module-relative URI to the resource that will complete
+             the request/response if this exception occurs.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>scope</name>
+          <usage-description>
+            The context ("request" or "session") that is used to access
+            the ActionError object [org.apache.struts.action.ActionError]
+            for this exception.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+	    <tag>
+		    <level>method</level>
+		    <name>struts.validator</name>
+		    <usage-description>Defines Struts Validator for current setter field.</usage-description>
+		    <unique>false</unique>
+		    <condition-description>Struts ValidatorForm</condition-description>
+		    <condition type="and">
+			    <condition type="class"/>
+			    <condition type="type">
+				    <condition-parameter>org.apache.struts.validator.ValidatorForm</condition-parameter>
+			    </condition>
+		    </condition>
+		    <parameter type="text">
+			    <name>type</name>
+			    <usage-description>Validator type, such as "required"</usage-description>
+			    <mandatory>true</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>msgkey</name>
+			    <usage-description>Override key for the validator error message</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>msgvalue</name>
+			    <usage-description>Explicitly define a validator error message</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">		    
+			    <name>page</name>
+			    <usage-description>Only fields with a "page" attribute
+                     value that is equal to or less than the page property
+                     on the form JavaBean are processed.</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg0value</name>
+			    <usage-description>Value of argument index 0</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg0resource</name>
+			    <usage-description>Resource key of argument index 0</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg1value</name>
+			    <usage-description>Value of argument index 1</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg1resource</name>
+			    <usage-description>Resource key of argument index 1</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg2value</name>
+			    <usage-description>Value of argument index 2</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg2resource</name>
+			    <usage-description>Resource key of argument index 2</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg3value</name>
+			    <usage-description>Value of argument index 3</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg3resource</name>
+			    <usage-description>Resource key of argument index 3</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+	    </tag>
+	    <tag>
+		    <level>method</level>
+		    <name>struts.validator-args</name>
+		    <usage-description>Defines arguments for current setter field.</usage-description>
+		    <unique>true</unique>
+		    <condition-description>Struts ValidatorForm</condition-description>
+		    <condition type="and">
+			    <condition type="class"/>
+			    <condition type="type">
+				    <condition-parameter>org.apache.struts.validator.ValidatorForm</condition-parameter>
+			    </condition>
+		    </condition>
+		    <parameter type="text">
+			    <name>arg0value</name>
+			    <usage-description>Value of argument index 0</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg0resource</name>
+			    <usage-description>Resource key of argument index 0</usage-description>
+			    <mandatory>false</mandatory>
+			    <default>FormName.fieldName</default>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg1value</name>
+			    <usage-description>Value of argument index 1</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg1resource</name>
+			    <usage-description>Resource key of argument index 1</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg2value</name>
+			    <usage-description>Value of argument index 2</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg2resource</name>
+			    <usage-description>Resource key of argument index 2</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg3value</name>
+			    <usage-description>Value of argument index 3</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>arg3resource</name>
+			    <usage-description>Resource key of argument index 3</usage-description>
+			    <mandatory>false</mandatory>
+		    </parameter>
+	    </tag>
+	    <tag>
+		    <level>method</level>
+		    <name>struts.validator-var</name>
+		    <usage-description>Defines Struts Validator variable</usage-description>
+		    <unique>false</unique>
+		    <condition-description>Struts ValidatorForm</condition-description>
+		    <condition type="and">
+			    <condition type="class"/>
+			    <condition type="type">
+				    <condition-parameter>org.apache.struts.validator.ValidatorForm</condition-parameter>
+			    </condition>
+		    </condition>
+		    <parameter type="text">
+			    <name>name</name>
+			    <usage-description>Variable name</usage-description>
+			    <mandatory>true</mandatory>
+		    </parameter>
+		    <parameter type="text">
+			    <name>value</name>
+			    <usage-description>Variable value</usage-description>
+			    <mandatory>true</mandatory>
+		    </parameter>
+	    </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

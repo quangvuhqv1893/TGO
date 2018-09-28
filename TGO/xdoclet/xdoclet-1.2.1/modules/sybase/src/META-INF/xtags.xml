@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+    <!-- sybase specific tags -->
+    <namespace>
+        <name>Sybase</name>
+        <usage-description>Tags for creation of EAServer specific resources</usage-description>
+        <condition-description>all EJB types on class level</condition-description>
+        <condition type="and">
+            <condition type="class"/>
+            <condition type="or">
+                <condition type="type">
+                    <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                </condition>
+                <condition type="type">
+                    <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                </condition>
+                <condition type="type">
+                    <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                </condition>
+            </condition>
+        </condition>
+        <tags>
+            <tag>
+                <level>class</level>
+                <name>easerver.resource-ref</name>
+                <usage-description>
+                The resource-ref element gives a mapping between the name of a
+                resource reference (res-ref-name, provided by the Bean Developer) and
+                its resource (res-link, provided by the Application Assembler).
+                There should be a corresponding @ejb.resource-ref tag present.
+                </usage-description>
+                <unique>false</unique>
+                <condition-description>
+                Used in Entity, MessageDriven, and Session beans.
+                </condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="or">
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                        </condition>
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                        </condition>
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                        </condition>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>res-ref-name</name>
+                    <usage-description>The res-ref-name element gives the name of a resource. It is
+                    provided by the Bean Developer, and should match the res-ref-name parameter of
+                    an @ejb.resource-ref tag.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>res-link</name>
+                    <usage-description>The res-link element gives the value of the resource. It is
+                    provided by the Application Assembler. This will depend on the type (res-type)
+                    of the resource e.g. for datasources it will be the connection cache name, for
+                    mail sessions it will be the SMTP server name.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>easerver.ejb-ref</name>
+                <usage-description>
+                The ejb-ref element gives a mapping between the name of an ejb
+                reference (ejb-ref-name, provided by the Bean Developer) and the
+                JNDI name of the referenced bean (jaguar-link, provided by the
+                Application Assembler).  There should be a corresponding @ejb.ejb-ref
+                tag present.  NB If the beans are being deployed as part of the
+                same EJB jar or application EAR, this tag may not be needed as
+                EAServer can usually "guess" the relevant ejb link names.
+                </usage-description>
+                <unique>false</unique>
+                <condition type="class">
+                </condition>
+                <parameter type="text">
+                    <name>ejb-ref-name</name>
+                    <usage-description>The ejb-ref-name element gives the name of an ejb reference.
+                    It is provided by the Bean Developer, and should match the ref-name parameter of
+                    an @ejb.ejb-ref tag.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>jaguar-link</name>
+                    <usage-description>The jaguar-link element gives the JNDI name of the referenced
+                    ejb.  It is provided by the Application Assembler.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+        </tags>
+    </namespace>
+</xdoclet>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+       <title>Ant 1.5 Troubleshooting</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Ant 1.5 Troubleshooting">
+            <p>
+                These errors are due to the fact that no XSL Transformer is available in
+                Jakarta Ant 1.5 per default. When you run on JDK 1.4 you have all that for free.
+            </p>
+            <subsection name="DEPRECATED - xslp processor is deprecated. Use trax or xalan instead.">
+                <p>
+                    java.lang.NoClassDefFoundError: javax/xml/transform/ErrorListener
+                </p>
+                <p>
+                    Solution: the xmlApis.jar from Ant 1.5Beta1 do not contain javax.xml.transform
+                    Copy one that contains these classes to $ANT_HOME/lib. The one from Xalan 2.3.1
+                    is just fine: xml-apis.jar.  It is in xdoclet/lib for your convenience.
+                </p>
+            </subsection>
+            <subsection name="DEPRECATED - xslp processor is deprecated. Use trax or xalan instead.">
+                <p>
+                    javax.xml.transform.TransformerFactoryConfigurationError: Provider for javax.xml.transform.TransformerFactory cannot be found
+                </p>
+                <p>
+                    Solution: Copy xalan.jar to $ANT_HOME/lib
+                </p>
+            </subsection>
+            <subsection name="Specifying the TransformerFactory implementation">
+                <p>
+                    Define ANT_OPTS : ANT_OPTS=-Djavax.xml.transform.TransformerFactory=org.apache.xalan.processor.TransformerFactoryImpl
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

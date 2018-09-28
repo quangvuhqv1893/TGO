@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<XDtComment:comment>
+Template derived from xdoclet/web/web-xml.j.
+Resin doesn't care about sibling order
+so it tries to iterate over all classes just once,
+instead of once for each DTD-defined block.
+</XDtComment:comment>
+<!--
+	Resin web.xml generated from xdoclet/modules/caucho/resin-web-xml.xdt.
+-->
+<web-app
+<XDtConfig:ifConfigParamNotEquals paramName="appDir" value="">
+	app-dir="<XDtConfig:configParameterValue paramName="appDir"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="charEncoding" value="">
+	character-encoding="<XDtConfig:configParameterValue paramName="charEncoding"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="classUpdateInterval" value="">
+	class-update-interval="<XDtConfig:configParameterValue paramName="classUpdateInterval"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="configUpdateInterval" value="">
+	config-update-interval="<XDtConfig:configParameterValue paramName="configUpdateInterval"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="directoryServlet" value="">
+	directory-servlet="<XDtConfig:configParameterValue paramName="directoryServlet"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="id" value="">
+	id="<XDtConfig:configParameterValue paramName="id"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="lazyInit" value="">
+	lazy-init="<XDtConfig:configParameterValue paramName="lazyInit"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="secure" value="">
+	secure
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="tempDir" value="">
+	temp-dir="<XDtConfig:configParameterValue paramName="tempDir"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="urlRegexp" value="">
+	url-regexp="<XDtConfig:configParameterValue paramName="urlRegexp"/>"
+</XDtConfig:ifConfigParamNotEquals>
+<XDtConfig:ifConfigParamNotEquals paramName="workDir" value="">
+	work-dir="<XDtConfig:configParameterValue paramName="workDir"/>"
+</XDtConfig:ifConfigParamNotEquals>
+>
+<XDtMerge:merge file="web-settings.xml">
+	<icon>
+	<XDtConfig:ifConfigParamNotEquals paramName="Smallicon" value="">
+		<small-icon><XDtConfig:configParameterValue paramName="Smallicon"/></small-icon>
+	</XDtConfig:ifConfigParamNotEquals>
+	<XDtConfig:ifConfigParamNotEquals paramName="Largeicon" value="">
+		<large-icon><XDtConfig:configParameterValue paramName="Largeicon"/></large-icon>
+	</XDtConfig:ifConfigParamNotEquals>
+	</icon>
+	<XDtConfig:ifConfigParamNotEquals paramName="Displayname" value="">
+		<display-name><XDtConfig:configParameterValue paramName="Displayname"/></display-name>
+	</XDtConfig:ifConfigParamNotEquals>
+	<XDtConfig:ifConfigParamNotEquals paramName="Description" value="">
+		<description><![CDATA[<XDtConfig:configParameterValue paramName="Description"/>]]></description>
+	</XDtConfig:ifConfigParamNotEquals>
+	<XDtConfig:ifConfigParamEquals paramName="Distributable" value="true">
+		<distributable/>
+	</XDtConfig:ifConfigParamEquals>
+
+	<XDtConfig:forAllConfigParameters paramName="contextParams">
+		<context-param>
+			<param-name><XDtConfig:configParameterValue paramName="contextParams.name"/></param-name>
+			<param-value><XDtConfig:configParameterValue paramName="contextParams.value"/></param-value>
+			<description><![CDATA[<XDtConfig:configParameterValue paramName="contextParams.description"/>]]></description>
+		</context-param>
+	</XDtConfig:forAllConfigParameters>
+</XDtMerge:merge>
+
+<XDtConfig:ifConfigParamEquals paramName="useStandardMergeFiles" value="true">
+	<XDtMerge:merge file="xdoclet/modules/caucho/resources/resin-web-mergefiles.xdt">
+	</XDtMerge:merge>
+</XDtConfig:ifConfigParamEquals>
+
+<XDtMerge:merge file="resinweb-custom.xml">
+<!--
+	Optional top-level merge path resinweb-custom.xml for resin-only configuration.
+-->
+</XDtMerge:merge>
+
+
+<!--
+	Filters, filter-mappings, listeners, servlets, servlet-mappings
+-->
+<XDtClass:forAllClasses abstract="false">
+	<XDtConfig:ifConfigParamGreaterOrEquals paramName="Servletspec" value="2.3">
+		<XDtType:ifIsOfType type="javax.servlet.Filter">
+			<XDtClass:forAllClassTags tagName="web:filter">
+				<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+				</XDtConfig:ifConfigParamEquals>
+	<filter>
+				<XDtClass:ifHasClassTag tagName="web:filter" paramName="icon">
+		<icon><XDtClass:classTagValue tagName="web:filter" paramName="icon"/></icon>
+				</XDtClass:ifHasClassTag>
+		<filter-name><XDtClass:classTagValue tagName="web:filter" paramName="name"/></filter-name>
+				<XDtClass:ifHasClassTag tagName="web:filter" paramName="display-name">
+		<display-name><XDtClass:classTagValue tagName="web:filter" paramName="display-name"/></display-name>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="web:filter" paramName="description">
+		<description><![CDATA[<XDtClass:classTagValue tagName="web:filter" paramName="description"/>]]></description>
+				</XDtClass:ifHasClassTag>
+		<filter-class><XDtClass:fullClassName/></filter-class>
+				<XDtClass:forAllClassTags tagName="web:filter-init-param">
+		<init-param>
+			<param-name><XDtClass:classTagValue tagName="web:filter-init-param" paramName="name"/></param-name>
+			<param-value><XDtClass:classTagValue tagName="web:filter-init-param" paramName="value"/></param-value>
+					<XDtClass:ifHasClassTag tagName="web:filter-init-param" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="web:filter-init-param" paramName="description"/>]]></description>
+					</XDtClass:ifHasClassTag>
+		</init-param>
+				</XDtClass:forAllClassTags>
+	</filter>
+
+				<XDtClass:forAllClassTags tagName="web:filter-mapping">
+	<filter-mapping>
+		<filter-name><XDtClass:classTagValue tagName="web:filter" paramName="name"/></filter-name>
+					<XDtClass:ifHasClassTag tagName="web:filter-mapping" paramName="url-pattern">
+			<url-pattern><XDtClass:classTagValue tagName="web:filter-mapping" paramName="url-pattern"/></url-pattern>
+					</XDtClass:ifHasClassTag>
+					<XDtClass:ifDoesntHaveClassTag tagName="web:filter-mapping" paramName="url-pattern">
+						<XDtClass:ifHasClassTag tagName="web:filter-mapping" paramName="servlet-name">
+			<servlet-name><XDtClass:classTagValue tagName="web:filter-mapping" paramName="servlet-name"/></servlet-name>
+						</XDtClass:ifHasClassTag>
+					</XDtClass:ifDoesntHaveClassTag>
+					<XDtClass:ifHasClassTag tagName="web:filter-mapping" paramName="url-regexp">
+			<!-- resin url-regexp -->
+			<url-regexp><XDtClass:classTagValue tagName="web:filter-mapping" paramName="url-regexp"/></url-regexp>
+					</XDtClass:ifHasClassTag>
+					<XDtClass:ifHasClassTag tagName="web:filter-mapping" paramName="case-sensitive">
+			<!-- resin case-sensitive -->
+			<case-sensitive><XDtClass:classTagValue tagName="web:filter-mapping" paramName="case-sensitive"/></case-sensitive>
+					</XDtClass:ifHasClassTag>
+	</filter-mapping>
+				</XDtClass:forAllClassTags>
+			</XDtClass:forAllClassTags>
+		</XDtType:ifIsOfType>
+
+		<XDtType:ifIsOfType type="javax.servlet.ServletContextListener,javax.servlet.ServletContextAttributeListener,javax.servlet.http.HttpSessionListener,javax.servlet.http.HttpSessionAttributeListener">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<listener>
+		<listener-class><XDtClass:fullClassName/></listener-class>
+	</listener>
+		</XDtType:ifIsOfType>
+	</XDtConfig:ifConfigParamGreaterOrEquals>
+
+	<XDtType:ifIsOfType type="javax.servlet.Servlet">
+		<XDtClass:ifHasClassTag tagName="web:servlet">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<servlet>
+			<XDtClass:ifHasClassTag tagName="web:servlet" paramName="icon">
+		<icon><XDtClass:classTagValue tagName="web:servlet" paramName="icon"/></icon>
+			</XDtClass:ifHasClassTag>
+		<servlet-name><XDtClass:classTagValue tagName="web:servlet" paramName="name"/></servlet-name>
+			<XDtClass:ifHasClassTag tagName="web:servlet" paramName="display-name">
+		<display-name><XDtClass:classTagValue tagName="web:servlet" paramName="display-name"/></display-name>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="web:servlet" paramName="description">
+		<description><![CDATA[<XDtClass:classTagValue tagName="web:servlet" paramName="description"/>]]></description>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="web:servlet" paramName="jsp-file">
+		<jsp-file><XDtClass:classTagValue tagName="web:servlet" paramName="jsp-file"/></jsp-file>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifDoesntHaveClassTag tagName="web:servlet" paramName="jsp-file">
+		<servlet-class><XDtClass:fullClassName/></servlet-class>
+			</XDtClass:ifDoesntHaveClassTag>
+
+			<XDtClass:forAllClassTags tagName="web:servlet-init-param">
+		<init-param>
+			<param-name><XDtClass:classTagValue tagName="web:servlet-init-param" paramName="name"/></param-name>
+			<param-value><XDtClass:classTagValue tagName="web:servlet-init-param" paramName="value"/></param-value>
+				<XDtClass:ifHasClassTag tagName="web:servlet-init-param" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="web:servlet-init-param" paramName="description"/>]]></description>
+				</XDtClass:ifHasClassTag>
+		</init-param>
+			</XDtClass:forAllClassTags>
+
+			<XDtClass:ifHasClassTag tagName="web:servlet" paramName="load-on-startup">
+		<load-on-startup><XDtClass:classTagValue tagName="web:servlet" paramName="load-on-startup"/></load-on-startup>
+			</XDtClass:ifHasClassTag>
+			<XDtConfig:ifConfigParamGreaterOrEquals paramName="Servletspec" value="2.3">
+				<XDtClass:ifHasClassTag tagName="web:servlet" paramName="run-as">
+		<run-as><XDtClass:classTagValue tagName="web:servlet" paramName="run-as" values="true,false"/></run-as>
+				</XDtClass:ifHasClassTag>
+			</XDtConfig:ifConfigParamGreaterOrEquals>
+
+			<XDtMerge:merge file="web-sec-rolerefs-{0}.xml">
+				<XDtClass:forAllClassTags tagName="web:security-role-ref">
+		<security-role-ref>
+					<XDtClass:ifHasClassTag tagName="web:security-role-ref" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="web:security-role-ref" paramName="description"/>]]></description>
+					</XDtClass:ifHasClassTag>
+			<role-name><XDtClass:classTagValue tagName="web:security-role-ref" paramName="role-name"/></role-name>
+			<role-link><XDtClass:classTagValue tagName="web:security-role-ref" paramName="role-link"/></role-link>
+		</security-role-ref>
+				</XDtClass:forAllClassTags>
+			</XDtMerge:merge>
+			<XDtClass:ifHasClassTag tagName="web:servlet" paramName="run-at">
+		<!-- resin run-at -->
+		<run-at><XDtClass:classTagValue tagName="web:servlet" paramName="run-at"/></run-at>
+			</XDtClass:ifHasClassTag>
+	</servlet>
+
+			<XDtClass:forAllClassTags tagName="web:servlet-mapping">
+	<servlet-mapping>
+		<servlet-name><XDtClass:classTagValue tagName="web:servlet" paramName="name"/></servlet-name>
+				<XDtClass:ifHasClassTag tagName="web:servlet-mapping" paramName="url-pattern">
+		<url-pattern><XDtClass:classTagValue tagName="web:servlet-mapping" paramName="url-pattern"/></url-pattern>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="web:servlet-mapping" paramName="url-regexp">
+		<!-- resin url-regexp -->
+		<url-regexp><XDtClass:classTagValue tagName="web:servlet-mapping" paramName="url-regexp"/></url-regexp>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="web:servlet-mapping" paramName="path-info">
+		<!-- resin path-info -->
+		<path-info><XDtClass:classTagValue tagName="web:servlet-mapping" paramName="path-info"/></path-info>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="web:servlet-mapping" paramName="case-sensitive">
+		<!-- resin case-sensitive -->
+		<case-sensitive><XDtClass:classTagValue tagName="web:servlet-mapping" paramName="case-sensitive"/></case-sensitive>
+				</XDtClass:ifHasClassTag>
+	</servlet-mapping>
+			</XDtClass:forAllClassTags>
+		</XDtClass:ifHasClassTag>
+	</XDtType:ifIsOfType>
+</XDtClass:forAllClasses>
+
+
+
+
+<XDtConfig:ifConfigParamEquals paramName="searchForConfigElements" value="true">
+		<XDtMerge:merge file="web-ejbrefs-{0}.xml">
+			<XDtClass:forAllClassTags tagName="web:ejb-ref">
+				<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+				</XDtConfig:ifConfigParamEquals>
+	<ejb-ref>
+				<XDtResin:forAllCurrentTagParams>
+					<XDtResin:parameterAsXml description="" name="ejb-ref-name"
+						type="ejb-ref-type" home="" remote="" link="ejb-link"
+						ejb-ref-factory=""
+					/>
+				</XDtResin:forAllCurrentTagParams>
+
+	</ejb-ref>
+			</XDtClass:forAllClassTags>
+		</XDtMerge:merge>
+
+		<XDtMerge:merge file="web-env-entries-{0}.xml">
+			<XDtClass:forAllClassTags tagName="web:env-entry">
+				<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+				</XDtConfig:ifConfigParamEquals>
+	<env-entry>
+				<XDtClass:ifHasClassTag tagName="web:env-entry" paramName="description">
+		<description><![CDATA[<XDtClass:classTagValue tagName="web:env-entry" paramName="description"/>]]></description>
+				</XDtClass:ifHasClassTag>
+		<env-entry-name><XDtClass:classTagValue tagName="web:env-entry" paramName="name"/></env-entry-name>
+				<XDtClass:ifHasClassTag tagName="web:env-entry" paramName="value">
+		<env-entry-value><XDtClass:classTagValue tagName="web:env-entry" paramName="value"/></env-entry-value>
+				</XDtClass:ifHasClassTag>
+		<env-entry-type><XDtClass:classTagValue tagName="web:env-entry" paramName="type"/></env-entry-type>
+	</env-entry>
+			</XDtClass:forAllClassTags>
+		</XDtMerge:merge>
+
+	<XDtClass:forAllClasses>
+		<XDtClass:forAllClassTags tagName="web:resource-env-ref">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<resource-env-ref>
+			<XDtClass:ifHasClassTag tagName="web:resource-env-ref" paramName="description">
+		<description><![CDATA[<XDtClass:classTagValue tagName="web:resource-env-ref" paramName="description"/>]]></description>
+			</XDtClass:ifHasClassTag>
+		<resource-env-ref-name><XDtClass:classTagValue tagName="web:resource-env-ref" paramName="name"/></resource-env-ref-name>
+		<resource-env-ref-type><XDtClass:classTagValue tagName="web:resource-env-ref" paramName="type"/></resource-env-ref-type>
+	</resource-env-ref>
+		</XDtClass:forAllClassTags>
+
+		<XDtMerge:merge file="ejb-resourcerefs-{0}.xml">
+			<XDtClass:forAllClassTags tagName="web:resource-ref">
+				<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+				</XDtConfig:ifConfigParamEquals>
+	<resource-ref>
+				<XDtResin:forAllCurrentTagParams>
+					<XDtResin:parameterAsXml res-ref-name="" res-type=""
+						class-name="" bean-name="" init-class=""/>
+				</XDtResin:forAllCurrentTagParams>
+	</resource-ref>
+			</XDtClass:forAllClassTags>
+		</XDtMerge:merge>
+
+		<XDtClass:forAllClassTags tagName="web:security-role">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<security-role>
+			<XDtClass:ifHasClassTag tagName="web:security-role" paramName="description">
+	<description><![CDATA[<XDtClass:classTagValue tagName="web:security-role" paramName="description"/>]]></description>
+			</XDtClass:ifHasClassTag>
+	<role-name><XDtClass:classTagValue tagName="web:security-role" paramName="role-name"/></role-name>
+	</security-role>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:access-log">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<access-log
+		id="<XDtClass:classTagValue tagName="resin:access-log" paramName="id"/>"
+			<XDtClass:ifHasClassTag tagName="resin:access-log" paramName="format">
+		format="<XDtClass:classTagValue tagName="resin:access-log" paramName="format"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:access-log" paramName="class-name">
+		class-name="<XDtClass:classTagValue tagName="resin:access-log" paramName="class-name"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:access-log" paramName="rollover-period">
+		rollover-period="<XDtClass:classTagValue tagName="resin:access-log" paramName="rollover-period"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:access-log" paramName="rollover-size">
+		rollover-size="<XDtClass:classTagValue tagName="resin:access-log" paramName="rollover-size"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:access-log" paramName="archive-format">
+		archive-format="<XDtClass:classTagValue tagName="resin:access-log" paramName="archive-format"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:browser-mapping">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<browser-mapping regexp="<XDtClass:classTagValue tagName="resin:browser-mapping" paramName="regexp"/>"
+			<XDtClass:ifHasClassTag tagName="resin:browser-mapping" paramName="force10">force10</XDtClass:ifHasClassTag>/>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:cache-mapping">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<cache-mapping
+			<XDtClass:ifHasClassTag tagName="resin:cache-mapping" paramName="url-pattern">
+		url-pattern="<XDtClass:classTagValue tagName="resin:cache-mapping" paramName="url-pattern"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:cache-mapping" paramName="url-regexp">
+		url-regexp="<XDtClass:classTagValue tagName="resin:cache-mapping" paramName="url-regexp"/>"
+			</XDtClass:ifHasClassTag>
+		expires="<XDtClass:classTagValue tagName="resin:cache-mapping" paramName="expires"/>"
+	/>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:chain-mapping">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<chain-mapping
+		mime-type="<XDtClass:classTagValue tagName="resin:chain-mapping" paramName="mime-type"/>"
+		servlet-name="<XDtClass:classTagValue tagName="resin:chain-mapping" paramName="servlet-name"/>"
+	/>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:classpath">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<classpath
+		id="<XDtClass:classTagValue tagName="resin:classpath" paramName="id"/>"
+			<XDtClass:ifHasClassTag tagName="resin:classpath" paramName="library-dir">
+		library-dir="<XDtClass:classTagValue tagName="resin:classpath" paramName="library-dir"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:classpath" paramName="source">
+		source="<XDtClass:classTagValue tagName="resin:classpath" paramName="source"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:classpath" paramName="compile">
+		compile="<XDtClass:classTagValue tagName="resin:classpath" paramName="compile"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:classpath" paramName="encoding">
+		encoding="<XDtClass:classTagValue tagName="resin:classpath" paramName="encoding"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:classpath" paramName="args">
+		args="<XDtClass:classTagValue tagName="resin:classpath" paramName="args"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:context-param">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<context-param>
+		<param-name><XDtClass:classTagValue tagName="resin:context-param" paramName="param-name"/></param-name>
+		<param-value><XDtClass:classTagValue tagName="resin:context-param" paramName="param-value"/></param-value>
+			<XDtClass:ifHasClassTag tagName="resin:context-param" paramName="description">
+		<description><![CDATA[<XDtClass:classTagValue tagName="resin:context-param" paramName="description"/>]]></description>
+			</XDtClass:ifHasClassTag>
+	</context-param>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:error-log">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<error-log
+		href="<XDtClass:classTagValue tagName="resin:error-log" paramName="href"/>"
+			<XDtClass:ifHasClassTag tagName="resin:error-log" paramName="encoding">
+		encoding="<XDtClass:classTagValue tagName="resin:error-log" paramName="encoding"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:error-log" paramName="rollover-period">
+		rollover-period="<XDtClass:classTagValue tagName="resin:error-log" paramName="rollover-period"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:error-log" paramName="rollover-size">
+		rollover-size="<XDtClass:classTagValue tagName="resin:error-log" paramName="rollover-size"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:error-log" paramName="timestamp">
+		timestamp="<XDtClass:classTagValue tagName="resin:error-log" paramName="timestamp"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:forAllClassTags tagName="resin:error-page">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<error-page>
+			<XDtClass:ifHasClassTag tagName="resin:error-page" paramName="error-code">
+		<error-code><XDtClass:classTagValue tagName="resin:error-page" paramName="error-code"/></error-code>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:error-page" paramName="exception-type">
+		<exception-type><XDtClass:classTagValue tagName="resin:error-page" paramName="exception-type"/></exception-type>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:error-page" paramName="location">
+		<location><XDtClass:classTagValue tagName="resin:error-page" paramName="location"/></location>
+			</XDtClass:ifHasClassTag>
+	</error-page>
+		</XDtClass:forAllClassTags>
+
+		<XDtMerge:merge file="resin-jndi-link-{0}.xml">
+			<XDtClass:forAllClassTags tagName="resin:jndi-link">
+				<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+				</XDtConfig:ifConfigParamEquals>
+	<jndi-link>
+				<XDtResin:forAllCurrentTagParams>
+					<XDtResin:parameterAsXml jndi-name="" property-file=""
+						jndi-factory="" jndi-lookup=""
+					/>
+				</XDtResin:forAllCurrentTagParams>
+
+	</jndi-link>
+			</XDtClass:forAllClassTags>
+		</XDtMerge:merge>
+
+		<XDtClass:ifHasClassTag tagName="resin:jsp">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<jsp
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="auto-compile">
+		auto-compile="<XDtClass:classTagValue tagName="resin:jsp" paramName="auto-compile"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="disable-init-log">
+		disable-init-log="<XDtClass:classTagValue tagName="resin:jsp" paramName="disable-init-log"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="jsp-update-interval">
+		jsp-update-interval="<XDtClass:classTagValue tagName="resin:jsp" paramName="jsp-update-interval"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="jsp-max">
+		jsp-max="<XDtClass:classTagValue tagName="resin:jsp" paramName="jsp-max"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="precompile">
+		precompile="<XDtClass:classTagValue tagName="resin:jsp" paramName="precompile"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="require-source">
+		require-source="<XDtClass:classTagValue tagName="resin:jsp" paramName="require-source"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="recompile-on-error">
+		recompile-on-error="<XDtClass:classTagValue tagName="resin:jsp" paramName="recompile-on-error"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="recycle-tags">
+		recycle-tags="<XDtClass:classTagValue tagName="resin:jsp" paramName="recycle-tags"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="session">
+		session="<XDtClass:classTagValue tagName="resin:jsp" paramName="session"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="static-encoding">
+		static-encoding="<XDtClass:classTagValue tagName="resin:jsp" paramName="static-encoding"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jsp" paramName="velocity">
+		velocity="<XDtClass:classTagValue tagName="resin:jsp" paramName="velocity"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:ifHasClassTag tagName="resin:login-config">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<login-config>
+			<XDtClass:ifHasClassTag tagName="resin:login-config" paramName="auth-method">
+		<auth-method><XDtClass:classTagValue tagName="resin:login-config" paramName="auth-method"/></auth-method>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:login-config" paramName="realm-name">
+		<realm-name><XDtClass:classTagValue tagName="resin:login-config" paramName="realm-name"/></realm-name>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:form-login-config">
+		<form-login-config>
+			<form-login-page><XDtClass:classTagValue tagName="resin:form-login-config" paramName="form-login-page"/></form-login-page>
+			<form-error-page><XDtClass:classTagValue tagName="resin:form-login-config" paramName="form-error-page"/></form-error-page>
+		</form-login-config>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:forAllClassTags tagName="resin:authenticator">
+		<authenticator>
+				<XDtResin:forAllCurrentTagParams>
+			<XDtResin:parameterAsXml class-name=""/>
+				</XDtResin:forAllCurrentTagParams>
+		</authenticator>
+			</XDtClass:forAllClassTags>
+	</login-config>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:forAllClassTags tagName="resin:mime-mapping">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<mime-mapping>
+		<extension><XDtClass:classTagValue tagName="resin:mime-mapping" paramName="extension"/></extension>
+		<mime-type><XDtClass:classTagValue tagName="resin:mime-mapping" paramName="mime-type"/></mime-type>
+	</mime-mapping>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:ifHasClassTag tagName="resin:multipart-form">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<multipart-form
+			<XDtClass:ifHasClassTag tagName="resin:multipart-form" paramName="enable">
+		enable="<XDtClass:classTagValue tagName="resin:multipart-form" paramName="enable"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:multipart-form" paramName="upload-max">
+		upload-max="<XDtClass:classTagValue tagName="resin:multipart-form" paramName="upload-max"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:forAllClassTags tagName="resin:path-mapping">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<path-mapping>
+			<XDtClass:ifHasClassTag tagName="resin:path-mapping" paramName="url-pattern">
+		<url-pattern><XDtClass:classTagValue tagName="resin:path-mapping" paramName="url-pattern"/></url-pattern>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:path-mapping" paramName="url-regexp">
+		<url-regexp><XDtClass:classTagValue tagName="resin:path-mapping" paramName="url-regexp"/></url-regexp>
+			</XDtClass:ifHasClassTag>
+		<real-path><XDtClass:classTagValue tagName="resin:path-mapping" paramName="real-path"/></real-path>
+	</path-mapping>
+		</XDtClass:forAllClassTags>
+
+		<XDtClass:ifHasClassTag tagName="resin:security-constraint">
+	<security-constraint>
+			<XDtClass:ifHasClassTag tagName="resin:security-constraint" paramName="display-name">
+		<display-name><XDtClass:classTagValue tagName="resin:security-constraint" paramName="display-name"/></display-name>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:forAllClassTags tagName="resin:web-resource-collection">
+		<web-resource-collection>
+				<XDtClass:ifHasClassTag tagName="resin:web-resource-collection" paramName="web-resource-name">
+			<web-resource-name><XDtClass:classTagValue tagName="resin:web-resource-collection" paramName="web-resource-name"/></web-resource-name>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:web-resource-collection" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="resin:web-resource-collection" paramName="description"/>]]></description>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:web-resource-collection" paramName="url-pattern">
+					<XDtClass:forAllClassTagTokens tagName="resin:web-resource-collection" paramName="url-pattern" delimiter=",">
+			<url-pattern><XDtClass:currentToken/></url-pattern>
+					</XDtClass:forAllClassTagTokens>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:web-resource-collection" paramName="http-method">
+					<XDtClass:forAllClassTagTokens tagName="resin:web-resource-collection" paramName="http-method" delimiter=",">
+			<http-method><XDtClass:currentToken/></http-method>
+					</XDtClass:forAllClassTagTokens>
+				</XDtClass:ifHasClassTag>
+		</web-resource-collection>
+			</XDtClass:forAllClassTags>
+			<XDtClass:ifHasClassTag tagName="resin:auth-constraint">
+		<auth-constraint>
+				<XDtClass:ifHasClassTag tagName="resin:auth-constraint" paramName="description">
+			<description><![CDATA[<XDtClass:classTagValue tagName="resin:auth-constraint" paramName="description"/>]]></description>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:auth-constraint" paramName="role-name">
+					<XDtClass:forAllClassTagTokens tagName="resin:auth-constraint" paramName="role-name" delimiter=",">
+			<role-name><XDtClass:currentToken/></role-name>
+					</XDtClass:forAllClassTagTokens>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:user-data-constraint">
+			<user-data-constraint>
+					<XDtClass:ifHasClassTag tagName="resin:user-data-constraint" paramName="description">
+				<description><![CDATA[<XDtClass:classTagValue tagName="resin:user-data-constraint" paramName="description"/>]]></description>
+					</XDtClass:ifHasClassTag>
+				<transport-guarantee><XDtClass:classTagValue tagName="resin:user-data-constraint" paramName="transport-guarantee" values="NONE,INTEGRAL,CONFIDENTIAL"/></transport-guarantee>
+			</user-data-constraint>
+				</XDtClass:ifHasClassTag>
+		</auth-constraint>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:ip-constraint" paramName="ip">
+		<ip-constraint><XDtClass:classTagValue tagName="resin:ip-constraint" paramName="ip"/></ip-constraint>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:forAllClassTags tagName="resin:constraint">
+		<constraint>
+				<XDtResin:forAllCurrentTagParams>
+			<XDtResin:parameterAsXml class-name=""/>
+				</XDtResin:forAllCurrentTagParams>
+		</constraint>
+			</XDtClass:forAllClassTags>
+	</security-constraint>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:ifHasClassTag tagName="resin:session-config">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<session-config>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="session-timeout">
+		<session-timeout><XDtClass:classTagValue tagName="resin:session-config" paramName="session-timeout"/></session-timeout>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="session-max">
+		<session-max><XDtClass:classTagValue tagName="resin:session-config" paramName="session-max"/></session-max>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="enable-cookies">
+		<enable-cookies><XDtClass:classTagValue tagName="resin:session-config" paramName="enable-cookies"/></enable-cookies>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="enable-url-rewriting">
+		<enable-url-rewriting><XDtClass:classTagValue tagName="resin:session-config" paramName="enable-url-rewriting"/></enable-url-rewriting>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="cookie-version">
+		<cookie-version><XDtClass:classTagValue tagName="resin:session-config" paramName="cookie-version"/></cookie-version>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="cookie-domain">
+		<cookie-domain><XDtClass:classTagValue tagName="resin:session-config" paramName="cookie-domain"/></cookie-domain>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="cookie-max-age">
+		<cookie-max-age><XDtClass:classTagValue tagName="resin:session-config" paramName="cookie-max-age"/></cookie-max-age>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="cookie-length">
+		<cookie-length><XDtClass:classTagValue tagName="resin:session-config" paramName="cookie-length"/></cookie-length>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="always-load-session">
+		<always-load-session><XDtClass:classTagValue tagName="resin:session-config" paramName="always-load-session"/></always-load-session>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="always-save-session">
+		<always-save-session><XDtClass:classTagValue tagName="resin:session-config" paramName="always-save-session"/></always-save-session>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="save-on-shutdown">
+		<save-on-shutdown><XDtClass:classTagValue tagName="resin:session-config" paramName="save-on-shutdown"/></save-on-shutdown>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="reuse-session-id">
+		<reuse-session-id><XDtClass:classTagValue tagName="resin:session-config" paramName="reuse-session-id"/></reuse-session-id>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="ignore-serialization-errors">
+		<ignore-serialization-errors><XDtClass:classTagValue tagName="resin:session-config" paramName="ignore-serialization-errors"/></ignore-serialization-errors>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="file-store">
+		<file-store>
+			<directory><XDtClass:classTagValue tagName="resin:session-config" paramName="file-store"/></directory>
+		</file-store>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:session-config" paramName="tcp-store">
+		<tcp-store/>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:jdbc-store">
+		<jdbc-store>
+			<data-source><XDtClass:classTagValue tagName="resin:jdbc-store" paramName="data-source"/></data-source>
+				<XDtClass:ifHasClassTag tagName="resin:jdbc-store" paramName="table-name">
+			<table-name><XDtClass:classTagValue tagName="resin:jdbc-store" paramName="table-name"/></table-name>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:jdbc-store" paramName="blob-type">
+			<blob-type><XDtClass:classTagValue tagName="resin:jdbc-store" paramName="blob-type"/></blob-type>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:jdbc-store" paramName="timestamp-type">
+			<timestamp-type><XDtClass:classTagValue tagName="resin:jdbc-store" paramName="timestamp-type"/></timestamp-type>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin:jdbc-store" paramName="session-timeout">
+			<session-timeout><XDtClass:classTagValue tagName="resin:jdbc-store" paramName="session-timeout"/></session-timeout>
+				</XDtClass:ifHasClassTag>
+		</jdbc-store>
+			</XDtClass:ifHasClassTag>
+	</session-config>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:ifHasClassTag tagName="resin:stderr-log">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<stderr-log
+		href="<XDtClass:classTagValue tagName="resin:stderr-log" paramName="href"/>"
+			<XDtClass:ifHasClassTag tagName="resin:stderr-log" paramName="rollover-period">
+		rollover-period="<XDtClass:classTagValue tagName="resin:stderr-log" paramName="rollover-period"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:stderr-log" paramName="rollover-size">
+		rollover-size="<XDtClass:classTagValue tagName="resin:stderr-log" paramName="rollover-size"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:stderr-log" paramName="timestamp">
+		timestamp="<XDtClass:classTagValue tagName="resin:stderr-log" paramName="timestamp"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:stderr-log" paramName="encoding">
+		encoding="<XDtClass:classTagValue tagName="resin:stderr-log" paramName="encoding"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:ifHasClassTag tagName="resin:stdout-log">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<stdout-log
+		href="<XDtClass:classTagValue tagName="resin:stdout-log" paramName="href"/>"
+			<XDtClass:ifHasClassTag tagName="resin:stdout-log" paramName="rollover-period">
+		rollover-period="<XDtClass:classTagValue tagName="resin:stdout-log" paramName="rollover-period"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:stdout-log" paramName="rollover-size">
+		rollover-size="<XDtClass:classTagValue tagName="resin:stdout-log" paramName="rollover-size"/>"
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin:stdout-log" paramName="timestamp">
+		timestamp="<XDtClass:classTagValue tagName="resin:stdout-log" paramName="timestamp"/>"
+			</XDtClass:ifHasClassTag>
+	/>
+		</XDtClass:ifHasClassTag>
+
+		<XDtClass:forAllClassTags tagName="resin:taglib">
+			<XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+	<XDtResin:sourceComment/>
+			</XDtConfig:ifConfigParamEquals>
+	<taglib>
+		<taglib-uri><XDtClass:classTagValue tagName="resin:taglib" paramName="taglib-uri"/></taglib-uri>
+		<taglib-location><XDtClass:classTagValue tagName="resin:taglib" paramName="taglib-location"/></taglib-location>
+	</taglib>
+		</XDtClass:forAllClassTags>
+	</XDtClass:forAllClasses>
+</XDtConfig:ifConfigParamEquals>
+
+<XDtConfig:ifConfigParamNotEquals paramName="searchForConfigElements" value="true">
+	<XDtConfig:ifConfigParamNotEquals paramName="Sessiontimeout" value="0">
+	<session-config>
+		<session-timeout><XDtConfig:configParameterValue paramName="Sessiontimeout"/></session-timeout>
+	</session-config>
+	</XDtConfig:ifConfigParamNotEquals>
+</XDtConfig:ifConfigParamNotEquals>
+</web-app>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"></meta>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>Địa điểm</title>
+
+	<!-- Bootstrap -->
+	<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" ></link>
+	<link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"></link>
+	<link href="../static/css/payment_style.css" th:href="@{/css/payment_style.css}" rel="stylesheet" ></link>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Logo</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Giới thiệu</a></li>
+					<li class="active"><a href="#">Địa điểm</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Đăng nhập</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Đăng ký <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Công ty lữ hành</a></li>
+							<li><a href="#">Hướng dẫn viên</a></li>
+
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+
+
+	<div id="content_payment">
+		<div class="container">
+			<h2>Thanh toán</h2>
+			<h3>1. Thông tin thanh toán</h3>
+			<div id="payment-detail">
+				<span>    Hướng dẫn viên: </span> <br></br>
+				<span>    Mã giao dịch: </span> <br></br>
+				<span>    Giá: </span> <br></br>
+				<span>    Mã Tour:</span>
+
+			</div>
+
+			<h3>2. Phương thức thanh toán</h3>
+			<div class="container">
+				<ul class="nav nav-tabs" id="payment-method-tab" >
+					<li class="active"><a href="#ATM" data-toggle="tab"><h4>Thẻ ATM nội địa</h4></a></li>
+					<li><a href="#VISA" data-toggle="tab"><h4>Thẻ VISA/MASTERCARD</h4></a></li>
+				</ul>
+			</div>
+			<!-- tab content -->
+			<div class="container">
+				<div class="tab-content">
+					<div class="tab-pane active" id="ATM">
+						<h4>Ngân Hàng</h4>
+					</div>
+					<div class="tab-pane" id="VISA">
+						<br></br>
+						<div class="row">
+							<div class="col-md-6 ">
+								<form action="" class="form-horizontal">
+									<div class="form-group">
+										<label>Số thẻ:</label>
+										<input type="number" name="" class="form-control" maxlength="16"></input>
+									</div>
+									<div class="form-group">
+										<label>Tên in trên thẻ:</label>
+										<input type="text" name="" class="form-control"></input>
+									</div>
+									<div class="form-group">
+										<label>Ngày hết hạn</label>
+										<input type="date" name="" class="form-control"></input>
+									</div>
+									<div class="form-group">
+										<label>Mã bảo mật</label>
+										<input type="number" name="" class="form-control"></input>
+									</div>
+									<button type="submit" class="btn btn-warning"> Thanh toán</button>
+								</form>
+
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+      <div class="row">
+        <div class="col-sm-4">
+          <ul class="nav nav-stacked">
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Liên Hệ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

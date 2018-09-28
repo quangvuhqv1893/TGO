@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- Portlet tags -->
+  <namespace>
+    <name>portlet</name>
+    <usage-description>Tags for creation of Portlet resources</usage-description>
+    <condition-description></condition-description>
+    <condition type="type">
+      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>portlet.portlet</name>
+        <usage-description>
+          Defines a portlet class.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>
+            The portlet's description. 
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>
+            The portlet's display-name. The display-name contains a short 
+            name that is intended to be displayed by tools. The display 
+            name need not be unique.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>expiration-cache</name>
+          <usage-description>
+            The time (in seconds) after which the portlet output expires. 
+			-1 indicates that the output never expires.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            The canonical name of the portlet. Must be unique within the
+            portlet application.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>portlet.portlet-info</name>
+        <usage-description>
+          Defines additional portlet information.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>title</name>
+          <usage-description>
+            Static title for the portlet.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>keywords</name>
+          <usage-description>
+            Comma-separate list of keywords associated with this portlet.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>short-title</name>
+          <usage-description>
+            Short version of the portlet's static title.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+
+      <tag>
+        <level>class</level>
+        <name>portlet.portlet-init-param</name>
+        <usage-description>
+          Defines a portlet initialization parameter.
+        </usage-description>
+        <unique>false</unique>        
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+            The init parameter's description.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            The name of the initialization parameter.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+            The value of the initialization parameter.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      
+      <tag>
+        <level>class</level>
+        <name>portlet.preference</name>
+        <usage-description>
+          Defines portlet preference. A preference is configuration
+          data for the portlet that the portlet user is allowed to set 
+          when customizing their portal.
+        </usage-description>
+        <unique>false</unique>        
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>read-only</name>
+          <usage-description>
+            If "true", the preference cannot be modified by the user.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            The name of the preference.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>
+            The initial value of the preference. This value can be overridden
+            when each user customizes their portlet.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>      
+      <tag>
+        <level>class</level>
+        <name>portlet.preferences-validator</name>
+        <usage-description>
+          Declares the portlet's preferences validator.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>class</name>
+          <usage-description>
+            The fully qualified class name of the preferences validator.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>portlet.security-role-ref</name>
+        <usage-description>
+          Declares a security role reference for the portlet.
+        </usage-description>
+        <unique>false</unique>           
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+            The description of the security role reference.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>role-link</name>
+          <usage-description>
+            The description of the security role reference.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>
+            The description of the security role reference.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>                
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>portlet.supports</name>
+        <usage-description>
+          Defines what portlet modes (edit,help,view) are supported for a particular mime-type.
+        </usage-description>
+        <unique>false</unique>           
+        <condition-description>Applicable to all portlets.</condition-description>
+	    <condition type="type">
+	      <condition-parameter>javax.portlet.GenericPortlet</condition-parameter>
+	    </condition>
+        <parameter type="text">
+          <name>mime-type</name>
+          <usage-description>
+            The mime-type for which mode-support is being defined.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>modes</name>
+          <usage-description>
+            A comma-separated list of modes supported by the specified mime-type.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

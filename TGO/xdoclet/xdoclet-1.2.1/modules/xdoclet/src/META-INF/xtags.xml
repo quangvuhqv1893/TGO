@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+    <!-- xdoclet tags -->
+    <namespace>
+        <name>xdoclet</name>
+        <usage-description>These tags are used to generate Xdoclet module's xdoclet.xml files
+        that is needed for a module to be slurped by xdoclet.</usage-description>
+        <condition-description>TagsHandler</condition-description>
+        <condition type="or">
+            <condition type="type">
+                <condition-parameter>xdoclet.template.TemplateTagHandler</condition-parameter>
+            </condition>
+        </condition>
+        <tags>
+            <tag>
+                <level>class</level>
+                <name>xdoclet.taghandler</name>
+                <usage-description>
+                    Class tag to put on Tags Handler classes
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>The class must be a TagHandler</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>xdoclet.template.TemplateTagHandler</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                  <name>namespace</name>
+                  <usage-description>
+                  <![CDATA[
+                  Define the namespace (without XDt) for the tags handler.  Example : PkTagsHandler have
+                  namespace="EjbPk" and the templates will look like <XDtEjbPk:xxx/>
+                  ]]>
+                  </usage-description>
+                  <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>xdoclet.merge-file</name>
+                <usage-description>
+                    Class tag to document a subtask's templates' merge points.
+                </usage-description>
+                <unique>false</unique>
+                <condition-description>The class must be a SubTask.</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>xdoclet.SubTask</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                  <name>file</name>
+                  <usage-description>
+                  <![CDATA[
+                  The filename pattern of the merge file.  This will either be a simple
+                  filename (e.g. assembly-descriptor.xml) or a filename pattern (e.g.
+                  ejb-env-entries-{0}.xml) and should match the "file" parameter of
+                  the <XDtMerge:merge/> template tag.
+                  ]]>
+                  </usage-description>
+                  <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                  <name>relates-to</name>
+                  <usage-description>
+                  <![CDATA[
+                  The generated file to which a given merge point relates.  Helps to
+                  clarify things if a given subtask generates a number of types of
+                  file (e.g. a deployment descriptor and a CMP mapping file)
+                  ]]>
+                  </usage-description>
+                  <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                  <name>description</name>
+                  <usage-description>
+                  <![CDATA[
+                  A description of what the merge point is used for, and what the
+                  merge file should contain.
+                  ]]>
+                  </usage-description>
+                  <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+        </tags>
+    </namespace>
+    <!-- doc tags -->
+    <namespace>
+        <name>doc</name>
+        <usage-description>These tags are used to generate the template tag documentation.</usage-description>
+        <condition-description>TagsHandler</condition-description>
+        <condition type="or">
+            <condition type="type">
+                <condition-parameter>xdoclet.template.TemplateTagHandler</condition-parameter>
+            </condition>
+        </condition>
+        <tags>
+            <tag>
+                <level>method</level>
+                <name>doc.tag</name>
+                <usage-description>
+                    Indicates that the method implements a template tag.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>The class must be a TagHandler</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>xdoclet.template.TemplateTagHandler</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>
+                        Specifies whether it is a content or block type tag.
+                    </usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>block</option>
+                                <option>content</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>doc.param</name>
+                <usage-description>
+                    Describes a parameter of the template tag.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>The class must be a TagHandler</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>xdoclet.template.TemplateTagHandler</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>name</name>
+                    <usage-description>
+                        The name of the parameter.
+                    </usage-description>
+                    <mandatory>false</mandatory>
+                    <default>true</default>
+                </parameter>
+                <parameter type="bool">
+                    <name>optional</name>
+                    <usage-description>
+                        Whether the parameter is optional.  Default is true.
+                    </usage-description>
+                    <mandatory>false</mandatory>
+                    <default>true</default>
+                </parameter>
+                <parameter type="text">
+                    <name>values</name>
+                    <usage-description>
+                        Comma-separated list of possible values the parameter can take.
+                    </usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>description</name>
+                    <usage-description>
+                        A description of the parameter.
+                    </usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+        </tags>
+    </namespace>
+	<namespace>
+		<name>msg</name>
+		<usage-description>
+			These tags are used to generate i18n message bundles
+		</usage-description>
+		<condition-description>
+			Applicable to all classes
+		</condition-description>
+		<condition type="or">
+			<condition type="class"/>
+			<condition type="and">
+				<condition type="field"/>
+				<condition type="final"/>
+				<condition type="static"/>
+				<!-- disable till we deicude how to change type codition evaluation -->
+				<!--
+				<condition type="or">
+					<condition type="type">
+						<condition-parameter>java.lang.String</condition-parameter>
+					</condition>
+					<condition type="type">
+						<condition-parameter>String</condition-parameter>
+					</condition>
+				</condition>
+				-->
+			</condition>
+		</condition>
+		<tags>
+			<tag>
+				<level>field</level>
+				<name>msg.message</name>
+				<usage-description>
+					Place this tag on static final string fields initialised with property key
+				</usage-description>
+				<unique>false</unique>
+				<condition-description>
+					final static string fields
+				</condition-description>
+				<condition type="and">
+					<condition type="field"/>
+					<condition type="static"/>
+					<condition type="final"/>
+				<!-- disable till we deicude how to change type codition evaluation -->
+				<!--
+					<condition type="or">
+						<condition type="type">
+							<condition-parameter>java.lang.String</condition-parameter>
+						</condition>
+						<condition type="type">
+							<condition-parameter>String</condition-parameter>
+						</condition>
+					</condition>
+				-->
+				</condition>
+				<parameter type="text">
+					<name>msg</name>
+					<usage-description>message itself</usage-description>
+					<mandatory>true</mandatory>
+				</parameter>
+				<parameter type="text">
+					<name>language</name>
+					<usage-description>Language code i.e &quot;de&quot;, &quot;en&quot;, &quot;fr&quot;</usage-description>
+					<mandatory>false</mandatory>
+				</parameter>
+				<parameter type="text">
+					<name>country</name>
+					<usage-description>Country code i.e. &quot;DE&quot;, &quot;US&quot;, &quot;UK&quot;</usage-description>
+					<mandatory>false</mandatory>
+				</parameter>
+				<parameter type="text">
+					<name>variant</name>
+					<usage-description>variant - have no example at this time. Somebody please provide it.</usage-description>
+					<mandatory>false</mandatory>
+				</parameter>
+			</tag>
+			<tag>
+				<level>class</level>
+				<name>msg.bundle</name>
+				<usage-description>
+					Use on class level to customize generation of message bundles
+					and translator classes.
+				</usage-description>
+				<unique>true</unique>
+				<condition-description>
+					Everywhere you like to generate accsessor class &amp; message bundles
+				</condition-description>
+				<condition type="class"/>
+			</tag>
+		</tags>
+	</namespace>
+</xdoclet>

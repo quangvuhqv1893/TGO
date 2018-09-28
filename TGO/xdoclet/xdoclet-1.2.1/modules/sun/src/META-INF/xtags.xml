@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+    <!-- Sun specific tags -->
+    <namespace>
+        <name>sunone</name>
+        <usage-description>Tags for creation of SunONE/iPlanet specific resources</usage-description>
+        <condition-description>all EJB types on class level</condition-description>
+        <condition type="and">
+            <condition type="class"/>
+            <condition type="or">
+                <condition type="type">
+                    <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                </condition>
+                <condition type="type">
+                    <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                </condition>
+                <condition type="type">
+                    <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                </condition>
+            </condition>
+        </condition>
+        <tags>
+            <tag>
+                <level>class</level>
+                <name>sunone.bean</name>
+                <usage-description>
+                All parameters of &lt;session-deployment/&gt;, &lt;entity-deployment/&gt; and
+                &lt;message-driven-deployment/&gt; are placed under this class level tag.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>all EJB types</condition-description>
+                <condition type="or">
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                    </condition>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>guid</name>
+                    <usage-description>
+                    A string that represent the guid of the Ejb in question
+                    </usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="int">
+                    <name>pass-timeout</name>
+                    <usage-description>Passivation timeout in seconds used by the container.
+                    This value can be changed during runtime by the Administration Tool.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>pass-by-value</name>
+                    <usage-description>Controls use of Pass by Value/Reference semantics
+                    for calls from an enterprise bean to remote interface methods in
+                    another EJB that is co-located within the same process.  If true,
+                    pass by value is used.  If false, pass by reference.  NB in version 7.0,
+                    Sun changed the relevant DD element to pass-by-reference, with the opposite
+                    meaning.  You should still use this tag in exactly the same way, the
+                    template takes account of the change.
+                    </usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="int">
+                    <name>session-timeout</name>
+                    <usage-description>The session timeout.  In seconds, according to the DTD;
+                    in minutes, according to Sun's online documentation...  NB According to the
+                    DTD it's mandatory for all session beans, but surely it's only relevant for
+                    stateful ones?
+                    </usage-description>
+                    <mandatory>true</mandatory>
+                    <condition-description>Only relevant for SessionBeans</condition-description>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                    </condition>
+                </parameter>
+                <parameter type="text">
+                    <name>transaction-manager-type</name>
+                    <usage-description>The transaction manager type for the component.  Only
+                    relevant to version 6.5.  Allowed values are 'local' and 'global'.</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                      <option-set>
+                      <default></default>
+                        <options>
+                          <option>local</option>
+                          <option>global</option>
+                        </options>
+                      </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="bool">
+                    <name>failover-required</name>
+                    <usage-description>This is a True or False value indicating whether
+                    failover is required</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>iiop</name>
+                    <usage-description>Optional element indicating if the bean is rich
+                    client enabled.  (true | false), default value is false</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>destination-name</name>
+                    <usage-description>Specifies the name of the Queue or the
+                    Topic a MDB listens to.</usage-description>
+                    <mandatory>true</mandatory>
+                    <condition-description>Only relevant for MessageDrivenBeans</condition-description>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </parameter>
+                <parameter type="int">
+                    <name>max-message-limit</name>
+                    <usage-description>The maximum number of messages to load into a JMS Session</usage-description>
+                    <mandatory>true</mandatory>
+                    <condition-description>Only relevant for MessageDrivenBeans</condition-description>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </parameter>
+                <parameter type="text">
+                    <name>durable-name</name>
+                    <usage-description>The durable name of the topic subscription</usage-description>
+                    <mandatory>false</mandatory>
+                    <condition-description>Only relevant for MessageDrivenBeans</condition-description>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </parameter>
+                <parameter type="int">
+                    <name>max-mdb-pool-size</name>
+                    <usage-description>The maximum size of the ServerSessionPool</usage-description>
+                    <mandatory>true</mandatory>
+                    <condition-description>Only relevant for MessageDrivenBeans</condition-description>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </parameter>
+                <parameter type="int">
+                    <name>min-mdb-pool-size</name>
+                    <usage-description>The minimum size of the ServerSessionPool</usage-description>
+                    <mandatory>true</mandatory>
+                    <condition-description>Only relevant for MessageDrivenBeans</condition-description>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </parameter>
+                <parameter type="text">
+                    <name>cmp-mapping-properties</name>
+                    <usage-description>Specifies the location of the persistence vendor's
+                    specific O/R database mapping file.</usage-description>
+                    <mandatory>true</mandatory>
+                    <condition-description>CMP entity bean</condition-description>
+                    <condition type="and">
+                        <condition type="class"/>
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                        </condition>
+                        <condition type="tag-param">
+                            <condition-parameter>ejb.bean</condition-parameter>
+                            <condition-parameter>type</condition-parameter>
+                            <condition-parameter>CMP</condition-parameter>
+                        </condition>
+                    </condition>
+                </parameter>
+                <parameter type="bool">
+                    <name>read-only</name>
+                    <usage-description>A flag specifying that this bean is a read-only bean.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                    <condition-description>BMP entity bean</condition-description>
+                    <condition type="and">
+                        <condition type="class"/>
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                        </condition>
+                        <condition type="tag-param">
+                            <condition-parameter>ejb.bean</condition-parameter>
+                            <condition-parameter>type</condition-parameter>
+                            <condition-parameter>BMP</condition-parameter>
+                        </condition>
+                    </condition>
+                </parameter>
+                <parameter type="int">
+                    <name>refresh-period</name>
+                    <usage-description>Specifies the rate at which a read-only-bean
+                    must be refreshed from the data source, in seconds. If this is
+                    less than or equal to zero, the bean is never refreshed; if
+                    greater than zero, the bean instances are refreshed at the
+                    specified interval. This rate is just a hint to the container.
+                    Default is 600.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>600</default>
+                    <condition-description>BMP entity bean</condition-description>
+                    <condition type="and">
+                        <condition type="class"/>
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                        </condition>
+                        <condition type="tag-param">
+                            <condition-parameter>ejb.bean</condition-parameter>
+                            <condition-parameter>type</condition-parameter>
+                            <condition-parameter>BMP</condition-parameter>
+                        </condition>
+                    </condition>
+                </parameter>
+                <parameter type="text">
+                    <name>commit-option</name>
+                    <usage-description>Optionally specifies the commit option that
+                    will be used on transaction completion. Valid values are B or
+                    C (commit option A is not supported for the Sun ONE Application
+                    Server 7 release). Default value is B.</usage-description>
+                    <mandatory>false</mandatory>
+                    <condition-description>BMP entity bean</condition-description>
+                    <condition type="and">
+                        <condition type="class"/>
+                        <condition type="type">
+                            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                        </condition>
+                        <condition type="tag-param">
+                            <condition-parameter>ejb.bean</condition-parameter>
+                            <condition-parameter>type</condition-parameter>
+                            <condition-parameter>BMP</condition-parameter>
+                        </condition>
+                    </condition>
+                    <option-sets>
+                      <option-set>
+                      <default>B</default>
+                        <options>
+                          <option>B</option>
+                          <option>C</option>
+                        </options>
+                      </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>sunone.finder</name>
+                <usage-description>Describes the finders for container-managed
+                persistence (CMP) 1.1 with a method name and query.</usage-description>
+                <unique>true</unique>
+                <condition-description>CMP 1.1 entity bean</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                    <condition type="tag-param">
+                        <condition-parameter>ejb.bean</condition-parameter>
+                        <condition-parameter>type</condition-parameter>
+                        <condition-parameter>CMP</condition-parameter>
+                    </condition>
+                    <condition type="tag-param">
+                        <condition-parameter>ejb.bean</condition-parameter>
+                        <condition-parameter>cmp-version</condition-parameter>
+                        <condition-parameter>1.x</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>method-name</name>
+                    <usage-description>Specifies the method name for the query
+                    field.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>query-params</name>
+                    <usage-description>Optional data that specifies the query
+                    parameters for the finder</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>query-filter</name>
+                    <usage-description>Specifies the query filter for the CMP 1.1
+                    finder. Optional.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>query-variables</name>
+                    <usage-description>Optional data that specifies variables in
+                    query expression for the CMP 1.1 finder.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>sunone.persistence-manager</name>
+                <usage-description>
+                defines all the persistence manager specific information
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>Used in Entity beans.</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>factory-class-name</name>
+                    <usage-description>Factory class used to create new instances
+                    of a persistence manager</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>properties-file-location</name>
+                    <usage-description>Location in jar file of properties file,
+                    relative to the META-INF/ of the jar</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>sunone.pool-manager</name>
+                <usage-description>
+                Descriptor for cache pool attributes.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>
+                Used in Entity beans.
+                </condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>commit-option</name>
+                    <usage-description>A string field whose valid values are either COMMIT_OPTION_C, or 
+                    COMMIT_OPTION_B. Default is the COMMIT_OPTION_C value.</usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                      <option-set>
+                      <default>COMMIT_OPTION_C</default>
+                        <options>
+                          <option>COMMIT_OPTION_B</option>
+                          <option>COMMIT_OPTION_C</option>
+                        </options>
+                      </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="int">
+                    <name>ready-pool-timeout</name>
+                    <usage-description>ready pool timeout used by the container. An integer in seconds.  
+                    Default is 0 (infinite) This value can be changed during runtime by the Administration Tool.</usage-description>
+                    <mandatory>true</mandatory>
+                    <default>0</default>
+                </parameter>
+                <parameter type="int">
+                    <name>ready-pool-maxsize</name>
+                    <usage-description>maxsize of the ready cache (in number of entries). An integer that 
+                    defaults to 0. This value can be changed during runtime by the Administration Tool.</usage-description>
+                    <mandatory>true</mandatory>
+                    <default>0</default>
+                </parameter>
+                <parameter type="int">
+                    <name>free-pool-maxsize</name>
+                    <usage-description>maxsize of the instance free pool (in number of entries). An integer that 
+                    defaults to 0. This value can be changed during runtime by the Administration Tool.</usage-description>
+                    <mandatory>true</mandatory>
+                    <default>0</default>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>sunone.bean-pool</name>
+                <usage-description>
+                Specifies the pool properties of stateless session beans, entity beans, and message-driven bean.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>all EJB types (doesn't actually apply to SFSB, but the
+                template will ignore it for those)</condition-description>
+                <condition type="or">
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                    </condition>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="int">
+                    <name>steady-pool-size</name>
+                    <usage-description>Specifies the initial and minimum number of
+                    beans maintained in the pool. Default is 32.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>32</default>
+                </parameter>
+                <parameter type="int">
+                    <name>resize-quantity</name>
+                    <usage-description>Specifies the number of beans to be created
+                    if the pool is empty (subject to the max-pool-size limit). Values
+                    are from 0 to MAX_INTEGER.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="int">
+                    <name>max-pool-size</name>
+                    <usage-description>Specifies the maximum number of beans in the
+                    pool. Values are from 0 to MAX_INTEGER. Default is to server.xml
+                    or 60.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="int">
+                    <name>pool-idle-timeout</name>
+                    <usage-description>Specifies the maximum time in seconds that a
+                    bean is allowed to be idle in the pool. After this time, the bean
+                    is removed. This is a hint to the server. Default time is 600
+                    seconds (10 minutes).</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>600</default>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>sunone.bean-cache</name>
+                <usage-description>
+                Specifies the entity bean cache properties. Used for entity beans and stateful session beans.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>all EJB types (doesn't actually apply to SFSB and MDB, but the
+                template will ignore it for those)</condition-description>
+                <condition type="or">
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+                    </condition>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="int">
+                    <name>max-cache-size</name>
+                    <usage-description> Optionally specifies the maximum number of
+                    beans allowable in cache. A value of zero indicates an unbounded
+                    cache. In reality, there is no hard limit. The max-cache-size limit
+                    is just a hint to the cache implementation. Default is 512.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>512</default>
+                </parameter>
+                <parameter type="int">
+                    <name>cache-idle-timeout</name>
+                    <usage-description>Optionally specifies the maximum time in seconds
+                    that a bean can remain idle in the cache. After this amount of time,
+                    the container can passivate this bean. A value of 0 specifies that
+                    beans may never become candidates for passivation. Default is 600.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>600</default>
+                </parameter>
+                <parameter type="int">
+                    <name>removal-timeout</name>
+                    <usage-description>Optionally specifies the amount of time in
+                    seconds a bean instance can remain idle in the container before
+                    it is removed (timeout). A value of 0 specifies that the container
+                    does not remove inactive beans automatically. The default value is
+                    5400. If removal-timeout is less than or equal to cache-idle-timeout,
+                    beans are removed immediately without being passivated.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>5400</default>
+                </parameter>
+                <parameter type="text">
+                    <name>victim-selection-policy</name>
+                    <usage-description>Optionally specifies how stateful session beans
+                    are selected for passivation. Possible values are First In, First
+                    Out (FIFO), Least Recently Used (LRU), Not Recently Used (NRU). The
+                    default value is NRU, which is actually pseudo-LRU.</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                      <option-set>
+                      <default>NRU</default>
+                        <options>
+                          <option>FIFO</option>
+                          <option>LRU</option>
+                          <option>NRU</option>
+                        </options>
+                      </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>sunone.fetched-with</name>
+                <usage-description>
+                Specifies the fetch group configuration for fields and relationships. Optional.
+                A field may participate in a hierarchical or independent fetch group. If the 
+                fetched-with element is not present, the value "none" assumed.  Only one of
+                the parameters should be specified.
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>
+                EJB entity bean fields. On the persistent fields getter methods
+                </condition-description>
+                <condition type="and">
+                    <condition type="method"/>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                    <condition type="owner">
+                        <condition type="tag-param">
+                            <condition-parameter>ejb.bean</condition-parameter>
+                            <condition-parameter>type</condition-parameter>
+                            <condition-parameter>CMP</condition-parameter>
+                        </condition>
+                    </condition>
+                    <condition type="public"/>
+                    <condition type="abstract"/>
+                    <condition type="or">
+                        <condition type="starts-with">
+                            <condition-parameter>get</condition-parameter>
+                        </condition>
+                        <condition type="starts-with">
+                            <condition-parameter>is</condition-parameter>
+                        </condition>
+                    </condition>
+                </condition>
+                <parameter type="int">
+                    <name>level</name>
+                    <usage-description>Specifies a hierarchical fetch group. The value
+                    must be an integer. Fields and relationships that belong to a
+                    hierarchical fetch group of equal or lesser value are fetched at the
+                    same time. The value of level must be greater than zero.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>named-group</name>
+                    <usage-description>Specifies the name of an independent fetch group.
+                    All the fields and relationships that are part of a named group are
+                    fetched at the same time.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>none</name>
+                    <usage-description>A value of "true" indicates that this field or
+                    relationship is fetched by itself.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>sunone.relation</name>
+                <usage-description>
+                Specifies the column pairs in the mapping of a relation.  Must occur at
+                least once, though may occur multiple times, once for each column pair.
+                </usage-description>
+                <unique>false</unique>
+                <condition-description>
+                EJB entity bean fields. On the relation fields getter methods
+                </condition-description>
+                <condition type="and">
+                    <condition type="method"/>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                    <condition type="owner">
+                        <condition type="tag-param">
+                            <condition-parameter>ejb.bean</condition-parameter>
+                            <condition-parameter>type</condition-parameter>
+                            <condition-parameter>CMP</condition-parameter>
+                        </condition>
+                    </condition>
+                    <condition type="public"/>
+                    <condition type="abstract"/>
+                    <condition type="or">
+                        <condition type="starts-with">
+                            <condition-parameter>get</condition-parameter>
+                        </condition>
+                        <condition type="starts-with">
+                            <condition-parameter>is</condition-parameter>
+                        </condition>
+                    </condition>
+                </condition>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>TABLE.COLUMN for this end of the relation.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>target</name>
+                    <usage-description>TABLE.COLUMN for the target end of the relation.</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>sunone.consistency</name>
+                <usage-description> Specifies container behavior in guaranteeing
+                transactional consistency of the data in the bean.  Optional.  Any
+                one of the parameters may be used alone, or lock-when-modified and
+                check-all-at-commit may also be used together.  If not present,
+                none is assumed.</usage-description>
+                <unique>true</unique>
+                <condition-description>entity bean</condition-description>
+                <condition type="and">
+                    <condition type="class"/>
+                    <condition type="type">
+                        <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+                    </condition>
+                </condition>
+                <parameter type="bool">
+                    <name>none</name>
+                    <usage-description>No consistency checking occurs.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>check-modified-at-commit</name>
+                    <usage-description>This flag is not implemented for Sun ONE Application Server 7.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>check-all-at-commit</name>
+                    <usage-description>Checks modified instances at commit time.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>lock-when-modified</name>
+                    <usage-description>This flag is not implemented for Sun ONE Application Server 7.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>lock-when-loaded</name>
+                    <usage-description>An exclusive lock is obtained when the data is loaded.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+        </tags>
+    </namespace>
+</xdoclet>

@@ -1,0 +1,213 @@
+<html>
+<head>
+<title>XDoclet - Castor</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>&lt;castormapping&gt; subtask</h2>
+
+<h3>Castor</h3>
+
+<p>The castormapping subtask produces a <i>mapping.xml</i> file for use by castor. It is a subtask of the
+<a href="ejbdoclet.html">ejbdoclet</a> task.</p>
+
+<h4>Parameters</h4>
+
+<table border="1" cellpadding="7" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">destdir</td>
+    <td valign="top">Base destination directory for the generated
+	source code.</td>
+    <td valign="top">No, default is destdir parameter of ejbdoclet task</td>
+  </tr>
+  <tr>
+    <td valign="top">validateXml</td>
+    <td valign="top">Validates the generated xml file according to the DTD file 
+    contained inside xdoclet.jar.</td>
+    <td valign="top">No, default is false</td>
+  </tr>
+</table>
+
+<h3><a name="class-level-tags">Class level Tags</a></h3>
+
+<h4><a name="class">@castor:class</a></h4>
+
+<p>Defines the class and its attributes.</p>
+
+<p>For full coverage of the mapping options, please refer to the
+<a href="http://castor.exolab.org/xml-mapping.html">Castor Mapping documentation</a>.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[table]</i>: String</td>
+    <td>The name of the table in the database that the class is mapped to.</td>
+  </tr>
+  <tr>
+    <td><i>[id]</i>: String</td>
+    <td>The fields that form the class's primary key.</td>
+  </tr>
+  <tr>
+    <td><i>[access]</i>: &quot;read-only&quot; |
+                         &quot;shared&quot; |
+                         &quot;exclusive&quot; |
+                         &quot;db-locked&quot;</td>
+    <td>Define the access to the class.</td>
+  </tr>
+  <tr>
+    <td><i>[depends]</i>: String</td>
+    <td>The name of the class this class depends on.</td>
+  </tr>
+  <tr>
+    <td><i>[extends]</i>: String</td>
+    <td>Should be used <b>only</b> if this class extends another class for which mapping information
+    is provided. It should <b>not</b> be used if the extended class is not used in the mapping file.</td>
+  </tr>
+  <tr>
+    <td><i>[key-generator]</i>: String</td>
+    <td>The key-generator strategy to be used by Castor.</td>
+  </tr>
+  <tr>
+    <td><i>[auto-complete]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>If <i>true</i>, the class will be introspected to determine its field and the fields
+    specified in the mapping file will be used to overide the field found during the introspection.</td>
+  </tr>
+</table>
+
+<h3>Method level tags</h3>
+
+<h4><A NAME="field">@castor:field</A></h4>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[type]</i>: String</td>
+    <td>The Java type of the field. It is used to access the field. Castor will use this information
+    to cast the XML information (like string into integer). It is also used to define the signature
+    of the accessors method. If a collection is specified, this is used to specify the type of the
+    object inside the collection.<br />
+    If <i>type</i> is not specified it defaults to the return type of the method.<br />
+    <b>WARNING:</b> You need to specify the <i>type</i> explicitly if the return type is an 'int'
+    (specify the value 'integer') or if the return type is an array (specify the type without brackets).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[required]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Flag to indicate if the field is compulsory.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[direct]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Flag to indicate if the field should be accessed directly rather
+        than using getter / setter methods.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[lazy]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Flag to indicate if the field loaded lazily.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[transient]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Flag to indicate if the field should be ignored during marshalling -
+        usefull when used with the <i>auto-complete</i> option of <i>@castor:class</i>.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[set-method]</i>: String</td>
+    <td>The method used to set the property value.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[create-method]</i>: String</td>
+    <td>The factory method for instantiation of FieldHandler.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[collection]</i>: &quot;array&quot; |
+                             &quot;vector&quot; |
+                             &quot;hashtable&quot; |
+                             &quot;collection&quot; |
+                             &quot;set&quot; |
+                             &quot;map&quot;</td>
+    <td>The type of the collection the field is.</td>
+  </tr>
+</table>
+
+<h4><A NAME="field-sql">@castor:field-sql</A></h4>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+    <td>The column name the field is mapped to.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[type]</i>: String</td>
+    <td>The SQL type of the field.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[many-key]</i>: String</td>
+    <td>The many key of the field.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[many-table]</i>: String</td>
+    <td>The many table of the field.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[dirty]</i>: &quot;true&quot; |
+                        &quot;false&quot;</td>
+    <td>Flag to indicate if the field is checked for dirty status or not.</td>
+  </tr>
+</table>
+
+<h4><A NAME="field-xml">@castor:field-xml</A></h4>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+    <td>The name of the element or attribute.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[type]</i>: String</td>
+    <td>XML Schema type (of the value of this field) that requires specific handling
+    in the Castor Marshalling Framework (such as 'QName' for instance).</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[matches]</i>: String</td>
+    <td>Allows overriding the matches rules for the name of the element.
+    It is a standard regular expression and will be used instead of the 'name' field.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[QName-prefix]</i>: String</td>
+    <td>When using a QName value, you can provide a default prefix that is used when
+    marshalling value of type QName.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[reference]</i>: &quot;true&quot; | &quot;false&quot;</td>
+    <td>Indicates if this field has to be treated as a reference by the unmarshaller.
+    In order to work properly, you must specify the <i>node</i> type to 'attribute' for both
+    the 'id' and the 'reference' fields.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[node]</i>: &quot;element&quot; |
+                       &quot;attribute&quot; |
+                       &quot;text&quot;</td>
+    <td>Indicates if the name corresponds to an attribute, an element, or text content. By default,
+    primitive types are assumed to be an attribute otherwise the node is assumed to be an element.</td>
+  </tr>
+</table>
+
+</body>
+</html>

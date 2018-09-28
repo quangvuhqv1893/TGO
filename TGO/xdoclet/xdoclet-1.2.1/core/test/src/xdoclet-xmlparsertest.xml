@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+<!DOCTYPE xdoclet-module PUBLIC "-//XDoclet Team//DTD XDoclet Module 1.0//EN" "http://xdoclet.sourceforge.net/dtd/xdoclet-module_1_0.dtd">
+-->
+
+<xdoclet-module>
+    <!--
+    xdoclet.modules.bea.wls.ejb.WebLogicSubTask
+    xdoclet.modules.bea.wls.ejb.WeblogicRelationTagsHandler
+    xdoclet.modules.bea.wls.web.WeblogicWebXmlSubTask
+    -->
+
+    <taghandler
+        namespace="WlEjbRel"
+        class="xdoclet.modules.bea.wls.ejb.WeblogicRelationTagsHandler"
+    />
+
+    <subtask
+        name="weblogic"
+        implementation-class="xdoclet.modules.bea.wls.ejb.WebLogicSubTask"
+        parent-task-class="xdoclet.modules.ejb.EjbDocletTask"
+    />
+    <subtask
+        name="weblogicwebxml"
+        implementation-class="xdoclet.modules.bea.wls.web.WeblogicWebXmlSubTask"
+        parent-task-class="xdoclet.modules.web.WebDocletTask"
+    />
+</xdoclet-module>

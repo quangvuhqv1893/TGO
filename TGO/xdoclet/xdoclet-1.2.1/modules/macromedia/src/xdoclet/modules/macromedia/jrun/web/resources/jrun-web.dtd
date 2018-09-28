@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!--
+    The jrun-web-app element is the root element of the JRun Web
+    Application deployment descriptor.  It contains additional
+    information used by JRun, but not specified in web.xml.
+-->
+<!ELEMENT jrun-web-app (context-root?, reload?, compile?, load-system-classes-first?,
+                        session-config?, ejb-ref*, ejb-local-ref*, resource-env-ref*,
+			resource-ref*, virtual-mapping*)>
+
+<!-- The context-root element specifies the context root of the web application.
+     If the web application is within an ear, the context-root element in application.xml
+     should be used instead.
+     The context-root defaults to the name of the directory or jar that the webapp
+     is contained in.
+      
+     Used in: jrun-web-app
+     -->
+<!ELEMENT context-root (#PCDATA)>
+
+<!-- The reload element specifies whether to automatically reload servlets, servlet
+     helper classes, and jsp helper classes.  Defaults to false.
+      
+     Used in: jrun-web-app
+     -->
+<!ELEMENT reload (#PCDATA)>
+
+<!-- The compile element specifies whether to automatically compile servlets,
+     servlet helper classes, and jsp helper classes.  p
+     This will degrade performance
+     Defaults to false.
+      
+     Used in: jrun-web-app     
+     -->
+<!ELEMENT compile (#PCDATA)>
+
+<!-- The load-system-classes-first element specifies whether system classes should
+     be loaded before enterprise and web application classes.  The normal classloader
+     delegation model is to load the system classes first, however the servlet
+     specification suggests to load webapp classes first.  Defaults to true.
+      
+     Used in: jrun-web-app
+     -->
+<!ELEMENT load-system-classes-first (#PCDATA)>
+
+<!-- Doc here
+
+     Used in: jrun-web-app
+-->
+<!ELEMENT session-config (persistence-config?, cookie-config?)>
+
+<!-- Doc here
+
+     Used in: session-config
+-->
+<!ELEMENT persistence-config (active?, persistence-type?, persistence-class?,
+                              persistence-synchronized?, class-change-option?,
+			      session-swapping?, session-swap-interval?,
+			      session-max-resident?, init-param*)>
+
+<!-- Indicates whether the given feature should be enabled.  Defaults to true for
+     both persistence-config and cookie-config
+      
+     Used in: persistence-config, cookie-config
+-->			  
+<!ELEMENT active (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT persistence-type (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT persistence-class (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT persistence-synchronized (#PCDATA)>
+
+<!--
+    Doc here
+    Valid values are reload, drop, ignore.
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT class-change-option (#PCDATA)>
+
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT session-swapping (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT session-swap-interval (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT session-max-resident (#PCDATA)>
+
+
+<!--
+    Doc here
+      
+    Used in: persistence-config
+-->			  
+<!ELEMENT init-param (param-name, param-value)>
+
+<!--
+    Doc here
+      
+    Used in: init-param
+-->			  
+<!ELEMENT param-name (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: init-param
+-->			  
+<!ELEMENT param-value (#PCDATA)>
+
+<!--
+    Doc here
+      
+    Used in: session-config   
+-->			  
+<!ELEMENT cookie-config (active?, cookie-max-age?, cookie-secure?, cookie-domain?,
+                         cookie-comment?, cookie-path?, cookie-name?)>
+			 
+<!-- Sets the maximum age of the cookie in seconds. A positive value indicates
+     that the cookie will expire after that many seconds have passed. Note that
+     the value is the maximum age when the cookie will expire, not the cookie's
+     current age. A negative value means that the cookie is not stored
+     persistently and will be deleted when the Web browser exits. A zero value
+     causes the cookie to be deleted. The default is -1.
+      
+     Used in: cookie-config
+-->			  
+<!ELEMENT cookie-max-age (#PCDATA)>
+
+<!-- Indicates to the browser whether the cookie should only be sent using a
+     secure protocol, such as HTTPS or SSL. The default value is false.
+      
+     Used in: cookie-config   
+-->			  
+<!ELEMENT cookie-secure (#PCDATA)>
+
+<!-- Sets the domain within which this cookie should be presented.
+     The form of the domain name is specified by RFC 2109. A domain name
+     begins with a dot (.foo.com) and means that the cookie is visible
+     to servers in a specified Domain Name System (DNS) zone (for example,
+     www.foo.com, but not a.b.foo.com). By default, cookies are only
+     returned to the server that sent them.
+      
+     Used in: cookie-config   
+-->			  
+<!ELEMENT cookie-domain (#PCDATA)>
+
+<!-- Specifies a comment that describes a cookie's purpose. The comment is useful
+     if the browser presents the cookie to the user. Comments are not supported
+     by Netscape Version 0 cookies.
+      
+     Used in: cookie-config   
+-->			  
+<!ELEMENT cookie-comment (#PCDATA)>
+
+<!-- Sets a path for the cookie to which the client should return the cookie.
+     The cookie is visible to all the pages in the directory you specify, and
+     all the pages in that directory's subdirectories. A cookie's path must
+     include the servlet that set the cookie, for example, /catalog, which makes
+     the cookie visible to all directories on the server under /catalog. The default
+     is "/".
+      
+     Used in: cookie-config   
+-->			  
+<!ELEMENT cookie-path (#PCDATA)>
+
+<!-- Sets the session cookie name. The name must conform to RFC 2109. That means
+     it can contain only ASCII alphanumeric characters and cannot contain commas,
+     semicolons, or white space or begin with a $ character. The default
+     is "jrunsessionid".
+      
+    Used in: cookie-config   
+-->			  
+<!ELEMENT cookie-name (#PCDATA)>
+
+<!-- 
+    The ejb ref element describes a mapping between the ejb ref name,
+    provided by the Bean Developer and its jndi name.  The actual JNDI
+    name is supplied by the Deployer.
+      
+    Used in: jrun-web-app
+-->
+<!ELEMENT ejb-ref (ejb-ref-name, jndi-name)>
+
+<!-- 
+    The ejb-ref-name element gives the name of an EJB from the web app
+    context.  It is provided by the Bean Developer.
+        
+    Used in: ejb-ref, ejb-local-ref
+-->
+<!ELEMENT ejb-ref-name (#PCDATA)>
+
+<!-- 
+    The ejb local ref element describes a mapping between the ejb ref name,
+    provided by the Bean Developer and its jndi name.  The actual JNDI
+    name is supplied by the Deployer.
+      
+    Used in: jrun-web-app
+-->
+<!ELEMENT ejb-local-ref (ejb-ref-name, jndi-name)>
+
+<!-- 
+    The resource ref element describes a mapping between the resource
+    name, provided by the Bean Developer and its jndi name.  The actual
+    JNDI name is supplied by the Deployer.
+      
+    Used in: jrun-web-app
+-->
+<!ELEMENT resource-ref (res-ref-name, jndi-name, user?, password?)>
+
+<!-- 
+    The res-ref-name element gives the name of a resource from EJB
+    view. It is provided by the Bean Developer.
+        
+    Used in: resource-ref
+-->
+<!ELEMENT res-ref-name (#PCDATA)>
+
+<!-- 
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+      
+    Used in: resource-ref, resource-env-ref
+-->
+<!ELEMENT jndi-name (#PCDATA)>
+
+<!--  
+    The user element assigns user identity to be used with a specified
+    resource.
+    -->
+<!ELEMENT user (#PCDATA)>
+
+<!--  
+    The password element provides user credentials to be used along
+    with user element to identify and authenticate specified resource.
+-->
+<!ELEMENT password (#PCDATA)>
+
+<!-- 
+    The resource env ref element describes a mapping between the resource env
+    name, provided by the Bean Developer and it's JNDI name, the actual
+    JNDI name, it is supplied by the Deployer.
+      
+    Used in: session, entity, message-driven
+-->
+<!ELEMENT resource-env-ref (resource-env-ref-name, jndi-name)>
+
+<!-- 
+    The resource env ref name element gives the name of a resource env
+    from EJB view. It is provided by the Bean Developer.
+        
+    Used in: resource-env-ref
+-->
+<!ELEMENT resource-env-ref-name (#PCDATA)>
+
+<!--
+    The virtual-mapping element allows a virtual path to be mapped
+    to a system directory
+
+    Used in: jrun-web-app
+-->
+<!ELEMENT virtual-mapping (resource-path, system-path)>
+
+<!--
+    A resource-path specifies a relative resource path. This may
+    include a global path '*' or a path that ends with a wildcard
+    '*'.
+
+    Used in: virtual-mapping
+-->
+<!ELEMENT resource-path (#PCDATA)>
+
+<!--
+    A system-path specifies an absolute system path.
+
+    Used in: virtual-mapping
+-->
+<!ELEMENT system-path (#PCDATA)>
+
+

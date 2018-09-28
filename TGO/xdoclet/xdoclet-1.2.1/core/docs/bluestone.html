@@ -1,0 +1,256 @@
+<html>
+<head>
+<title>XDoclet - Bluestone</title>
+</head>
+<body>
+
+<h2>&lt;bluestone/&gt; subtask</h2>
+
+<h3><a name="bluestone">Bluestone</a></h3>
+
+<p>Creates HPAS-specific deployment descriptors (hp-ejb-jar.xml)
+for EJB beans.</p>
+
+<h4>Parameters</h4>
+<table border="1" cellpadding="2" cellspacing="0" width="100%">
+<tr>
+  <td width="12%" valign="top"><b>Attribute</b></td>
+  <td width="78%" valign="top"><b>Description</b></td>
+  <td width="10%" valign="top"><b>Required</b></td>
+</tr>
+<tr>
+    <td valign="top">xmlencoding</td>
+    <td valign="top">The encoding of the hp-ejb-jar.xml file.</td>
+    <td align="center" valign="top">No, default is &quot;UTF-8&quot;</td>
+</tr>
+  <tr>
+    <td valign="top">destdir</td>
+    <td valign="top">Destination directory for output Bluestone-specific
+      deployment descriptor files.</td>
+    <td align="center" valign="top">No, default is destdir parameter of
+      ejbdoclet task</td>
+  </tr>
+<tr>
+    <td valign="top">mergedir</td>
+    <td valign="top">Merge directory where ejbdoclet looks for files to be
+      merged with generated files.</td>
+    <td align="center" valign="top">No, required, if the merge feature used</td>
+</tr>
+<tr>
+    <td valign="top">validateXml</td>
+    <td valign="top">Validates the generated xml file according to the DTD file 
+    contained inside xdoclet.jar.</td>
+    <td align="center" valign="top">No, default is false</td>
+</tr>
+<tr>
+    <td valign="top">sfsbPassivationRoot</td>
+    <td valign="top">This attribute is the path to a local directory indicating where the container should passivate Stateful Session Bean instances.</td>
+    <td align="center" valign="top">No, only if @bluestone:bean passivation="true"
+      used on a stateful session bean.  Default is ""</td>
+</tr>
+<tr>
+    <td valign="top">persistenceProduct</td>
+    <td valign="top">Only applies when using CMP.  This attribute specifies the
+      name of a third party persistence manager product.</td>
+    <td align="center" valign="top">No, default is "VXML"</td>
+</tr>
+<tr>
+    <td valign="top">persistenceVersion</td>
+    <td valign="top">Only applies when using CMP.  This attribute specifies the
+      version of the third party product.</td>
+    <td align="center" valign="top">No, default is ""</td>
+</tr>
+<tr>
+    <td valign="top">persistenceClass</td>
+    <td valign="top">Only applies when using CMP.  This attribute specifies the
+      class that implements the persistence manager interface.</td>
+    <td align="center" valign="top">No, default is
+      com.hp.mwlabs.j2ee.containers.ejb.persistence.vxml.CMPPersistenceManager</td>
+</tr>
+<tr>
+    <td valign="top">persistenceSuffix</td>
+    <td valign="top">Only applies when using CMP.  This attribute specifies a
+      suffix to be appended to the abstract bean class name to obtain the generated
+      bean class name.</td>
+    <td align="center" valign="top">No, default is ""</td>
+</tr>
+</table>
+
+
+<h4>Merge Points</h4>
+<div align="left">
+  <table border="1" width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+      <td width="20%" align="left"><b>Merge File Name</b></td>
+      <td align="left"><b>Description</b></td>
+      <td valign="top"><b>Required</b></td>
+    </tr>
+    <tr>
+      <td colspan=3>None at present (TODO).</td>
+    </tr>
+  </table>
+</div>
+
+<h3><a name="class-level-tags">Class level Tags</a></h3>
+
+<h4><a name="bean">@bluestone:bean</a></h4>
+
+<p>Most of the class-level Bluestone options are specified in parameters of this
+tag.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>[read-only]</i>: Boolean</td>
+    <td>Optional.  Specifies whether the bean is marked as read only.
+      Applicable only to entity beans.</td>
+  </tr>
+  <tr>
+    <td><i>[passivation]</i>: Boolean</td>
+    <td>Determines whether the container can manage the passivation behaviour
+      of beans; indicates whether passivation is enabled for the bean.
+      Applicable to stateful session beans and entity beans.  For stateful
+      session beans, if this parameter is used then the passivate-threshold
+      parameter must also be present.</td>
+  </tr>
+  <tr>
+    <td><i>[passivate-threshold]</i>: Integer</td>
+    <td>Specifies the number of beans for a deployed EJB above which the container
+      will attempt to passivate instances. Applicable to stateful session beans
+      only, when the passivation parameter has been used.</td>
+  </tr>
+  <tr>
+    <td><i>[session-timeout]</i>: duration</td>
+    <td>Indicates the timeout for the session.</td>
+  </tr>
+  <tr>
+    <td><i>[concurrent-message-processing]</i>: Boolean</td>
+    <td>Specifies whether concurrent message processing is enabled.  Applicable
+      to message driven beans only.</td>
+  </tr>
+  <tr>
+    <td><i>[max-messages]</i>: Integer</td>
+    <td>Specifies the maximum number of messages assigned to a single session.
+      This value is passed to the JMS server.  Applicable to message driven
+      beans only.</td>
+  </tr>
+  <tr>
+    <td><i>[max-message-threads]</i>: Integer</td>
+    <td>Specifies the maximum number of separate server sessions (threads) that
+      will be created to handle messages.  Applicable to message driven
+      beans only.</td>
+  </tr>
+  <tr>
+    <td><i>[message-thread-timeout]</i>: duration</td>
+    <td>Specifies the amount of time after which an idle server session will be
+      available to be removed from the pool.  Applicable to message driven
+      beans only.</td>
+  </tr>
+  <tr>
+    <td><i>[connection-retry]</i>: Boolean</td>
+    <td>Specifies whether an exception listener is registered for the connection.
+      If no exception listener is established, there will be no connection
+      failover.  Applicable to message driven beans only.</td>
+  </tr>
+  <tr>
+    <td><i>[jndi-factory]</i>: String</td>
+    <td>Specifies the lookup string used to obtain the factory that will be
+      used to create the connection used by the MDB.  Applicable to message
+      driven beans.</td>
+  </tr>
+  <tr>
+    <td><i>[jndi-destination]</i>: String</td>
+    <td>Specifies the lookup string for the destination topic or queue for
+      which the bean is registered as a listener.  Applicable to message driven
+      beans.</td>
+  </tr>
+</table>
+
+<h4><a name="pool">@bluestone:pool</a></h4>
+
+<p>Contains the information required to setup an object pool.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>initial-size</i>: Integer</td>
+    <td>Specifies the initial size of the pool.</td>
+  </tr>
+  <tr>
+    <td><i>cache-limit</i>: Integer or "unlimited"</td>
+    <td>Specifies the maximum size of the pool.  When the cache-limit is reached,
+      pooled entries that are returned to the pool will be discarded; if the
+      cache-limit is reached, new objects may still be created.</td>
+  </tr>
+  <tr>
+    <td><i>idle-timeout</i>: duration</td>
+    <td>Specifies the idle timeout for the pool.</td>
+  </tr>
+    <td><i>use-reaper</i>: Boolean</td>
+    <td>Specifies whether the pool should enforce the cache-limit.  The reaper
+      can be disabled to optimize pool performance.</td>
+  </tr>
+  <tr>
+    <td><i>reap-asynch</i>: Boolean</td>
+    <td>Specifies whether pool reaping should occur asynchronously with respect
+      to inserting or removing objects from the pool.  Setting this to true makes
+      pool accesses faster but consumes more system resources.</td>
+  </tr>
+</table>
+
+<h4><a name="ejb-ref">@bluestone:ejb-ref</a></h4>
+
+<p>A mapping of EJB references to deployed beans.</p>
+<p>NB This is likely to be refactored in the future, to use extra parameters
+on the @ejb:ejb-ref and @ejb:ejb-external-ref tags instead of the
+@bluestone:ejb-ref tag.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr>
+    <td><i>type</i>: "co-located" or "distributed"</td>
+    <td>Use "co-located" for references to EJBs in the same application, and
+      "distributed" for references to EJBs in other applications.</td>
+  </tr>
+  <tr>
+    <td><i>ref-name</i>: String</td>
+    <td>Specifies the mapping into the ejb-ref entry in the standard deployment
+      descriptor.</td>
+  </tr>
+  <tr>
+    <td><i>jndi-name</i>: String</td>
+    <td>Specifies the actual name under which the bean is registered in the
+      name service.</td>
+  </tr>
+  <tr>
+    <td><i>[application]</i>: String</td>
+    <td>Specifies the name of the application in which the EJB component is
+      deployed.  Only applies when type="distributed".</td>
+  </tr>
+  <tr>
+    <td><i>[host]</i>: String</td>
+    <td>Specifies the host name for the name server.  Only applies when
+      type="distributed".</td>
+  </tr>
+  <tr>
+    <td><i>[port]</i>: String</td>
+    <td>Specifies the port number for the name server.  Only applies when
+      type="distributed".</td>
+  </tr>
+</table>
+
+<h3><a name="method-level-tags">Method level Tags</a></h3>
+
+None at present.
+
+</body>
+</html>

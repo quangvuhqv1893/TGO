@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>Architecture</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Architecture">
+            <p>
+                This section is for those who want to develop new modules for XDoclet. End users
+                who just use the tool do not need to read this section, but it's an essential read for
+                those who want to write custom modules or want to contribute.
+            </p>
+            <p>
+                XDoclet mainly consists out of five components:
+                <ul>
+                    <li>XDoclet Engine</li>
+                    <li>XJavaDoc Engine</li>
+                    <li>Subtasks (contained in modules)</li>
+                    <li>Templates (contained in modules)</li>
+                    <li>Tag Handlers (contained in modules)</li>
+                </ul>
+
+                Although there are several modules (and therefore several subtasks and tag handlers), all sub tasks
+                are built for the same framework: the framework provided by the XDoclet and the XJavaDoc engines.
+            </p>
+
+            <subsection name="XDoclet Engine">
+                <p>
+                    The XDoclet engine provides the template engine that
+                    transforms a template to a file. A template consists of static content and dynamic
+                    content, very much in the same way as a JSP page or a Velocity template.
+                </p>
+                <p>
+                    Further, XDoclet contains a <a href="http://ant.apache.org/">Jakarta Ant</a> task
+                    that will invoke the templates (via subtasks). Part of XDoclet is also a loader that
+                    will dynamically discover and plug in XDoclet modules (via <code>xdoclet.xml</code> file
+                    contained in the module's jar file).
+                </p>
+                <p>
+                    The XDoclet engine also contains general-purpose tag handlers that act as a bridge between
+                    templates and XJavaDoc. This makes it possible for the templates to access the information in the
+                    XJavaDoc beans.
+                </p>
+            </subsection>
+
+            <subsection name="XJavaDoc Engine">
+                <p>
+                    The XJavaDoc engine is a complete rewrite of Sun's JavaDoc engine that is faster
+                    and more suited for XDoclet (although it is completely stand alone). It scans java source code
+                    and makes information about a class available via special java beans that are part of the
+                    XJavaDoc core. These beans provide the same information about a class as Sun's JavaDoc API,
+                    and some nice extra features.
+                </p>
+                <p>
+                    The extra features of XJavaDoc is the possibility to programmatically modify the javadoc
+                    tags and save the source code, as well as an extra API for extracting information from @tags
+                    that are using an XML-like attribute scheme.
+                </p>
+                <p>
+                    XJavaDoc was written because Sun's classic JavaDoc engine was too slow, printed
+                    too many warnings to standard output and wasn't well suited for XDoclet's purposes
+                    (nobody knew by the time of JavaDoc's writing that a tool like XDoclet would show up).
+                    XJavaDoc is approximately <b>5 times faster</b> than JavaDoc and is based on
+                    <a href="http://www.experimentalstuff.com/Technologies/JavaCC/">JavaCC</a>.
+                </p>
+                <p>
+                    Further, XJavaDoc has its own Jakarta Ant task (which XDoclet's Ant task inherits from) that
+                    makes it easier to deal with than the Ant javadoc task.
+                </p>
+            </subsection>
+
+            <subsection name="Subtasks">
+                <p>
+                    A subtask is a class that tells the XDoclet engine what templates to invoke and how to invoke them.
+                    Each subtask specifies a name and a parent task. Subtasks are invoked by nesting an element under
+                    an XDoclet ant task invocation:
+                </p>
+
+<source><![CDATA[<ejbdoclet ...>
+    <remoteinterface/>
+</ejbdoclet>]]></source>
+
+                <p>
+                    Subtasks have logical names and belong under certain tasks. This information is included
+                    in special tags in the header of the subtask. Let's take a look at the RemoteInterfaceSubTask
+                    that is located in the ejb module:
+                </p>
+
+<source><![CDATA[
+/**
+ * @ant.element
+ *    display-name="Remote Interface"
+ *    name="remoteinterface"
+ *    parent="xdoclet.modules.ejb.EjbDocletTask"
+ */
+public class RemoteInterfaceSubTask extends AbstractEjbCodeGeneratorSubTask
+{
+...]]></source>
+
+                <p>
+                    The information in the <code>@ant.element</code> is used during build of the module to generate a special
+                    deployment descriptor for the module. Take a look at the <code>xdoclet.xml</code> file inside the
+                    <code>xdoclet-ejb-module.jar</code>, and you'll see the following entry:
+                </p>
+
+<source><![CDATA[
+<subtask
+   name="remoteinterface"
+   implementation-class="xdoclet.modules.ejb.intf.RemoteInterfaceSubTask"
+   parent-task-class="xdoclet.modules.ejb.EjbDocletTask"
+/>]]></source>
+
+                <p>
+                    The XDoclet core reads this deployment descriptor at start-up and uses the information
+                    to map a logical name to a class name. It instantiates the corresponding class and invokes
+                    the <code>execute()</code> method to start the subtask.
+                </p>
+                <p>
+                    As you see, XDoclet itself is used during the build of the modules, and all this functionality is
+                    in the XDoclet core. This makes it easy to write new sub tasks. Just extend <code>xdoclet.SubTask</code>
+                    and put the <code>@ant.element</code> tag in the class header. Looking at other subtasks and the javadocs should give
+                    you a good starting point.
+                </p>
+                <p>
+                    Last, but not least, the information in the same tag is used when generating the documentation.
+                </p>
+            </subsection>
+
+            <subsection name="Templates">
+                <p>
+                    At the core of XDoclet's extensibility are the template files. An XDoclet template is a file that contains
+                    static parts and dynamic parts. The static parts will be rendered "as is", and the dynamic parts will be substituted
+                    by content provided by a tag handler.
+                </p>
+                <p>
+                    The XDoclet templates are not XML files, but they're using an XML-like syntax to add logic and content
+                    to the templates. Here is a part of a template that generates a method in a Java source file (slightly reformatted
+                    for the sake of readability):
+                </p>
+
+<source><![CDATA[
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb" resource="util_obtain_localhome_def_ic"/>
+ * @return <XDtI18n:getString
+    bundle="xdoclet.modules.ejb"
+    resource="local_home_interface_for"
+    arguments="<XDtEjb:ejbName/>"/>
+    <XDtI18n:getString
+    bundle="xdoclet.modules.ejb"
+    resource="util_lookup_using"
+    arguments="<XDtEjbUtilObj:lookupKind/>"/>
+ */
+public static <XDtEjbHome:homeInterface type="local"/> getLocalHome() throws NamingException
+{
+   // <XDtI18n:getString bundle="xdoclet.modules.ejb" resource="util_localhome_not_narrowed"/>
+   <XDtConfig:ifConfigParamEquals paramName="cacheHomes" value="true">
+   if (cachedLocalHome == null) {
+      // <XDtI18n:getString bundle="xdoclet.modules.ejb" resource="util_obtain_ic"/>
+      InitialContext initialContext = new InitialContext();
+      try {
+         cachedLocalHome = (<XDtEjbHome:homeInterface type="local"/>)
+            initialContext.lookup(<XDtEjbHome:homeInterface type="local"/>.<XDtEjbUtilObj:lookupKind/>);
+      } finally {
+         initialContext.close();
+      }
+   }
+   return cachedLocalHome;
+   </XDtConfig:ifConfigParamEquals>
+   <XDtConfig:ifConfigParamNotEquals paramName="cacheHomes" value="true">
+   // <XDtI18n:getString bundle="xdoclet.modules.ejb" resource="util_obtain_ic"/>
+   InitialContext initialContext = new InitialContext();
+   try {
+      return (<XDtEjbHome:homeInterface type="local"/>)
+         initialContext.lookup(<XDtEjbHome:homeInterface type="local"/>.<XDtEjbUtilObj:lookupKind/>);
+   } finally {
+      initialContext.close();
+   }
+   </XDtConfig:ifConfigParamNotEquals>
+}]]></source>
+
+                <p>
+                    And this one shows a template file that generates parts of an XML file:
+                </p>
+
+<source><![CDATA[
+<!-- Entity Beans -->
+<XDtClass:forAllClasses type="javax.ejb.EntityBean">
+ <XDtEjb:ifIsAConcreteEJBean>
+  <XDtEjbCmp:ifEntityIsCmp>
+   <entity <XDtId:prefixedId prefix="ContainerManagedEntity"/>>
+  </XDtEjbCmp:ifEntityIsCmp>
+  <XDtEjbBmp:ifEntityIsBmp>
+   <entity <XDtId:prefixedId prefix="BeanManagedEntity"/>>
+  </XDtEjbBmp:ifEntityIsBmp>
+     <XDtMerge:merge file="xdoclet/modules/ejb/dd/resources/ejb-body.xdt">
+     </XDtMerge:merge>
+   </entity>
+ </XDtEjb:ifIsAConcreteEJBean>
+</XDtClass:forAllClasses>]]></source>
+
+                <p>
+                    The XDoclet template engine can generate any kind of file. It isn't limited to Java or XML.
+                    A perfect example of this is XDoclet's ability to generate a todo list from @todo tags in your
+                    code. But let's get back to the first template.
+                </p>
+                <p>
+                    When the first template has been rendered, you'll end up with a Java source file that
+                    contains this fragment:
+                </p>
+
+<source><![CDATA[
+/**
+ * Obtain local home interface from default initial context
+ * @return Local home interface for Person. Lookup using JNDI_NAME
+ */
+public static airline.ejb.interfaces.PersonLocalHome getLocalHome() throws NamingException
+{
+   // Local homes shouldn't be narrowed, as there is no RMI involved.
+   // Obtain initial context
+   InitialContext initialContext = new InitialContext();
+   try {
+      return (airline.ejb.interfaces.PersonLocalHome)
+            initialContext.lookup(airline.ejb.interfaces.PersonLocalHome.JNDI_NAME);
+   } finally {
+      initialContext.close();
+   }
+}]]></source>
+
+                <p>
+                    Here you see several tags. A tag is an XML-like element that consists of a namespace (followed by a . (dot))
+                    and then by a tag name. Further, each tag can have an arbitrary number of attributes (also referred to as parameters).
+                    Don't get confused, these tags have nothing to do with javadoc @tags.
+                </p>
+            </subsection>
+
+            <subsection name="Tag Handlers">
+                <p>
+                    When XDoclet's template engine encounters a tag, it will use the namespace to obtain a reference to an object whose
+                    class is a subclass of <code>xdoclet.TagHandler</code>. Then it will use reflection to invoke a method on that
+                    tag handler that corresponds to the name of the tag (the part following the :).
+                </p>
+                <p>
+                    So how does the template engine know what tag handler java object to use? This is done by looking at a map that
+                    maps the namespace to a class. This information is also included in the <code>xdoclet.xml</code> file of a module:
+                </p>
+
+<source><![CDATA[
+<taghandler
+   namespace="EjbUtilObj"
+   class="xdoclet.modules.ejb.lookup.LookupUtilTagsHandler"
+/>]]></source>
+
+                <p>
+                    So when the template engine encounters <code>&lt;XDtEjbUtilObj:lookupKind/&gt;</code> it will invoke the
+                    lookupKind on an instance of <code>xdoclet.modules.ejb.lookup.LookupUtilTagsHandler</code>. (The XDt part is stripped away
+                    before looking in the namespace->taghandler object map).
+                </p>
+                <p>
+                    If you look closely at this template fragment, you'll see that there are two kinds of tags: Tags that have
+                    a body, and tags that don't. These are respectively known as block tags and content tags. Block tags "do"
+                    something, and content tags "return" something.
+                </p>
+                <p>
+                    A block tag can evaluate its body or it cannot. It can do this as many times as it wants. Block tags
+                    are used to loop or to have conditional evaluation of the tag's body. The methods that implement block
+                    tags are <code>void</code> methods.
+                </p>
+                <p>
+                    A content tag is a tag that returns a value, and every occurrence of a content tag will be substituted by
+                    a String value.
+                </p>
+                <p>
+                    Tag handler classes are documented with special javadoc tags too. This is in order to generate the taghandler
+                    elements in the <code>xdoclet.xml</code> deployment descriptor. The <code>xdoclet.modules.ejb.lookup.LookupUtilTagsHandler</code>
+                    class has the following header:
+                </p>
+
+<source><![CDATA[
+/**
+ * @xdoclet.taghandler namespace="EjbUtilObj"
+ */
+public class LookupUtilTagsHandler extends EjbTagsHandler
+{
+   ...]]></source>
+
+            </subsection>
+        </section>
+    </body>
+</document>

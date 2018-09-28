@@ -1,0 +1,264 @@
+/* Value Objects BEGIN */
+<XDtComment:comment>
+This part adds methods to handle 1-n relationships to add/remove/update one
+entry of a specific relationship.  Difference is made between aggregation and
+composition
+</XDtComment:comment>
+
+  <XDtEjbValueObj:forAllRelations superclasses="true" valueobject="*">
+   <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="type">
+   public void add<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(<XDtEjbValueObj:currentAggregateType/> added)
+   <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="compose">
+   throws javax.ejb.CreateException
+   </XDtMethod:ifHasMethodTag>
+   <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="aggregate">
+   throws javax.ejb.FinderException
+   </XDtMethod:ifHasMethodTag>
+   {
+	  try
+	  {
+		<XDtClass:pushClass value="<XDtEjbValueObj:currentRelationBeanClass/>">
+		 <XDtEjbPk:ifHasPrimkeyField>
+		  <XDtEjbPk:pkClass/> pk = added.<XDtEjbPk:primkeyGetter/>();
+		 </XDtEjbPk:ifHasPrimkeyField>
+		 <XDtEjbPk:ifDoesntHavePrimkeyField>
+		  <XDtEjbPk:pkClass/> pk = new <XDtEjbPk:pkClass/>(<XDtEjbPk:pkfieldListFrom name="added"/>);
+		 </XDtEjbPk:ifDoesntHavePrimkeyField>
+		</XDtClass:pushClass>
+
+		<XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-home.xdt">
+		</XDtMerge:merge>
+
+		<XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="compose">
+		 <XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members"/> relation = home.create(added);
+		</XDtMethod:ifHasMethodTag>
+		<XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="aggregate">
+		 <XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members"/> relation = home.findByPrimaryKey(pk);
+		</XDtMethod:ifHasMethodTag>
+		<XDtMethod:methodName/>().add(relation);
+	  }
+	  catch (Exception e){
+	  <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="compose">
+		 if (e instanceof javax.ejb.CreateException)
+			throw (javax.ejb.CreateException)e;
+	  </XDtMethod:ifHasMethodTag>
+	  <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="aggregate">
+		 if (e instanceof javax.ejb.FinderException)
+			throw (javax.ejb.FinderException)e;
+	  </XDtMethod:ifHasMethodTag>
+		 else
+			throw new javax.ejb.EJBException(e);
+	  }
+   }
+
+   public void remove<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(<XDtEjbValueObj:currentAggregateType/> removed)
+   throws javax.ejb.RemoveException
+   {
+	  try
+	  {
+		<XDtClass:pushClass value="<XDtEjbValueObj:currentRelationBeanClass/>">
+		 <XDtEjbPk:ifHasPrimkeyField>
+		  <XDtEjbPk:pkClass/> pk = removed.<XDtEjbPk:primkeyGetter/>();
+		 </XDtEjbPk:ifHasPrimkeyField>
+		 <XDtEjbPk:ifDoesntHavePrimkeyField>
+		  <XDtEjbPk:pkClass/> pk = new <XDtEjbPk:pkClass/>(<XDtEjbPk:pkfieldListFrom name="removed"/>);
+		 </XDtEjbPk:ifDoesntHavePrimkeyField>
+		</XDtClass:pushClass>
+
+		<XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-home.xdt">
+		</XDtMerge:merge>
+
+		<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members"/> relation = home.findByPrimaryKey(pk);
+		<XDtMethod:methodName/>().remove(relation);
+		<XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="compose">
+		relation.remove();
+		</XDtMethod:ifHasMethodTag>
+	  }
+	  catch (Exception e){
+		 if (e instanceof javax.ejb.RemoveException)
+			throw (javax.ejb.RemoveException)e;
+		 else
+			throw new javax.ejb.EJBException(e);
+	  }
+   }
+
+   <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="compose">
+   public void update<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(<XDtEjbValueObj:currentAggregateType/> updated)
+   throws javax.ejb.FinderException
+   {
+	  try
+	  {
+		<XDtClass:pushClass value="<XDtEjbValueObj:currentRelationBeanClass/>">
+		 <XDtEjbPk:ifHasPrimkeyField>
+		  <XDtEjbPk:pkClass/> pk = updated.<XDtEjbPk:primkeyGetter/>();
+		 </XDtEjbPk:ifHasPrimkeyField>
+		 <XDtEjbPk:ifDoesntHavePrimkeyField>
+		  <XDtEjbPk:pkClass/> pk = new <XDtEjbPk:pkClass/>(<XDtEjbPk:pkfieldListFrom name="updated"/>);
+		 </XDtEjbPk:ifDoesntHavePrimkeyField>
+		</XDtClass:pushClass>
+
+		<XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-home.xdt">
+		</XDtMerge:merge>
+
+		<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members"/> relation = home.findByPrimaryKey(pk);
+		relation.set<XDtEjbValueObj:currentAggregateType short="true"/>(updated);
+	  }
+	  catch (Exception e){
+		 if (e instanceof javax.ejb.FinderException)
+			throw (javax.ejb.FinderException)e;
+		 else
+			throw new javax.ejb.EJBException(e);
+	  }
+   }
+
+   </XDtMethod:ifHasMethodTag>
+   </XDtMethod:ifHasMethodTag>
+  </XDtEjbValueObj:forAllRelations>
+
+  <XDtEjbValueObj:forAllValueObjects>
+   private <XDtEjbValueObj:currentValueObjectClass/> <XDtEjbValueObj:currentValueObjectAttribute/> = null;
+
+   public <XDtEjbValueObj:valueMostSuperObjectClass/> get<XDtEjbValueObj:currentValueObjectAttribute/>()
+   {
+      <XDtEjbValueObj:currentValueObjectAttribute/> = new <XDtEjbValueObj:currentValueObjectClass/>();
+      <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-instantiation.xdt">
+      </XDtMerge:merge>
+
+	 <XDtEjbPersistent:forAllPersistentFields valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+	 <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+	 <XDtMethod:ifMethodTagValueEquals tagName="ejb:value-object" paramName="relation" value="external">
+	  <XDtEjbValueObj:currentValueObjectAttribute/>.<XDtMethod:setterMethod/>( <XDtMethod:getterMethod/>() );
+	 </XDtMethod:ifMethodTagValueEquals>
+	 </XDtMethod:ifHasMethod>
+	 </XDtEjbPersistent:forAllPersistentFields>
+
+	  return <XDtEjbValueObj:currentValueObjectAttribute/>;
+   }
+  </XDtEjbValueObj:forAllValueObjects>
+
+ <XDtEjbValueObj:forAllSuperSetValue>
+   public void set<XDtEjbValueObj:currentValueObjectAttribute/>( <XDtEjbValueObj:currentValueObjectClass/> valueHolder )
+   <XDtMethod:exceptionList method="set<XDtEjbValueObj:currentValueObjectAttribute/>"/>{
+     <XDtMethod:ifHasMethod name="validate" parameters="<XDtEjbValueObj:currentValueObjectClass/>">
+      validate(valueHolder);
+     </XDtMethod:ifHasMethod>
+	 <XDtEjbBmp:ifUseSoftLocking>
+	  if( getVersion() != valueHolder.getVersion() )
+		 throw new IllegalStateException( "Wrong version. Had " + getVersion() + ", got " + valueHolder.getVersion() );
+	 </XDtEjbBmp:ifUseSoftLocking>
+
+	  try
+	  {
+	  <XDtEjbPersistent:forAllPersistentFields not-pk="true" valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+		<XDtEjbPk:ifIsNotPrimkeyField>
+		<XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+		 <XDtMethod:setterMethod/>( valueHolder.<XDtMethod:getterMethod/>() );
+		</XDtMethod:ifHasMethod>
+		</XDtEjbPk:ifIsNotPrimkeyField>
+	  </XDtEjbPersistent:forAllPersistentFields>
+
+	  <XDtEjbValueObj:forAllAggregates superclasses="true" valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+	  {
+	   <XDtMethod:ifDoesntHaveMethodTag tagName="ejb:value-object" paramName="type">
+	   <XDtClass:pushClass value="<XDtEjbValueObj:currentRelationBeanClass/>">
+       // Checks for null aggregate
+       if (valueHolder.get<XDtEjbValueObj:currentAggregateName/>() != null)
+       {
+		<XDtEjbPk:ifHasPrimkeyField>
+		 <XDtEjbPk:pkClass/> pk = valueHolder.get<XDtEjbValueObj:currentAggregateName/>().<XDtEjbPk:primkeyGetter/>();
+		</XDtEjbPk:ifHasPrimkeyField>
+		<XDtEjbPk:ifDoesntHavePrimkeyField>
+		 <XDtEjbPk:pkClass/> pk = new <XDtEjbPk:pkClass/>(<XDtEjbPk:pkfieldListFrom name="valueHolder.get<XDtEjbValueObj:currentAggregateName/>()"/>);
+		</XDtEjbPk:ifDoesntHavePrimkeyField>
+	   </XDtClass:pushClass>
+
+	   <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-home.xdt">
+	   </XDtMerge:merge>
+
+		 <XDtMethod:methodType/> relation = home.findByPrimaryKey(pk);
+		 <XDtMethod:setterMethod/>(relation);
+        } else {
+         <XDtMethod:setterMethod/>(null);
+        }
+		</XDtMethod:ifDoesntHaveMethodTag>
+		<XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="type">
+<XDtComment:comment>
+Here we take what has changed (update/add/remove) inside the VO collection and
+call methods according to.  These methods are extracted so that you can define
+them abstract with a ejb:interface tag to give them access from the outside.
+</XDtComment:comment>
+		 java.util.Iterator i<XDtEjbValueObj:currentAggregateName/> = valueHolder.getAdded<XDtEjbValueObj:currentAggregateName/>s().iterator();
+		 while (i<XDtEjbValueObj:currentAggregateName/>.hasNext())
+		 {
+			<XDtEjbValueObj:currentAggregateType/> o = (<XDtEjbValueObj:currentAggregateType/>)i<XDtEjbValueObj:currentAggregateName/>.next();
+			add<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(o);
+		 }
+		 i<XDtEjbValueObj:currentAggregateName/> = valueHolder.getRemoved<XDtEjbValueObj:currentAggregateName/>s().iterator();
+		 while (i<XDtEjbValueObj:currentAggregateName/>.hasNext())
+		 {
+			<XDtEjbValueObj:currentAggregateType/> o = (<XDtEjbValueObj:currentAggregateType/>)i<XDtEjbValueObj:currentAggregateName/>.next();
+			remove<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(o);
+		 }
+		</XDtMethod:ifHasMethodTag>
+	  }
+	  </XDtEjbValueObj:forAllAggregates>
+	  <XDtEjbValueObj:forAllComposes superclasses="true" valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+	  // Anonymous block to allow variable declations without conflicts
+	  {
+	   <XDtMethod:ifDoesntHaveMethodTag tagName="ejb:value-object" paramName="type">
+		<XDtClass:pushClass value="<XDtEjbValueObj:currentRelationBeanClass/>">
+        // Checks for null composition
+        if (valueHolder.get<XDtEjbValueObj:currentAggregateName/>() != null)
+        {
+		 <XDtEjbPk:ifHasPrimkeyField>
+		 <XDtEjbPk:pkClass/> pk = valueHolder.get<XDtEjbValueObj:currentAggregateName/>().<XDtEjbPk:primkeyGetter/>();
+		 </XDtEjbPk:ifHasPrimkeyField>
+		 <XDtEjbPk:ifDoesntHavePrimkeyField>
+		 <XDtEjbPk:pkClass/> pk = new <XDtEjbPk:pkClass/>(<XDtEjbPk:pkfieldListFrom name="valueHolder.get<XDtEjbValueObj:currentAggregateName/>()"/>);
+		 </XDtEjbPk:ifDoesntHavePrimkeyField>
+		</XDtClass:pushClass>
+
+		<XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/entity-value-home.xdt">
+		</XDtMerge:merge>
+
+		 <XDtMethod:methodType/> relation = home.findByPrimaryKey(pk);
+		 relation.set<XDtEjbValueObj:currentAggregateName/>(valueHolder.get<XDtEjbValueObj:currentAggregateName/>());
+        }
+		</XDtMethod:ifDoesntHaveMethodTag>
+		<XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="type">
+<XDtComment:comment>
+Here we take what has changed (update/add/remove) inside the VO collection and
+call methods according to.  These methods are extracted so that you can define
+them abstract with a ejb:interface tag to give them access from the outside.
+</XDtComment:comment>
+		 java.util.Iterator i<XDtEjbValueObj:currentAggregateName/> = valueHolder.getUpdated<XDtEjbValueObj:currentAggregateName/>s().iterator();
+		 while (i<XDtEjbValueObj:currentAggregateName/>.hasNext())
+		 {
+			<XDtEjbValueObj:currentAggregateType/> o = (<XDtEjbValueObj:currentAggregateType/>)i<XDtEjbValueObj:currentAggregateName/>.next();
+			update<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(o);
+		 }
+		 i<XDtEjbValueObj:currentAggregateName/> = valueHolder.getAdded<XDtEjbValueObj:currentAggregateName/>s().iterator();
+		 while (i<XDtEjbValueObj:currentAggregateName/>.hasNext())
+		 {
+			<XDtEjbValueObj:currentAggregateType/> o = (<XDtEjbValueObj:currentAggregateType/>)i<XDtEjbValueObj:currentAggregateName/>.next();
+			add<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(o);
+		 }
+		 i<XDtEjbValueObj:currentAggregateName/> = valueHolder.getRemoved<XDtEjbValueObj:currentAggregateName/>s().iterator();
+		 while (i<XDtEjbValueObj:currentAggregateName/>.hasNext())
+		 {
+			<XDtEjbValueObj:currentAggregateType/> o = (<XDtEjbValueObj:currentAggregateType/>)i<XDtEjbValueObj:currentAggregateName/>.next();
+			remove<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members-name"/>(o);
+		 }
+		</XDtMethod:ifHasMethodTag>
+	  }
+	  </XDtEjbValueObj:forAllComposes>
+	  }
+	  catch (Exception e)
+	  {
+		 throw new javax.ejb.EJBException(e);
+	  }
+   }
+ </XDtEjbValueObj:forAllSuperSetValue>
+
+/* Value Objects END */
+

@@ -1,0 +1,157 @@
+nav {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+nav img {
+	margin-left: 20px;
+}
+.nav-bar-fixed-top{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+div#content {
+	margin-top: 100px;
+}
+.button-newtour {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+.nav-pills li a {
+	/*border-radius: 0px 0px 0px 0px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 0px;
+	margin-bottom: 0px;*/
+
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	/*background-color: #ffffff;
+	color: black;*/
+}
+.sidebar img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	object-fit: cover;
+	margin-bottom: 20px;
+}
+#row-collapse{
+	padding: 0px;
+	border-top: none;
+}
+.tour-detail {
+	padding: 8px;
+}
+.user-request img {
+	display: block;
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	object-fit: cover;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+}
+.user-request a {
+	display: block;
+	margin-top: 15px;
+
+}
+.user-request button {
+	margin-top: 5px;
+}
+.margin-btn {
+	margin-left: 25px;
+}
+.form-tour{
+	margin-top: 50px;
+}
+.form-tour-modal {
+	margin-top: 0px;
+}
+div.modal-find {
+	width: 800px;
+}
+.tour-guide-box {
+	list-style: none;
+	padding-left: 0;
+}
+.find-guider img {
+	display: block;
+	width: 70px;
+	height: 70px;
+	border-radius: 100%;
+	object-fit: cover;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+
+}
+.find-guider a {
+	display: block;
+	margin-top: 10px;
+
+	font-size: 20px;
+}
+.find-guider i {
+
+}
+.checked {
+	color: gold;
+}
+.tour-guide-box p {
+	color: black;
+	text-align: center;
+}
+.glyphicon-star{
+	font-size: 20px;
+}
+.glyphicon-star-empty{
+	font-size: 20px;
+}
+div.star-ratting {
+	margin-top: 10px;
+	display: block;
+	text-align: center;
+}
+.tour-guide-box button {
+	margin-top: 15px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+
+	background-color: #fff;
+}
+.nav-pills>li>a {
+	border-radius: 0px;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	color: #555;
+	cursor: default;
+	background-color: #fff;
+	border-color: transparent;
+	border-bottom: 2px solid #7451a0;
+}
+.input-margin {
+	margin-top: 5px;
+	margin-left: 0px;
+}
+.col-sm-8>p{
+	color: black;
+}
+#count-location {
+	border: none;
+	background-color: #fff;
+	color: #fff;
+	box-shadow: none;
+}
+#count-language {
+	border: none;
+	background-color: #fff;
+	color: #fff;
+	box-shadow: none;
+}

@@ -1,0 +1,994 @@
+<HTML>
+	<HEAD>
+		<TITLE>XDoclet - WebLogic</TITLE>
+		<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 4.0">
+		<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+	</HEAD>
+	<BODY BGCOLOR="#ffffff">
+		<H2>&lt;weblogic/&gt; subtask</H2>
+		<H3>weblogic</H3>
+		<P>Creates WebLogic-specific deployment descriptors (weblogic-ejb-jar.xml and
+			weblogic-cmp-rdbms-jar.xml files) for EJB beans.<BR>
+			Only WebLogic 6.0 and 6.1 is supported.</P>
+		<P>Most comments have been copied from the WebLogic DTDs:</P>
+		<P><A HREF="http://www.bea.com/servers/wls600/dtd/weblogic-rdbms20-persistence-600.dtd">http://www.bea.com/servers/wls600/dtd/weblogic-rdbms20-persistence-600.dtd</A></P>
+		<P><A HREF="http://www.bea.com/servers/wls600/dtd/weblogic-ejb-jar.dtd">http://www.bea.com/servers/wls600/dtd/weblogic-ejb-jar.dtd</A></P>
+		<P>Aslak Hellesøy (aslak.nospam@users.sf.net)</P>
+		<H4>Parameters</H4>
+		<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+			<TR>
+				<TD VALIGN="top"><B>Attribute</B></TD>
+				<TD VALIGN="top"><B>Description</B></TD>
+				<TD VALIGN="top"><B>Required</B></TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">xmlencoding</TD>
+				<TD VALIGN="top">The encoding of the ejb-jar.xml file.</TD>
+				<TD VALIGN="top">No, default is "UTF-8"</TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">version</TD>
+				<TD VALIGN="top">The version of WLS.</TD>
+				<TD VALIGN="top">No, default is "6.1". Legal values are "6.0" and "6.1"</TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">createtables</TD>
+				<TD VALIGN="top">Indicates whether or not WLS should attempt to generate tables.</TD>
+				<TD VALIGN="top">No. Legal values are "True" or "False". If version is &lt; 6.1,
+					this parameter will be ignored.</TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">destdir</TD>
+				<TD VALIGN="top">Destination directory for output WebLogic-specific deployment
+					descriptor files.</TD>
+				<TD VALIGN="top">No, default is destdir parameter of ejbdoclet task</TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">mergedir</TD>
+				<TD VALIGN="top">Merge directory where ejbdoclet looks for files to be merged with
+					generated files.</TD>
+				<TD VALIGN="top">No, required, if the merge feature used</TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">datasource</TD>
+				<TD VALIGN="top">Default datasource name for CMP Entity Beans. Can be overridden on
+					a per-bean basis by using the @weblogic.data-source-name tag</TD>
+				<TD VALIGN="top">Only if at least one of the Entity Beans has not specified the
+					@weblogic:data-source-name.</TD>
+			</TR>
+			<TR>
+				<TD VALIGN="top">poolname</TD>
+				<TD VALIGN="top">Default pool name name for CMP Entity Beans (EJB 1.1). Can be
+					overridden on a per-bean basis by using the @weblogic.pool-name tag</TD>
+				<TD VALIGN="top">No.</TD>
+			</TR>
+			<TR>
+				<TD>validateXml</TD>
+				<TD>Validates the generated xml file according to the DTD file contained inside
+					xdoclet.jar.</TD>
+				<TD>No, default is false</TD>
+			</TR>
+			<TR>
+				<TD>validateDbSchemaWith</TD>
+				<TD>"MetaData" or "TableQuery"</TD>
+				<TD>No, default is TableQuery</TD>
+			</TR>
+		</TABLE>
+		<H4>Merge Points</H4>
+		<DIV ALIGN="left">
+			<TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="7">
+				<TR VALIGN="top">
+					<TH WIDTH="20%" ALIGN="left">
+						<B>Merge File Name</B></TH>
+					<TH ALIGN="left">
+						<B>Description</B></TH>
+					<TD><B>Required</B></TD>
+				</TR>
+				<TR VALIGN="top">
+					<TD>weblogic-security-role-assignment.xml</TD>
+					<TD>The file where security role mappings are defined. Should comply with the
+						security-role-assignment element's DTD in weblogic-ejb-jar.xml</TD>
+					<TD>No, but nothing automatically generated</TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+		<H4><A NAME="pool">@weblogic:pool</A></H4>
+		<P>Used to specify various options for instance pooling. Applicable to all bean
+			types.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[max-beans-in-free-pool]</I>: Integer<BR>
+					<BR>
+				<TD>WebLogic EJB maintains a free pool of beans for every bean class.<BR>
+					This property decides the maximum size of the pool.<BR>
+				</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[initial-beans-in-free-pool]</I>: Integer</TD>
+				<TD>WebLogic EJB maintains a free pool of beans for every bean class.<BR>
+					This property decides the initial size of the pool.</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="cache">@weblogic:cache</A></H4>
+		<P>Used to specify various options for the caching. Applicable to Entity Beans and
+			Stateless Session Beans.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR VALIGN="top">
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR VALIGN="top">
+				<TD><I>[max-beans-in-cache]</I>: Integer<BR>
+				<TD>Maximum number of objects of this class that are allowed in memory.<BR>
+					Objects are kept in an LRU chain, and the ones dropped from the<BR>
+					end of the chain are passivated.</TD>
+				<TD>Entity Beans, Stateless Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[idle-timeout-seconds]</I>: Integer</TD>
+				<TD>The cache (see "max-beans-in-cache" above) is scrubbed of<BR>
+					inactive objects after at least this many seconds. Objects<BR>
+					scrubbed are passivated.</TD>
+				<TD>Entity Beans, Stateless Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[read-timeout-seconds]</I>: Integer</TD>
+				<TD>The read-timeout-seconds is the number of seconds between ejbLoad calls on<BR>
+					a Read-Only entity bean. If read-timeout-seconds is 0,<BR>
+					ejbLoad will only be called when the bean is brought into the cache.</TD>
+				<TD>Entity Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[concurrency-strategy]</I>: String</TD>
+				<TD>The concurrency-strategy specifies how the container should manage concurrent<BR>
+					access to an entity bean.<BR>
+					<BR>
+					The concurrent-strategy can be one of the following values:
+					<UL>
+						<LI>
+							"Exclusive": The exclusive locking scheme used in WebLogic<BR>
+						Server versions 3.1 through 5.1
+						<LI>
+							"Database": A scheme where a separate Entity Bean instance is<BR>
+							allocated for each transaction and the locking and<BR>
+						caching is handled by the database.
+						<LI>
+							"ReadOnly" : For read-only entity beans</LI>
+					</UL>
+				</TD>
+				<TD>Entity Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR VALIGN="top">
+				<TD><I>[cache-type]</I>: String</TD>
+				<TD>The cache-type can be one of "NRU" or "LRU". The default is "NRU".<BR>
+					<BR>
+					Used in: stateful-session-cache</TD>
+				<TD>Stateless Session Beans (WLS 6.1)</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="lifecycle">@weblogic:lifecycle</A></H4>
+		<P>The lifecycle element is used to specify various options for the management of
+			the lifecycle of stateful beans. Applicable to Entity Beans and Stateful
+			Session Beans.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[passivation-strategy]</I>: String<BR>
+				<TD>The passivation-strategy can be either "default" or "transaction". With<BR>
+					the default setting the container will attempt to keep a working set<BR>
+					of beans in the cache. With the "transaction" setting, the container will<BR>
+					passivate the bean after every transaction (or method call for a<BR>
+					non-transactional invocation).</TD>
+				<TD>Entity Beans, Stateful Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="persistence">@weblogic:persistence</A></H4>
+		<P>The persistence element is used to specify persistence options</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[is-modified-method-name]</I>: String<BR>
+				<TD>Applies to bean managed persistence or EJB 1.1 container-managed<BR>
+					persistence entity EJBs. EJB 2.0 entity EJBs do not need to implement<BR>
+					an is-modified-method. The EJB container can automatically detect<BR>
+					which fields were modified in a transaction.<BR>
+					<BR>
+					This parameter declares the name of an EJBean method that tells the<BR>
+					container whether the bean data has been modified. The method is<BR>
+					called when the bean managed EJBean is stored. If a method is not specified,<BR>
+					WebLogic always assumes that the EJBean has been modified and always<BR>
+					saves it. Providing a method and setting it as appropriate will<BR>
+					improve performance.</TD>
+				<TD>Entity Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[delay-updates-until-end-of-tx]</I>: Boolean</TD>
+				<TD>Applicable to entity beans only (both container- and bean-managed).<BR>
+					This optional optimization affects when changes to a bean's state<BR>
+					propogated to the persistent store. If this is set to "True" (which is<BR>
+					the default) updates of the persistent store of all beans in the<BR>
+					transaction will be performed just before the end of the transaction.<BR>
+					If this is set to "False" the pstore update of a bean will be<BR>
+					performed at the conclusion of each method invoke.</TD>
+				<TD>Entity Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[finders-load-bean]</I>: Boolean</TD>
+				<TD>Applicable to CMP entity beans only. This optional optimization<BR>
+					affects whether the beans returned by a finder (or ejbSelect method) are<BR>
+					loaded immediately into the cache before the finder method returns.<BR>
+					<BR>
+					If this is set to "True", the beans will immediately be loaded into<BR>
+					the cache by the finder. If this is set to "False", the beans will not<BR>
+					be loaded into the cache until the first invoke of the bean.<BR>
+					<BR>
+					The default value is "True", which generally provides the best performance.</TD>
+				<TD>Entity Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[db-is-shared]</I>: Boolean</TD>
+				<TD>The value of db-is-shared must be "True" or "False".<BR>
+					<BR>
+					This parameter applies only to entity beans. If the value is set to<BR>
+					"False" the container will assume that it has exclusive access to the<BR>
+					bean data in the persistence store. If it is set to "True" the bean<BR>
+					will assume that the bean data could be modified between transactions<BR>
+					and will therefore reload data at the beginning of each transaction.</TD>
+				<TD>Entity Beans</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="clustering">@weblogic:clustering</A></H4>
+		<P>The stateful-session-clustering element is used to specify various options for
+			how a bean will be replicated in a WebLogic cluster. Applicable to Entity
+			Beans, Stateless Session Beans and Stateful SessionBeans</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><U><I>[home-is-clusterable]</I>: Boolean<BR>
+					</U>
+				<TD>The valid values of the home-is-clusterable parameter are<BR>
+					"True" or "False."<BR>
+					<BR>
+					If "True," this bean can be deployed from multiple servers<BR>
+					in a cluster. Calls to the home stub will be load-balanced<BR>
+					between the servers on which this bean is deployed, and if<BR>
+					a server hosting the bean is unreachable, the call will<BR>
+					automatically failover to another server hosting the bean.
+					<P>The valid values of the stateless-bean-is-clusterable parameter<BR>
+						are "True" or "False."<BR>
+						<BR>
+						The parameter is applicable only to session EJBeans with a<BR>
+						session-type value of "Stateless" (see ejb-jar.dtd).<BR>
+						If home-is-clusterable is "True" and this parameter is also "true",<BR>
+						calls to this bean stub will be load-balanced between all the<BR>
+						the servers on which this bean is deployed, and if a server<BR>
+						hosting the bean becomes unreachable, the call will automatically<BR>
+						failover to another server hosting the bean.<BR>
+					</P>
+				</TD>
+				<TD>Entity Beans, Stateful Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><U><I>[home-load-algorithm]</I>: String</U></TD>
+				<TD>The home-load-algorithm specifies the algorithm to use for load-balancing<BR>
+					between replicas of this home. If this property is not specified, the<BR>
+					algorithm specified by the server property<BR>
+					weblogic.cluster.defaultLoadAlgorithm will be used.<BR>
+					<BR>
+					The value of this element must be one of the following:<BR>
+					RoundRobin<BR>
+					Random<BR>
+					WeightBased</TD>
+				<TD>Entity Beans, Stateful Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[home-call-router-class-name]</I>: String</TD>
+				<TD>The home-call-router-class-name specifies a custom class to be used for<BR>
+					routing home method calls. This class must implement<BR>
+					weblogic.rmi.cluster.CallRouter. If specified, an instance of<BR>
+					this class will be called before each method call and be given the<BR>
+					opportunity to choose a server to route to based on the method<BR>
+					parameters. It either returns a server name or null indicating<BR>
+					that the current load algorithm should be used to pick the server.</TD>
+				<TD>Entity Beans, Stateful Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[replication-type]</I>: String</TD>
+				<TD>The replication-type element describes how to replicate stateful session<BR>
+					beans in a cluster. The legal values are:<BR>
+					"InMemory": The bean will be replicated in memory across the cluster<BR>
+					"None": The bean will not be replicated.</TD>
+				<TD>Stateful Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[stateless-bean-is-clusterable]</I>: Boolean</TD>
+				<TD>The valid values of the stateless-bean-is-clusterable parameter<BR>
+					are "True" or "False."<BR>
+					<BR>
+					The parameter is applicable only to session EJBeans with a<BR>
+					session-type value of "Stateless" (see ejb-jar.dtd).<BR>
+					If home-is-clusterable is "True" and this parameter is also "true",<BR>
+					calls to this bean stub will be load-balanced between all the<BR>
+					the servers on which this bean is deployed, and if a server<BR>
+					hosting the bean becomes unreachable, the call will automatically<BR>
+					failover to another server hosting the bean.</TD>
+				<TD>Stateless Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><U><I>[stateless-bean-load-algorithm]</I>: String</U></TD>
+				<TD>The stateless-bean-load-algorithm specifies the algorithm to use<BR>
+					for load-balancing between replicas of this bean. If this property<BR>
+					is not specified, the algorithm specified by the server property<BR>
+					weblogic.cluster.defaultLoadAlgorithm will be used.<BR>
+					<BR>
+					The legal values of stateless-bean-load-algorithm are:<BR>
+					RoundRobin<BR>
+					Random<BR>
+					WeightBased</TD>
+				<TD>Stateless Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><U><I>[stateless-bean-call-router-class-name]</I>: String</U></TD>
+				<TD>The stateless-bean-call-router-class-name specifies a custom class<BR>
+					to be used for routing bean method calls. This class must implement<BR>
+					weblogic.rmi.cluster.CallRouter. If specified, an instance of<BR>
+					this class will be called before each method call and be given the<BR>
+					opportunity to choose a server to route to based on the method<BR>
+					parameters. It either returns a server name or null indicating<BR>
+					that the current load algorithm should be used to pick the server.</TD>
+				<TD>Stateless Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[stateless-bean-methods-are-idempotent]</I>: Boolean</TD>
+				<TD>The value of the stateless-bean-methods-are-idempotent must be<BR>
+					either "True" or "False."<BR>
+					<BR>
+					This parameter is applicable only to session EJBeans with a<BR>
+					session-type of "Stateless" (see ejb-jar.dtd).<BR>
+					The value should be set to "True" only if the bean is written<BR>
+					such that repeated calls to the same method with the same arguments<BR>
+					has exactly the same effect as a single call. This allows the failover<BR>
+					handler to retry a failed call without knowing whether the call<BR>
+					actually completed on the failed server. Setting this property to<BR>
+					"true" makes it possible for the bean stub to automatically recover<BR>
+					from any failure as long as another server hosting the bean can be<BR>
+					reached.</TD>
+				<TD>Stateless Session Beans</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="invalidation-target">@weblogic:invalidation-target</A></H4>
+		<P>The invalidation-target element specifies a Read-Only Entity EJB which should be
+			invalidated when this Container-Managed Persistence Entity EJB has been
+			modified.<BR>
+			Note that the target ejb-name must be a Read-Only Entity EJB, and this tag may
+			only be specified in an EJB 2.0 Container-Managed Persistence Entity<BR>
+			EJB.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[ejb-name]</I>
+				: String
+				<TD>Name of the EJB to be invalidated</TD>
+				<TD>Entity Beans (WLS 6.1)</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="allow-concurrent-calls">@weblogic:allow-concurrent-calls</A></H4>
+		<P>The allow-concurrent-calls specifies whether a stateful session bean instance
+			will allow concurrent method calls. The value of this element may be either
+			"True" or "False". The default value is "False". When a stateful session bean
+			instance is currently in a method call and another (concurrent) method call
+			arrives on the server, the EJB specification requires that the server throw a
+			RemoteException. By default, allow-concurrent-calls is false, and the EJB
+			container will follow the EJB specification. When this value is set to true,
+			the EJB container will block the concurrent method call and allow it to proceed
+			when the previous call has completed.</P>
+		<H4><A NAME="message-driven">@weblogic:message-driven</A></H4>
+		<P>Various settings for Message Driven Beans.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[destination-jndi-name]</I>
+				: String
+				<TD>The destination-jndi-name element is used to associate a message-driven bean<BR>
+					with a JMS Queue or Topic that has been deployed in the WebLogic JNDI tree.</TD>
+				<TD>Message Driven Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[initial-context-factory]</I>
+				: String
+				<TD>This element specifies the URL provider to be put in the Properties used<BR>
+					by the InitialContext. It is typically host:port and used in conjunction<BR>
+					with initial-context-factory and connection-factory-jndi-name.</TD>
+				<TD>Message Driven Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[connection-factory-jndi-name]</I>
+				: String
+				<TD>This parameter specifies the JNDI name of the JMS ConnectionFactory<BR>
+					that the MessageDriven Bean should look up to create its Queues and Topics.<BR>
+					If not specified, it will default to
+					weblogic.jms.MessageDrivenBeanConnectionFactory,<BR>
+					which must have been declared in config.xml.</TD>
+				<TD>Message Driven Beans</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[jms-polling-interval-seconds]</I>
+				: Integer
+				<TD>Each Message-Driven EJB listens on an associated JMS destination. If<BR>
+					the JMS destination is located on another WebLogic Server instance or<BR>
+					a foreign JMS provider, it is possible that the JMS destination will<BR>
+					become unreachable. In this case, the EJB container automatically<BR>
+					attempts to reconnect to the JMS Server. Once the JMS Server is up<BR>
+					again, the Message-Driven EJB can again receive JMS messages.<BR>
+					<BR>
+					The jms-polling-interval-seconds determines the number of seconds<BR>
+					between each attempt to reconnect to the JMS destination.<BR>
+					<BR>
+					The default value is 10 seconds.</TD>
+				<TD>Message Driven Beans (WLS 6.1)</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[jms-polling-interval-seconds]</I>
+				: Integer
+				<TD>The JMS specification allows JMS consumers to specify an associated<BR>
+					id. This id is necessary for durable subscriptions to<BR>
+					JMS topics.<BR>
+					<BR>
+					A Message-Driven EJB with a durable subscription needs an associated<BR>
+					client id. If a separate connection factory is used, the<BR>
+					client id can be set on the connection factory. In this case,<BR>
+					the Message-Driven EJB uses this client id.<BR>
+					<BR>
+					If the associated connection factory does not have a client id<BR>
+					(or you are using the default connection factory), the Message-Driven<BR>
+					EJB uses the jms-client-id value as its client id.</TD>
+				<TD>Message Driven Beans (WLS 6.1)</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="transaction-descriptor">@weblogic:transaction-descriptor</A></H4>
+		<P>The transaction-descriptor specifies properties relating to transactions.
+			Applicable to all bean types</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[trans-timeout-seconds]</I>
+				: String
+				<TD>Sets the default timeout for container-initiated transactions for this<BR>
+					bean. If a transaction's duration is longer than this value, it will<BR>
+					be rolled back.<BR>
+				</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="resource-description">@weblogic:resource-description</A></H4>
+		<P>The resource-description element is used to map a resource-ref, declared in the
+			ejb-jar.xml deployment descriptor, to the JNDI name of the server resource
+			factory it represents.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[res-ref-name]</I>
+				: String
+				<TD>The res-ref-name element specifies the name of a resource factory<BR>
+					reference.</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[jndi-name]</I>
+				: String
+				<TD>This jndi-name for the resource.</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="resource-env-description">@weblogic:resource-env-description</A></H4>
+		<P>The resource-env-description element is used to map a resource-env-ref, declared
+			in the ejb-jar.xml deployment descriptor, to the JNDI name of the server
+			resource it represents.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>[res-env-ref-name]</I>
+				: String
+				<TD>The res-env-ref-name element specifies the name of a resource environment<BR>
+					reference.</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>[jndi-name]</I>
+				: String
+				<TD>This jndi-name for the resource.</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="ejb-reference-description">@weblogic:ejb-reference-description</A></H4>
+		<P>The ejb-reference-description is used to map the JNDI name in the WebLogic
+			server of an EJB that is referenced by the bean in an ejb-reference.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>ejb-ref-name</I>
+				: String
+				<TD>The ejb-ref-name element contains the name of an EJB reference. The<BR>
+					EJB reference is an entry in the enterprise bean's environment.</TD>
+				<TD>All bean types</TD>
+				<TD>Yes</TD>
+			</TR>
+			<TR>
+				<TD><I>jndi-name</I>
+				: String
+				<TD>This jndi-name for the ejb.</TD>
+				<TD>All bean types</TD>
+				<TD>Yes</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="ejb-local-reference-description">@weblogic:ejb-local-reference-description</A></H4>
+		<P>The ejb-local-reference-description is used to map the JNDI name in the WebLogic
+			server of an EJB that is referenced by the bean in an ejb-local-ref.</P>
+		<TABLE BORDER="1" CELLPADDING="7">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>ejb-ref-name</I>
+				: String
+				<TD>The ejb-ref-name element contains the name of an EJB reference. The<BR>
+					EJB reference is an entry in the enterprise bean's environment.</TD>
+				<TD>All bean types</TD>
+				<TD>Yes</TD>
+			</TR>
+			<TR>
+				<TD><I>jndi-name</I>
+				: String
+				<TD>This jndi-name for the ejb.</TD>
+				<TD>All bean types</TD>
+				<TD>Yes</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="enable-call-by-reference">@weblogic:enable-call-by-reference</A></H4>
+		<P>Pass by value is always necessary when the EJB is called remotely (not<BR>
+			from within the server). By setting enable-call-by-reference to<BR>
+			"True", EJB methods called from within the same server will pass<BR>
+			arguments by reference. This increases the performance of method<BR>
+			invocation since parameters are not copied.<BR>
+			<BR>
+			The value of enable-call-by-reference must be "True" or "False".</P>
+		<P><STRONG>@weblogic:enable-dynamic-queries</STRONG></P>
+		<P>This optional element must be present for Dynamic Queries to be enabled
+			<BR>
+			for the EJB. Dynamic Queries are only available for EJB 2.0 CMP beans on WLS
+			7.0 or later.
+			<BR>
+			The value of enable-dynamic-queries must be "True" or "False".
+		</P>
+		<H4><A NAME="run-as-identity-principal">@weblogic:run-as-identity-principal</A></H4>
+		<P>The run-as-identity-principal element specifies which security principal is<BR>
+			to be used for the run-as identity. This tag is necessary if the role<BR>
+			specified in the run-as element of the ejb-jar.xml descriptor does not map to<BR>
+			a single security principal representing a User in the security realm. This<BR>
+			could be true in two cases. One case is where the role maps to multiple<BR>
+			security principals (see security-role-assignment element). In this case,<BR>
+			the run-as-identity-principal element must be used to specify which of the<BR>
+			security principals you would like to be used. The other case is where the<BR>
+			role maps to a single security principal that represents a Group in the<BR>
+			security realm. In this case the run-as-identity-principal element must be<BR>
+			used to specify a particular User in the security realm.</P>
+		<H4><A NAME="data-source-name">@weblogic:data-source-name</A></H4>
+		<P>(Applicable to CMP Entity Beans). Overrides the datasource value in the Ant
+			subtask. If the Ant subtask doesn't specify datasource, this tag is mandatory.</P>
+		<P>The JNDI name of the WebLogic data source which should be used for all<BR>
+			database connectivity for this particular bean. This data source must<BR>
+			be defined in the standard way for WebLogic JDBC data sources. If you<BR>
+			do not know how to do this please consult the WebLogic Server<BR>
+			Documentation.</P>
+		<H4><A NAME="table-name">@weblogic:table-name</A></H4>
+		<P>(Applicable to CMP Entity Beans)</P>
+		<P>The fully qualified SQL name of the source table in the database. Note<BR>
+			that this needs to be set in all cases. The user defined for the data<BR>
+			source for this bean must have read and write privileges on this<BR>
+			table, though not necessarily schema modification privileges.<BR>
+		</P>
+		<H4><A NAME="delay-database-insert-until">@weblogic:delay-database-insert-until</A></H4>
+		<P>(Applicable to CMP Entity Beans)</P>
+		<P>The delay-database-insert-until element is used to specify the<BR>
+			precise time at which a new bean that uses RDBMS CMP is inserted into<BR>
+			the database. By default, the database insert is done after ejbPostCreate.<BR>
+			<BR>
+			Delaying the database insert until after ejbPostCreate is required<BR>
+			when a cmr-field is mapped to a foreign-key column that doesn't allow<BR>
+			null values. In this case, the cmr-field must be set to a non-null value<BR>
+			in ejbPostCreate before the bean is inserted into the database. Note that<BR>
+			cmr-fields may not be set during ejbCreate, before the primary key of the<BR>
+			bean is known.<BR>
+			<BR>
+			It is also generally advisable to delay the database insert until after<BR>
+			ejbPostCreate if the ejbPostCreate method modifies the persistent<BR>
+			fields of the bean. This can yield better performance by avoiding an<BR>
+			unnecessary store operation.<BR>
+			<BR>
+			For maximum flexibility, developers should avoid creating related<BR>
+			beans in their ejbPostCreate method. This may make delaying the<BR>
+			database insert impossible if database constraints prevent related<BR>
+			beans from referring to a bean that has not yet been created.<BR>
+			<BR>
+			Allowed values:<BR>
+			ejbCreate - perform database insert immediately after ejbCreate<BR>
+			ejbPostCreate - perform insert immediately after ejbPostCreate (default)<BR>
+		</P>
+		<H4><A NAME="automatic-key-generation">@weblogic:automatic-key-generation</A></H4>
+		<P>(Applicable to CMP Entity Beans) (WLS 6.1)</P>
+		<TABLE BORDER="1" CELLPADDING="7" WIDTH="1265" id="Table1">
+			<TR>
+				<TD WIDTH="184">Parameter</TD>
+				<TD WIDTH="839">Usage</TD>
+				<TD WIDTH="99">Applies to</TD>
+				<TD WIDTH="67">Mandatory</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[generator-type]</I>
+				: String
+				<TD WIDTH="839">Specifies the Key Generation Method that will be employed
+					<UL>
+						<LI>
+						'ORACLE' - use Oracle's SEQUENCE
+						<LI>
+						'SQL_SERVER' - use SQL SERVER's IDENTITY column
+						<LI>
+							'NAMED_SEQUENCE_TABLE' - use USER designated SEQUENCE TABLE<BR>
+							User specifies the name of a DBMS Table with the schema (sequence INT) which
+							will be used to hold sequence values</LI>
+					</UL>
+				</TD>
+				<TD WIDTH="99">CMP Entity Beans (WLS 6.1)</TD>
+				<TD WIDTH="67">Yes</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[generator-name]</I>
+				: String
+				<TD WIDTH="839">If this is DBMS Key Generation, then this may be used to specify
+					the Name of the Generator, e.g. for generator-type ORACLE<BR>
+					generator-name would be the name of the ORACLE SEQUENCE to use. The SEQUENCE is
+					assumed to already exist in the Database.<BR>
+					<BR>
+					If this is generator-type NAMED_SEQUENCE_TABLE Key Generation, Then this would
+					be used to specify the name of the SEQUENCE TABLE to use. The
+					NAMED_SEQUENCE_TABLE is assumed to already exist in the Database<BR>
+					with 1 row.</TD>
+				<TD WIDTH="99">CMP Entity Beans (WLS 6.1)</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[key-cache-size]</I>
+				: Integer
+				<TD WIDTH="839">Optional size of key cache. For generator-type ORACLE , this value
+					MUST match the Oracle SEQUENCE INCREMENT value. If there is a mismatch between
+					this value and the Oracle SEQUENCE INCREMENT value, then there will likely be
+					duplicate key problems.<BR>
+					<BR>
+					For generator-type NAMED_SEQUENCE_TABLE, this tells how many keys the Container
+					will fetch in a single DBMS call<BR>
+					<BR>
+					For generator-type SQL_SERVER, this value is ignored</TD>
+				<TD WIDTH="99">CMP Entity Beans (WLS 6.1)</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+		</TABLE>
+		<H3><A NAME="method-level-tags">Method level Tags</A></H3>
+		<H4><A NAME="transaction-isolation">@weblogic:transaction-isolation</A></H4>
+		<P>Specify transaction isolation level on a per-method basis.<B> This tag can also be
+				used on the class level.</B></P>
+		<TABLE BORDER="1" CELLPADDING="7" id="Table2">
+			<TR>
+				<TD>Parameter</TD>
+				<TD>Usage</TD>
+				<TD>Applies to</TD>
+				<TD>Mandatory</TD>
+			</TR>
+			<TR>
+				<TD><I>isolation-level</I>
+				: String
+				<TD>Specify a transaction isolation level<BR>
+					<BR>
+					The value of this element must be one of the following:<BR>
+					<BR>
+					TRANSACTION_SERIALIZABLE<BR>
+					TRANSACTION_READ_COMMITTED<BR>
+					TRANSACTION_READ_UNCOMMITTED<BR>
+					TRANSACTION_REPEATABLE_READ<BR>
+					<BR>
+					Special value for use with Oracle DBMS Only:<BR>
+					<BR>
+					TRANSACTION_READ_COMMITTED_FOR_UPDATE<BR>
+					<BR>
+					When this Isolation level is set for a method, the following happens:<BR>
+					<BR>
+					The Isolation Level is set to: TRANSACTION_READ_COMMITTED<BR>
+					<BR>
+					For duration of the Transaction, all SQL 'SELECT' statements<BR>
+					executed in any method are executed with 'FOR UPDATE'<BR>
+					appended to them. This causes the SELECTed rows to be locked for update.<BR>
+					<BR>
+					This isolation level can be used to avoid the error:<BR>
+					java.sql.SQLException: ORA-08177: can't serialize access for this transaction<BR>
+					<BR>
+					which can happen when using the TRANSACTION_SERIALIZABLE isolation with Oracle
+					DBMS</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+			<TR>
+				<TD><I>description</I>
+				: String
+				<TD>A textual description</TD>
+				<TD>All bean types</TD>
+				<TD>No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="dbms-column">@weblogic:dbms-column</A></H4>
+		<P>(Applicable to CMP Entity Beans)</P>
+		<P>The database column to which the given field should be mapped. This element is
+			case maintaining, though not all databases are case sensitive.</P>
+		<H4><A NAME="dbms-column-type">@weblogic:dbms-column-type</A></H4>
+		<P>(Applicable to CMP Entity Beans) (WLS 6.1)</P>
+		<P>The dbms-column-type can be either OracleBlob or OracleClob. This will map the
+			current field to a Blob or Clob in Oracle database.</P>
+		<H4><A NAME="field-group">@weblogic:field-group</A></H4>
+		<P>(Applicable to CMP Entity Beans)</P>
+		<P>A field-group represents a subset of the cmp and cmr-fields of a bean.<BR>
+			Related fields in a bean can be put into groups which are faulted<BR>
+			into memory together as a unit. A group can be associated with a<BR>
+			query or relationship, so that when a bean is loaded as the<BR>
+			result of executing a query or following a relationship, only the<BR>
+			fields mentioned in the group are loaded.<BR>
+			<BR>
+			A special group named 'default' is used for queries and relationships<BR>
+			that have no group specified. By default, the 'default' group contains<BR>
+			all of a bean's cmp-fields and any cmr-fields that add a foreign key to the<BR>
+			persistent state of the bean.<BR>
+			<BR>
+			A field may belong to multiple groups. In this case, the getXXX() method<BR>
+			for the field will fault in the first group (lexically speaking) that<BR>
+			contains the field.</P>
+		<H4><A NAME="relation">@weblogic:relation</A></H4>
+		<P>(Applicable to CMP Entity Beans with CMR)</P>
+		<P>Used in conjunction with the <A HREF="ejbdoclet.html#relation"><CODE>@ejb:relation</CODE></A>
+			tag.</P>
+		<TABLE BORDER="1" CELLPADDING="7" WIDTH="1265" id="Table3">
+			<TR>
+				<TD WIDTH="184">Parameter</TD>
+				<TD WIDTH="517">Usage</TD>
+				<TD WIDTH="421">Applies to</TD>
+				<TD WIDTH="67">Mandatory</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[join-table-name]</I>
+				: String
+				<TD WIDTH="517">Specifies the join table of a m:n relationship</TD>
+				<TD WIDTH="421">M:N relationships. (Bidirectional and unidirectional).</TD>
+				<TD WIDTH="67">Only for m:n relationships</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[group-name]</I>
+				: String
+				<TD WIDTH="517">Specifies the group name of the corresponding
+					weblogic-relationship-role</TD>
+				<TD WIDTH="421">All relationships. (Bidirectional and unidirectional).</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[target-group-name]</I>
+				: String
+				<TD WIDTH="517">Specifies the group name of the corresponding
+					weblogic-relationship-role</TD>
+				<TD WIDTH="421">(Unidirectional m:n relationships).</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[db-cascade-delete]</I>
+				: String
+				<TD WIDTH="517">The db-cascade-delete tag specifies that a cascade delete will use
+					the<BR>
+					builtin cascade delete facilities of the underlying DBMS. <B>(Not implemented yet)</B></TD>
+				<TD WIDTH="421">All relationships, but only if @ejb:relation cascade-delete="true"</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[target-db-cascade-delete]</I>
+				: String
+				<TD WIDTH="517">The db-cascade-delete tag specifies that a cascade delete will use
+					the<BR>
+					builtin cascade delete facilities of the underlying DBMS. <B>(Not implemented yet)</B></TD>
+				<TD WIDTH="421">All relationships, but only if @ejb:relation
+					target-cascade-delete="true" and relation is unidirectional</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="column-map">@weblogic:column-map</A></H4>
+		<P>(Applicable to CMP Entity Beans with CMR)</P>
+		<P>Used in conjunction with the <A HREF="ejbdoclet.html#relation"><CODE>@ejb:relation</CODE></A>
+			tag. This tag should be put on the bean that corresponds to the foreign key
+			side of the relation (For 1:N relations this corresponds to the N-side of the
+			relation). If the relationship is unidirectional and the directionality goes
+			from the pk side to the fk side, use the @weblogic:target-column-map tag
+			instead.</P>
+		<TABLE BORDER="1" CELLPADDING="7" WIDTH="1265" id="Table4">
+			<TR>
+				<TD WIDTH="184">Parameter</TD>
+				<TD WIDTH="517">Usage</TD>
+				<TD WIDTH="421">Applies to</TD>
+				<TD WIDTH="67">Mandatory</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>foreign-key-column</I>
+				: String
+				<TD WIDTH="517">Represents a mapping from a foreign key column in one table in the
+					database to a corresponding primary key column. The two columns may or may not
+					be in the same table. The tables to which the column belong are implicit from
+					the context in which the column-map element appears in the deployment
+					descriptor.</TD>
+				<TD WIDTH="421">&nbsp;</TD>
+				<TD WIDTH="67">Yes</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[key-column]</I>
+				: String
+				<TD WIDTH="517">This attribute only needs to be specified if there is more than one
+					column-map for one relation.
+					<p>The key-column element is not specified if the foreign-key-column<BR>
+						refers to a 'remote' bean.</p>
+				</TD>
+				<TD WIDTH="421">&nbsp;</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="relation">@weblogic:target-column-map</A></H4>
+		<P>(Applicable to CMP Entity Beans with CMR)</P>
+		<P>Used in conjunction with the <A HREF="ejbdoclet.html#relation"><CODE>@ejb:relation</CODE></A>
+			tag. This tag should only be used for unidirectional relationships when the
+			directionality goes from the pk side to the fk side (typically 1-&gt;N
+			relationships).</P>
+		<TABLE BORDER="1" CELLPADDING="7" WIDTH="1265" id="Table5">
+			<TR>
+				<TD WIDTH="184">Parameter</TD>
+				<TD WIDTH="517">Usage</TD>
+				<TD WIDTH="421">Applies to</TD>
+				<TD WIDTH="67">Mandatory</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>foreign-key-column</I>
+				: String
+				<TD WIDTH="517">&nbsp;</TD>
+				<TD WIDTH="421">&nbsp;</TD>
+				<TD WIDTH="67">Yes</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[key-column]</I>
+				: String
+				<TD WIDTH="517">&nbsp;</TD>
+				<TD WIDTH="421">&nbsp;</TD>
+				<TD WIDTH="67">No</TD>
+			</TR>
+		</TABLE>
+		<H4><A NAME="finder">@weblogic:finder</A></H4>
+		<P>(Applicable to CMP 1.1 Entity Beans)</P>
+		<TABLE BORDER="1" CELLPADDING="7" WIDTH="1265" id="Table6">
+			<TR>
+				<TD WIDTH="184">Parameter</TD>
+				<TD WIDTH="517">Usage</TD>
+				<TD WIDTH="421">Applies to</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[finder-query]</I>
+				: String
+				<TD WIDTH="517">A raw SQL string that will be used instead of the standard EJB QL
+					query<BR>
+					to retrieve values from the database for this finder. Any amount<BR>
+					of vendor specific SQL may be used.<BR>
+				</TD>
+				<TD WIDTH="421">CMP 1.1 Entity Beans</TD>
+			</TR>
+			<TR>
+				<TD WIDTH="184"><I>[find-for-update]</I>
+				: String
+				<TD WIDTH="517">The optional find-for-update element can contain a value of 'true'<BR>
+					or 'false'. The default value is 'false'. When find-for-update<BR>
+					is true, a SELECT...FOR UPDATE statement is generated for the finder<BR>
+					method. This option should only be used with a database that supports<BR>
+					SELECT...FOR UPDATE, such as Oracle.<BR>
+					<BR>
+					The purpose of find-for-update is to cause the finder method to acquire<BR>
+					a write lock on the database row.</TD>
+				<TD WIDTH="421">CMP 1.1 Entity Beans</TD>
+			</TR>
+		</TABLE>
+	</BODY>
+</HTML>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jonas-web-app PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<!-- <XDtI18n:getString resource="generated_by_xdoclet"/> -->
+
+<jonas-web-app>
+  <XDtClass:forAllDistinctClassTags tagName="jonas.resource-env" paramName="resource-env-ref-name">
+    <jonas-resource-env>
+        <resource-env-ref-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="resource-env-ref-name"/></resource-env-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="jndi-name"/></jndi-name>
+    </jonas-resource-env>
+  </XDtClass:forAllDistinctClassTags>
+  <XDtClass:forAllDistinctClassTags tagName="jonas.resource" paramName="res-ref-name">
+    <jonas-resource>
+        <res-ref-name><XDtClass:classTagValue tagName="jonas.resource" paramName="res-ref-name"/></res-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jonas.resource" paramName="jndi-name"/></jndi-name>
+    </jonas-resource>
+  </XDtClass:forAllDistinctClassTags>
+  <XDtClass:forAllDistinctClassTags tagName="jonas.ejb-ref" paramName="ejb-ref-name">
+    <jonas-ejb-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="ejb-ref-name"/></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="jndi-name"/></jndi-name>
+    </jonas-ejb-ref>
+  </XDtClass:forAllDistinctClassTags>
+  <XDtConfig:ifConfigParamNotEquals paramName="host" value="">
+    <host><XDtConfig:configParameterValue paramName="host"/></host>
+  </XDtConfig:ifConfigParamNotEquals>
+  <XDtConfig:ifConfigParamNotEquals paramName="contextRoot" value="">
+    <context-root><XDtConfig:configParameterValue paramName="contextRoot"/></context-root>
+  </XDtConfig:ifConfigParamNotEquals>
+</jonas-web-app>

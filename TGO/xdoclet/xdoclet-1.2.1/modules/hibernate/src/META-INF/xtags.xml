@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+    <!-- Hibernate specific tags -->
+    <namespace>
+        <name>hibernate</name>
+        <usage-description>Tags for declaration of Hibernate descriptor file</usage-description>
+        <condition-description>All classes, at class level and on getter methods</condition-description>
+        <condition type="or">
+            <condition type="class"/>
+            <condition type="and">
+                <condition type="method"/>
+          <condition type="or">
+            <condition type="starts-with">
+              <condition-parameter>get</condition-parameter>
+            </condition>
+            <condition type="starts-with">
+              <condition-parameter>is</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        </condition>
+        <tags>
+            <!-- Class, subclass declarations -->
+            <tag>
+                <level>class</level>
+                <name>hibernate.class</name>
+                <usage-description>Declare a persistent class</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="class"/>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>The name of its database table</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>discriminator-value</name>
+                    <usage-description>A value that distinguishes the particular subclass</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>mutable</name>
+                    <usage-description>Specifies that instances of the class are (not) mutable</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>true</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>true</option>
+                                <option>false</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="bool">
+                    <name>dynamic-update</name>
+                    <usage-description>Specifies that only changed columns should appear in the SQL UPDATE</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="bool">
+                    <name>dynamic-insert</name>
+                    <usage-description>Specifies that null columns should not appear in the SQL INSERT</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>polymorphism</name>
+                    <usage-description>Enable "explicit" polymorphism</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>implicit</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>explicit</option>
+                                <option>implicit</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>Override the schema name specified by the root hibernate-mapping element</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>proxy</name>
+                    <usage-description>Specifies an interface to use for CGLIB proxies</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.subclass</name>
+                <usage-description>Declare the current class as subclass</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="class"/>
+                <parameter type="text">
+                    <name>discriminator-value</name>
+                    <usage-description>A value that distinguishes the particular subclass</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>proxy</name>
+                    <usage-description>Specifies an interface to use for CGLIB proxies</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>dynamic-update</name>
+                    <usage-description>Specifies that only changed columns should appear in the SQL UPDATE</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="bool">
+                    <name>dynamic-insert</name>
+                    <usage-description>Specifies that null columns should not appear in the SQL INSERT</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.discriminator</name>
+                <usage-description>Defines a discriminator</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="class"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>The Hibernate type</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The length of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.joined-subclass</name>
+                <usage-description>Declare the current class as joined subclass</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="class"/>
+                <parameter type="text">
+                    <name>proxy</name>
+                    <usage-description>Specifies an interface to use for CGLIB proxies</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>dynamic-update</name>
+                    <usage-description>Specifies that only changed columns should appear in the SQL UPDATE</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="bool">
+                    <name>dynamic-insert</name>
+                    <usage-description>Specifies that null columns should not appear in the SQL INSERT</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>Override the schema name specified by the root hibernate-mapping element</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.joined-subclass-key</name>
+                <usage-description>Declares a joined-subclass key</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.cache</name>
+                <usage-description>Enables caching</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>usage</name>
+                    <usage-description>Defines the cache semantics</usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>read-write</option>
+                                <option>nonstrict-read-write</option>
+                                <option>read-only</option>
+                                <option>transactional</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.jcs-cache</name>
+                <usage-description>Enables caching (deprecated)</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>usage</name>
+                    <usage-description>Defines the cache semantics.
+                    nonstrict-read-write only applies to version 2.0 and later.</usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>read-write</option>
+                                <option>nonstrict-read-write</option>
+                                <option>read-only</option>
+                                <option>transactional</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>class</level>
+                <name>hibernate.query</name>
+                <usage-description>Declare a named query for class</usage-description>
+                <unique>false</unique>
+                <condition-description>Class level on bean</condition-description>
+                <condition type="class"/>
+                <parameter type="text">
+                    <name>name</name>
+                    <usage-description>Name of this query</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>query</name>
+                    <usage-description>Query contents</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            
+            <!-- Identifier mappings -->
+
+            <tag>
+                <level>method</level>
+                <name>hibernate.id</name>
+                <usage-description>Declares an identifier property</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>The Hibernate type</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The length of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                 <parameter type="text">
+                    <name>unsaved-value</name>
+                    <usage-description>A value that distinguishes transient instances with existing persistent state from new transient instances</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>null</default>
+                </parameter>
+                <parameter type="text">
+                    <name>generator-class</name>
+                    <usage-description>The key generator class</usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>uuid.hex</option>
+                                <option>uuid.string</option>
+                                <option>increment</option>
+                                <option>assigned</option>
+                                <option>native</option>
+                                <option>identity</option>
+                                <option>sequence</option>
+                                <option>hilo</option>
+                                <option>seqhilo</option>
+                                <option>foreign</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>            
+            <tag>
+                <level>method</level>
+                <name>hibernate.generator-param</name>
+                <usage-description>Specifies an id generator parameter value</usage-description>
+                <unique>false</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>name</name>
+                    <usage-description>The name of the parameter</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>value</name>
+                    <usage-description>The parameter value</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+
+            <!-- Property mappings -->
+
+            <tag>
+                <level>method</level>
+                <name>hibernate.property</name>
+                <usage-description>Defines a property</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>The Hibernate type</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The length of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>not-null</name>
+                    <usage-description>If the column is not nullable</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>unique</name>
+                    <usage-description>If the column is unique</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>insert</name>
+                    <usage-description>Should the column appear in the SQL INSERT</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>update</name>
+                    <usage-description>Should the column appear in the SQL UPDATE</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.component</name>
+                <usage-description>Declares a component</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>A fully qualified class name</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+					<name>prefix</name>
+					<usage-description>When multiple Java fields are of the same component datatype, use this to specify a descriminating column-name-prefix</usage-description>
+					<mandatory>false</mandatory>
+					</parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.version</name>
+                <usage-description>Declares a version property</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of a column holding the version number</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>The Hibernate type</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>integer</option>
+                                <option>short</option>
+                                <option>long</option>
+                                <option>timestamp</option>
+                                <option>calendar</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>access</name>
+                    <usage-description>The strategy Hibernate should use for accessing the property value.</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>property</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>field</option>
+                                <option>property</option>
+                                <option>ClassName</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>unsaved-value</name>
+                    <usage-description>A version property value that indicates that an instance is newly instantiated (unsaved), distinguishing it from transient instances that were saved or loaded in a previous session (undefined specifies that the identifier property value should be used).</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>undefined</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>null</option>
+                                <option>negative</option>
+                                <option>undefined</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.timestamp</name>
+                <usage-description>Declares a timestamp property</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of an column holding the timestamp</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.many-to-one</name>
+                <usage-description>Declares a many-to-one association</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>The name of the associated class</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>none</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="bool">
+                    <name>not-null</name>
+                    <usage-description>If the column is not nullable</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="bool">
+                    <name>unique</name>
+                    <usage-description>If the column is unique</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>outer-join</name>
+                    <usage-description>Enable outer-join fetching</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>auto</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>true</option>
+                                <option>false</option>
+                                <option>auto</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="bool">
+                    <name>insert</name>
+                    <usage-description>Should the column appear in the SQL INSERT</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>update</name>
+                    <usage-description>Should the column appear in the SQL UPDATE</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>property-ref</name>
+                    <usage-description>The name of a property of the associated class that is joined to this foreign key. If not specified, the primary key of the associated class is used.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>foreign-key</name>
+                    <usage-description>The name of the foreign key constraint to associate with this association.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.one-to-one</name>
+                <usage-description>Declares a one-to-one association</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>The name of the associated class</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+				<parameter type="text">
+					<name>property-ref</name>
+					<usage-description>bi-directional reference to one-to-one table that holds the foreign key</usage-description>
+					<mandatory>false</mandatory>
+				</parameter>                
+                <parameter type="bool">
+                    <name>constrained</name>
+                    <usage-description>Is there a foreign key constraint</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="bool">
+                    <name>outer-join</name>
+                    <usage-description>Enable outer-join fetching for this association when hibernate.use_outer_join is set</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>auto</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>true</option>
+                                <option>false</option>
+                                <option>auto</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>foreign-key</name>
+                    <usage-description>The name of the foreign key constraint to associate with this association.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+
+            <tag>
+                <level>method</level>
+                <name>hibernate.column</name>
+                <usage-description>Customize column mapping</usage-description>
+                <unique>false</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>name</name>
+                    <usage-description>The column name</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The column length</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>unique</name>
+                    <usage-description>Is the column unique</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>not-null</name>
+                    <usage-description>Is the column nullable</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>index</name>
+                    <usage-description>The name of an index</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>unique-key</name>
+                    <usage-description>The name of a unique constraint</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>sql-type</name>
+                    <usage-description>The SQL column type</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            
+            <!-- Collection declarations -->
+
+            <tag>
+                <level>method</level>
+                <name>hibernate.set</name>
+                <usage-description>Defines a set</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="bool">
+                    <name>inverse</name>
+                    <usage-description>If inverse collection</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>Defaults to role name: the name of the collection table (not used for one-to-many associations)</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>The name of a table schema to override the schema declared</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>lazy</name>
+                    <usage-description>Enable lazy initialization</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>sort</name>
+                    <usage-description>Specify a sorted collection with natural sort order or a given comparator class</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>order-by</name>
+                    <usage-description>Specify table columns that define the iteration order</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>where</name>
+                    <usage-description>An SQL WHERE condition</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.bag</name>
+                <usage-description>Defines a bag</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="bool">
+                    <name>inverse</name>
+                    <usage-description>If inverse collection</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>The name of the collection table (not used for one-to-many associations)</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>The name of a table schema to override the schema declared</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>lazy</name>
+                    <usage-description>Enable lazy initialization</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>false</default>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>none</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>order-by</name>
+                    <usage-description>Specify table columns that define the iteration order</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>where</name>
+                    <usage-description>An SQL WHERE condition</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.list</name>
+                <usage-description>Defines a List</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>The name of the collection table (not used for one-to-many associations)</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>The name of a table schema to override the schema declared</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>lazy</name>
+                    <usage-description>Enable lazy initialization</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated objects</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>none</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>where</name>
+                    <usage-description>An SQL WHERE condition</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.map</name>
+                <usage-description>Defines a map</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>The name of the collection table (not used for one-to-many associations)</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>The name of a table schema to override the schema declared</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>lazy</name>
+                    <usage-description>Enable lazy initialization</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                                <option>none</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>sort</name>
+                    <usage-description>Specify a sorted collection with natural sort order or a given comparator class</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>order-by</name>
+                    <usage-description>Specify table columns that define the iteration order</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>where</name>
+                    <usage-description>An SQL WHERE condition</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.array</name>
+                <usage-description>Defines an array</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>The name of the collection table (not used for one-to-many associations)</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>The name of a table schema to override the schema declared</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>where</name>
+                    <usage-description>An SQL WHERE condition</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.primitive-array</name>
+                <usage-description>Defines a primitive-array</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>table</name>
+                    <usage-description>The name of the collection table (not used for one-to-many associations)</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>schema</name>
+                    <usage-description>The name of a table schema to override the schema declared</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>cascade</name>
+                    <usage-description>Specifies which operations should be cascaded from the parent object to the associated object</usage-description>
+                    <mandatory>false</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>all</option>
+                                <option>none</option>
+                                <option>save-update</option>
+                                <option>delete</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+                <parameter type="text">
+                    <name>where</name>
+                    <usage-description>An SQL WHERE condition</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+
+            <!-- Collection mappings -->
+
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-key</name>
+                <usage-description>Declares a collection key</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-key-column</name>
+                <usage-description>Defines a column for a collection key</usage-description>
+                <unique>false</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>name</name>
+                    <usage-description>The column name</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The column length</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>unique</name>
+                    <usage-description>Is the column unique</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>not-null</name>
+                    <usage-description>Is the column nullable</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>index</name>
+                    <usage-description>The name of an index</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>unique-key</name>
+                    <usage-description>The name of a unique constraint</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>sql-type</name>
+                    <usage-description>The SQL column type</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-index</name>
+                <usage-description>Declares a collection index. This will be used as index for the arrays, sotring field for the lists or keys in the map</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>The Hibernate type</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The length of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.index-many-to-many</name>
+                <usage-description>Declares many-to-many collection index. Will be used as map key for ternary associations. Shall be entity?</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>Entity to be used as key in the ternary association maps</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>foreign-key</name>
+                    <usage-description>The name of the foreign key constraint to associate with this association.</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+      </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-element</name>
+                <usage-description>Declares a collection element</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>type</name>
+                    <usage-description>The Hibernate type</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>length</name>
+                    <usage-description>The length of the mapped database table column</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>not-null</name>
+                    <usage-description>Is the column nullable</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="bool">
+                    <name>unique</name>
+                    <usage-description>Is the column unique</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-composite-element</name>
+                <usage-description>Declares a composite collection element</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>The name of the element class</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-many-to-many</name>
+                <usage-description>Declares a many-to-many relationship</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>column</name>
+                    <usage-description>The name of the mapped database table column</usage-description>
+                    <mandatory>true</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>Fully qualified class name</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+                <parameter type="text">
+                    <name>outer-join</name>
+                    <usage-description>Enable outer-join fetching</usage-description>
+                    <mandatory>false</mandatory>
+                    <default>auto</default>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>true</option>
+                                <option>false</option>
+                                <option>auto</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-one-to-many</name>
+                <usage-description>Declares a one-to-many relationship</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>class</name>
+                    <usage-description>Fully qualified class name of the associated class</usage-description>
+                    <mandatory>false</mandatory>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-cache</name>
+                <usage-description>Enables caching</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>usage</name>
+                    <usage-description>Defines the cache semantics</usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>read-write</option>
+                                <option>nonstrict-read-write</option>
+                                <option>read-only</option>
+                                <option>transactional</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+            <tag>
+                <level>method</level>
+                <name>hibernate.collection-jcs-cache</name>
+                <usage-description>Enables caching (deprecated)</usage-description>
+                <unique>true</unique>
+                <condition-description>Hibernate</condition-description>
+                <condition type="method"/>
+                <parameter type="text">
+                    <name>usage</name>
+                    <usage-description>Defines the cache semantics</usage-description>
+                    <mandatory>true</mandatory>
+                    <option-sets>
+                        <option-set>
+                            <options>
+                                <option>read-write</option>
+                                <option>nonstrict-read-write</option>
+                                <option>read-only</option>
+                                <option>transactional</option>
+                            </options>
+                        </option-set>
+                    </option-sets>
+                </parameter>
+            </tag>
+        </tags>
+    </namespace>
+</xdoclet>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- common jdo tags -->
+  <namespace>
+    <name>jdo</name>
+    <usage-description>JDO tags used to generate jdo xml metadata.  The tag names are identical to the element names in jdo.dtd.</usage-description>
+    <condition-description>classes to be persistence-capable on class and field level</condition-description>
+    <condition type="or">
+      <condition type="field"/>
+      <condition type="class"/>
+    </condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>jdo.persistence-capable</name>
+        <usage-description>
+        The jdo.persistence-capable tag provides information about the JDO persistent bean. Its presence determines if your class will be included in the generated jdo metadata.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>The presence of the jdo.persistence-capable tag determines if a class will be included in the generated jdo metadata and thus if it will be enhanced to PersistenceCapable</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>identity-type</name>
+          <usage-description>
+             Specifies whether objects are uniquely identified by a jdo-implementation provided abstract identifier (datastore identity), accessible fields in the object (application identity), or not at all (nondurable identity).
+          </usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>datastore</default>
+              <options>
+                <option>application</option>
+                <option>datastore</option>
+                <option>nondurable</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>objectid-class</name>
+          <usage-description>The fully-qualified class name for the application identity object id.  Use only with application identity.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>requires-extent</name>
+          <usage-description>Specifies whether the jdo implementation must provide an extent for this class.</usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>persistence-capable-superclass</name>
+          <usage-description>Fully-qualified class name of the PersistenceCapable super class, if any.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>sql.table</name>
+        <usage-description>
+              Defines the mapping to a relational database. To use if the JDO bean is to be persisted on a relational database.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+              Applicable to the whole class.
+        </condition-description>
+        <condition type="class" />
+        <parameter type="text">
+          <name>table-name</name>
+          <usage-description>
+                Name of the table to map to.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>field</level>
+        <name>jdo.field</name>
+        <usage-description>
+             Defines a JDO persistent field.  The jdo.field tag can be used on any persistent field or to specify non-default properties. Many jdo implementation require explicit listing of collection-valued fields.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+             The jdo.field tag can be used on any persistent field or to specify non-default properties. Many jdo implementation require explicit listing of collection-valued fields.
+        </condition-description>
+        <condition type="field"/>
+        <parameter type="text">
+          <name>persistence-modifier</name>
+          <usage-description>
+               Specifies if the field is persistent, transactional or none of these.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>persistent</default>
+              <options>
+                <option>persistent</option>
+                <option>transactional</option>
+                <option>none</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>primary-key</name>
+          <usage-description>
+                Specifies whether or not this field is part of the primary key for application identity.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+        </parameter>
+        <parameter type="text">
+          <name>null-value</name>
+          <usage-description>
+               Specifies the treatment (exception, default, or none) of null values for persistent fields during storage in the data store.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>none</default>
+              <options>
+                <option>exception</option>
+                <option>default</option>
+                <option>none</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>default-fetch-group</name>
+          <usage-description>
+                Specifies whether this field is managed as a group with other fields.
+                It defaults to "true" for non-key fields of primitive types, java.util.Date,
+                and fields of java.lang, java.math types specified above.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>embedded</name>
+          <usage-description>
+                Specifies whether the field should be stored if possible as part of
+                the instance instead of as its own instance in the datastore. It defaults
+                to "true" for fields of primitive types, java.util.Date, and fields of
+                java.lang, java.math, and array types specified above. This attribute
+                is only a hint to the implementation. A compliant implementation
+                is permitted to support these types as first class instances in
+                the datastore. A portable application should not depend on the
+                embedded treatment of persistent fields.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>collection-type</name>
+          <usage-description>
+                The collection-type property specifies the type (collection, map, or array) 
+                of a collection valued field and provides details about the elements and their storage.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>collection</option>
+                <option>map</option>
+                <option>array</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>element-type</name>
+          <usage-description>
+                The element-type property specifies the fully qualified java class name of the element 
+                of a collection or array-valued persistent field.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Must be used with collection or array valued persistent field</condition-description>
+        </parameter>
+        <parameter type="bool">
+          <name>embedded-element</name>
+          <usage-description>
+                The embedded-element property specifies whether the elements of a collection or array-valued persistent 
+                field should be stored embedded or as first class objects.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Must be used only with a collection or array valued persistent field.</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>key-type</name>
+          <usage-description>
+                The key-type property specifies the fully qualified java class name of the keys of map-valued persistent field.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Must be used only with a map valued persistent field.</condition-description>
+        </parameter>
+        <parameter type="bool">
+          <name>embedded-key</name>
+          <usage-description>
+                The embedded-key property specifies whether the keys of a map-valued persistent field should be stored 
+                embedded or as first class objects.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Must be used only with a map valued persistent field.</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>value-type</name>
+          <usage-description>
+                The value-type property specifies the fully qualified java class name of the values of map-valued persistent field.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Must be used only with a map valued persistent field.</condition-description>
+        </parameter>
+        <parameter type="bool">
+          <name>embedded-value</name>
+          <usage-description>
+                The embedded-value property specifies whether the values of a map-valued persistent field should be stored 
+                embedded or as first class objects.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Must be used only with a map valued persistent field.</condition-description>
+        </parameter>
+      </tag>
+      <tag>
+        <level>field</level>
+        <name>sql.field</name>
+        <usage-description>
+              Defines the mapping of a field to a relational database. To use if the JDO bean is to be persisted on a relational database.
+              Usually only one @jdo.mapping tag is required for a basic persistent field, except for fields that link to a persistence-capable class,
+              where there are as many @jdo.mapping tags as there are foreign keys to this class, and for fields that represent a 1:n relationship 
+              where no @jdo.mapping tag is required, and finally for fields that represent a n:m relationship where there are as many @jdo.mapping tags 
+              as there are foreign keys from the relation table to the table for this class.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>
+              Applicable to a persistent field (basic field or object relationship)
+        </condition-description>
+        <condition type="field"/>
+        <parameter type="text">
+          <name>table-name</name>
+          <usage-description>
+                 (Experimental) For basic fields part of an inheritance mapping onto multiple tables, the name of the table that the field is mapped to.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>
+                 The field must be in a sub-class mapped partially onto another table.
+          </condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>column-name</name>
+          <usage-description>
+                 Name of the column to map the field to. For fields representing a n:m relationship, name of one of the foreign key column in the relation table pointing to the table for this class.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>
+               Applicable only on a persistent field
+          </condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>related-field</name>
+          <usage-description>
+                 Name of the field in this class matching the foreign key in the relation table.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>
+               The field must be a collection representing a n:m relationship
+          </condition-description>
+        </parameter>
+      </tag>
+      <tag>
+        <level>field</level>
+        <name>sql.relation</name>
+        <usage-description>
+              Further defines the mapping of a field of type Collection.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+              Applicable to a persistent field of type Collection
+        </condition-description>
+        <condition type="field"/>
+        <parameter type="text">
+          <name>style</name>
+          <usage-description>
+                 The style of the mapping between this class and the objects contained in the collection.
+                 For 1:n relationships, the style is 'foreign-key'. For n:m relationships, the style is 'relation-table'
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>
+               Applicable only on a persistent field of type Collection
+          </condition-description>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>foreign-key</option>
+                <option>relation-table</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>table-name</name>
+          <usage-description>
+                 Name of the relation table when style is 'relation-table' 
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>
+               Applicable only on a persistent field of type Collection used in a n:m relationship
+          </condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>related-field</name>
+          <usage-description>
+                 Name of the field in the class contained in the collection refering to this class.
+                 For a 1:n relationship, this is a field of the same type as this class, for a n:m
+                 relationship, it is a field of type Collection containing elements of the same type as this class.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>
+               Applicable only on a persistent field of type Collection
+          </condition-description>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

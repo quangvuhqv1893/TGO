@@ -1,0 +1,111 @@
+<!--
+/*
+ * JOnAS: Java(TM) Open Application Server
+ * Copyright (C) 1999 Bull S.A.
+ * Contact: jonas-team@objectweb.org
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * USA
+ *
+ * Initial developer(s): ____________________________________.
+ * Contributor(s): ______________________________________.
+ *
+ *
+*/
+-->
+
+<!--
+ The jonas-web-app element is the root element of a JOnAS WEB specific 
+ deployment descriptor. 
+-->
+<!ELEMENT jonas-web-app (jonas-resource-env*, jonas-resource*, jonas-ejb-ref*, host?, context-root?)>
+
+<!--
+ The jonas-resource element declares the JOnAS specific information for 
+ an external resource referenced by a web component. It consists of :
+  - the name of the resource reference specified in the standard WEB 
+  deployment descriptor,
+  - the JNDI name of the resource.
+
+  Used in: jonas-web-app
+-->
+<!ELEMENT jonas-resource (res-ref-name, jndi-name)>
+
+<!--
+ The res-ref-name element specifies the name of a resource factory reference. 
+ 
+ Used in: jonas-resource
+-->
+<!ELEMENT res-ref-name (#PCDATA)>
+
+<!--
+ The jndi-name element specifies a JNDI name.
+
+ Used in: jonas-resource-env, jonas-resource, jonas-ejb-ref
+-->
+<!ELEMENT jndi-name (#PCDATA)>
+
+<!--
+ The jonas-resource-env element declares the JOnAS specific information for 
+ an external resource environment referenced by a WEB component.
+ It consists of
+    - the name of the resource environment reference specified in the 
+    standard WEB deployment descriptor,
+    - the JNDI name of the resource environment.
+
+ Used in: jonas-web-app
+-->
+<!ELEMENT jonas-resource-env (resource-env-ref-name, jndi-name)>
+
+<!--
+ The resource-env-ref-name element specifies the name of a resource 
+ environment reference.
+
+ Used in: jonas-resource-env 
+-->
+<!ELEMENT resource-env-ref-name (#PCDATA)>
+
+<!--
+ The jonas-ejb-ref element declares the JOnAS specific information for a 
+ reference to an enterprise bean's home.
+ It consists of
+   - the name of the ejb reference specified in the standard WEB deployment
+     descriptor,
+   - the JNDI name of the ejb.
+
+ Used in: jonas-web-app
+-->
+<!ELEMENT jonas-ejb-ref (ejb-ref-name, jndi-name)>
+
+<!--
+ The ejb-ref-name element specifies the name of an ejb reference.
+
+ Used in: jonas-ejb-ref
+-->
+<!ELEMENT ejb-ref-name (#PCDATA)>
+
+<!--
+ The host element specifies the name of host used for deploy the web application.
+
+ Used in: jonas-web-app
+-->
+<!ELEMENT host (#PCDATA)>
+
+<!--
+ The context-root element specifies the context root for the web application.
+
+ Used in: jonas-web-app
+-->
+<!ELEMENT context-root (#PCDATA)>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+<!DOCTYPE xdoclet-module PUBLIC "-//XDoclet Team//DTD XDoclet Module 1.0//EN" "http://xdoclet.sourceforge.net/dtd/xdoclet-module_1_0.dtd">
+-->
+
+<!--
+This xdoclet.xml is hand written, and will only be used during build. It declares the tag handlers
+that are part of the core. These are needed in order to build the other module's xdoclet.xml files
+-->
+
+<xdoclet-module>
+   <taghandler namespace="Class"        class="xdoclet.tagshandler.ClassTagsHandler"/>
+   <taghandler namespace="Comment"      class="xdoclet.tagshandler.CommentTagsHandler"/>
+   <taghandler namespace="Config"       class="xdoclet.tagshandler.ConfigTagsHandler"/>
+   <taghandler namespace="Constructor"  class="xdoclet.tagshandler.ConstructorTagsHandler"/>
+   <taghandler namespace="Field"        class="xdoclet.tagshandler.FieldTagsHandler"/>
+   <taghandler namespace="Id"           class="xdoclet.tagshandler.IdTagsHandler"/>
+   <taghandler namespace="Merge"        class="xdoclet.tagshandler.MergeTagsHandler"/>
+   <taghandler namespace="Method"       class="xdoclet.tagshandler.MethodTagsHandler"/>
+   <taghandler namespace="Package"      class="xdoclet.tagshandler.PackageTagsHandler"/>
+   <taghandler namespace="Parameter"    class="xdoclet.tagshandler.ParameterTagsHandler"/>
+   <taghandler namespace="Property"     class="xdoclet.tagshandler.PropertyTagsHandler"/>
+   <taghandler namespace="TagDef"       class="xdoclet.tagshandler.TagDefTagsHandler"/>
+   <taghandler namespace="I18n"         class="xdoclet.tagshandler.TranslatorTagsHandler"/>
+   <taghandler namespace="Type"         class="xdoclet.tagshandler.TypeTagsHandler"/>
+   <taghandler namespace="Xml"          class="xdoclet.tagshandler.XmlTagsHandler"/>
+</xdoclet-module>

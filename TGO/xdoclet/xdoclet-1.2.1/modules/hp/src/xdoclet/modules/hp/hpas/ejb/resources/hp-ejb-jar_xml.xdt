@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<hp-ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="<XDtXml:schema/>"
+        schema-major-version="1" schema-minor-version="0">
+    <hpas version="1.0"/>
+
+<XDtEjb:forAllBeans>
+<XDtEjb:ifIsAConcreteEJBean>
+    <enterprise-bean ejb-name="<XDtEjb:ejbName/>" advertised-name="<XDtEjbHome:jndiName type="remote"/>">
+<XDtEjbEntity:ifEntity>
+        <entity>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="passivation">
+            <entity-passivation enabled="<XDtClass:classTagValue tagName="hpas:bean" paramName="passivation"/>"/>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool">
+            <pool
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="initial-size">
+                    initial-size="<XDtClass:classTagValue tagName="hpas:pool" paramName="initial-size"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="cache-limit">
+                    cache-limit="<XDtClass:classTagValue tagName="hpas:pool" paramName="cache-limit"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="idle-timeout">
+                    idle-timeout="<XDtClass:classTagValue tagName="hpas:pool" paramName="idle-timeout"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="use-reaper">
+                    use-reaper="<XDtClass:classTagValue tagName="hpas:pool" paramName="use-reaper"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="reap-asynch">
+                    reap-asynch="<XDtClass:classTagValue tagName="hpas:pool" paramName="reap-asynch"/>"
+</XDtClass:ifHasClassTag>
+            />
+</XDtClass:ifHasClassTag>
+<XDtEjbCmp:ifEntityIsCmp>
+            <cmp>
+                <third-party product="<XDtConfig:configParameterValue paramName="persistenceProduct"/>" version="<XDtConfig:configParameterValue paramName="persistenceVersion"/>"/>
+                <persistence-manager class="<XDtConfig:configParameterValue paramName="persistenceClass"/>"/>
+                <concrete-bean-class-name suffix="<XDtConfig:configParameterValue paramName="persistenceSuffix"/>"/>
+            </cmp>
+</XDtEjbCmp:ifEntityIsCmp>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="read-only">
+            <read-only enabled="<XDtClass:classTagValue tagName="hpas:bean" paramName="read-only"/>"/>
+</XDtClass:ifHasClassTag>
+        </entity>
+</XDtEjbEntity:ifEntity>
+<XDtEjbSession:ifStatefulSession>
+        <stateful-session>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="passivation">
+            <stateful-session-passivation
+                    enabled="<XDtClass:classTagValue tagName="hpas:bean" paramName="passivation"/>"
+                    threshold="<XDtClass:classTagValue tagName="hpas:bean" paramName="passivate-threshold"/>"
+                    root="<XDtConfig:configParameterValue paramName="sfsbPassivationRoot"/>"
+            />
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="session-timeout">
+            <session timeout="<XDtClass:classTagValue tagName="hpas:bean" paramName="session-timeout"/>"/>
+</XDtClass:ifHasClassTag>
+        </stateful-session>
+</XDtEjbSession:ifStatefulSession>
+<XDtEjbSession:ifStatelessSession>
+        <stateless-session>
+<XDtClass:ifHasClassTag tagName="hpas:pool">
+            <pool
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="initial-size">
+                    initial-size="<XDtClass:classTagValue tagName="hpas:pool" paramName="initial-size"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="cache-limit">
+                    cache-limit="<XDtClass:classTagValue tagName="hpas:pool" paramName="cache-limit"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="idle-timeout">
+                    idle-timeout="<XDtClass:classTagValue tagName="hpas:pool" paramName="idle-timeout"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="use-reaper">
+                    use-reaper="<XDtClass:classTagValue tagName="hpas:pool" paramName="use-reaper"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:pool" paramName="reap-asynch">
+                    reap-asynch="<XDtClass:classTagValue tagName="hpas:pool" paramName="reap-asynch"/>"
+</XDtClass:ifHasClassTag>
+            />
+</XDtClass:ifHasClassTag>
+        </stateless-session>
+</XDtEjbSession:ifStatelessSession>
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+<XDtEjbMdb:ifMessageDriven>
+        <message-driven>
+            <concurrent-message-processing
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="concurrent-message-processing">
+                    enabled="<XDtClass:classTagValue tagName="hpas:bean" paramName="concurrent-message-processing"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="max-messages">
+                    max-messages="<XDtClass:classTagValue tagName="hpas:bean" paramName="max-messages"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="max-message-threads">
+                    maximum-server-sessions="<XDtClass:classTagValue tagName="hpas:bean" paramName="max-message-threads"/>"
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="message-thread-timeout">
+                    server-session-idle-timeout="<XDtClass:classTagValue tagName="hpas:bean" paramName="message-thread-timeout"/>"
+</XDtClass:ifHasClassTag>
+            />
+            <connection-retry
+<XDtClass:ifHasClassTag tagName="hpas:bean" paramName="connection-retry">
+                    enabled="<XDtClass:classTagValue tagName="hpas:bean" paramName="connection-retry"/>"
+</XDtClass:ifHasClassTag>
+            />
+            <jndi factory="<XDtClass:classTagValue tagName="hpas:bean" paramName="jndi-factory"/>"
+                    destination="<XDtClass:classTagValue tagName="hpas:bean" paramName="jndi-destination"/>"
+            />
+        </message-driven>
+</XDtEjbMdb:ifMessageDriven>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+<XDtClass:ifHasClassTag tagName="hpas:ejb-ref">
+
+        <ejb-refs>
+<XDtComment:comment>
+TODO: Refactor to use extra params on existing ejb:ejb-ref and
+ejb:ejb-external-ref tags instead of hpas:ejb-ref.
+NB If which case, use <XDtEjb:ejbRefName/> for ejb-ref-name, and jndi-name of
+target EJB (if available) for advertised-name?
+</XDtComment:comment>
+<XDtClass:forAllClassTags tagName="hpas:ejb-ref">
+<XDtClass:ifClassTagValueEquals tagName="hpas:ejb-ref" paramName="type" value="co-located">
+            <co-located>
+                <ejb-ref-map
+                        advertised-name="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="jndi-name"/>"
+                        ejb-ref-name="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="ref-name"/>"/>
+            </co-located>
+</XDtClass:ifClassTagValueEquals>
+<XDtComment:comment>
+TODO: Sort out grouping by app/host/port, instead of repeating for each entry.
+</XDtComment:comment>
+<XDtClass:ifClassTagValueEquals tagName="hpas:ejb-ref" paramName="type" value="distributed">
+            <distributed application-name="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="application"/>" name-server-host="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="host"/>" name-server-port="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="port"/>">
+                <ejb-ref-map
+                        advertised-name="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="jndi-name"/>"
+                        ejb-ref-name="<XDtClass:classTagValue tagName="hpas:ejb-ref" paramName="ref-name"/>"/>
+            </distributed>
+</XDtClass:ifClassTagValueEquals>
+</XDtClass:forAllClassTags>
+        </ejb-refs>
+</XDtClass:ifHasClassTag>
+    </enterprise-bean>
+
+</XDtEjb:ifIsAConcreteEJBean>
+</XDtEjb:forAllBeans>
+</hp-ejb-jar>

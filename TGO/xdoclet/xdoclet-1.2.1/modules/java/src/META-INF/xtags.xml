@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- tags for JavaBean -->
+  <namespace>
+    <name>JavaBean</name>
+    <usage-description>Tags for declaration of JavaBean BeanInfo classes</usage-description>
+    <condition-description>JavaBeans</condition-description>
+	<condition type="type">
+		<condition-parameter>java.lang.Object</condition-parameter>
+	</condition>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>javabean.class</name>
+        <usage-description>Used to specify class related information of JavaBean BeanInfo</usage-description>
+        <unique>true</unique>
+        <condition-description>JavaBeans</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Name of the JavaBean (typically the unqualified className)</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+		<parameter type="text">
+          <name>class</name>
+          <usage-description>Class name of real bean</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+
+        <parameter type="text">
+          <name>displayName</name>
+          <usage-description>The name displayed for the JavaBean</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>shortDescription</name>
+          <usage-description>A short description about the JavaBean</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>defaultProperty</name>
+          <usage-description>The default property of the JavaBean</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>expert</name>
+          <usage-description>Is the JavaBean used in expert mode ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>hidden</name>
+          <usage-description>Is the JavaBean hidden ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>preferred</name>
+          <usage-description>Is the JavaBean preferred ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>customizer</name>
+          <usage-description>Fully qualified class name of the JavaBean customizer</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>stopClass</name>
+          <usage-description>Fully qualified class name of the JavaBean ancestor used to stop introspection for additionnal informations</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>javabean.icons</name>
+        <usage-description>Defines the icons used for the visual aspect of the JavaBean.</usage-description>
+        <unique>true</unique>
+        <condition-description>JavaBeans</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>mono16</name>
+          <usage-description>Absolute or relative resource name for the monochrome icon of 16x16 pixels</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>color16</name>
+          <usage-description>Absolute or relative resource name for the color icon of 16x16 pixels</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>mono32</name>
+          <usage-description>Absolute or relative resource name for the monochrome icon of 32x32 pixels</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>color32</name>
+          <usage-description>Absolute or relative resource name for the color icon of 32x32 pixels</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>javabean.attribute</name>
+        <usage-description>Defines the attributes of the JavaBean (propertyorder, etc).</usage-description>
+        <unique>false</unique>
+        <condition-description>JavaBeans</condition-description>
+        <condition type="class"/>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Name of the attribute</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>Value of the attribute</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>rtexpr</name>
+          <usage-description>Is the value a Java expression?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>javabean.property</name>
+        <usage-description>Defines the JavaBean property found by introspection</usage-description>
+        <unique>true</unique>
+        <condition-description>getter method of java bean</condition-description>
+		<condition type="and">
+        	<condition type="method"/>
+          <condition type="or">
+            <condition type="starts-with">
+              <condition-parameter>get</condition-parameter>
+            </condition>
+            <condition type="starts-with">
+              <condition-parameter>is</condition-parameter>
+            </condition>
+          </condition>
+		</condition>
+        <parameter type="text">
+          <name>displayName</name>
+          <usage-description>The name displayed for the property</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>shortDescription</name>
+          <usage-description>A short description about the property</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>expert</name>
+          <usage-description>Is the property used in expert mode ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>hidden</name>
+          <usage-description>Is the property hidden ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>preferred</name>
+          <usage-description>Is the property preferred ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>bound</name>
+          <usage-description>Is the property bound ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>constrained</name>
+          <usage-description>Is the property constrained ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>propertyEditor</name>
+          <usage-description>Fully qualified class name of the PropertyEditor used to edit the property</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>readOnly</name>
+          <usage-description>Is the JavaBean property read-only ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>javabean.method</name>
+        <usage-description>Defines the JavaBean method found by introspection</usage-description>
+        <unique>false</unique>
+        <condition-description>JavaBeans</condition-description>
+        <condition type="method"/>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Name of the method</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>displayName</name>
+          <usage-description>The name displayed for the method</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>shortDescription</name>
+          <usage-description>A short description about the method</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>expert</name>
+          <usage-description>Is the method used in expert mode ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>hidden</name>
+          <usage-description>Is the method hidden ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>preferred</name>
+          <usage-description>Is the method preferred ?</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>javabean.param</name>
+        <usage-description>Defines for each JavaBean method its parameters</usage-description>
+        <unique>false</unique>
+        <condition-description>JavaBeans</condition-description>
+        <condition type="method"/>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>Name of the parameter</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>displayName</name>
+          <usage-description>The name displayed for the parameter</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>shortDescription</name>
+          <usage-description>A short description about the parameter</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>propertyEditor</name>
+          <usage-description>Fully qualified class name of the PropertyEditor used to edit the parameter</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>
+

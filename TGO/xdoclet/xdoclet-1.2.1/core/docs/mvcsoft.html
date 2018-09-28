@@ -1,0 +1,430 @@
+<html>
+<head>
+<title>XDoclet - JBoss</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>&lt;mvcsoft/&gt; subtask</h2>
+
+<h3>MVCSoft</h3>
+
+<p>MVCSoft is an EJB 2.0 Persistence Manager that can be plugged into multiple 
+  EJB containers (<a href="www.mvcsoft.com">www.mvcsoft.com</a>). This subtask 
+  generates the JAR-specific configuration file. For more explanation of how configuration 
+  files are used with MVCSoft's product, see the MVCSoft documentation.</p>
+
+<h4>Parameters</h4>
+
+<table border="1" cellpadding="7" cellspacing="0" width="80%">
+  <tr> 
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td valign="top"><b>Required</b></td>
+  </tr>
+  <tr> 
+    <td valign="top">connectionjndiname</td>
+    <td valign="top">The JNDI name of the DataSource from which the MVCSoft runtime 
+      acquires a Connection.</td>
+    <td valign="top">No, default is &quot;java:DefaultDS&quot;.</td>
+  </tr>
+  <tr> 
+    <td valign="top">loggingtype</td>
+    <td valign="top">One of None, Log4J, Console.</td>
+    <td valign="top">No, default is &quot;None&quot;</td>
+  </tr>
+  <tr> 
+    <td valign="top">destdir</td>
+    <td valign="top">Destination directory for output MVCSoft-specific deployment 
+      descriptor files.</td>
+    <td valign="top">No, default is destdir parameter of ejbdoclet task</td>
+  </tr>
+  <tr>
+    <td>validateXml</td>
+    <td>Validates the generated xml file according to the DTD file contained 
+      inside xdoclet.jar.</td>
+    <td>No, default is false</td>
+  </tr>
+</table>
+
+<h3><a name="class-level-tags">Class level Tags</a></h3>
+
+<h4><A NAME="entity">@mvcsoft:entity</A></h4>
+
+<p>Sets various configuration options that apply to the entity as a whole.</p>
+
+<table border="1" cellpadding="7" width="80%">
+  <tr valign="top"> 
+    <td width="136">Parameter</td>
+    <td width="472">Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td width="136"><i>[table]</i>: String</td>
+    <td width="472">The name of the table to which the entity is persisted.</td>
+  </tr>
+  <tr valign="top"> 
+    <td width="136"><i>[cache]</i>: String</td>
+    <td width="472">Sets how entity data is synchronized with the database. Valid 
+      choices are CommitOptionA and CommitOptionBC. The default is CommitOptionBC.</td>
+  </tr>
+  <tr valign="top"> 
+    <td width="136"><i>[insert]</i>: String</td>
+    <td width="472">Determines when a new entity is inserted into the database. 
+      Valid choices are AfterCreate, AfterPostCreate, and AtTransactionCompletion. 
+      The default is AtTransactionCompletion.</td>
+  </tr>
+  <tr valign="top">
+    <td width="136"><i>[delete]</i>: String</td>
+    <td width="472">Determines when an entity is deleted from the database. Valid 
+      choices are AtRemove and AtTransactionCompletion. The default is AtTransactionCompletion.</td>
+  </tr>
+  <tr valign="top"> 
+    <td width="136"><i>[locking-strategy]</i>: String</td>
+    <td width="472">Sets the locking strategy for concurrent entity access. Valid 
+      choices are None, Pessimistic, Counter, Timestamp, or FieldComparison. The 
+      default is FieldComparison.</td>
+  </tr>
+  <tr valign="top"> 
+    <td width="136"><i>[lock-col-name]</i>: String</td>
+    <td width="472">Sets the database column name for the implementation of the 
+      locking strategies Counter and Timestamp.</td>
+  </tr>
+  <tr valign="top"> 
+    <td width="136"><i>[lock-col-sql-type]</i>: String</td>
+    <td width="472">Sets the database column type for the implementation of the 
+      locking strategies Counter and Timestamp.</td>
+  </tr>
+</table>
+
+<h4><A NAME="uuid-key">@mvcsoft:uuid-key</A></h4>
+
+<p>Configures the MVCSoft Persistence Manager to provide a &quot;universally unique 
+  identifier&quot; value (of type String or BigInteger) for a specified primary 
+  key field. The components of this UUID are specified by indicating the source 
+  of a value (e.g. counter, ip address, class hash code) and the number of bytes 
+  for that value. See the MVCSoft documentation for more information. For example:</p>
+<blockquote><code>@mvcsoft:uuid-key key-field="id" field-type="String" timestamp="4" 
+  ipaddress="4" counter="2"</code></blockquote>
+<table border="1" cellpadding="7" width="80%">
+  <tr valign="top"> 
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[key-field]</i>: String<br>
+    <td>The name of the primary key field that should be configured with a UUID 
+      value when the entity is created, or the special string &quot;Unknown Key&quot; 
+      for the case of an unknown primary key.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[field-type]</i>: String</td>
+    <td>The type of UUID created. Valid values are String and BigInteger.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[timestamp]</i>: int</td>
+    <td>The number of bytes from a timestamp that should be included in the UUID.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[ipaddress]</i>: int</td>
+    <td>The number of bytes from the IP address that should be included in the 
+      UUID.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[classhash]</i>: int</td>
+    <td>The number of bytes from a hash of the container class that should be 
+      included in the UUID.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[classstarttime]</i>: int</td>
+    <td>The number of bytes from the container start time that should be included 
+      in the UUID.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[counter]</i>: int</td>
+    <td>The number of bytes from a counter that should be included in the UUID.</td>
+  </tr>
+</table>
+
+<h4><A NAME="high-low-key">@mvcsoft:high-low-key</A></h4>
+<p>Configures the MVCSoft Persistence Manager to automatically and efficiently 
+  provide a sequence value for a specified primary key field. (This strategy is 
+  also known as &quot;sequence blocks.&quot;) This strategy requires a database 
+  table to hold the value for the next block of sequence numbers. See the MVCSoft 
+  documentation for more information. For example:</p>
+<blockquote><code>@mvcsoft:high-low-key key-field="id" sequence-name="TestSequence" 
+  non-transactional-pool-name="java:NonTransactional" chunk-size="10000" retry-count="3" 
+  table-name="sequences" sequence-name-column="name" sequence-name-sql-type="varchar(30)" 
+  value-column="usedincrements" value-sql-type="number(19)"</code></blockquote>
+<table border="1" cellpadding="7" width="80%">
+  <tr valign="top"> 
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[key-field]</i>: String<br>
+    <td>The name of the primary key field that should be configured with a sequence 
+      value when the entity is created, or the special string &quot;Unknown Key&quot; 
+      for the case of an unknown primary key.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[sequence-name]</i>: String</td>
+    <td>The name that identifies a particular sequence. (Sequences may be reused 
+      across entity bean types if desired.)</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[non-transactional-pool-name]</i>: String</td>
+    <td>The JNDI name of a DataSource that will provide a Connection that does 
+      not participate in the current transaction.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[chunk-size]</i>: int</td>
+    <td>The number of sequences that are retrieved in a single database access. 
+      Setting this to a high value reduces database i/o (at the negligible cost 
+      of potentially &quot;wasted&quot; sequence numbers).</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[retry-count]</i>: int</td>
+    <td>Sequence numbers are retrieved using optimistic concurrency. This value 
+      determines the number of retries in case of an optimistic rollback.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[table-name]</i>: String</td>
+    <td>The name of the database table in which sequence values are stored.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[sequence-name-column]</i>: String</td>
+    <td>The column name for the column that holds the &quot;sequence name&quot; 
+      information.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[sequence-name-sql-type]</i>: String</td>
+    <td>The sql type for the column that holds the &quot;sequence name&quot; information.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[value-column]</i>: String</td>
+    <td>The column name for the column that holds the last used sequence number.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[value-sql-type]</i>: String</td>
+    <td>The sql type for the column that holds the last used sequence number.</td>
+  </tr>
+</table>
+
+<h4><A NAME="unknown-key">@mvcsoft:unknown-key</A></h4>
+<p>Configures the MVCSoft Persistence Manager for the case of the unknown primary 
+  key. For example:</p>
+<blockquote>
+  <p><code>@mvcsoft:unknown-key java-type="java.lang.String" col-name="key" jdbc-type="VARCHAR" 
+    sql-type="varchar(50)"</code></p>
+</blockquote>
+<p>You must also specify a uuid-key configuration or a high-low-key configuration 
+  to provide a value for the unknown primary key at runtime. </p>
+<table border="1" cellpadding="7" width="80%">
+  <tr valign="top"> 
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[java-type]</i>: String<br>
+    <td>The Java class that will be used to represent the unknown primary key 
+      at runtime. This should be compatible with the UUID or high-low strategy 
+      you choose for generating the value of this key.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[col-name]</i>: String</td>
+    <td>The column name of the key in the entity database table.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[jdbc-type]</i>: String</td>
+    <td>The JDBC type of the unknown key. This should be a constant from the java.sql.Types 
+      class. </td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[sql-type]</i>: String</td>
+    <td>The sql type for the columnof the key in the entity database table..</td>
+  </tr>
+</table>
+
+<h4><A NAME="fault-group">@mvcsoft:fault-group</A></h4>
+<p>Configures fault groups, which are named groups of fields that are loaded as 
+  a unit for an EJB-QL query or &quot;on-demand.&quot; For example:</p>
+<blockquote> 
+  <p><code>@mvcsoft:fault-group name="sample_fault_group" fields="id,date,product,value"</code></p>
+</blockquote>
+<table border="1" cellpadding="7" width="80%">
+  <tr valign="top"> 
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[name]</i>: String<br>
+    <td>The name of the fault group.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[fields]</i>: String</td>
+    <td>A comma-separated list of fields in the entity that are members of the 
+      named fault group.</td>
+  </tr>
+</table>
+
+<h4><A NAME="query">@mvcsoft:query</A></h4>
+<p>Configures finder and ejbSelect methods for: (1) the fields that should be 
+  &quot;eagerly loaded&quot; within the transaction; (2) whether or not the transaction 
+  data should be flushed before executing; and (3) the sort order of the returned 
+  results. For example:</p>
+<blockquote>
+  <p><code>@mvcsoft:query name="findAll " fault-group="test_fault_group" should-flush="true" 
+    sort-order="id,value desc"</code></p>
+</blockquote>
+<table border="1" cellpadding="7" width="80%">
+  <tr valign="top"> 
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[name]</i>: String<br>
+    <td>The name of the finder or ejbSelect method.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[fault-group]</i>: String<br>
+    <td>The name of the fault group that indicates which fields should be loaded 
+      when the query is executed.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[should-flush]</i>: String</td>
+    <td>The EJB 2.0 specification mandates that changes within a transaction be 
+      visible to queries issued within that transaction. The MVCSoft Persistence 
+      Manager meets this requirement by flushing all pending changes to the database 
+      before issuing the query. It may be that the results of a particular query 
+      will never depend on these changes, in which case you can set should-flush 
+      to false. The default is true.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[sort-order]</i>: String</td>
+    <td>A comma-separated list of fields in the entity by which to sort the query. 
+      Optionally, asc or desc may be specified after the field name to indicate 
+      the direction of the sort. There cannot be any spaces between fields on 
+      which to sort. In other words, sort-order=&quot;id, value desc&quot; will 
+      not work, but sort-order=&quot;id,value desc&quot; will.</td>
+  </tr>
+</table>
+
+<h3><a name="method-level-tags">Method level Tags</h3>
+
+<h4><A NAME="col-name">@mvcsoft:col-name</A></h4>
+
+<p>The column name for the field in the table where this bean will be persisted. 
+  For example:</p>
+<blockquote><code>@mvcsoft:col-name &quot;product&quot;</code></blockquote>
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[type]</i>: String</td>
+    <td>Define the name of the column for the field.</td>
+  </tr>
+</table>
+
+<h4><A NAME="sql-type">@mvcsoft:sql-type</A></h4>
+
+<p>The SQL type for the column where this field will be persisted. Example:</p>
+<blockquote><code>@mvcsoft:sql-type &quot;varchar(10)&quot;</code></blockquote>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[type]</i>: String</td>
+    <td>Define the name of the sql type for the field.</td>
+  </tr>
+</table>
+
+<h4><A NAME="jdbc-type">@mvcsoft:jdbc-type</A></h4>
+
+<p>The JDBC type for the column where this field will be persisted. See the javadoc 
+  for "java.sql.Types" for a list of valid types.
+<blockquote><code>@mvcsoft:jdbc-type &quot;VARCHAR&quot;</code></blockquote>
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>type</i>: String</td>
+    <td>The jdbc type of the field.</td>
+  </tr>
+</table>
+
+<h4><A NAME="exclude-from-optimistic-lock">@mvcsoft:exclude-from-optimistic-lock</A></h4>
+
+<p>Indicates that the field should not be used in field-based comparisons for 
+  optimistic locking. This tag has no parameters.</p>
+
+<h4><A NAME="relation">@mvcsoft:relation</A></h4>
+<p>Configures the persistent storage of an EJB 2.0 relationship specified by the 
+  @ejb:relation tag. There are two basic mechanisms for persistent storage of 
+  relationships: a relationship table, which can be used for any relationship 
+  cardinality (and must be used with many-many relationships); and foreign keys 
+  in the entity table, which can be used for one-one, one-many, and many-one relationships. 
+  An example of configuring a relationship using foreign keys is:</p>
+<blockquote> 
+  <p><code>@mvcsoft:relation map-style="foreign-key" role-with-key="ChildrenForParent" 
+    key-aliases="id=parentid, id2=parentid2,id3=parentid3" relationship-in-pk="true&quot;</code></p>
+</blockquote>
+<p>An example of configuring a relationship using a relationship table is:</p>
+<blockquote> 
+  <p><code>@mvcsoft:relation map-style="table" table-name="TestRelationship" key-aliases="ParentHasChildren:id=parentid, 
+    id2=parentid2,id3=parentid3;ChildrenInParent:id=childid,id2=childid2,id3=childid3"</code></p>
+</blockquote>
+<table border="1" cellpadding="7">
+  <tr valign="top"> 
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[map-style]</i>: String</td>
+    <td>Valid values are foreign-key or table.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[role-with-key]</i>: String</td>
+    <td>For foreign-key mapped relationships only. Indicates the &quot;side&quot; 
+      of the relationship where the foreign keys are located. The source entity 
+      of that role will have those keys in its table. (In a one-one relationship, 
+      either role can be chosen. In a one-many relationship, the entity in the 
+      &quot;many&quot; role, e.g. OrderInLineItem, must have the keys.)</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[key-aliases]</i>: String</td>
+    <td>Specifies the names of the database columns that persistently store a 
+      relationship. These names are mapped to entity primary key fields by a simple 
+      comma-separated list in the format <i>key=alias,key=alias</i>. For a table-mapped 
+      relationship, both participants can have aliases, so the format is <i>role1:key=alias,key=alias;role2:key=alias,key=alias</i>.</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[relationship-in-pk]</i>: String</td>
+    <td>For foreign-key mapped relationships only. Indicates that the foreign 
+      keys for the relationship are also components of the primary key for the 
+      entity.</td>
+  </tr>
+</table>
+
+<h4><A NAME="wrap">@mvcsoft:wrap</A></h4>
+<p>Indicates that the method is a wrapper for a query. (Wrapper methods allow 
+  the bean developer to efficiently retrieve subsets of query results.) Example:</p>
+<blockquote><code>@mvcsoft:wrap query-name="findAll&quot;</code></blockquote>
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top"> 
+    <td><i>[query-name]</i>: String</td>
+    <td>Define the name of the associated finder or ejbSelect query.</td>
+  </tr>
+</table>
+
+</body>
+</html>

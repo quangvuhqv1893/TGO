@@ -1,0 +1,10 @@
+		<XDtMethod:ifHasMethodTag tagName="ejb:value-object">
+		<XDtClass:pushClass value="<XDtEjbValueObj:currentRelationBeanClass/>">
+		<XDtEjbIntf:ifNotLocalEjb>
+		 <XDtEjbHome:homeInterface type="remote"/> home = <XDtEjbUtilObj:utilClass/>.getHome();
+		</XDtEjbIntf:ifNotLocalEjb>
+		<XDtEjbIntf:ifLocalEjb>
+		 <XDtEjbHome:homeInterface type="local"/> home = <XDtEjbUtilObj:utilClass/>.getLocalHome();
+		</XDtEjbIntf:ifLocalEjb>
+		</XDtClass:pushClass>
+		</XDtMethod:ifHasMethodTag>

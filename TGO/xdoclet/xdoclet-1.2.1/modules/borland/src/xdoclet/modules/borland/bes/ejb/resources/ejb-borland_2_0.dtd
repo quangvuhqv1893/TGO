@@ -1,0 +1,83 @@
+        <!ELEMENT ejb-jar (enterprise-beans, datasource-definitions?,
+                    table-properties*, relationships?, authorization-domain?)>
+        <!ELEMENT enterprise-beans (session | entity | message-driven)+>
+        <!ELEMENT session (ejb-name, bean-home-name?, bean-local-home-name?,
+                    timeout?, ejb-ref*, ejb-local-ref*, resource-ref*,
+                    resource-env-ref*, property*)>
+        <!ELEMENT entity (ejb-name, bean-home-name?, bean-local-home-name?,
+                    ejb-ref*, ejb-local-ref*, resource-ref*, resource-env-ref*,
+                    (cmp-info | cmp2-info)?, property*)>
+        <!ELEMENT message-driven (ejb-name, message-driven-destination-name,
+                    connection-factory-name, pool?, ejb-ref*, ejb-local-ref*,
+                    resource-ref*, resource-env-ref*, property*)>
+        <!ELEMENT pool (max-size?, init-size?, wait-timeout?)>
+        <!ELEMENT ejb-ref (ejb-ref-name, jndi-name?)>
+        <!ELEMENT ejb-local-ref (ejb-ref-name, jndi-name?)>
+        <!ELEMENT resource-ref (res-ref-name, jndi-name, cmp-resource?)>
+        <!ELEMENT resource-env-ref (resource-env-ref-name, jndi-name)>
+        <!ELEMENT datasource-definitions (datasource*)>
+        <!ELEMENT datasource (jndi-name, url, username?, password?,
+                    isolation-level?, driver-class-name?, jdbc-property*, property*)>
+        <!ELEMENT jdbc-property (prop-name, prop-value)>
+        <!ELEMENT property (prop-name, prop-type, prop-value)>
+        <!ELEMENT cmp-info (description?, database-map?, finder*)>
+        <!ELEMENT database-map (table?, column-map*)>
+        <!ELEMENT finder (method-signature, where-clause, load-state?)>
+        <!ELEMENT column-map (field-name, column-name?, column-type?, ejb-ref-name?)>
+        <!ELEMENT connection-factory-name (#PCDATA)>
+        <!ELEMENT message-driven-destination-name (#PCDATA)>
+        <!ELEMENT max-size (#PCDATA)>
+        <!ELEMENT init-size (#PCDATA)>
+        <!ELEMENT wait-timeout (#PCDATA)>
+        <!ELEMENT cmp-resource (#PCDATA)>
+        <!ELEMENT method-signature (#PCDATA)>
+        <!ELEMENT where-clause (#PCDATA)>
+        <!ELEMENT load-state (#PCDATA)>
+        <!ELEMENT prop-name (#PCDATA)>
+        <!ELEMENT prop-type (#PCDATA)>
+        <!ELEMENT prop-value (#PCDATA)>
+        <!ELEMENT field-name (#PCDATA)>
+        <!ELEMENT column-name (#PCDATA)>
+        <!ELEMENT column-type (#PCDATA)>
+        <!ELEMENT table (#PCDATA)>
+        <!ELEMENT description (#PCDATA)>
+        <!ELEMENT ejb-name (#PCDATA)>
+        <!ELEMENT bean-home-name (#PCDATA)>
+        <!ELEMENT bean-local-home-name (#PCDATA)>
+        <!ELEMENT timeout (#PCDATA)>
+        <!ELEMENT ejb-ref-name (#PCDATA)>
+        <!ELEMENT jndi-name (#PCDATA)>
+        <!ELEMENT res-ref-name (#PCDATA)>
+        <!ELEMENT resource-env-ref-name (#PCDATA)>
+        <!ELEMENT url (#PCDATA)>
+        <!ELEMENT username (#PCDATA)>
+        <!ELEMENT password (#PCDATA)>
+        <!ELEMENT isolation-level (#PCDATA)>
+        <!ELEMENT driver-class-name (#PCDATA)>
+        <!ELEMENT authorization-domain (#PCDATA)>
+
+        <!ELEMENT table-properties (table-name, column-properties*,
+                    property*)>
+        <!ELEMENT column-properties (column-name, property*)>
+        <!ELEMENT table-name (#PCDATA)>
+
+        <!ELEMENT cmp2-info (cmp-field*, table-name, table-ref*)>
+
+        <!ELEMENT relationships (ejb-relation+)>
+        <!ELEMENT ejb-relation (ejb-relationship-role, ejb-relationship-role)>
+        <!ELEMENT ejb-relationship-role (relationship-role-source,
+                    cmr-field?)>
+        <!ELEMENT relationship-role-source (ejb-name)>
+        <!ELEMENT cmr-field (cmr-field-name, table-ref, property*)>
+        <!ELEMENT cmr-field-name (#PCDATA)>
+
+        <!ELEMENT table-ref (left-table, cross-table*, right-table)>
+        <!ELEMENT left-table (table-name, column-list)>
+        <!ELEMENT right-table (table-name, column-list)>
+        <!ELEMENT cross-table (table-name, column-list, column-list)>
+        <!ELEMENT column-list (column-name+)>
+
+        <!ELEMENT cmp-field (field-name, (cmp-field-map* | column-name),
+                    property*)>
+        <!ELEMENT cmp-field-map (field-name, column-name)>
+

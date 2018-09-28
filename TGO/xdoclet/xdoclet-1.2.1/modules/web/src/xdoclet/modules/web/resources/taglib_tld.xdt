@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE taglib PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<taglib>
+
+ <XDtMerge:merge file="taglib-settings.xml">
+  <XDtConfig:ifConfigParamEquals paramName="Jspversion" value="1.1">
+   <tlibversion><XDtConfig:configParameterValue paramName="Taglibversion"/></tlibversion>
+   <jspversion><XDtConfig:configParameterValue paramName="Jspversion"/></jspversion>
+   <shortname><XDtConfig:configParameterValue paramName="Shortname"/></shortname>
+  </XDtConfig:ifConfigParamEquals>
+  <XDtConfig:ifConfigParamGreaterOrEquals paramName="Jspversion" value="1.2">
+   <tlib-version><XDtConfig:configParameterValue paramName="Taglibversion"/></tlib-version>
+   <jsp-version><XDtConfig:configParameterValue paramName="Jspversion"/></jsp-version>
+   <short-name><XDtConfig:configParameterValue paramName="Shortname"/></short-name>
+  </XDtConfig:ifConfigParamGreaterOrEquals>
+
+  <XDtConfig:ifConfigParamNotEquals paramName="Uri" value="">
+   <uri><XDtConfig:configParameterValue paramName="Uri"/></uri>
+  </XDtConfig:ifConfigParamNotEquals>
+
+  <XDtConfig:ifConfigParamGreaterOrEquals paramName="Jspversion" value="1.2">
+  <XDtConfig:ifConfigParamNotEquals paramName="Displayname" value="">
+   <display-name><XDtConfig:configParameterValue paramName="Displayname"/></display-name>
+  </XDtConfig:ifConfigParamNotEquals>
+  <XDtConfig:ifConfigParamNotEquals paramName="Smallicon" value="">
+   <small-icon><XDtConfig:configParameterValue paramName="Smallicon"/></small-icon>
+  </XDtConfig:ifConfigParamNotEquals>
+  <XDtConfig:ifConfigParamNotEquals paramName="Largeicon" value="">
+   <large-icon><XDtConfig:configParameterValue paramName="Largeicon"/></large-icon>
+  </XDtConfig:ifConfigParamNotEquals>
+  <XDtConfig:ifConfigParamNotEquals paramName="Description" value="">
+   <description><![CDATA[<XDtConfig:configParameterValue paramName="Description"/>]]></description>
+  </XDtConfig:ifConfigParamNotEquals>
+  </XDtConfig:ifConfigParamGreaterOrEquals>
+ </XDtMerge:merge>
+
+  <XDtClass:forAllClasses type="javax.servlet.jsp.tagext.TagLibraryValidator" abstract="false">
+   <validator>
+      <validator-class><XDtClass:fullClassName/></validator-class>
+     <XDtClass:forAllClassTags tagName="jsp:validator-init-param">
+      <init-param>
+         <param-name><XDtClass:classTagValue tagName="jsp:validator-init-param" paramName="name"/></param-name>
+         <param-value><XDtClass:classTagValue tagName="jsp:validator-init-param" paramName="value"/></param-value>
+        <XDtClass:ifHasClassTag tagName="jsp:validator-init-param" paramName="description">
+         <description><![CDATA[<XDtClass:classTagValue tagName="jsp:validator-init-param" paramName="description"/>]]></description>
+        </XDtClass:ifHasClassTag>
+      </init-param>
+     </XDtClass:forAllClassTags>
+      <description><![CDATA[<XDtClass:firstSentenceDescription/>]]></description>
+   </validator>
+  </XDtClass:forAllClasses>
+
+  <XDtMerge:merge file="taglib-validator.xml">
+  </XDtMerge:merge>
+
+  <XDtClass:forAllClasses type="javax.servlet.http.HttpSessionActivationListener,javax.servlet.http.HttpSessionAttributeListener,javax.servlet.http.HttpSessionBindingListener,javax.servlet.http.HttpSessionListener,javax.servlet.ServletContextAttributeListener,javax.servlet.ServletContextListener" abstract="false">
+   <listener>
+      <listener-class><XDtClass:fullClassName/></listener-class>
+   </listener>
+  </XDtClass:forAllClasses>
+
+  <XDtMerge:merge file="taglib-listener.xml">
+  </XDtMerge:merge>
+
+  <XDtClass:forAllClasses type="javax.servlet.jsp.tagext.Tag,javax.servlet.jsp.tagext.TagSupport" abstract="false">
+   <XDtClass:ifHasClassTag tagName="jsp:tag">
+   <tag>
+
+    <XDtConfig:ifConfigParamEquals paramName="Jspversion" value="1.1">
+      <name><XDtClass:classTagValue tagName="jsp:tag" paramName="name"/></name>
+      <tagclass><XDtClass:fullClassName/></tagclass>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="tei-class">
+      <teiclass><XDtClass:classTagValue tagName="jsp:tag" paramName="tei-class"/></teiclass>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="body-content" values="JSP,empty,tagdependent">
+      <bodycontent><XDtClass:classTagValue tagName="jsp:tag" paramName="body-content"/></bodycontent>
+     </XDtClass:ifHasClassTag>
+    </XDtConfig:ifConfigParamEquals>
+
+    <XDtConfig:ifConfigParamGreaterOrEquals paramName="Jspversion" value="1.2">
+      <name><XDtClass:classTagValue tagName="jsp:tag" paramName="name"/></name>
+      <tag-class><XDtClass:fullClassName/></tag-class>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="tei-class">
+      <tei-class><XDtClass:classTagValue tagName="jsp:tag" paramName="tei-class"/></tei-class>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="body-content" values="JSP,empty,tagdependent">
+      <body-content><XDtClass:classTagValue tagName="jsp:tag" paramName="body-content"/></body-content>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="description">
+      <description><![CDATA[<XDtClass:classTagValue tagName="jsp:tag" paramName="description"/>]]></description>
+     </XDtClass:ifHasClassTag>
+    </XDtConfig:ifConfigParamGreaterOrEquals>
+
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="display-name">
+      <display-name><XDtClass:classTagValue tagName="jsp:tag" paramName="display-name"/></display-name>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="small-icon">
+      <small-icon><XDtClass:classTagValue tagName="jsp:tag" paramName="small-icon"/></small-icon>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="large-icon">
+      <large-icon><XDtClass:classTagValue tagName="jsp:tag" paramName="large-icon"/></large-icon>
+     </XDtClass:ifHasClassTag>
+
+     <XDtClass:forAllClassTags tagName="jsp:variable">
+      <variable>
+       <XDtClass:ifHasClassTag tagName="jsp:variable" paramName="name-given">
+         <name-given><XDtClass:classTagValue tagName="jsp:variable" paramName="name-given"/></name-given>
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifDoesntHaveClassTag tagName="jsp:variable" paramName="name-given">
+        <XDtClass:ifHasClassTag tagName="jsp:variable" paramName="name-from-attribute">
+         <name-from-attribute><XDtClass:classTagValue tagName="jsp:variable" paramName="name-from-attribute"/></name-from-attribute>
+        </XDtClass:ifHasClassTag>
+       </XDtClass:ifDoesntHaveClassTag>
+       <XDtClass:ifHasClassTag tagName="jsp:variable" paramName="class">
+         <variable-class><XDtClass:classTagValue tagName="jsp:variable" paramName="class"/></variable-class>
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifHasClassTag tagName="jsp:variable" paramName="declare">
+         <declare><XDtClass:classTagValue tagName="jsp:variable" paramName="declare" values="true,false,yes,no"/></declare>
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifHasClassTag tagName="jsp:variable" paramName="scope">
+         <scope><XDtClass:classTagValue tagName="jsp:variable" paramName="scope" values="NESTED,AT_BEGIN,AT_END"/></scope>
+       </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="jsp:variable" paramName="description">
+         <description><![CDATA[<XDtClass:classTagValue tagName="jsp:variable" paramName="description"/>]]></description>
+        </XDtClass:ifHasClassTag>
+      </variable>
+     </XDtClass:forAllClassTags>
+
+    <XDtMethod:forAllMethods>
+     <XDtMethod:ifHasMethodTag tagName="jsp:attribute">
+      <attribute>
+         <name><XDtMethod:propertyName/></name>
+
+        <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="required">
+         <required><XDtMethod:methodTagValue tagName="jsp:attribute" paramName="required" values="true,false,yes,no"/></required>
+        </XDtMethod:ifHasMethodTag>
+
+        <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="rtexprvalue">
+         <rtexprvalue><XDtMethod:methodTagValue tagName="jsp:attribute" paramName="rtexprvalue" values="true,false,yes,no"/></rtexprvalue>
+        </XDtMethod:ifHasMethodTag>
+
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="Jspversion" value="1.2">
+          <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="type">
+           <type><XDtMethod:methodTagValue tagName="jsp:attribute" paramName="type"/></type>
+          </XDtMethod:ifHasMethodTag>
+          <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="description">
+           <description><![CDATA[<XDtMethod:methodTagValue tagName="jsp:attribute" paramName="description"/>]]></description>
+          </XDtMethod:ifHasMethodTag>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+
+      </attribute>
+     </XDtMethod:ifHasMethodTag>
+    </XDtMethod:forAllMethods>
+   </tag>
+  </XDtClass:ifHasClassTag>
+  </XDtClass:forAllClasses>
+
+  <XDtMerge:merge file="taglib-tag.xml">
+  </XDtMerge:merge>
+
+</taglib>
+

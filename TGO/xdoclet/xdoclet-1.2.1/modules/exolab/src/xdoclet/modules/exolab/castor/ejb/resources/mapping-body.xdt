@@ -1,0 +1,43 @@
+
+  <!-- =================================================================== -->
+  <!--   <XDtI18n:getString bundle="xdoclet.modules.exolab.castor.ejb.XDocletModulesCastorEjbMessages" resource="MAPPING_FOR" arguments="<XDtClass:fullClassName/>"/>  -->
+  <!-- =================================================================== -->
+
+  <class name="<XDtClass:fullClassName/>"
+       <XDtClass:ifHasClassTag tagName="castor:class" paramName="id">
+         identity="<XDtClass:classTagValue tagName="castor:class" paramName="id"/>"</XDtClass:ifHasClassTag>
+         access="<XDtClass:classTagValue tagName="castor:class" paramName="access" values="read-only,shared,exclusive,db-locked" default="shared"/>"<XDtClass:ifHasClassTag tagName="castor:class" paramName="depends">
+         depends="<XDtClass:classTagValue tagName="castor:class" paramName="depends"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="castor:class" paramName="extends">
+         extends="<XDtClass:classTagValue tagName="castor:class" paramName="extends"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="castor:class" paramName="key-generator">
+         key-generator="<XDtClass:classTagValue tagName="castor:class" paramName="key-generator"/>"</XDtClass:ifHasClassTag>
+         auto-complete="<XDtClass:classTagValue tagName="castor:class" paramName="auto-complete" values="true,false" default="false"/>">
+ <XDtClass:ifHasClassTag tagName="castor:class" paramName="table">
+    <map-to table="<XDtClass:classTagValue tagName="castor:class" paramName="table"/>"<XDtClass:ifHasClassTag tagName="castor:class" paramName="ns-uri">
+            ns-uri="<XDtClass:classTagValue tagName="castor:class" paramName="ns-uri"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="castor:class" paramName="ns-prefix">
+            ns-prefix="<XDtClass:classTagValue tagName="castor:class" paramName="ns-prefix"/>"</XDtClass:ifHasClassTag><XDtClass:ifHasClassTag tagName="castor:class" paramName="xml">
+            xml="<XDtClass:classTagValue tagName="castor:class" paramName="xml"/>"</XDtClass:ifHasClassTag> />
+    <cache-type type="<XDtClass:classTagValue tagName="castor:class" paramName="cache-type" values="none,count-limited,time-limited,unlimited" default="count-limited"/>"<XDtClass:ifHasClassTag tagName="castor.class" paramName="cache-capacity">
+                capacity="<XDtClass:classTagValue tagName="castor:class" paramName="cache-capacity"/>"</XDtClass:ifHasClassTag> />
+ </XDtClass:ifHasClassTag>
+ <XDtClass:ifDoesntHaveClassTag tagName="castor:class" paramName="table">
+  <XDtClass:ifHasClassTag tagName="castor:class" paramName="xml">
+    <map-to xml="<XDtClass:classTagValue tagName="castor:class" paramName="xml"/>" />
+    <cache-type type="<XDtClass:classTagValue tagName="castor:class" paramName="cache-type" values="none,count-limited,time-limited,unlimited" default="count-limited"/>"<XDtClass:ifHasClassTag tagName="castor.class" paramName="cache-capacity">
+                capacity="<XDtClass:classTagValue tagName="castor:class" paramName="cache-capacity"/>"</XDtClass:ifHasClassTag> />
+  </XDtClass:ifHasClassTag>
+ </XDtClass:ifDoesntHaveClassTag>
+
+ <XDtClass:ifHasClassTag tagName="castor:class" paramName="extends">
+  <XDtMethod:forAllMethods superclasses="false">
+   <XDtMerge:merge file="xdoclet/modules/exolab/castor/ejb/resources/mapping-methods.xdt">
+   </XDtMerge:merge>
+  </XDtMethod:forAllMethods>
+ </XDtClass:ifHasClassTag>
+ <XDtClass:ifDoesntHaveClassTag tagName="castor:class" paramName="extends">
+  <XDtMethod:forAllMethods superclasses="true">
+   <XDtMerge:merge file="xdoclet/modules/exolab/castor/ejb/resources/mapping-methods.xdt">
+   </XDtMerge:merge>
+  </XDtMethod:forAllMethods>
+ </XDtClass:ifDoesntHaveClassTag>
+  </class>
+

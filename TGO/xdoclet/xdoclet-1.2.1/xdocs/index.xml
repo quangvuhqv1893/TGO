@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<document>
+    <properties>
+        <title>Welcome</title>
+    </properties>
+    
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+    
+    <body>
+        <section name="Welcome! What is XDoclet?">
+            <p>
+                XDoclet is an open source code generation engine. It enables 
+                <b>Attribute-Oriented Programming</b> for java. In short, this 
+                means that you can add more significance to your code by adding 
+                meta data (attributes) to your java sources. This is done in 
+                special JavaDoc tags.                
+            </p>
+            <div style="float:right;">
+                <a href="http://www.manning.com/walls/">
+                    <img style="border:1px solid black;" src="images/xdoclet-in-action.jpg" alt="XDoclet in Action" hspace="8" vspace="8" border="0"/>
+                </a>
+            </div>
+            <p>
+                XDoclet will parse your source files and generate many artifacts such as XML
+                descriptors and/or source code from it. These files are generated from templates that use the
+                information provided in the source code and its JavaDoc tags.
+            </p>
+            <p>
+                XDoclet lets you apply
+                <b><a href="http://www.martinfowler.com/articles/continuousIntegration.html">Continuous
+                Integration</a></b> in component-oriented development. Developers should concentrate their editing work
+                on <b>only one Java source file per component</b>.
+            </p>
+            <p>
+                This approach has several benefits:
+                <ol>
+                    <li>
+                        You don't have to worry about out dating deployment meta-data whenever
+                        you touch the code. The deployment meta-data is continuously integrated.
+                    </li>
+                    <li>
+                        Working with only one file per component gives you a better overview of what you're doing.
+                        If your component consists of several files, it's easy to lose track. If you have ever written
+                        an Enterprise Java Bean, you know what we mean. A single EJB can typically consists of 7 or
+                        more files. With XDoclet you only maintain one of them, and the rest is generated.
+                    </li>
+                    <li>
+                        You dramatically reduce development time, and can concentrate on business logic, while XDoclet
+                        generates <b>85% of the code</b> for you.
+                    </li>
+                </ol>
+            </p>
+            <div style="float:right;">
+                <a href="http://www.wileyeurope.com/WileyCDA/WileyTitle/productCd-0471463620.html">
+                    <img src="images/josp.jpg" alt="Java Open Source Programming" hspace="8" vspace="8" border="0"/>
+                </a>
+            </div>
+            <p>
+                Currently XDoclet can only be used as part of the build process utilizing
+                <a href="http://ant.apache.org/">Jakarta Ant</a>.
+            </p>
+            <p>
+                Although XDoclet originated as a tool for creating EJBs, it has <a href="status.html">evolved</a> into
+                a general-purpose code generation engine. XDoclet consists of a core and a constantly growing number
+                of modules. It is fairly straightforward to write new modules if there is a need for a new kind of
+                component.
+            </p>
+            <p>
+                XDoclet comes with a set of modules for generation of different kinds of files.
+                Users and contributors can write their own modules (or modify existing ones) if they wish
+                to extend the functionality of XDoclet.
+            </p>
+        </section>
+        <section name="Why use XDoclet? My favorite IDE can do this for me!">
+            <p>
+                A lot of people (over <b>60.000 <a href="http://sourceforge.net/projects/xdoclet/">downloads (see activity statistics)</a>
+                in 2002</b>, <b>95.000 in 2003</b> and already more than <b>32.000 in 2004 (April)</b>! An average of <b>7.000 page views each day</b>!)
+                are already improving development time by using XDoclet for development of J2EE applications.
+                Here are some benefits you'll gain when using XDoclet:
+                <ul>
+                    <li>
+                        <b>Cut Redundant Work.</b>
+                        XDoclet helps you to eliminate redundant or "boiler plate" work.
+                        Code your business logic and let XDoclet generate the necessary boiler
+                        plate and support code for it.
+                    </li>
+                    <li>
+                        <b>J2EE Made Easy.</b>
+                        XDoclet's advanced code generation features makes it easier to code
+                        J2EE applications. You write the enterprise bean implementation and XDoclet
+                        generates interfaces, value objects, struts forms and much, much more for you.
+                        XDoclet follows many widely recognized J2EE patterns.
+                    </li>
+                    <li>
+                        <b>Support for Leading Servers and Tools.</b>
+                        XDoclet comes bundled with modules for all the leading application servers:
+                        JBoss, BEA WebLogic, IBM WebSphere, Oracle IAS, Orion, Borland, MacroMedia JRun, 
+                        Jonas, Pramati, Sybase EAServer and many more. Supported tools: Castor, Hibernate,
+                        several JDO vendors, Struts, WebWork, MockObjects and many more.
+                    </li>
+                    <li>
+                        <b>Extensible.</b>
+                        XDoclet's modular design makes it <a href="development/architecture.html">easy
+                        for you to write your own modules</a>. Identify repeatable or boiler plate code
+                        in your application and write XDoclet templates to generate them.
+                    </li>
+                    <li>
+                        <b>Open, Distributed Development.</b>
+                        XDoclet is developed by <a href="team-list.html">a group of experts</a> around
+                        the world and distributed under <a href="licenses/xdoclet-license.html">a
+                        flexible BSD license</a>. Avoid vendor lock-ins by using XDoclet. Also, the
+                        distributed character of XDoclet development makes sure that it will satisfy the
+                        needs of most users instead of a single vendor interest.
+                    </li>
+                </ul>
+            </p>
+        </section>
+        <section name="XDoclet 1.1.2 Documentation">
+            <p>
+                The documentation of the old, outdated and unsupported 1.1.2 release is 
+                available <a href="http://xdoclet.sourceforge.net/olddocs/">here</a>.
+            </p>
+        </section>
+    </body>
+</document>

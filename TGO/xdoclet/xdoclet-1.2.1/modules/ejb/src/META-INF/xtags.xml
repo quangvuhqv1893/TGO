@@ -1,0 +1,2509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- common ejb tags -->
+  <namespace>
+    <name>ejb</name>
+    <usage-description>Ejb tags</usage-description>
+    <condition-description>All EJB types on class and method level.</condition-description>
+    <condition type="and">
+      <condition type="or">
+        <condition type="method"/>
+        <condition type="class"/>
+      </condition>
+      <condition type="or">
+        <condition type="type">
+          <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+        </condition>
+        <condition type="type">
+          <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+        </condition>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>method</level>
+        <name>ejb.aggregate</name>
+        <usage-description>
+           Mark a persistent field containing a reference to another entity bean as being
+           aggregated in this bean. The data object will contain accessor methods for the
+           aggregated entity's data object instead of a reference to the entity itself. The
+           aggregated entity will also be removed when this entity is removed. For
+           example, aggregates are useful for sending graphs of data to the client. This is
+           only applicable to entity beans and has no parameters.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Entity bean methods</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="not">
+            <condition type="name">
+              <condition-parameter>ejbCreate</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.bean</name>
+        <usage-description>
+    The ejb.bean tag provides information about the EJB. It is the one compulsory tag
+    for all EJBs, however not all parameters are applicable for all types of beans,
+    and some parameters apply differently for different types of beans.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable for all EJB types.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            Provides the name of the bean that will be used in the ejb-jar.xml
+            deployment descriptor.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+            A description of the bean.  Defaults to the first sentence of the
+            class-level javadoc comment of the bean class.
+      </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>The display name of the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>small-icon</name>
+          <usage-description>The small icon for the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>large-icon</name>
+          <usage-description>The large icon for the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>generate</name>
+          <usage-description>
+               Set it to "false" if you want the class be excluded from list of EJBs.
+               This is useful for abstract EJBs that other EJBs are to derive from. So
+               you obviously do not want the abstract EJB be wrongly specified in deployment
+               descriptors as a concrete EJB.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>
+               Provides the JNDI name of the
+               bean that will be used in the
+               vendor specific deployment descriptors.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Remote Session and Entity beans.</condition-description>
+          <condition type="and">
+            <condition type="or">
+              <condition type="type">
+                <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+              </condition>
+              <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+              </condition>
+            </condition>
+            <condition type="or">
+              <condition type="tag-param">
+                <condition-parameter>ejb.bean</condition-parameter>
+                <condition-parameter>view-type</condition-parameter>
+                <condition-parameter>remote</condition-parameter>
+              </condition>
+              <condition type="tag-param">
+                <condition-parameter>ejb.bean</condition-parameter>
+                <condition-parameter>view-type</condition-parameter>
+                <condition-parameter>both</condition-parameter>
+              </condition>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>local-jndi-name</name>
+          <usage-description>
+               Provides the JNDI name of the bean
+               that will be used in the vendor
+               specific deployment descriptors.
+               It's the JNDI name for the local EJB.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Local Session and Entity beans, EJB 2.0</condition-description>
+          <condition type="and">
+            <condition type="or">
+              <condition type="type">
+                <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+              </condition>
+              <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+              </condition>
+            </condition>
+            <condition type="or">
+              <condition type="tag-param">
+                <condition-parameter>ejb.bean</condition-parameter>
+                <condition-parameter>view-type</condition-parameter>
+                <condition-parameter>local</condition-parameter>
+              </condition>
+              <condition type="tag-param">
+                <condition-parameter>ejb.bean</condition-parameter>
+                <condition-parameter>view-type</condition-parameter>
+                <condition-parameter>both</condition-parameter>
+              </condition>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+               Indicates what view-type(s) is(are)
+               supported by the bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>"remote" for EJB 1.1 or "both" for EJB 2.0</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+                <option>both</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+               Defines the bean's "type".
+          </usage-description>
+          <mandatory>true</mandatory>
+          <condition-description>Session and Entity beans</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>CMP</default>
+              <options>
+                <option>CMP</option>
+                <option>BMP</option>
+              </options>
+              <condition type="type">
+                <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+              </condition>
+            </option-set>
+            <option-set>
+              <default>Stateless</default>
+              <options>
+                <option>Stateless</option>
+                <option>Stateful</option>
+              </options>
+              <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+              </condition>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>transaction-type</name>
+          <usage-description>
+               Defines the bean's transaction type.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Message-driven beans.</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>Container</default>
+              <options>
+                <option>Container</option>
+                <option>Bean</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="bool">
+          <name>reentrant</name>
+          <usage-description>
+               Defines the entity bean's reentrancy.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>cmp-version</name>
+          <usage-description>
+               Defines the version of the spec
+               the bean is for CMP.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>1.x</default>
+              <options>
+                <option>1.x</option>
+                <option>2.x</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>schema</name>
+          <usage-description>
+               Defines the abstract schema name for the bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>primkey-field</name>
+          <usage-description>
+               Defines the primary key field for
+               the bean as per spec.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="bool">
+          <name>use-soft-locking</name>
+          <usage-description>
+               If true, then generate a public int
+               version attribute in the auto-generated
+               concrete class, to form a optimistic
+               locking mechanism. The value of version
+               attribute is incremented in ejbStore.
+               Note: It's applicable to both CMP and BMP, but many containers have optimistic locking
+               capabilities built-in, so you don't need to worry about it locking issues.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+          <condition-description>Entity beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>message-selector</name>
+          <usage-description>
+               Defines an optional message selector for MDB.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message-driven beans</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>acknowledge-mode</name>
+          <usage-description>
+               Defines the acknowledge mode for MDB.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message-driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>Auto-acknowledge</default>
+              <options>
+                <option>Auto-acknowledge</option>
+                <option>Dups-ok-acknowledge</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>destination-type</name>
+          <usage-description>
+               Defines the type of destination for MDB.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message-driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>javax.jms.Queue</default>
+              <options>
+                <option>javax.jms.Queue</option>
+                <option>javax.jms.Topic</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>subscription-durability</name>
+          <usage-description>
+               Defines the durability of messages
+               for MDB as per EJB 2.0 spec.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message-driven beans.</condition-description>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+          <option-sets>
+            <option-set>
+              <default>Durable</default>
+              <options>
+                <option>Durable</option>
+                <option>NonDurable</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>remote-business-interface</name>
+          <usage-description>
+               Defines the remote business interface
+               for the bean. If present, ejb.interface-method
+               tags are not required, instead the remote interface will extend the business interface.
+               The business interface must declare all methods as throwing RemoteException as per the
+               business interface pattern.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>local-business-interface</name>
+          <usage-description>
+               Defines the local business interface for the bean. Similar to remote-business-interface,
+               but the interface does not need to declare RemoteException in the throws clause.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans</condition-description>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>impl-class-name</name>
+          <usage-description>
+            Provides the fully qualified classname of the bean's implementation
+            class, to be used in the ejb-class element of the ejb-jar.xml
+            deployment descriptor.  Its value is only used when the implementation
+            class is not being generated by a subtask (e.g. &lt;session/&gt;, &lt;entitycmp/&gt;,
+            ...) as those subtasks have other ways to determine the classname.
+            This parameter is mainly intended to be used where the bean class
+            itself is generated, and additional code is to be added in a
+            subclass.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>All EJB Types.</condition-description>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.create-method</name>
+        <usage-description>
+          The method is an ejbCreate method and will be included in the home
+          interface. It is applicable to Session and Entity beans. In Stateless Session
+          beans the ejbCreate will be created if it is not in the code.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>
+          Applicable to session and entity beans.  Method has to be called ejbCreate
+        </condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="name">
+            <condition-parameter>ejbCreate</condition-parameter>
+          </condition>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+             Optionally specify which view-type the method will be exposed in.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>remote</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.dao</name>
+        <usage-description>
+          Defines the data access object of an entity bean. If the &lt;dao/&gt; subtask is
+          included, then DAO interfaces will be generated for any entity beans
+          containing this tag, unless a generate="false" parameter is present.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Entity bean</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>class</name>
+          <usage-description>
+           The fully qualified name of the DAO interface. If
+           absent the interface name will be determined using
+           the pattern and package parameters.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>pattern</name>
+          <usage-description>
+            Define the pattern (using {0} for the EJB name) to
+            be used for constructing the unqualified (package
+            specific) name of the DAO interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>package</name>
+          <usage-description>
+            Define the package the DAO interface is in
+            (generated or not). Use &lt;packageSubstitution/&gt; to
+            configure which package the interface should end
+            up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>generate</name>
+          <usage-description>
+            Indicate if the DAO interface should be generated.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>impl-class</name>
+          <usage-description>
+            The fully qualified name of a class which
+            implements the DAO interface. If present, then
+            generated code for obtaining a DAO will just
+            create a new instance of this class.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>impl-jndi</name>
+          <usage-description>
+             Indicates a JNDI environment reference which will
+             contain a String that is the fully qualified name of
+             a class implementing the DAO interface. If present,
+             then generated code for obtaining a DAO will look
+             up this reference, then create a new instance of the
+             class whose name is found there. This allows the
+             actual implementation class to be determined at
+             runtime.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>create-methods</name>
+          <usage-description>
+             Indicate if create methods should be automatically
+             included in the DAO interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>finder-methods</name>
+          <usage-description>
+             Indicate if finder methods should be automatically
+             included in the DAO interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.data-object</name>
+        <usage-description>
+         Defines configuration attributes used for data object generation.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+         Applicable only for Entity beans.
+        </condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>
+           Declare which class the generated bulk data class should
+           extend. The class must be
+           java.io.Serializable. This is useful if you want to add some
+            methods that should always be available in bulk data objects.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>java.lang.Object</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.ejb-external-ref</name>
+        <usage-description>
+          Defines an EJB reference to a bean which will be packaged in a different
+          ejb jar file.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Applicable to all types of EJBs.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+            The view type of the referenced bean.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>link</name>
+          <usage-description>
+            Defines an ejb-link to the referenced EJB. The value of the ejb-link
+            element is the name of the target enterprise bean. (It is the name defined in the ejb-name element
+            of the target enterprise bean.) The target enterprise bean can be in any ejb-jar file in the
+            same J2EE application as the referencing application component.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>ref-name</name>
+          <usage-description>
+            The name that the referenced bean will be referred to
+            by. For example, to refer to the bean Customer as
+            java:comp/env/ejb/Customer name should be
+            ejb/Customer.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <default>ejb/[ejb-name], where [ejb-name] is the name of the referenced bean.</default>
+        </parameter>
+        <parameter type="text">
+          <name>ejb-name</name>
+          <usage-description>
+            The name that the referenced bean will be referred to
+            by. For example, to refer to the bean Customer as
+            java:comp/env/ejb/Customer name should be
+            ejb/Customer. Deprecated. Use ref-name instead.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>ejb/[ejb-name], where [ejb-name] is the name of the referenced bean.</default>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The type of EJB being referenced.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Entity</default>
+              <options>
+                <option>Entity</option>
+                <option>Session</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>home</name>
+          <usage-description>
+            The fully qualified class name of the home interface of the referenced bean.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>business</name>
+          <usage-description>
+            The fully qualified class name of the business interface (local or remote
+            interface) of the referenced bean.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>remote</name>
+          <usage-description>
+            (Deprecated). Synonym for 'business' parameter. Only works if the view-type is 'remote'.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.ejb-ref</name>
+        <usage-description>
+          Defines an EJB-reference to the bean with EJB-name [ejb-name].  ref-name
+          is optional and if not specified then the reference name is [ejb-name]
+          prefixed by "ejb/".  Attention: you have to
+          import the referred class (the ejbdoclet one) even your EJB does not need it.
+        </usage-description>
+        <unique>false</unique>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>ejb-name</name>
+          <usage-description>The name of the EJB being referenced.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>The view type that the reference uses.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>remote</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>ref-name</name>
+          <usage-description>
+            The name that the referenced bean will be
+            referred to by. For example, to refer to the bean
+            Customer as java:comp/env/ejb/Customer name
+            should be ejb/Customer.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>ejb/[ejb-name], where [ejb-name] is the name of the referenced bean.</default>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.env-entry</name>
+        <usage-description>Defines an environment entry for an EJB.</usage-description>
+        <unique>false</unique>
+        <condition-description>Applicable to all EJB types.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the env-entry.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>Optional description of the env-entry.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+            The type of the env-entry, eg
+            java.lang.String. Supported types outlined in
+            the EJB spec.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>java.lang.String</default>
+              <options>
+                <option>java.lang.Boolean</option>
+                <option>java.lang.Byte</option>
+                <option>java.lang.Character</option>
+                <option>java.lang.String</option>
+                <option>java.lang.Short</option>
+                <option>java.lang.Integer</option>
+                <option>java.lang.Long</option>
+                <option>java.lang.Float</option>
+                <option>java.lang.Double</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>value</name>
+          <usage-description>The value of the env-entry.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.finder</name>
+        <usage-description>
+           Defines a finder method for the home interface. An entity bean may have zero or more
+           ejb.finder tags.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Applicable only to Entity beans.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+            To restrict the home interface in which the finder will be defined.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>both</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+                <option>both</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>Description of the finder.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>signature</name>
+          <usage-description>
+            Defines the signature of the
+            method. E.g.. "java.util.Collection
+            findAll()". The return type in the
+            signature must be fully qualified.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>unchecked</name>
+          <usage-description>
+            Flags the finder as having
+            unchecked permission.
+            If present, role-name must be
+            omitted.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>
+            A comma-separated list of roles that can invoke this finder method.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>query</name>
+          <usage-description>
+            EJB-QL query for the finder.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>result-type-mapping</name>
+          <usage-description>
+              Result type mapping (indicates the return type) for the finder
+              method.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+          <option-sets>
+            <option-set>
+              <default>none</default>
+              <options>
+                <option>none</option>
+                <option>Local</option>
+                <option>Remote</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>transaction-type</name>
+          <usage-description>
+           Indicates the transaction type attribute sets to the method.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>method-intf</name>
+          <usage-description>
+            Indicates the interface (Home or
+            LocalHome) for which the finder
+            permissions should be set. If the
+            permissions should apply to both
+            Home or LocalHome interfaces,
+            this parameter should not be
+            specified.</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Home</default>
+              <options>
+                <option>Home</option>
+                <option>LocalHome</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.home</name>
+        <usage-description>
+          The @ejb.home tag provides information about an Entity or Session
+          Bean's home interface. All parameters are applicable to both Entity and Session beans.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applicable to Entity and Session beans.</condition-description>
+        <condition type="and">
+          <condition type="class">
+            <condition type="or">
+              <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+              </condition>
+              <condition type="type">
+                <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+              </condition>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>
+           Declare which interface the generated
+           home interface should extend.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>javax.ejb.EJBHome</default>
+        </parameter>
+        <parameter type="text">
+          <name>local-extends</name>
+          <usage-description>
+             Declare which interface the generated
+             local home interface should extend.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>javax.ejb.EJBLocalHome</default>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="bool">
+          <name>generate</name>
+          <usage-description>
+            Which home interfaces should be
+            generated.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>true</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>remote-class</name>
+          <usage-description>
+           The fully qualified name of the remote
+           home interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>local-class</name>
+          <usage-description>
+           The fully qualified name of the local
+           home interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>remote-pattern</name>
+          <usage-description>
+             The pattern to be used in determining the
+             unqualified name of the remote home
+             interface - only used if remote-class is
+             not present.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>local-pattern</name>
+          <usage-description>
+             The pattern to be used in determining the
+             unqualified name of the local home
+             interface - only used if local-class is
+             not present.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>pattern</name>
+          <usage-description>
+            The pattern to be used in determining the
+            unqualified name of either local or
+            remote home interfaces. Used where
+            -class and -pattern tags are absent for the
+            bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>remote-package</name>
+          <usage-description>
+            The package the remote home interface
+            should be in - only used where
+            remote-class is not present. Use
+            &lt;packageSubstitution/&gt; to configure
+            which package the interface should end
+            up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>local-package</name>
+          <usage-description>
+            The package the local home interface
+            should be in - only used where
+            local-class is not present. Use
+            &lt;packageSubstitution/&gt; to configure
+            which package the interface should end
+            up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>package</name>
+          <usage-description>
+            The package the  home interfaces to be
+            placed in - only used where
+            -class or -package is not present. Use
+            &lt;packageSubstitution/&gt; to configure
+            which package the interface should end
+            up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.home-method</name>
+        <usage-description>
+          Define this method as a home method (e.g. its name is "ejbHomefoo", and
+          the corresponding home method should be defined in the home interface).
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+            Optionally specify which view-type the
+            method will be exposed in.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>local</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.interface</name>
+        <usage-description>
+          The @ejb.interface tag provides information about an Entity or
+          Session Bean's component interfaces (remote and/or local). It is not
+          applicable to Message-driven beans. All parameters are applicable to both
+          Entity and Session beans.</usage-description>
+        <unique>true</unique>
+        <condition-description>
+         Applicable to both
+         Entity and Session beans.
+       </condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>
+            Declare which interface the generated
+            remote interface should extend.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>javax.ejb.EJBObject</default>
+        </parameter>
+        <parameter type="text">
+          <name>local-extends</name>
+          <usage-description>
+           Declare which interface the generated local
+           interface should extend.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>javax.ejb.EJBLocalObject</default>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>generate</name>
+          <usage-description>
+            Which interfaces should be generated.
+            Defaults to true.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>local,remote</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>remote-class</name>
+          <usage-description>
+           The fully qualified name of the remote
+           interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>local-class</name>
+          <usage-description>
+            The fully qualified name of the local
+            interface.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>remote-pattern</name>
+          <usage-description>
+            The pattern to be used in determining the
+            unqualified name of the remote interface -
+            only used if remote-class is not present.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>local-pattern</name>
+          <usage-description>
+            The pattern to be used in determining the
+            unqualified name of the local interface -
+            only used if local-class is not present.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>pattern</name>
+          <usage-description>
+             The pattern to be used in determining the
+             unqualified name of either local or remote
+             interfaces. Used where -class and -pattern
+             tags are absent for the bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>remote-package</name>
+          <usage-description>
+             The package the remote interface should be
+             in - only used where remote-class is not
+             present. Use &lt;packageSubstitution/&gt; to
+             configure which package the interface
+             should end up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>local-package</name>
+          <usage-description>
+            The package the local interface should be in
+            - only used where local-class is not
+            present. Use
+            &lt;packageSubstitution/&gt; to configure which
+            package the interface should end up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session and Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>package</name>
+          <usage-description>
+            The package for the interfaces to be placed
+           in. Only used where -class and -package
+           are not present. Use
+           &lt;packageSubstitution/&gt; to configure which
+           package the interface should end up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.interface-method</name>
+        <usage-description>
+         Declare in which interface (local/remote) this method must appear. If the
+         view-type parameter is absent then the method will be added to whatever
+         component interfaces are defined in @ejb.bean.
+        </usage-description>
+        <unique>true</unique>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+            Optionally specify which view-type the
+            method will be exposed in. The value
+            "local" or "both" is only applicable to
+            EJB 2.0 beans.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>remote</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+                <option>both</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <level>class</level>
+        <name>ejb.permission</name>
+        <usage-description>
+          Defines the transactional behaviour for this method. Applicable to methods
+          with @ejb.create-method and @ejb.interface-method tags. When used on class level applies
+          to all interface methods cumulatively.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Session and Entity beans</condition-description>
+        <condition type="or">
+          <condition type="type">
+            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+          </condition>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>
+            Comma-separated list of roles allowed to call this
+            method
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>unchecked</name>
+          <usage-description>
+            Flags the method as having unchecked
+            permission. If present, role-name
+            must be omitted
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.persistence</name>
+        <usage-description>
+          The @ejb.persistence tag provides information about the persistence
+          of a CMP Entity bean.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>CMP entity bean</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="tag-param">
+            <condition-parameter>ejb.bean</condition-parameter>
+            <condition-parameter>type</condition-parameter>
+            <condition-parameter>CMP</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>table-name</name>
+          <usage-description>
+            Declare the table to which the CMP will
+            be mapped. If table-name is not specified, the name of the class will be used,
+            and it will be up to the container to create the tables.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>read-only</name>
+          <usage-description>
+            Configures a bean as read-only.  Many app servers can optimise access to
+            such beans (e.g. better caching, bypassing checks for changes, etc.)
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.persistence</name>
+        <usage-description>
+         The @ejb.persistence tag provides information about the persistence
+         of a CMP Entity bean's fields.
+Use this for methods with the following patterns:
+
+    public abstract Foo getX();
+    public abstract boolean isX();
+    public abstract void setX(Foo newVal);
+
+This will create the CMP field "X" in the generated CMP layer of type
+"Foo", and concrete implementations of the getX/setX methods. For BMP,
+it will generate getX/setX methods that keep track of a dirty flag (so that
+ejbStore is only called if necessary). If the type is boolean it is ok to have
+the get method prefixed "is" instead of "get". If you don't define the setter
+method, no setter method is generated for the concrete BMP/CMP class
+(concrete CMP class is generated only if EJB 1.1 or EJB 2.0 but using CMP
+1.x). This is useful for cases where for example nothing is set
+programmatically but via external sources such as a stored procedure.
+Note that some application servers require jdbc-type and sql-type to be applied
+together to work correctly; have a look at the respective subtask for your
+application server.
+    </usage-description>
+        <unique>true</unique>
+        <condition-description>
+          EJB entity bean fields. On the persistent fields getter methods.
+        </condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="owner">
+            <condition type="tag-param">
+              <condition-parameter>ejb.bean</condition-parameter>
+              <condition-parameter>type</condition-parameter>
+              <condition-parameter>CMP</condition-parameter>
+            </condition>
+          </condition>
+          <condition type="public"/>
+          <condition type="abstract"/>
+          <condition type="or">
+            <condition type="starts-with">
+              <condition-parameter>get</condition-parameter>
+            </condition>
+            <condition type="starts-with">
+              <condition-parameter>is</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>column-name</name>
+          <usage-description>
+           Declare the column-name to which the CMP
+           field will be mapped.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jdbc-type</name>
+          <usage-description>
+              Declare the JDBC Type. Its value must be one
+              of the fields of java.sql.Types (e.g. BIT,
+              CHAR...). This jdbc type will be used by the
+              CMP provider to determine which method to
+              call on PreparedStatement and ResultSet for
+              INSERT / UPDATE / SELECT queries.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>VARCHAR</default>
+              <options>
+                <option>ARRAY</option>
+                <option>BIGINT</option>
+                <option>BINARY</option>
+                <option>BIT</option>
+                <option>BLOB</option>
+                <option>BOOLEAN</option>
+                <option>CHAR</option>
+                <option>CLOB</option>
+                <option>DATALINK</option>
+                <option>DATE</option>
+                <option>DECIMAL</option>
+                <option>DISTINCT</option>
+                <option>DOUBLE</option>
+                <option>FLOAT</option>
+                <option>INTEGER</option>
+                <option>JAVA_OBJECT</option>
+                <option>LONGVARBINARY</option>
+                <option>LONGVARCHAR</option>
+                <option>NULL</option>
+                <option>NUMERIC</option>
+                <option>OTHER</option>
+                <option>REAL</option>
+                <option>REF</option>
+                <option>SMALLINT</option>
+                <option>STRUCT</option>
+                <option>TIME</option>
+                <option>TIMESTAMP</option>
+                <option>TINYINT</option>
+                <option>VARBINARY</option>
+                <option>VARCHAR</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>sql-type</name>
+          <usage-description>
+           Declare the actual type of the field in the
+           database. This value will only be used when the
+           CMP container creates your table (if possible).
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>read-only</name>
+          <usage-description>
+            Indicates that a field is read-only.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.persistent-field</name>
+        <usage-description>
+    Deprecated. Use the ejb.persistence tag instead.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+         Methods which follow patterns:
+            public abstract Foo getX();
+            public abstract boolean isX();
+            public abstract void setX(Foo newVal);
+        </condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="public"/>
+          <condition type="abstract"/>
+          <condition type="or">
+            <condition type="starts-with">
+              <condition-parameter>get</condition-parameter>
+            </condition>
+            <condition type="starts-with">
+              <condition-parameter>set</condition-parameter>
+            </condition>
+            <condition type="starts-with">
+              <condition-parameter>is</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.pk</name>
+        <usage-description>
+          Defines the primary key of an entity bean. If the &lt;entitypk/&gt; subtask is
+          included, then primary key classes will be generated for all entity beans
+          unless a generate="false" parameter is present, or the primary class is in the
+          java.lang package.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Entity beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>class</name>
+          <usage-description>
+           The fully qualified name of the primary key
+           class. If absent the primary key class name will
+           be determined using the pattern and package
+           parameters.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>pattern</name>
+          <usage-description>
+            Define the pattern (using {0} for the EJB name)
+            to be used for constructing the unqualified
+            (package specific) name of the primary key
+            class.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>package</name>
+          <usage-description>
+            Define the package the pk class is in (generated
+            or not). Use &lt;packageSubstitution/&gt; to
+            configure which package the PK class should
+            end up in.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>generate</name>
+          <usage-description>
+            Indicate if the primary key class should be
+            generated. Defaults to true.
+           </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+        </parameter>
+        <parameter type="text">
+          <name>extends</name>
+          <usage-description>
+            Define which class the generated pk must
+            extend.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>implements</name>
+          <usage-description>
+            Define which interface the generated pk must
+            implement.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>
+             A comma-separated list of roles that can
+             execute findByPrimaryKey.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>unchecked</name>
+          <usage-description>
+            Flags the PK-finder as having unchecked
+            permission. If present, role-name
+            must be omitted.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>true</default>
+          <condition-description>Entity beans, EJB 2.0</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>method-intf</name>
+          <usage-description>
+            Indicates the interface (Home or LocalHome)
+            for which the findByPrimaryKey permissions
+            should be set. Applies only if role-name or
+            unchecked is specified. If the permissions
+            should apply to both Home or LocalHome
+            interfaces, this parameter should not be
+            specified.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Home</default>
+              <options>
+                <option>Home</option>
+                <option>LocalHome</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.pk-field</name>
+        <usage-description>
+          Use this for methods with the following pattern: public abstract Foo getX().
+          This will denote the persistent field "X" as a primary key field, which will
+          be included in the generated primary key class. Must be used with the
+          persistent-field tag. This tag is only valid for EntityBeans. It has no
+          parameters.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>
+           Methods with the following pattern: public abstract Foo getX(). Entity beans only.
+        </condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="public"/>
+          <condition type="abstract"/>
+          <condition type="starts-with">
+            <condition-parameter>get</condition-parameter>
+          </condition>
+        </condition>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.relation</name>
+        <usage-description>
+          Defines a relationship between Entity beans.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Entity beans, EJB 2.0 (CMP2.x)</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="not">
+            <condition type="name">
+              <condition-parameter>ejbCreate</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            Name of the relation. For bidirectional relationships, specify the
+            same name on both sides.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>
+            Name of the relationship role.
+          </usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>cascade-delete</name>
+          <usage-description>
+            Indicates whether or not the app server should perform cascade deletes.
+            If yes, specify cascade-delete="yes".
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>target-ejb</name>
+          <usage-description>
+            Name of the EJB on the other side of the relation. Should *only* occur
+            if the relation is unidirectional.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>target-role-name</name>
+          <usage-description>
+            Name of the relationship role on the other side of the relation. Should
+            *only* occur if the relation is unidirectional.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>target-cascade-delete</name>
+          <usage-description>
+            Indicates whether or not the app server should perform cascade deletes
+            for the other side of the relation. If yes, specify cascade-delete="yes".
+            Should *only* occur if the relation is unidirectional.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>target-multiple</name>
+          <usage-description>
+            If this EJB represents a many-side of the other side of the relation,
+            specify target-multiple="yes". If not, just don't use this parameter,
+            or specify "no". Should *only* occur if the relation is unidirectional.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.resource-env-ref</name>
+        <usage-description>
+           Defines a resource environment reference with the name name to a resource
+           of type type.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Applicable to all EJB types. </condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The name of the resource.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>The type of the resource.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.resource-ref</name>
+        <usage-description>
+          Defines a resource reference with the name res-ref-name to a resource of type
+          res-type, and the authentication is done by the one specified in res-auth.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Applicable to all EJB types.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>res-ref-name</name>
+          <usage-description>The name of the environment entry used in the enterprise bean's code.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>res-type</name>
+          <usage-description>The resource type.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>res-auth</name>
+          <usage-description>The resource authentication type.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Container</default>
+              <options>
+                <option>Container</option>
+                <option>Application</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>res-sharing-scope</name>
+          <usage-description>The resource sharing scope</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Shareable</default>
+              <options>
+                <option>Shareable</option>
+                <option>Unshareable</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>
+          The physical jndi-name of the resource. Note: it currently is used only in 1-2
+          of the app server modules, but those modules will also support this consolidated standard tag soon.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.security-identity</name>
+        <usage-description>
+         The security-identity element specifies whether the caller's security
+         identity is to be used for the execution of the methods of the enterprise bean
+         or whether a specific run-as identity is to be used. It contains an optional
+         description and a specification of the security identity to be used.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Session, Entity and Message Driven beans, EJB 2.0</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>The description of the security identity.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>use-caller-identity</name>
+          <usage-description>
+            The use-caller-identity element
+            specifies that the caller's security
+            identity be used as the security identity
+            for the execution of the enterprise
+            bean's methods.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <default>false</default>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>run-as</name>
+          <usage-description>
+           The run-as element specifies the run-as
+           identity to be used for the execution of
+           the methods of an enterprise bean. It
+           contains an optional description, and the
+           name of a security role.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.security-role-ref</name>
+        <usage-description>
+         Defines a security role reference with the name role-name to a security
+         role link named role-link.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Applicable to Entity and Session beans.</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>role-name</name>
+          <usage-description>The name of the role reference</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>role-link</name>
+          <usage-description>The name of the role link.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>ejb.select</name>
+        <usage-description>
+         Defines a select method. This tag is placed on the ejbSelect methods.
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Entity beans, EJB 2.0</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>query</name>
+          <usage-description>EJB-QL query for the select method.</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>result-type-mapping</name>
+          <usage-description>Result type mapping for the select method.</usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>none</default>
+              <options>
+                <option>none</option>
+                <option>Local</option>
+                <option>Remote</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <level>class</level>
+        <name>ejb.transaction</name>
+        <usage-description>
+           Defines the transactional behaviour for this method. Applicable to methods
+           with @ejb.create-method and @ejb.interface-method tags.
+
+           If used on class level applies to all interface methods unless overridden.
+           
+           Note: To set the transaction type for Message Driven Beans, use the class level
+           tag for now.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Entity &amp; Session beans</condition-description>
+        <condition type="or">
+          <condition type="type">
+            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+          </condition>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>Define the type of transactional behaviour.</usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Supports</default>
+              <options>
+                <option>NotSupported</option>
+                <option>Supports</option>
+                <option>Required</option>
+                <option>RequiresNew</option>
+                <option>Mandatory</option>
+                <option>Never</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>ejb.util</name>
+        <usage-description>
+          This tag is optional, and lets you define whether or not a util class should be
+          generated, and whether to use the logical component name (java:comp/env)
+          or the physical JNDI name to do the lookup. If this tag is not specified, the
+          util class will be generated using logical lookups (provided the &lt;utilobject/&gt;
+          subtask is used)
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Applies to Entity Beans and Session Beans</condition-description>
+        <condition type="or">
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+          <condition type="type">
+            <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>generate</name>
+          <usage-description>
+            false or no will omit the
+            generation of the util class.
+            logical will generate a util class
+            that uses the component name
+            for lookup, and physical will
+            generate a class that uses the
+            JNDI name for lookups. Default
+            is logical.
+          </usage-description>
+          <mandatory>true</mandatory>
+          <option-sets>
+            <option-set>
+              <default>logical</default>
+              <options>
+                <option>false</option>
+                <option>no</option>
+                <option>logical</option>
+                <option>physical</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>dao.call</name>
+        <usage-description>
+         The method is a call to a data access object; the method will be included in
+         the DAO interface, and the EJB's generated subclass will contain a call to
+         the DAO's method.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Entity beans</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>
+            Optionally specify the method's name in the DAO (it
+            need not be the same as the calling method in the EJB).
+            If not specified, the default is the usual interface
+            equivalent of the method's name (i.e. generally the
+            same, but ejbFindByX becomes findByX etc.)
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+	  <tag>
+	  	<level>class</level>
+		<name>ejb.value-object</name>
+		<usage-description>
+		Definition for ValueObjects that follow the TransferObject pattern 
+		from http://java.sun.com/blueprints/corej2eepatterns/Patterns/TransferObject.html. 
+		ValueObjects can 'link' to other objects (of a relation) in two ways:
+		aggregation and composition. Aggregation means that the other object is
+		loosely coupled, while in Composition, the other object is 'embedded'.
+		Note that aggregation and composition are mutually exclusive. 
+		See also http://xdoclet.sourceforge.net/valueobjects.html for more info.
+		</usage-description>
+		<unique>false</unique>
+		<condition-description>entity beans</condition-description>
+		<condition type="type">
+			<condition-parameter>javax.ejb.EntityBean</condition-parameter>
+		</condition>
+		<parameter type="text">
+			<name>name</name>
+			<usage-description>
+			The name for this value object. The name will be used to form
+			the generated class name. Using the default pattern, for example,
+			if name is 'User', an 'UserValue' class will be generated.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>match</name>
+			<usage-description>
+			An identifier that can be used to select groups of attributes to
+			be included in this value object. You can repeat this identifier
+			in the method-level @ejb.value-object tag to add a property to
+			a value object. You can use '*' as an special value, indicating
+			that all entity properties will be included in this value object.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>extends</name>
+			<usage-description>
+			The name of the class the generated value object class should extend,
+			if any.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>implements</name>
+			<usage-description>
+			A comma-separated list of interfaces the generated value object should
+			implements, if any.  Please note that XDoclet won't generate methods
+			to implement these interfaces, so use this only if the interfaces doesn't
+			contains any methods, or if the value object superclass (indicated in the
+			'extends' parameter) already implements all interface methods.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="bool">
+			<name>abstract</name>
+			<usage-description>
+			Set if this value object is intended to be an abstract object which other value objects extend.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="bool">
+			<name>generatePKConstructor</name>
+			<usage-description>
+			Set if this value object should have a single argument constructor that sets the PK only.  It's useful
+            when using aggregation and you want to create a relationship between a new object and an existing object
+            with the form of obj.addSomeObjectRelation(new SomeObject(pk));
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+	  </tag>
+	  <tag>
+		<level>method</level>
+		<name>ejb.value-object</name>
+		<usage-description>
+			For a description have a look at the class level @ejb.value-object description.
+		</usage-description>
+		<unique>false</unique>
+		<condition-description>Entity beans.</condition-description>
+		<condition type="type">
+			<condition-parameter>javax.ejb.EntityBean</condition-parameter>
+		</condition>
+		<parameter type="text">
+			<name>match</name>
+			<usage-description>
+			Repeat here the 'match' attribute declared in a class-level @ejb.value-object
+			tag to link this property to the declared value object.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>compose</name>
+			<usage-description>
+			Tell XDoclet which should be the type of items contained in the multi valued
+			property. This should be a fully qualified class name.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>compose-name</name>
+			<usage-description>
+			Tell XDoclet how the accessor methods to this property in the value object
+			should be called. The value of this parameter should be the method name,
+			sans get or set.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>aggregate</name>
+			<usage-description>
+			Tell XDoclet which should be the type of items contained in the multi valued
+			property. This should be a fully qualified class name.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>aggregate-name</name>
+			<usage-description>
+			Tell XDoclet how the accessor methods to this property in the value object
+			should be called. The value of this parameter should be the method name,
+			sans get or set.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>members</name>
+			<usage-description>The class of the local or remote interface of the associated or composed bean.</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>members-name</name>
+			<usage-description>The Bean Name of the associated or composed Bean.</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>relation</name>
+			<usage-description>
+			This tells XDoclet that this property can be updated outside of the scope
+			of this value object, so the generated method should always retrieve the
+			property value. For relations, this is a no brainer: always include the
+			relation="external" parameter.
+			</usage-description>
+			<mandatory>false</mandatory>
+		</parameter>
+		<parameter type="text">
+			<name>type</name>
+			<usage-description>
+			On a multi-valued property, indicates the type of the collection returned
+			by the EJB property accessor. This should be set to 'java.util.Collection' 
+			or 'java.util.Set' in all multi-valued properties.
+			</usage-description>
+			<mandatory>false</mandatory>
+			<option-sets>
+			  <option-set>
+			    <options>
+			      <option>java.util.Collection</option>
+			      <option>java.util.Set</option>
+			    </options>
+			  </option-set>
+			</option-sets>
+		</parameter>
+	  </tag>
+	  <tag>
+	  	<level>class</level>
+		<name>ejb.facade</name>
+		<usage-description>
+	  		This tag is optional and allows generation of session facade EJB for
+			entity bean. Facade EJB will provide all finder and creation methods to
+			outside, and also all data setting methods for data and value objects.
+			Finder methods will return collections of data or value objects instead of
+			remote interfaces. 
+		
+			Facade bean will connect to EJB using local (if generated) or remote
+			interfaces.
+		
+			Resulting bean needs processing by XDoclet together with all EJB classes.
+		</usage-description>
+		<unique>true</unique>
+		<condition-description>
+	  		Entity beans.
+		</condition-description>
+		<condition type="and">
+          <condition type="class"/>
+		  <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+		  </condition>
+		</condition>
+		<parameter type="text">
+			<name>name</name>
+			<usage-description>
+				Name of generated facade EJB.
+			</usage-description>
+			<mandatory>false</mandatory>
+                        <default>{0}Facade</default>
+		</parameter>
+        <parameter type="text">
+          <name>description</name>
+          <usage-description>
+            A description of the bean.  Defaults to the first sentence of the
+            class-level javadoc comment of the bean class.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>display-name</name>
+          <usage-description>The display name of the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>small-icon</name>
+          <usage-description>The small icon for the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>large-icon</name>
+          <usage-description>The large icon for the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>
+               Provides the JNDI name of the
+               bean that will be used in the
+               vendor specific deployment descriptors.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Remote Session and Entity beans</condition-description>
+        </parameter>
+        <parameter type="text">
+          <name>local-jndi-name</name>
+          <usage-description>
+               Provides the JNDI name of the bean
+               that will be used in the vendor
+               specific deployment descriptors.
+               It's the JNDI name for the local EJB.
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>view-type</name>
+          <usage-description>
+               Indicates what view-type(s) is(are)
+               supported by the bean.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>remote</default>
+              <options>
+                <option>local</option>
+                <option>remote</option>
+                <option>both</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>type</name>
+          <usage-description>
+               Defines the bean's "type".
+          </usage-description>
+          <mandatory>true</mandatory>
+         <option-sets>
+            <option-set>
+              <default>Stateless</default>
+              <options>
+                <option>Stateless</option>
+                <option>Stateful</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>transaction-type</name>
+          <usage-description>
+               Defines the bean's transaction type.
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>Container</default>
+              <options>
+                <option>Container</option>
+                <option>Bean</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+	  </tag>
+	  <tag>
+	  	<level>class</level>
+		<name>ejb.remote-facade</name>
+		<usage-description>
+			Generate remote facade class for entity beans. 
+			This class will provide convenient view on session bean
+			and perform all the necessary lookups.
+			
+			Session Bean methods marked with @ejb.facade-method
+			will be included and transparently proxied.
+			
+			Generated class name will follow pattern: {0}Remote 
+		</usage-description>
+		<unique>true</unique>
+		<condition-description>
+			Session beans.
+		</condition-description>
+		<condition type="and">
+		  <condition type="class"/>
+		  <condition type="type">
+			<condition-parameter>javax.ejb.SessionBean</condition-parameter>
+		  </condition>
+		</condition>
+	  </tag>
+	  <tag>
+	  	<level>method</level>
+		<name>ejb.facade-method</name>
+		<usage-description>
+			Marks session bean method for inclusion in remote facade.
+		</usage-description>
+		<unique>true</unique>
+		<condition-description>
+		  Interface methods of session bean.
+		</condition-description>
+		<condition type="and">
+			<condition type="method"/>
+			<condition type="type">
+				<condition-parameter>javax.ejb.SessionBean</condition-parameter>
+			</condition>
+		</condition>
+		<parameter type="bool">
+			<name>invalidate</name>
+			<usage-description>
+				Mark this method as invalidating. Remote Facade will fire
+				callbacks and zap caches. Use on methods which change ejb
+				or create/remove entities. NOTE: setting this to true will have no effect for
+				facade methods which cache their result. 
+			</usage-description>
+			<mandatory>false</mandatory>
+			<default>false</default>
+		</parameter>
+		<parameter type="bool">
+			<name>cache</name>
+			<usage-description>
+				Setup result caching for this method result. No effect on void methods. 
+			</usage-description>
+			<mandatory>false</mandatory>
+			<default>false</default>
+		</parameter>
+		<parameter type="bool">
+			<name>immutable</name>
+			<usage-description>
+				If value is immutable it will be never invalidated. No effect on void methods.
+			</usage-description>
+			<mandatory>false</mandatory>
+			<default>false</default>
+		</parameter>
+	  </tag>
+    </tags>
+  </namespace>
+</xdoclet>

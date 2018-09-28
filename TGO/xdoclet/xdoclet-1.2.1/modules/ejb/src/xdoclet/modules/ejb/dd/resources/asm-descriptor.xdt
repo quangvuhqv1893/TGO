@@ -1,0 +1,274 @@
+
+   <assembly-descriptor <XDtId:prefixedId prefix="AssemblyDescriptor"/>>
+    <XDtMerge:merge file="assembly-descriptor.xml">
+     <!--
+       To add additional assembly descriptor info here, add a file to your
+       XDoclet merge directory called assembly-descriptor.xml that contains
+       the <assembly-descriptor></assembly-descriptor> markup.
+     -->
+    </XDtMerge:merge>
+    <XDtMerge:merge file="ejb-security-roles.xml">
+     <XDtEjbSec:forAllSecurityRoles>
+      <security-role>
+         <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="description_not_supported"/>]]></description>
+         <role-name><XDtEjbSec:securityRoleName/></role-name>
+      </security-role>
+     </XDtEjbSec:forAllSecurityRoles>
+    </XDtMerge:merge>
+
+ <XDtEjb:forAllBeans>
+ <XDtEjb:ifIsAConcreteEJBean>
+  <XDtClass:ifHasClassTag tagName="ejb:permission">
+      <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+         <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="description_not_supported"/>]]></description>
+      <XDtClass:forAllClassTags tagName="ejb:permission">
+       <XDtClass:ifHasClassTag tagName="ejb:permission" paramName="role-name">
+        <XDtClass:forAllClassTagTokens tagName="ejb:permission" paramName="role-name" delimiter=",">
+         <role-name><XDtClass:currentToken/></role-name>
+        </XDtClass:forAllClassTagTokens>
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifDoesntHaveClassTag tagName="ejb:permission" paramName="role-name">
+        <XDtClass:ifHasClassTag tagName="ejb:permission" paramName="unchecked">
+        <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+         <unchecked/>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
+        </XDtClass:ifHasClassTag>
+       </XDtClass:ifDoesntHaveClassTag>
+      </XDtClass:forAllClassTags>
+         <method <XDtId:prefixedId prefix="MethodElement"/>>
+            <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="description_not_supported"/>]]></description>
+           <XDtType:ifIsOfType type="javax.ejb.SessionBean">
+            <ejb-name><XDtEjb:ejbName/></ejb-name>
+           </XDtType:ifIsOfType>
+           <XDtType:ifIsOfType type="javax.ejb.EntityBean">
+            <ejb-name><XDtEjb:ejbName/></ejb-name>
+           </XDtType:ifIsOfType>
+           <XDtType:ifIsOfType type="javax.ejb.MessageDrivenBean">
+            <ejb-name><XDtEjb:ejbName/></ejb-name>
+           </XDtType:ifIsOfType>
+            <method-name>*</method-name>
+         </method>
+      </method-permission>
+  </XDtClass:ifHasClassTag>
+
+  <XDtMethod:forAllMethods>
+   <XDtMethod:ifHasMethodTag tagName="ejb:permission">
+    <XDtEjbIntf:ifIsInterfaceMethod>
+     <XDtEjbIntf:forAllInterfaceViewTypes>
+   <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+      <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="description_not_supported"/>]]></description>
+   <XDtMethod:forAllMethodTags tagName="ejb:permission">
+    <XDtMethod:ifHasMethodTag tagName="ejb:permission" paramName="role-name">
+        <XDtMethod:forAllMethodTagTokens tagName="ejb:permission" paramName="role-name" delimiter=",">
+         <role-name><XDtClass:currentToken/></role-name>
+        </XDtMethod:forAllMethodTagTokens>
+    </XDtMethod:ifHasMethodTag>
+    <XDtMethod:ifDoesntHaveMethodTag tagName="ejb:permission" paramName="role-name">
+    <XDtMethod:ifHasMethodTag tagName="ejb:permission" paramName="unchecked">
+     <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+      <unchecked/>
+     </XDtConfig:ifConfigParamGreaterOrEquals>
+    </XDtMethod:ifHasMethodTag>
+    </XDtMethod:ifDoesntHaveMethodTag>
+   </XDtMethod:forAllMethodTags>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+         <description><![CDATA[<XDtMethod:firstSentenceDescriptionOfCurrentMethod/>]]></description>
+        <XDtType:ifIsOfType type="javax.ejb.SessionBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType type="javax.ejb.EntityBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType type="javax.ejb.MessageDrivenBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtEjbHome:ifNotRemoveMethod>
+         <method-intf><XDtEjbIntf:methodIntf/></method-intf>
+        </XDtEjbHome:ifNotRemoveMethod>
+         <method-name><XDtEjbIntf:interfaceMethodName/></method-name>
+         <method-params>
+           <XDtParameter:forAllMethodParams>
+            <method-param><XDtParameter:methodParamType/></method-param>
+           </XDtParameter:forAllMethodParams>
+         </method-params>
+      </method>
+   </method-permission>
+     </XDtEjbIntf:forAllInterfaceViewTypes>
+    </XDtEjbIntf:ifIsInterfaceMethod>
+   </XDtMethod:ifHasMethodTag>
+  </XDtMethod:forAllMethods>
+
+   <!-- finder permissions -->
+  <XDtClass:forAllClassTags tagName="ejb:finder">
+   <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="role-name">
+   <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+      <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="description_not_supported"/>]]></description>
+      <XDtClass:forAllClassTagTokens tagName="ejb:finder" paramName="role-name" delimiter=",">
+      <role-name><XDtClass:currentToken/></role-name>
+       </XDtClass:forAllClassTagTokens>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+        <XDtType:ifIsOfType type="javax.ejb.SessionBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType type="javax.ejb.EntityBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="method-intf">
+         <method-intf><XDtClass:classTagValue tagName="ejb:finder" paramName="method-intf" values="Home,LocalHome"/></method-intf>
+        </XDtClass:ifHasClassTag>
+         <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" tokenNumber="1"  delimiter=" ("/></method-name>
+         <method-params>
+           <XDtClass:forAllClassTagTokens tagName="ejb:finder" paramName="signature" delimiter="( ,)" skip="2">
+            <method-param><XDtClass:currentToken/></method-param><XDtClass:skipToken/>
+           </XDtClass:forAllClassTagTokens>
+         </method-params>
+      </method>
+   </method-permission>
+   </XDtClass:ifHasClassTag>
+
+    <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+     <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="unchecked">
+   <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+      <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="description_not_supported"/>]]></description>
+      <unchecked/>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+        <XDtType:ifIsOfType type="javax.ejb.SessionBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType type="javax.ejb.EntityBean">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtType:ifIsOfType>
+        <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="method-intf">
+         <method-intf><XDtClass:classTagValue tagName="ejb:finder" paramName="method-intf" values="Home,LocalHome"/></method-intf>
+        </XDtClass:ifHasClassTag>
+         <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" tokenNumber="1"  delimiter=" ("/></method-name>
+         <method-params>
+           <XDtClass:forAllClassTagTokens tagName="ejb:finder" paramName="signature" delimiter="( ,)" skip="2">
+            <method-param><XDtClass:currentToken/></method-param><XDtClass:skipToken/>
+           </XDtClass:forAllClassTagTokens>
+         </method-params>
+      </method>
+   </method-permission>
+     </XDtClass:ifHasClassTag>
+    </XDtConfig:ifConfigParamGreaterOrEquals>
+  </XDtClass:forAllClassTags>
+
+  <XDtClass:ifHasClassTag tagName="ejb:pk" paramName="role-name">
+   <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+      <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="dd_findbypk_perm"/>]]></description>
+     <XDtClass:forAllClassTagTokens tagName="ejb:pk" paramName="role-name" delimiter=",">
+      <role-name><XDtClass:currentToken/></role-name>
+     </XDtClass:forAllClassTagTokens>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+        <XDtClass:ifHasClassTag tagName="ejb:bean" paramName="name">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb:pk" paramName="method-intf">
+         <method-intf><XDtClass:classTagValue tagName="ejb:pk" paramName="method-intf" values="Home,LocalHome"/></method-intf>
+        </XDtClass:ifHasClassTag>
+         <method-name>findByPrimaryKey</method-name>
+      </method>
+   </method-permission>
+  </XDtClass:ifHasClassTag>
+
+ <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+  <XDtClass:ifHasClassTag tagName="ejb:pk" paramName="unchecked">
+   <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+      <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="dd_findbypk_perm"/>]]></description>
+      <unchecked/>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+        <XDtClass:ifHasClassTag tagName="ejb:bean" paramName="name">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb:pk" paramName="method-intf">
+         <method-intf><XDtClass:classTagValue tagName="ejb:pk" paramName="method-intf" values="Home,LocalHome"/></method-intf>
+        </XDtClass:ifHasClassTag>
+         <method-name>findByPrimaryKey</method-name>
+      </method>
+   </method-permission>
+  </XDtClass:ifHasClassTag>
+ </XDtConfig:ifConfigParamGreaterOrEquals>
+ <XDtConfig:ifConfigParamNotGreaterOrEquals paramName="EjbSpec" value="2.0">
+  <XDtClass:ifHasClassTag tagName="ejb:pk" paramName="unchecked">
+   <method-permission <XDtId:prefixedId prefix="MethodPermission"/>>
+      <description><![CDATA[<XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="dd_findbypk_perm"/>]]></description>
+      <unchecked/>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+        <XDtClass:ifHasClassTag tagName="ejb:bean" paramName="name">
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb:pk" paramName="method-intf">
+         <method-intf><XDtClass:classTagValue tagName="ejb:pk" paramName="method-intf" values="Home,LocalHome"/></method-intf>
+        </XDtClass:ifHasClassTag>
+         <method-name>findByPrimaryKey</method-name>
+      </method>
+   </method-permission>
+  </XDtClass:ifHasClassTag>
+ </XDtConfig:ifConfigParamNotGreaterOrEquals>
+ </XDtEjb:ifIsAConcreteEJBean>
+ </XDtEjb:forAllBeans>
+
+   <!-- transactions -->
+ <XDtEjb:forAllBeans>
+ <XDtEjb:ifIsAConcreteEJBean>
+  <XDtClass:forAllClassTags tagName="ejb:transaction">
+   <container-transaction <XDtId:prefixedId prefix="MethodTransaction"/>>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+         <XDtClass:ifHasClassTag tagName="ejb:transaction" paramName="method-intf">
+          <method-intf><XDtClass:classTagValue tagName="ejb:transaction" paramName="method-intf" values="Home,Remote,LocalHome,Local"/></method-intf>
+         </XDtClass:ifHasClassTag>
+          <method-name><XDtClass:classTagValue tagName="ejb:transaction" paramName="method-name" default="*"/></method-name>
+       </method>
+       <trans-attribute><XDtClass:classTagValue tagName="ejb:transaction" paramName="type"/></trans-attribute>
+    </container-transaction>
+   </XDtClass:forAllClassTags>
+   <XDtMethod:forAllMethods>
+   <XDtMethod:ifHasMethodTag tagName="ejb:transaction">
+    <XDtEjbIntf:ifIsInterfaceMethod>
+     <XDtEjbIntf:forAllInterfaceViewTypes>
+   <container-transaction <XDtId:prefixedId prefix="MethodTransaction"/>>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+         <method-intf><XDtEjbIntf:methodIntf/></method-intf>
+         <method-name><XDtEjbIntf:interfaceMethodName/></method-name>
+         <method-params>
+           <XDtParameter:forAllMethodParams>
+            <method-param><XDtParameter:methodParamType/></method-param>
+           </XDtParameter:forAllMethodParams>
+         </method-params>
+      </method>
+      <trans-attribute><XDtMethod:methodTagValue tagName="ejb:transaction" paramName="type"/></trans-attribute>
+   </container-transaction>
+     </XDtEjbIntf:forAllInterfaceViewTypes>
+    </XDtEjbIntf:ifIsInterfaceMethod>
+   </XDtMethod:ifHasMethodTag>
+  </XDtMethod:forAllMethods>
+  </XDtEjb:ifIsAConcreteEJBean>
+ </XDtEjb:forAllBeans>
+
+   <!-- finder transactions -->
+ <XDtEjb:forAllBeans>
+  <XDtEjb:ifIsAConcreteEJBean>
+   <XDtClass:forAllClassTags tagName="ejb:finder">
+    <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="transaction-type">
+   <container-transaction <XDtId:prefixedId prefix="MethodTransaction"/>>
+      <method <XDtId:prefixedId prefix="MethodElement"/>>
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+        <XDtClass:ifHasClassTag tagName="ejb:finder" paramName="method-intf">
+         <method-intf><XDtClass:classTagValue tagName="ejb:finder" paramName="method-intf" values="Home,LocalHome"/></method-intf>
+        </XDtClass:ifHasClassTag>
+         <method-name><XDtClass:classTagValue tagName="ejb:finder" paramName="signature" tokenNumber="1"  delimiter=" ("/></method-name>
+         <method-params>
+           <XDtClass:forAllClassTagTokens tagName="ejb:finder" paramName="signature" delimiter="( ,)" skip="2">
+            <method-param><XDtClass:currentToken/></method-param><XDtClass:skipToken/>
+           </XDtClass:forAllClassTagTokens>
+         </method-params>
+      </method>
+      <trans-attribute><XDtClass:classTagValue tagName="ejb:finder" paramName="transaction-type"/></trans-attribute>
+   </container-transaction>
+    </XDtClass:ifHasClassTag>
+   </XDtClass:forAllClassTags>
+  </XDtEjb:ifIsAConcreteEJBean>
+ </XDtEjb:forAllBeans>
+   </assembly-descriptor>

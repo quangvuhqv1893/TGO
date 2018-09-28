@@ -1,0 +1,448 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - JRun</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>&lt;jrun/&gt; subtask</H2>
+<H3>jrun</H3>
+<P>Creates JRun-specific deployment descriptor (jrun-ejb-jar.xml) for EJB beans.<BR>
+Only JRun 4.0 is supported.</P>
+<P>Most comments have been copied from the JRun DTD:</P>
+<P><A HREF="http://jrun.macromedia.com/dtd/jrun-ejb-jar.dtd">http://jrun.macromedia.com/dtd/jrun-ejb-jar.dtd</A></P>
+<P>Dan Schaffer (dschaffer@macromedia.com)</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD VALIGN="top"><B>Attribute</B></TD>
+    <TD VALIGN="top"><B>Description</B></TD>
+    <TD VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">xmlencoding</TD>
+    <TD VALIGN="top">The encoding of the jrun-ejb-jar.xml file.</TD>
+    <TD VALIGN="top">No, default is &quot;UTF-8&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">destdir</TD>
+    <TD VALIGN="top">Destination directory for output JRun-specific
+      deployment descriptor files.</TD>
+    <TD VALIGN="top">No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">source</TD>
+    <TD VALIGN="top">Overrides the values of @jrun:jdbc-mapping source for
+      Entity Beans.</TD>
+    <TD VALIGN="top">No. Only if at least one of the Entity Beans have not
+      specified the @jrun:jdbc-mapping source.</TD>
+  </TR>
+  <TR>
+    <TD>validateXml</TD>
+    <TD>Validates the generated xml file according to the DTD file contained
+      inside xdoclet.jar.</TD>
+    <TD>No, default is false</TD>
+  </TR>
+</TABLE>
+</DIV>
+<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+<H4><A NAME="always-dirty">@jrun:always-dirty</A></H4>
+<P>
+    The always-dirty element can be used to force synchronization with
+    the data source at the ends of transactions even when there has
+    been no change to the entity bean's fields.
+    Valid values: true|false
+    Used in: entity
+</P>
+<H4><A NAME="cluster-home">@jrun:cluster-home</A></H4>
+<P>
+    The cluster-home element denotes whether  the EJBHome should be clustered
+    for this bean. If clustering is enabled in jrun.xml, this value is
+    true by default. You can use this element to override this behavior on
+    a bean-by-bean basis.
+
+    Valid values: true | false
+
+    Used in: session, entity
+</P>
+<H4><A NAME="cluster-object">@jrun:cluster-object</A></H4>
+<P>
+    The cluster-object element denotes whether  the EJBObject should be clustered
+    for this bean. If clustering is enabled in jrun.xml, this value is
+    true by default. You can use this element to override this behavior on
+    a bean-by-bean basis.
+
+    Valid values: true | false
+
+    Used in: session, entity
+</P>
+<H4><A NAME="commit-option">@jrun:commit-option</A></H4>
+<P>
+    The commit-option element specifies the the commit option from
+    Section 10.5.9 and 12.1.9 of the EJB 2.0 specification.
+
+    Valid values: A | B | C
+
+    Used in: entity
+</P>
+<H4><A NAME="ejb-local-ref">@jrun:ejb-local-ref</A></H4>
+<P>
+    The ejb-local-ref element describes a mapping between the ejb-ref-name
+   that the bean developer provides and its JNDI name.  The deployer provides
+    the actual JNDI name.
+
+    Used in: entity, message-driven, session
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[ejb-ref-name]</I>: String<BR>
+    <TD>
+    The ejb-ref-name element gives the name of an EJB from the ejb-jar.xml file.
+    The bean developer this information.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="ejb-ref">@jrun:ejb-ref</A></H4>
+<P>
+    The ejb-ref element describes a mapping between the ejb-ref-name that
+     the bean developer provides and its JNDI name. The deployer provides the
+     actual JNDI name.
+    Used in: entity, message-driven, session
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[ejb-ref-name]</I>: String<BR>
+    <TD>
+    The ejb-ref-name element gives the name of an EJB from the ejb-jar.xml file.
+    The bean developer this information.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="instance-pool">@jrun:instance-pool</A></H4>
+<P>
+    The instance-pool element contains the maximum and minimum size parameters for
+    StatelessSessionBean instance pools.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[maximum-size]</I>: int
+    <TD>
+    The maximum-size element specifies the maximum size for
+    StatelessSessionBean instance pools.
+    </TD>
+    <TD>Stateless Session Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[minimum-size]</I>: int
+    <TD>
+    The minimum-size element specifies the minimum size for
+    StatelessSessionBean instance pools.
+    </TD>
+    <TD>Stateless Session Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jdbc-mappings">@jrun:jdbc-mappings</A></H4>
+<P>
+    The jdbc-mappings element holds information specific to JRun and not declared
+    in the ejb-jar.xml file about the CMP mappings for an entity bean.  jdbc-mappings are used
+    to specify the SQL used to create, load, store, find and remove entity beans.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[create-table]</I>: Boolean
+    <TD>
+    Whether JRun will attempt to create database tables.
+    </TD>
+    <TD>Entity Beans</TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD><I>[delete-table]</I>: Boolean
+    <TD>
+    Whether JRun will attempt to delete database tables.
+    </TD>
+    <TD>Entity Beans</TD>
+    <TD>No</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jndi-name">@jrun:jndi-name</A></H4>
+<P>    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    Used in: entity, message-driven, resource-ref, resource-env-ref, session
+</P>
+<H4><A NAME="message-driven-destination">@jrun:message-driven-destination</A></H4>
+<P>
+    The message-driven-destination element provides the destination that the
+    Message driven container uses.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[name]</I>: String
+    <TD>
+    The name element defines the parameter name.
+    </TD>
+    <TD>Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="message-driven-subscription">@jrun:message-driven-subscription</A></H4>
+<P>
+    The message-driven-subscription element provides the user ID that the message-driven
+    container uses for durable subscription handling
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[client-id]</I>: int
+    <TD>
+    The client-id element provides client id for DurableSubscription
+    setup and sign on.
+    </TD>
+    <TD>Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="resource-env-ref">@jrun:resource-env-ref</A></H4>
+<P>
+    The resource-env-ref element describes a mapping between the
+    resource-env-name that the bean developer provides and its JNDI name. The deployer
+    provides the actual JNDI name.
+
+    Used in: session, entity, message-driven
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[resource-env-ref-name]</I>: String<BR>
+    <TD>
+    The resource-env-ref-name element gives the name of a resource env
+    from EJB view. The bean developer provides this information.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[mdb-destination]</I>: String<BR>
+    <TD>
+   The mdb-destination element specifies a message-driven bean destination.
+    </TD>
+    <TD>Message Driven Beans</TD>
+    <TD>No</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="resource-ref">@jrun:resource-ref</A></H4>
+<P>
+    The resource-ref element describes a mapping between the resource
+    name that  the bean developer provides and its JNDI name. The deployer provides
+    the actual  JNDI name.
+
+    Used in: session, entity, message-driven
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[resource-ref-name]</I>: String<BR>
+    <TD>
+    The res-ref-name element gives the name of a resource from EJB
+    view. The bean developer provides this information.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[user]</I>: String<BR>
+    <TD>
+    The user element assigns a user identity to be used with a specified
+    resource.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD><I>[password]</I>: String<BR>
+    <TD>
+    The password element provides user credentials to be used
+    with user element to identify and authenticate a specified resource.
+    </TD>
+    <TD>Entity Beans, Session Beans, Message Driven Beans</TD>
+    <TD>No</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="timeout">@jrun:timeout</A></H4>
+<P>
+    The timeout element specifies the timeout value, in seconds,
+    of a stateful session bean. The bean will be passivated if
+    left idle for this duration.
+
+    Used in: session
+</P>
+<H4><A NAME="tx-domain">@jrun:tx-domain</A></H4>
+<P>
+    The tx-domain-name element gives the transaction domain name in which
+    the bean's transactions will take place.
+
+    Used in: entity, message-driven, session
+</P>
+<H3><A NAME="method-level-tags">Method level Tags</A></H3>
+<H4><A NAME="jdbc-mapping">@jrun:jdbc-mapping</A></H4>
+<P>
+    The jdbc-mapping element holds information specific to CMP operation, such
+    as create, load, etc.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[name]</I>: String
+    <TD>
+    the name of the jdbc-mapping e.g. create,load,store,remove,find
+    </TD>
+    <TD>Entity beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[action]</I>: String
+    <TD>
+    the sql statements to perform the operation e.g. select id from table where id=?
+    </TD>
+    <TD>Entity beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[source]</I>: String
+    <TD>
+    the name of the jdbc datasource to perform the statement
+    </TD>
+    <TD>Entity beans</TD>
+    <TD>No</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="jdbc-mapping-field">@jrun:jdbc-mapping-field</A></H4>
+<P>
+  A field corresponding to a column returned by a SELECT statement
+</P>
+<H4><A NAME="jdbc-mapping-param">@jrun:jdbc-mapping-param</A></H4>
+<P>
+  The parameter name and type corresponding to a ? in the prepared statement.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Applies to</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[name]</I>: String
+    <TD>
+    the name sql column
+    </TD>
+    <TD>Entity beans</TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[type]</I>: String
+    <TD>
+    the sql datatype e.g. VARCHAR
+    </TD>
+    <TD>Entity beans</TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+</TABLE>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<portlet-app version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/portlet" xmlns="http://java.sun.com/xml/ns/portlet">
+
+ <XDtClass:forAllClasses type="javax.portlet.GenericPortlet">
+  <XDtClass:forAllClassTags tagName="portlet.portlet" superclasses="true">
+    <portlet>
+      <XDtClass:ifHasClassTag tagName="portlet.portlet" paramName="description">
+      <description><XDtClass:classTagValue tagName="portlet.portlet" paramName="description"/></description>
+      </XDtClass:ifHasClassTag>
+      <portlet-name><XDtClass:classTagValue tagName="portlet.portlet" paramName="name"/></portlet-name>
+      <XDtClass:ifHasClassTag tagName="portlet.portlet" paramName="display-name">
+      <display-name><XDtClass:classTagValue tagName="portlet.portlet" paramName="display-name"/></display-name>
+      </XDtClass:ifHasClassTag>      
+      <portlet-class><XDtClass:fullClassName/></portlet-class>
+
+      <XDtClass:forAllClassTags tagName="portlet.portlet-init-param">
+      <init-param>
+        <XDtClass:ifHasClassTag tagName="portlet.portlet-init-param" paramName="description">
+        <description><XDtClass:classTagValue tagName="portlet.portlet-init-param" paramName="description"/></description>
+        </XDtClass:ifHasClassTag>
+        <name><XDtClass:classTagValue tagName="portlet.portlet-init-param" paramName="name"/></name>
+        <value><XDtClass:classTagValue tagName="portlet.portlet-init-param" paramName="value"/></value>
+      </init-param>
+      </XDtClass:forAllClassTags>
+
+      <expiration-cache><XDtClass:classTagValue tagName="portlet.portlet" paramName="expiration-cache" default="-1"/></expiration-cache>
+      
+      <XDtClass:forAllClassTags tagName="portlet.supports">
+      <supports>
+        <mime-type><XDtClass:classTagValue tagName="portlet.supports" paramName="mime-type"/></mime-type>
+        <XDtClass:ifHasClassTag tagName="portlet.supports" paramName="modes">
+        <XDtClass:forAllClassTagTokens tagName="portlet.supports" paramName="modes">
+        <portlet-mode><XDtClass:currentToken/></portlet-mode>
+        </XDtClass:forAllClassTagTokens>
+        </XDtClass:ifHasClassTag>
+      </supports>
+      </XDtClass:forAllClassTags>
+      
+      <XDtClass:forAllClassTags tagName="portlet.locale">
+      <supported-locale><XDtClass:classTagValue tagName="portlet.locale"/></supported-locale>
+      </XDtClass:forAllClassTags>
+
+      <XDtClass:ifHasClassTag tagName="portlet.resource-bundle">
+      <resource-bundle><XDtClass:classTagValue tagName="portlet.resource-bundle"/></resource-bundle>
+      </XDtClass:ifHasClassTag>
+
+      <portlet-info>
+        <title><XDtClass:classTagValue tagName="portlet.portlet-info" paramName="title"/></title>
+        <XDtClass:ifHasClassTag tagName="portlet.portlet-info" paramName="short-title">
+        <short-title><XDtClass:classTagValue tagName="portlet.portlet-info" paramName="short-title"/></short-title>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="portlet.portlet-info" paramName="keywords">
+        <keywords><XDtClass:classTagValue tagName="portlet.portlet-info" paramName="keywords"/></keywords>
+        </XDtClass:ifHasClassTag>
+      </portlet-info>
+
+      <portlet-preferences>
+      <XDtClass:forAllClassTags tagName="portlet.preference">
+        <preference>
+          <name><XDtClass:classTagValue tagName="portlet.preference" paramName="name"/></name>
+          <value><XDtClass:classTagValue tagName="portlet.preference" paramName="value"/></value>
+          <XDtClass:ifHasClassTag tagName="portlet.preference" paramName="read-only">
+          <read-only><XDtClass:classTagValue tagName="portlet.preference" paramName="read-only"/></read-only>
+          </XDtClass:ifHasClassTag>
+        </preference>
+      </XDtClass:forAllClassTags>
+
+      <XDtClass:ifHasClassTag tagName="portlet.preferences-validator" paramName="class">
+        <preferences-validator>
+          <XDtClass:classTagValue tagName="portlet.preferences-validator" paramName="class"/>
+        </preferences-validator>
+      </XDtClass:ifHasClassTag>
+      </portlet-preferences>
+      
+      <XDtClass:forAllClassTags tagName="portlet.security-role-ref">
+      <security-role-ref>
+        <XDtClass:ifHasClassTag tagName="portlet.security-role-ref" paramName="description">
+        <description><XDtClass:classTagValue tagName="portlet.security-role-ref" paramName="description"/></description>
+        </XDtClass:ifHasClassTag>
+        <role-name><XDtClass:classTagValue tagName="portlet.security-role-ref" paramName="role-name"/></role-name>
+        <XDtClass:ifHasClassTag tagName="portlet.security-role-ref" paramName="role-link">
+        <role-link><XDtClass:classTagValue tagName="portlet.security-role-ref" paramName="role-link"/></role-link>
+        </XDtClass:ifHasClassTag>
+      </security-role-ref>
+      </XDtClass:forAllClassTags>
+    </portlet>
+  </XDtClass:forAllClassTags>
+ </XDtClass:forAllClasses>
+ 
+  <XDtMerge:merge file="custom-portlet-modes.xml">
+     <!--
+       To add custom portlet modes to the portlet.xml file, add a file to your
+       XDoclet merge directory called custom-portlet-modes.xml that contains the
+       <custom-portlet-mode></custom-portlet-mode> markup.
+     -->
+  </XDtMerge:merge>
+  
+  <XDtMerge:merge file="portlet-custom-window-states.xml">
+    <!--
+       To add custom window states to the portlet.xml file, add a file to your
+       XDoclet merge directory called portlet-custom-window-states.xml that contains the
+       <custom-window-state></custom-window-state> markup.
+    -->
+  </XDtMerge:merge>  
+
+  <XDtMerge:merge file="portlet-user-attributes.xml">
+    <!--
+       To add user attributes to the portlet.xml file, add a file to your
+       XDoclet merge directory called portlet-user-attributes.xml that contains the
+       <user-attribute></user-attribute> markup.
+    -->
+  </XDtMerge:merge>
+  
+  <XDtMerge:merge file="portlet-security.xml">
+    <!--
+       To add security constraints to the portlet.xml file, add a file to your
+       XDoclet merge directory called portlet-security.xml that contains the
+       <security-constraint></security-constraint> markup.
+    -->
+  </XDtMerge:merge>
+
+</portlet-app>

@@ -1,0 +1,214 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - JRun</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>&lt;jrun/&gt; subtask</H2>
+<H3>jrun</H3>
+<P>Creates JRun-specific web deployment descriptor (jrun-web.xml) for web apps.<BR>
+Only JRun 4.0 is supported.</P>
+<P>Most comments have been copied from the JRun DTD:</P>
+<P><A HREF="http://jrun.macromedia.com/dtd/jrun-web.dtd">http://jrun.macromedia.com/dtd/jrun-web.dtd</A></P>
+<P>Dan Schaffer (dschaffer@macromedia.com)</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD VALIGN="top"><B>Attribute</B></TD>
+    <TD VALIGN="top"><B>Description</B></TD>
+    <TD VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">xmlencoding</TD>
+    <TD VALIGN="top">The encoding of the jrun-web.xml file.</TD>
+    <TD VALIGN="top">No, default is &quot;UTF-8&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">destdir</TD>
+    <TD VALIGN="top">Destination directory for output JRun-specific
+      deployment descriptor files.</TD>
+    <TD VALIGN="top">No, default is destdir parameter of webdoclet task</TD>
+  </TR>
+  <TR>
+    <TD>mergedir</TD>
+    <TD>Directory for merge files, the merge files can be session-config.xml and virtual-mapping.xml</TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD>contextRoot</TD>
+    <TD>The context-root element specifies the context root of the web application.
+     The context-root defaults to the name of the directory or jar that the webapp
+     is contained in.</TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD>reload</TD>
+     <TD>
+     The reload element specifies whether to automatically reload servlets, servlet
+     helper classes, and jsp helper classes.  Defaults to false.
+     </TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD>compile</TD>
+    <TD>
+     The compile element specifies whether to automatically compile servlets,
+     servlet helper classes, and jsp helper classes.
+     This will degrade performance
+     Defaults to false.
+    </TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD>loadSystemClassesFirst</TD>
+    <TD>
+     The load-system-classes-first element specifies whether system classes should
+     be loaded before enterprise and web application classes.  The normal classloader
+     delegation model is to load the system classes first, however the servlet
+     specification suggests to load webapp classes first.  Defaults to true.
+    </TD>
+    <TD>No</TD>
+  </TR>
+</TABLE>
+</DIV>
+<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+<H4><A NAME="ejb-local-ref">@jrun:ejb-local-ref</A></H4>
+<P>
+    The ejb-local-ref element describes a mapping between the ejb-ref-name
+    that the bean developer provides and its JNDI name.  The deployer provides
+    the actual JNDI name.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[ejb-ref-name]</I>: String<BR>
+    <TD>
+    The ejb-ref-name element gives the name of an EJB from the ejb-jar.xml file.
+    The bean developer this information.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="ejb-ref">@jrun:ejb-ref</A></H4>
+<P>
+    The ejb-ref element describes a mapping between the ejb-ref-name that
+     the bean developer provides and its JNDI name. The deployer provides the
+     actual JNDI name.
+    Used in: entity, message-driven, session
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[ejb-ref-name]</I>: String<BR>
+    <TD>
+    The ejb-ref-name element gives the name of an EJB from the ejb-jar.xml file.
+    The bean developer this information.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="resource-env-ref">@jrun:resource-env-ref</A></H4>
+<P>
+    The resource-env-ref element describes a mapping between the
+    resource-env-name that the bean developer provides and its JNDI name. The deployer
+    provides the actual JNDI name.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[resource-env-ref-name]</I>: String<BR>
+    <TD>
+    The resource-env-ref-name element gives the name of a resource env
+    from EJB view. The bean developer provides this information.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="resource-ref">@jrun:resource-ref</A></H4>
+<P>
+    The resource-ref element describes a mapping between the resource
+    name that  the bean developer provides and its JNDI name. The deployer provides
+    the actual  JNDI name.
+</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR>
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Mandatory</TD>
+  </TR>
+  <TR>
+    <TD><I>[resource-ref-name]</I>: String<BR>
+    <TD>
+    The res-ref-name element gives the name of a resource from EJB
+    view. The bean developer provides this information.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[jndi-name]</I>: String<BR>
+    <TD>
+    The jndi-name element gives the JNDI name where the bean or
+    resource will be bound.
+    </TD>
+    <TD>Yes</TD>
+  </TR>
+  <TR>
+    <TD><I>[user]</I>: String<BR>
+    <TD>
+    The user element assigns a user identity to be used with a specified
+    resource.
+    </TD>
+    <TD>No</TD>
+  </TR>
+  <TR>
+    <TD><I>[password]</I>: String<BR>
+    <TD>
+    The password element provides user credentials to be used
+    with user element to identify and authenticate a specified resource.
+    </TD>
+    <TD>No</TD>
+  </TR>
+</TABLE>
+</TABLE>
+
+</BODY>
+
+</HTML>

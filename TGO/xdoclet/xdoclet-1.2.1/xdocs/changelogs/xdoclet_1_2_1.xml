@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <author email="stevensa@users.sourceforge.net">Andrew Stevens</author>
+        <title>XDoclet 1.2.1 Change Log</title>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+    <body>
+        <section name="XDoclet 1.2.1 Change Log">
+            <p>
+                Over 55 bugs are fixed in this release. For more detailed information, check the
+                <a href="http://opensource.atlassian.com/projects/xdoclet/browse/XDT">XDoclet JIRA Issue Navigator</a>
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>XDoclet FAQ</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="XDoclet FAQ">
+            <p>
+                The XDoclet FAQ is maintained at
+                <a href="http://www.jguru.com/faq/printablefaq.jsp?topic=XDoclet">JGuru</a>.
+                Please send contributions to the
+                <a href="mail-lists.html">XDoclet Developer Mailing List</a>.
+            </p>
+        </section>
+    </body>
+</document>

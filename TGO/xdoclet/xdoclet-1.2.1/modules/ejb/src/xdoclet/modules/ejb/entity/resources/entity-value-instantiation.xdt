@@ -1,0 +1,30 @@
+try
+         {
+         <XDtEjbPersistent:forAllPersistentFields valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+           <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+            <XDtEjbValueObj:currentValueObjectAttribute/>.<XDtMethod:setterMethod/>( <XDtMethod:getterMethod/>() );
+           </XDtMethod:ifHasMethod>
+         </XDtEjbPersistent:forAllPersistentFields>
+         <XDtEjbValueObj:forAllRelations superclasses="true" valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+          <XDtMethod:ifDoesntHaveMethodTag tagName="ejb:value-object" paramName="type">
+            if ( <XDtMethod:getterMethod/>() != null )
+               <XDtEjbValueObj:currentValueObjectAttribute/>.set<XDtEjbValueObj:currentAggregateName/>( <XDtMethod:getterMethod/>().get<XDtEjbValueObj:currentAggregateType short="true"/>() );
+          </XDtMethod:ifDoesntHaveMethodTag>
+          <XDtMethod:ifHasMethodTag tagName="ejb:value-object" paramName="type">
+            <XDtEjbValueObj:currentValueObjectAttribute/>.clear<XDtEjbValueObj:currentAggregateName/>s();
+            java.util.Iterator i<XDtEjbValueObj:currentAggregateName/> = <XDtMethod:getterMethod/>().iterator();
+            while (i<XDtEjbValueObj:currentAggregateName/>.hasNext()){
+                <XDtEjbValueObj:currentValueObjectAttribute/>.add<XDtEjbValueObj:currentAggregateName/>( ((<XDtMethod:methodTagValue tagName="ejb:value-object" paramName="members"/>)i<XDtEjbValueObj:currentAggregateName/>.next()).get<XDtEjbValueObj:currentAggregateType short="true"/>() );
+            }
+            <XDtEjbValueObj:currentValueObjectAttribute/>.clean<XDtEjbValueObj:currentAggregateName/>();
+          </XDtMethod:ifHasMethodTag>
+         </XDtEjbValueObj:forAllRelations>
+
+           <XDtEjbBmp:ifUseSoftLocking>
+            <XDtEjbValueObj:currentValueObjectAttribute/>.setVersion(getVersion());
+           </XDtEjbBmp:ifUseSoftLocking>
+         }
+         catch (Exception e)
+         {
+            throw new javax.ejb.EJBException(e);
+         }

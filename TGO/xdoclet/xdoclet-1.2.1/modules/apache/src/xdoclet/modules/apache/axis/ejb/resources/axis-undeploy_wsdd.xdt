@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<undeployment xmlns="http://xml.apache.org/axis/wsdd/">
+  <service name="<XDtClass:classTagValue tagName='axis:service' paramName='urn'/>"/>
+</undeployment>

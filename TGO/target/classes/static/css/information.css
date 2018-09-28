@@ -1,0 +1,9 @@
+.information{
+	border: 5px ridge #e6e6e6 ;
+	padding:20px;
+	margin: 50px 50px 50px 50px;
+	background-color:#e6e6e6;
+}
+.information p{
+	color:Black;
+}

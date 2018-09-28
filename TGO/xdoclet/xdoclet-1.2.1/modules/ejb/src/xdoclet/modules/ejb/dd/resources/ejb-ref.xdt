@@ -1,0 +1,68 @@
+
+    <XDtEjbRef:forAllEjbRefs>
+      <XDtClass:ifDoesntHaveClassTag tagName="ejb:ejb-ref" paramName="view-type">
+         <ejb-ref <XDtId:prefixedId prefix="EJBRef"/>>
+            <ejb-ref-name><XDtEjb:ejbRefName/></ejb-ref-name>
+            <ejb-ref-type><XDtEjb:beanType/></ejb-ref-type>
+            <home><XDtEjbHome:homeInterface type="remote"/></home>
+            <remote><XDtEjbIntf:componentInterface type="remote"/></remote>
+            <ejb-link><XDtClass:classTagValue tagName="ejb:ejb-ref" paramName="ejb-name"/></ejb-link>
+         </ejb-ref>
+      </XDtClass:ifDoesntHaveClassTag>
+      <XDtClass:ifHasClassTag tagName="ejb:ejb-ref" paramName="view-type">
+       <XDtClass:ifClassTagValueEquals tagName="ejb:ejb-ref" paramName="view-type" value="remote">
+         <ejb-ref <XDtId:prefixedId prefix="EJBRef"/>>
+            <ejb-ref-name><XDtEjb:ejbRefName/></ejb-ref-name>
+            <ejb-ref-type><XDtEjb:beanType/></ejb-ref-type>
+            <home><XDtEjbHome:homeInterface type="remote"/></home>
+            <remote><XDtEjbIntf:componentInterface type="remote"/></remote>
+            <ejb-link><XDtClass:classTagValue tagName="ejb:ejb-ref" paramName="ejb-name"/></ejb-link>
+         </ejb-ref>
+       </XDtClass:ifClassTagValueEquals>
+      </XDtClass:ifHasClassTag>
+    </XDtEjbRef:forAllEjbRefs>
+
+    <XDtClass:forAllClassTags tagName="ejb:ejb-external-ref">
+        <XDtClass:ifClassTagValueEquals tagName="ejb:ejb-external-ref" paramName="view-type" value="remote">
+         <ejb-ref <XDtId:prefixedId prefix="EJBRef"/>>
+            <ejb-ref-name><XDtEjb:ejbExternalRefName/></ejb-ref-name>
+            <ejb-ref-type><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="type" values="Entity,Session"/></ejb-ref-type>
+            <home><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="home"/></home>
+           <XDtClass:ifHasClassTag tagName="ejb:ejb-external-ref" paramName="remote">
+            <remote><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="remote"/></remote>
+           </XDtClass:ifHasClassTag>
+           <XDtClass:ifHasClassTag tagName="ejb:ejb-external-ref" paramName="business">
+            <remote><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="business"/></remote>
+           </XDtClass:ifHasClassTag>
+           <XDtClass:ifHasClassTag tagName="ejb:ejb-external-ref" paramName="link">
+            <ejb-link><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="link"/></ejb-link>
+           </XDtClass:ifHasClassTag>
+         </ejb-ref>
+        </XDtClass:ifClassTagValueEquals>
+    </XDtClass:forAllClassTags>
+
+    <XDtClass:forAllClassTags tagName="ejb:ejb-external-ref">
+        <XDtClass:ifClassTagValueEquals tagName="ejb:ejb-external-ref" paramName="view-type" value="local">
+         <ejb-local-ref <XDtId:prefixedId prefix="EJBLocalRef"/>>
+            <ejb-ref-name><XDtEjb:ejbExternalRefName/></ejb-ref-name>
+            <ejb-ref-type><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="type" values="Entity,Session"/></ejb-ref-type>
+            <local-home><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="home"/></local-home>
+            <local><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="business"/></local>
+           <XDtClass:ifHasClassTag tagName="ejb:ejb-external-ref" paramName="link">
+            <ejb-link><XDtClass:classTagValue tagName="ejb:ejb-external-ref" paramName="link"/></ejb-link>
+           </XDtClass:ifHasClassTag>
+         </ejb-local-ref>
+        </XDtClass:ifClassTagValueEquals>
+    </XDtClass:forAllClassTags>
+
+    <XDtEjbRef:forAllEjbRefs>
+       <XDtClass:ifClassTagValueEquals tagName="ejb:ejb-ref" paramName="view-type" value="local">
+         <ejb-local-ref <XDtId:prefixedId prefix="EJBLocalRef"/>>
+            <ejb-ref-name><XDtEjb:ejbRefName/></ejb-ref-name>
+            <ejb-ref-type><XDtEjb:beanType/></ejb-ref-type>
+            <local-home><XDtEjbHome:homeInterface type="local"/></local-home>
+            <local><XDtEjbIntf:componentInterface type="local"/></local>
+            <ejb-link><XDtClass:classTagValue tagName="ejb:ejb-ref" paramName="ejb-name"/></ejb-link>
+         </ejb-local-ref>
+       </XDtClass:ifClassTagValueEquals>
+    </XDtEjbRef:forAllEjbRefs>

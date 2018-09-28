@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+<XDtComment:comment>
+Generates a sybase-easerver-config.xml file for an EJB jar.
+</XDtComment:comment>
+<!DOCTYPE sybase-easerver-config PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<!-- <XDtI18n:getString resource="generated_by_xdoclet"/> -->
+
+<sybase-easerver-config description="<XDtI18n:getString bundle="xdoclet.modules.sybase.easerver.ejb.XDocletModulesSybaseEAServerEjbMessages" resource="CONFIGURING_PROPS_FOR_PACKAGE" arguments="<XDtConfig:configParameterValue paramName='PackageName'/>"/>">
+  <macro begin="#[" end="]">
+    <definition name="PACKAGE" value="com.sybase.jaguar.package"/>
+    <definition name="COMPONENT" value="com.sybase.jaguar.component"/>
+  </macro>
+<XDtMerge:merge file="easerver-ejb-macros.ent"></XDtMerge:merge>
+
+  <configure type="update" entity="Package:<XDtConfig:configParameterValue paramName="PackageName"/>">
+    <property name="#[COMPONENT].type" value="java" />
+<XDtConfig:ifHasConfigParam paramName="PackageDescription">
+    <property name="#[PACKAGE].description" value="<XDtConfig:configParameterValue paramName="PackageDescription"/>"/>
+</XDtConfig:ifHasConfigParam>
+  </configure>
+
+<XDtEjb:forAllBeans>
+<XDtEjb:ifIsAConcreteEJBean>
+  <configure type="update" entity="Component:<XDtConfig:configParameterValue paramName="PackageName"/>/<XDtEjb:ejbName/>">
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="description">
+    <property name="#[COMPONENT].description" value="<XDtClass:classTagValue tagName="ejb:bean" paramName="description"/>" />
+</XDtClass:ifHasClassTag>
+<XDtClass:ifDoesntHaveClassTag tagName="ejb.bean" paramName="description">
+    <property name="#[COMPONENT].description" value="<XDtClass:firstSentenceDescription/>" />
+</XDtClass:ifDoesntHaveClassTag>
+<XDtMerge:merge file="easerver-{0}.ent"></XDtMerge:merge>
+  </configure>
+<XDtClass:forAllClassTags tagName="easerver.resource-ref">
+  <configure type="update" entity="Component/ResReference:<XDtConfig:configParameterValue paramName="PackageName"/>/<XDtEjb:ejbName/>/!merge">
+    <property name="res-ref-name" value="<XDtClass:classTagValue tagName="easerver.resource-ref" paramName="res-ref-name"/>" />
+    <property name="res-link" value="<XDtClass:classTagValue tagName="easerver.resource-ref" paramName="res-link"/>" />
+  </configure>
+</XDtClass:forAllClassTags>
+<XDtClass:forAllClassTags tagName="easerver.ejb-ref">
+  <configure type="update" entity="Component/EjbReference:<XDtConfig:configParameterValue paramName="PackageName"/>/<XDtEjb:ejbName/>/!merge">
+    <property name="ejb-ref-name" value="<XDtClass:classTagValue tagName="easerver.ejb-ref" paramName="ejb-ref-name"/>" />
+    <property name="jaguar-link" value="<XDtClass:classTagValue tagName="easerver.ejb-ref" paramName="jaguar-link"/>" />
+  </configure>
+</XDtClass:forAllClassTags>
+
+</XDtEjb:ifIsAConcreteEJBean>
+</XDtEjb:forAllBeans>
+<XDtMerge:merge file="easerver-ejb-config.ent"></XDtMerge:merge>
+<XDtMerge:merge file="easerver-ejb-custom.xdt"></XDtMerge:merge>
+</sybase-easerver-config>

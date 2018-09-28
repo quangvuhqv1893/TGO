@@ -1,0 +1,77 @@
+<XDtEjbRel:ifHasRelationships>
+   <relationships>   
+      <XDtEjbRel:forAllRelationships>
+      <ejb-relation>
+      
+      <!-- <XDtEjbRel:relationName/> -->
+      <XDtEjbRel:ifIsUnidirectional>
+	  <!-- unidirectional -->
+	     <ejb-relationship-role>
+	         <!--left role: <XDtEjbRel:leftRoleName/> -->
+		    <relationship-role-source>
+			   <ejb-name><XDtEjbRel:leftEJBName/></ejb-name>
+            </relationship-role-source>
+            <cmr-field>
+               <cmr-field-name><XDtEjbRel:leftFieldName/></cmr-field-name>
+                <table-ref>
+                   <left-table>
+                      <XDtBesEjbRel:ifHasLeftTableName>
+                      <table-name><XDtBesEjbRel:leftTableName/></table-name>
+                      </XDtBesEjbRel:ifHasLeftTableName>
+                      
+              
+                      <XDtBesEjbRel:ifDoesntHaveLeftTableName>
+                      <table-name><XDtBesEjbRel:defaultLeftTableName/></table-name>
+                      </XDtBesEjbRel:ifDoesntHaveLeftTableName>
+                     
+                      <column-list>
+                      <XDtBesEjbRel:ifHasLeftColumnName>                      
+                        <column-name><XDtBesEjbRel:leftColumnName/></column-name>
+                      </XDtBesEjbRel:ifHasLeftColumnName>                                             
+                       
+                      <XDtBesEjbRel:ifDoesntHaveLeftColumnName>
+                        <column-name><XDtBesEjbRel:defaultLeftColumnName/></column-name>
+                      </XDtBesEjbRel:ifDoesntHaveLeftColumnName>
+                        
+                      </column-list>
+                      
+                      
+                      
+                    </left-table>
+                    <right-table>
+                      <XDtBesEjbRel:ifHasRightTableName>
+                      <table-name><XDtBesEjbRel:rightTableName/></table-name>
+                      </XDtBesEjbRel:ifHasRightTableName>
+                      <XDtBesEjbRel:ifDoesntHaveRightTableName>
+                      <table-name><XDtBesEjbRel:defaultRightTableName/></table-name>
+                      </XDtBesEjbRel:ifDoesntHaveRightTableName>
+                      
+                     <column-list>
+                      <XDtBesEjbRel:ifHasRightColumnName>                      
+                        <column-name><XDtBesEjbRel:rightColumnName/></column-name>
+                      </XDtBesEjbRel:ifHasRightColumnName>                                             
+                       
+                      <XDtBesEjbRel:ifDoesntHaveRightColumnName>
+                        <!-- guessed primary key field  of related bean -->
+                        <column-name><XDtBesEjbRel:defaultRightColumnName/></column-name>
+                      </XDtBesEjbRel:ifDoesntHaveRightColumnName>
+                        
+                      </column-list>
+                                            
+			        </right-table>
+ 		          </table-ref>
+           </cmr-field>
+         </ejb-relationship-role>		
+		 <ejb-relationship-role>
+	        <!--right role: <XDtEjbRel:rightRoleName/> -->
+	        <relationship-role-source>	        
+		       <ejb-name><XDtEjbRel:rightEJBName/></ejb-name>
+			</relationship-role-source>
+        </ejb-relationship-role>        
+        </XDtEjbRel:ifIsUnidirectional>
+        
+	</ejb-relation>  
+   </XDtEjbRel:forAllRelationships>
+        
+   </relationships>
+</XDtEjbRel:ifHasRelationships>

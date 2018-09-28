@@ -1,0 +1,5 @@
+       <XDtClass:forAllClassTags tagName="ejb.resource-ref">
+        <XDtClass:ifHasClassTag tagName="ejb.resource-ref" paramName="jndi-name">
+         <resource-ref-mapping name="<XDtClass:classTagValue tagName='ejb.resource-ref' paramName='res-ref-name'/>" location="<XDtClass:classTagValue tagName='ejb.resource-ref' paramName='jndi-name'/>"/>
+        </XDtClass:ifHasClassTag>
+       </XDtClass:forAllClassTags>

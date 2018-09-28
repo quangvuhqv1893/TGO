@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT actions (action)*>
+
+<!ELEMENT action (view|command)*>
+<!ATTLIST action name CDATA ""
+                alias CDATA "">
+
+<!ELEMENT view (#PCDATA)>
+<!ATTLIST view name CDATA #REQUIRED>
+
+<!ELEMENT command (view)*>
+<!ATTLIST command name CDATA #REQUIRED
+                 alias CDATA "">

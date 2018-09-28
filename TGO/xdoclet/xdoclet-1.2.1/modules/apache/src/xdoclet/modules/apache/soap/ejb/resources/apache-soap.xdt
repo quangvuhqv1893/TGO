@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<isd:service xmlns:isd="<XDtXml:schema/>" id="<XDtClass:classTagValue tagName='soap:service' paramName='urn'/>" <XDtClass:ifHasClassTag tagName="soap:service" paramName="type">type="<XDtClass:classTagValue tagName='soap:service' paramName='type' values='message'/>"</XDtClass:ifHasClassTag> <XDtClass:ifHasClassTag tagName="soap:service" paramName="checkMustUnderstands">checkMustUnderstands="<XDtClass:classTagValue tagName='soap:service' paramName='checkMustUnderstands' values='true,false'/>"</XDtClass:ifHasClassTag>>
+
+   <isd:provider
+    <XDtClass:ifHasClassTag tagName="soap:service" paramName="provider">
+      type="<XDtClass:classTagValue tagName='soap:service' paramName='provider'/>"
+    </XDtClass:ifHasClassTag>
+    <XDtClass:ifDoesntHaveClassTag tagName="soap:service" paramName="provider">
+     <XDtType:ifIsOfType type="javax.ejb.EntityBean,javax.ejb.SessionBean">
+       <XDtEjbSession:ifStatelessSession>
+      type="<XDtConfig:configParameterValue paramName='StatelessSessionEjbProvider'/>"
+       </XDtEjbSession:ifStatelessSession>
+       <XDtEjbSession:ifStatefulSession>
+      type="<XDtConfig:configParameterValue paramName='StatefulSessionEjbProvider'/>"
+       </XDtEjbSession:ifStatefulSession>
+       <XDtEjbEntity:ifEntity>
+      type="<XDtConfig:configParameterValue paramName='EntityEjbProvider'/>"
+       </XDtEjbEntity:ifEntity>
+     </XDtType:ifIsOfType>
+     <XDtType:ifIsNotOfType type="javax.ejb.EntityBean,javax.ejb.SessionBean">
+      type="java"
+     </XDtType:ifIsNotOfType>
+    </XDtClass:ifDoesntHaveClassTag>
+      scope="<XDtClass:classTagValue tagName='soap:service' paramName='scope' values='Request,Session,Application' default='Application'/>"
+     <XDtEjbSession:ifStatelessSession>
+      methods="create">
+     </XDtEjbSession:ifStatelessSession>
+     <XDtEjbSession:ifStatefulSession>
+      methods="<XDtMethod:forAllMethods><XDtEjbHome:ifIsCreateMethod><XDtMethod:methodName/> </XDtEjbHome:ifIsCreateMethod></XDtMethod:forAllMethods>">
+     </XDtEjbSession:ifStatefulSession>
+     <XDtType:ifIsNotOfType type="javax.ejb.SessionBean">
+      methods="<XDtMethod:forAllMethods><XDtMethod:ifHasMethodTag tagName='soap:method'><XDtMethod:methodName/> </XDtMethod:ifHasMethodTag></XDtMethod:forAllMethods>">
+     </XDtType:ifIsNotOfType>
+
+    <XDtType:ifIsOfType type="javax.ejb.EntityBean,javax.ejb.SessionBean">
+      <isd:option key="FullHomeInterfaceName" value="<XDtEjbHome:homeInterface type='remote'/>" />
+      <isd:option key="ContextProviderURL" value="<XDtConfig:configParameterValue paramName='ContextProviderUrl'/>" />
+      <isd:option key="FullContextFactoryName" value="<XDtConfig:configParameterValue paramName='ContextFactoryName'/>" />
+     <XDtEjb:ifRemoteEjb>
+      <isd:option key="JNDIName" value="<XDtEjbHome:jndiName type='remote'/>"/>
+     </XDtEjb:ifRemoteEjb>
+     <XDtEjb:ifLocalEjb>
+      <isd:option key="JNDIName" value="<XDtEjbHome:jndiName type='local'/>"/>
+     </XDtEjb:ifLocalEjb>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsNotOfType type="javax.ejb.EntityBean,javax.ejb.SessionBean">
+      <isd:java class="<XDtClass:fullClassName/>"/>
+
+     <XDtClass:ifHasClassTag tagName="soap:service" paramName="provider">
+      <isd:option key="classpath" value="<XDtConfig:configParameterValue paramName='ProviderClasspath'/>" />
+     </XDtClass:ifHasClassTag>
+    </XDtType:ifIsNotOfType>
+
+   </isd:provider>
+
+     <!-- Fault Listener -->
+   <XDtClass:ifHasClassTag tagName='soap:service' paramName='faultListener'>
+   <isd:faultListener><XDtClass:classTagValue tagName='soap:service' paramName='faultListener'/></isd:faultListener>
+   </XDtClass:ifHasClassTag>
+   <XDtClass:ifDoesntHaveClassTag tagName='soap:service' paramName='faultListener'>
+   <isd:faultListener>org.apache.soap.server.DOMFaultListener</isd:faultListener>
+   </XDtClass:ifDoesntHaveClassTag>
+
+   <XDtMerge:merge file="soap-mappings-{0}.xml">
+     <!--
+       To add SOAP mappings to the deployment descriptor, add a file to your
+       XDoclet merge directory called soap-mappings-{0}.xml that contains the
+       <isd:mappings>...</isd:mappings> markup. 
+     -->
+   </XDtMerge:merge>
+
+</isd:service>

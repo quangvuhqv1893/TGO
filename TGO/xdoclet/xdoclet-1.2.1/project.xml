@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE project [
+    <!ENTITY Ouml   "&#214;">
+    <!ENTITY oslash "&#248;">
+]>
+
+<project>
+    <pomVersion>3</pomVersion>
+    <id>xdoclet</id>
+    <name>XDoclet</name>
+    <currentVersion>1.2.1</currentVersion>
+    <organization>
+        <name>XDoclet Team</name>
+        <url>http://xdoclet.sourceforge.net/</url>
+        <logo>/images/logo.gif</logo>
+    </organization>
+    <inceptionYear>2000</inceptionYear>
+    <package>xdoclet</package>
+    <logo>http://sourceforge.net/sflogo.php?group_id=31602&amp;type=5</logo>
+
+    <description>
+        XDoclet is a code generation engine. It enables Attribute-Oriented Programming for java.
+        Attribute-Oriented Programming? Add more significance to your code by adding meta data (attributes)
+        to the method's JavaDoc.
+    </description>
+
+    <shortDescription>XDoclet: Attribute-Oriented Programming</shortDescription>
+
+    <url>http://xdoclet.sourceforge.net/</url>
+
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.xdoclet.sourceforge.net:/cvsroot/xdoclet:xdoclet-all</connection>
+        <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xdoclet/xdoclet/</url>
+    </repository>
+
+    <issueTrackingUrl>http://opensource.atlassian.com/projects/xdoclet/</issueTrackingUrl>
+    <siteAddress>shell.sourceforge.net</siteAddress>
+    <siteDirectory>/home/groups/x/xd/xdoclet/htdocs</siteDirectory>
+    <distributionDirectory></distributionDirectory>
+
+    <developers>
+        <developer>
+            <name>Andrew Stevens</name>
+            <id>stevensa</id>
+            <email>stevensa@users.sourceforge.net</email>
+            <roles>
+                <role>Release Manager</role>
+                <role>EJB Module - DAOs</role>
+                <role>HPAS Module</role>
+                <role>Sybase Module</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Ara Abrahamian</name>
+            <id>ara_e_w</id>
+            <email>ara_e_w@users.sourceforge.net</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>WebSphere Module</role>
+                <role>XJavaDoc</role>
+                <role>XRAI</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Aslak Helles&oslash;y</name>
+            <id>rinkrank</id>
+            <email>rinkrank@users.sourceforge.net</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>XJavaDoc</role>
+                <role>BEA Module</role>
+                <role>Resident Middlegen Guru</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Brian Topping</name>
+            <id>brian</id>
+            <email>topping@digidemic.com</email>
+            <roles>
+                <role>EJB Module - Value Objects</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Christian Amor Kvalheim</name>
+            <id>christkv</id>
+            <email>christkv@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Craig Walls</name>
+            <id>habuma</id>
+            <email>habuma@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>David Jencks</name>
+            <id>d_jencks</id>
+            <email>davidjencks@directvinternet.com</email>
+            <organization>Core Developers Network</organization>
+            <roles>
+                <role>JDO Module</role>
+                <role>JMX Module</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Dmitri Colebatch</name>
+            <id>dimc</id>
+            <email>dimc@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Erik Hatcher</name>
+            <id>erikhatcher</id>
+            <email>erikhatcher@users.sourceforge.net</email>
+            <roles>
+                <role>Resident Ant Guru</role>
+                <role>Struts Module - Struts 1.1 Support</role>
+                <role>Struts Module - Struts Validator Support</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Heiko Rupp</name>
+            <id>pilhuhn</id>
+            <email>pilhuhn@users.sourceforge.net</email>
+            <roles>
+                <role>Documentation for @ejb.value-object tags</role>
+                <role>Hibernate and JBoss bug fixing</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Gavin King</name>
+            <id>oneovthafew</id>
+            <email>oneovthafew@users.sourceforge.net</email>
+            <roles>
+                <role>Hibernate Guru</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Konstantin Pribluda</name>
+            <id>ko5tik</id>
+            <email>ko5tik@users.sourceforge.net</email>
+            <roles>
+                <role>Award For "HighestBugFixingRate"</role>
+                <role>I18N</role>
+                <role>XDocletGUI</role>
+                <role>XTags</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Marcus Brito</name>
+            <id>pazu</id>
+            <email>pazu@animegaiden.com.br</email>
+            <roles>
+                <role>EJB Module - CMR</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Mathias Bogaert</name>
+            <id>pathoss</id>
+            <email>pathoss@users.sourceforge.net</email>
+            <roles>
+                <role>JGuru FAQ Maintainer</role>
+                <role>Documentation (Maven integration)</role>
+                <role>Build process</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Michael Newcomb</name>
+            <id>mnewcomb</id>
+            <email>mnewcomb@users.sourceforge.net</email>
+            <roles>
+                <role>EJB Module</role>
+                <role>JBoss Module</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Rickard &Ouml;berg</name>
+            <id>rickardoberg</id>
+            <email>rickardoberg@users.sourceforge.net</email>
+            <roles>
+                <role>Founder, but no longer active</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Alon Salant</name>
+        </contributor>
+        <contributor>
+            <name>Andreas &quot;Mad&quot; Schaefer</name>
+            <id>schaefera</id>
+            <email>schaefera@users.sourceforge.net</email>
+            <organization>JBossGroup</organization>
+        </contributor>
+        <contributor>
+            <name>Bart Guijt</name>
+            <roles>
+                <role>Castor Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Chris Bonham</name>
+        </contributor>
+        <contributor>
+            <name>Chris Harris</name>
+        </contributor>
+        <contributor>
+            <name>Christoph Sturm</name>
+        </contributor>
+        <contributor>
+            <name>Dan Schaffer</name>
+            <roles>
+                <role>JRun Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Daniel O'Connor</name>
+        </contributor>
+        <contributor>
+            <name>Daniele Arduini</name>
+        </contributor>
+        <contributor>
+            <name>Dave Smith</name>
+            <roles>
+                <role>EJB Module - MDB</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>David Budworth</name>
+            <id>dbudworth</id>
+            <email>dbudworth@users.sourceforge.net</email>
+        </contributor>
+        <contributor>
+            <name>David Ward</name>
+        </contributor>
+        <contributor>
+            <name>Dion Almaer</name>
+        </contributor>
+        <contributor>
+            <name>Elangovan Balusamy</name>
+            <roles>
+                <role>Oracle OC4J module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Enno Runne</name>
+        </contributor>
+        <contributor>
+            <name>Gerald Turner</name>
+        </contributor>
+        <contributor>
+            <name>Igor Fedorenko</name>
+        </contributor>
+        <contributor>
+            <name>Ive Hellemans</name>
+        </contributor>
+        <contributor>
+            <name>Hani Suleiman</name>
+            <roles>
+                <role>Orion Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Ian Duggan</name>
+        </contributor>
+        <contributor>
+            <name>James Cameron Cooper</name>
+        </contributor>
+        <contributor>
+            <name>James Ward</name>
+        </contributor>
+        <contributor>
+            <name>Jan Casteels</name>
+        </contributor>
+        <contributor>
+            <name>Jerome Bernard</name>
+            <id>jeje</id>
+            <email>jeje@users.sourceforge.net</email>
+            <organization>StepInfo</organization>
+            <roles>
+                <role>Weblogic Module - WLS7 Support</role>
+                <role>MX4J Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Jerome Camilleri</name>
+        </contributor>
+        <contributor>
+            <name>Joel Rosi-Schwatz</name>
+            <id>joelrs</id>
+            <email>joelrs@users.sourceforge.net</email>
+            <roles>
+                <role>Hibernate Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>John Barbee</name>
+        </contributor>
+        <contributor>
+            <name>Julien Viet</name>
+        </contributor>
+        <contributor>
+            <name>Keith Chew</name>
+        </contributor>
+        <contributor>
+            <name>Kevin Gilpin</name>
+        </contributor>
+        <contributor>
+            <name>Kevin ONeill</name>
+        </contributor>
+        <contributor>
+            <name>Laurent Etiemble</name>
+            <roles>
+                <role>JavaBean BeanInfo Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Lennart Petersson</name>
+        </contributor>
+        <contributor>
+            <name>Ludovic Claude</name>
+            <roles>
+                <role>JDO Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Marcin Gryszkalis</name>
+        </contributor>
+        <contributor>
+            <name>Mariano Benitez</name>
+        </contributor>
+        <contributor>
+            <name>Mathieu Peltier</name>
+            <roles>
+                <role>JOnAS Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Matt Raible</name>
+        </contributor>
+        <contributor>
+            <name>Michal Maczka</name>
+            <roles>
+                <role>Borland Enterprise Server Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Michael Ward</name>
+        </contributor>
+        <contributor>
+            <name>Mike Cannon-Brookes</name>
+            <organization>Atlassian</organization>
+        </contributor>
+        <contributor>
+            <name>Mike Williams</name>
+        </contributor>
+        <contributor>
+            <name>Minh Kama Yie</name>
+        </contributor>
+        <contributor>
+            <name>Neal Sanche</name>
+        </contributor>
+        <contributor>
+            <name>Neale Swinnerton</name>
+        </contributor>
+        <contributor>
+            <name>Olivier Pilot</name>
+        </contributor>
+        <contributor>
+            <name>Patrick Lightbody</name>
+            <roles>
+                <role>Pramati Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Paul Cantrell</name>
+        </contributor>
+        <contributor>
+            <name>Philippe Charaux</name>
+        </contributor>
+        <contributor>
+            <name>Oskari Kettunen</name>
+        </contributor>
+        <contributor>
+            <name>Richard Chuo</name>
+            <roles>
+                <role>JOnAS Module</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Rick Hightower</name>
+        </contributor>
+        <contributor>
+            <name>Rong C. Ou</name>
+        </contributor>
+        <contributor>
+            <name>Simone Bordet</name>
+        </contributor>
+        <contributor>
+            <name>Stanford S. Guillory</name>
+        </contributor>
+        <contributor>
+            <name>Stephen Coy</name>
+        </contributor>
+        <contributor>
+            <name>Stephen Gargan</name>
+        </contributor>
+        <contributor>
+            <name>Steve Magoun</name>
+        </contributor>
+        <contributor>
+            <name>Steve Woodcock</name>
+            <email>steve@activescript.co.uk</email>
+            <roles>
+                <role>EJB Module - GUID Generation</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Theo Harper</name>
+        </contributor>
+        <contributor>
+            <name>Tibor Gemes</name>
+        </contributor>
+        <contributor>
+            <name>Tobin Paterson</name>
+        </contributor>
+        <contributor>
+            <name>Toby Cabot</name>
+        </contributor>
+        <contributor>
+            <name>Vladimir Dias</name>
+            <roles>
+                <role>Struts 1.1 Global Exceptions</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Volker Krebs</name>
+        </contributor>
+        <contributor>
+            <name>Vincent Harcq</name>
+            <id>vharcq</id>
+            <email>vharcq@users.sourceforge.net</email>
+            <roles>
+                <role>EJB Module - Value Objects</role>
+                <role>EJB Module - CMR</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Yoritaka Sakakura</name>
+            <roles>
+                <role>Caucho (Resin) Module</role>
+            </roles>
+        </contributor>
+    </contributors>
+
+    <mailingLists>
+        <mailingList>
+            <name>XDoclet User List</name>
+            <subscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-user</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-user</unsubscribe>
+            <archive>http://www.mail-archive.com/xdoclet-user%40lists.sourceforge.net/</archive>
+            <!-- CAN'T SEARCH IN ANY OF THESE -->
+            <!--archive>http://sourceforge.net/mailarchive/forum.php?forum_id=1106</archive-->
+            <!--archive>http://www.geocrawler.com/lists/3/SourceForge/14029/0/</archive-->
+        </mailingList>
+        <mailingList>
+            <name>XDoclet Developer List</name>
+            <subscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-devel</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-devel</unsubscribe>
+            <archive>http://www.mail-archive.com/xdoclet-devel%40lists.sourceforge.net/</archive>
+            <!-- CAN'T SEARCH IN ANY OF THESE -->
+            <!--archive>http://sourceforge.net/mailarchive/forum.php?forum_id=1105</archive-->
+            <!--archive>http://www.geocrawler.com/lists/3/SourceForge/14030/0/</archive-->
+        </mailingList>
+        <mailingList>
+            <name>XDoclet Announce List</name>
+            <subscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-announce</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-announce</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=1104</archive>
+            <!--archive>http://www.geocrawler.com/lists/3/SourceForge/14031/0/</archive-->
+        </mailingList>
+    </mailingLists>
+
+    <build>
+        <nagEmailAddress>xdoclet-devel@lists.sourceforge.net</nagEmailAddress>
+        <sourceDirectory></sourceDirectory>
+        <unitTestSourceDirectory></unitTestSourceDirectory>
+        <integrationUnitTestSourceDirectory/>
+        <aspectSourceDirectory></aspectSourceDirectory>
+    </build>
+    
+    <reports>
+        <report>maven-changelog-plugin</report>
+        <report>maven-changes-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <!-- Enable to see the elaborate CVS statistics. -->
+        <!--<report>maven-statcvs-plugin</report>-->
+        <report>maven-file-activity-plugin</report>
+        <report>maven-linkcheck-plugin</report>
+    </reports>
+</project>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title></title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}"
+          rel="stylesheet"></link>
+    <link href="../static/css/touroperator_style.css"
+          th:href="@{/css/touroperator_style.css}" rel="stylesheet"></link>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="header">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <img src="../static/image/logo.png" th:src="@{/image/logo.png}"></img>
+            </div>
+            <div class="container">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a th:href="@{/home}">Trang chủ</a></li>
+                        <li><a href="#">Địa điểm</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Trợ giúp</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown"><b
+                                th:text="${guide.user.fullname}"></b><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a th:href="@{/guide/info}">Thông tin cá nhân</a></li>
+                                <li><a href="#">Trợ giúp</a></li>
+                                <li><a href="#">Cài đặt</a></li>
+                                <li class="divider"></li>
+                                <li><a th:href="@{/logout}" onclick="return confirm('Bạn muốn thoát?')">Đăng xuất</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+
+					<img src="../static/image/hero_1.jpg" th:src="@{/image/hero_1.jpg}"></img>
+					<h4 class="text-center">
+						<b th:text="${guide.user.fullname}"></b>
+					</h4>
+					<ul class="nav nav-pills nav-stacked nav-tabs">
+						<li role="presentation"><a th:href="@{/guide}">Bảng tin</a></li>
+						<li role="presentation"><a th:href="@{/guide/info}">Thông
+								tin cá nhân</a></li>
+						<li class="active" role="presentation"><a>Quản lý Tour</a></li>
+							<ul class="nav nav-pills nav-stacked nav-tabs">
+								<li><a th:href="@{/guide/RunningTour}">Tour đang chạy</a></li>
+								<li><a th:href="@{/guide/showAcceptedTour}">Tour đang chờ</a></li>
+								<li><a th:href="@{/guide/showInvitedTour}">Lời mời tham gia tour</a></li>
+								<li style="background-color:LightGray;"><a>Yêu cầu tham gia tour</a></li>
+								<li><a th:href="@{/guide/showCompletedTour}">Tour đã hoàn thành</a></li>
+							</ul>
+						<li><a href="#">Cài đặt</a></li>
+					</ul>
+					<form th:action="@{/guide/findtour}" th:method="get"> 
+					<button type="submit" class="btn btn-danger button-newtour">
+					Tìm tour
+					</button>
+					</form>
+				</div>
+
+				<div class="col-md-9">
+					<h4 align="center">Thông tin tour</h4>
+					<hr width="50%"></hr>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Mã tour</th>
+								<th>Tên tour</th>
+								<th>Thời gian</th>
+								<th>Giá</th>
+								<th>Trạng thái</th>
+								<th>Chức năng</th>
+								<th></th>
+							</tr>
+						</thead>
+						<th:block th:unless="${#lists.isEmpty(guide.tourGuideXref)}">
+							<tbody th:each="tgx,iterStat : ${guide.tourGuideXref}" th:if="${tgx.tour.status==0 and tgx.status==0 }">
+								<tr data-toggle="collapse" th:attr="data-target='#u'+${tgx.tour.id}"
+									class="clickable">
+									<td th:text="${tgx.tour.id}"></td>
+									<td th:text="${tgx.tour.tourName}"></td>
+									<td th:text="${tgx.tour.tourTime}"></td>
+									<th:block th:if="${tgx.tour.tourPrice != null}">
+										<td th:text="${tgx.tour.tourPrice}+' VNĐ'"></td>
+									</th:block>
+									<th:block th:if="${tgx.tour.tourPrice == null}">
+										<td>0</td>
+									</th:block>
+									<td>
+										<b th:if="${tgx.status==0}"> Đang gửi yêu cầu </b> 
+										<!-- <b	th:if="${tgx.status==1}"> Đã chấp nhận </b> 
+										<b	th:if="${tgx.status==2}"> Đang được mời </b> 
+										<b	th:if="${tgx.status==3}"> Đang được giới thiệu </b> -->
+									<!-- <b th:each="tourxref :${tour.tourGuideXref}"> <b
+											th:if="${tourxref.guide.id==guide.id}"> <b
+												th:if="${tourxref.status==0}"> Đang gửi yêu cầu </b> <b
+												th:if="${tourxref.status==1}"> Đã chấp nhận </b> <b
+												th:if="${tourxref.status==2}"> Đang được mời </b> <b
+												th:if="${tourxref.status==3}"> Đang được giới thiệu </b>
+										</b>
+									</b> -->
+									</td>
+									<td>
+<!-- 									<b th:each="tourxref :${tour.tourGuideXref}"> <b
+											th:if="${tourxref.guide.id==guide.id}">  -->
+											<b th:if="${tgx.status==0}">
+														<div th:text= "${tgx.id}" class="hidden"></div>
+														<div class="col-xs-3">
+																<button type="submit" class="btn btn-primary cancelAccepteTour">Hủy
+																</button>
+														</div>
+											</b> 
+											<!-- <b th:if="${tgx.status==1}">
+													<form th:attr="action='/tour/cancel/'+${tgx.id}"
+														th:method="POST">
+														<div th:if="${tgx.status==1}" class="col-xs-3">
+
+
+															<button type="submit" class="btn btn-primary">Hủy</button>
+
+														</div>
+													</form>
+											</b>  -->
+											<!-- <b th:if="${tgx.status==2}">
+													<form th:attr="action='/tour/accept/'+${tgx.id}"
+														th:method="POST">
+														<div th:if="${tgx.status==2}" class="col-xs-3">
+
+
+															<button type="submit" class="btn btn-primary">Chấp
+																nhận</button>
+
+														</div>
+													</form>
+											</b> -->
+											 <!-- <b th:if="${tgx.status==3}">
+													<form th:attr="action='/tour/guiderequest/'+${tourxref.id}"
+														th:method="POST">
+														<div th:if="${tourxref.status==3}" class="col-xs-3">
+
+
+															<button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+
+														</div>
+													</form>
+													
+											</b> -->
+<!-- 										</b>
+									</b> -->
+									</td>
+									
+									
+									<td>
+									<!-- <b th:each="tourxref :${tour.tourGuideXref}"> 
+									<b th:if="${tourxref.guide.id==guide.id}">   -->
+											<!-- <b th:if="${tgx.status==2}">
+													<form th:attr="action='/tour/cancel/'+${tgx.id}"
+														th:method="POST">
+														<div th:if="${tgx.status==2}" class="col-xs-3">
+
+
+															<button type="submit" class="btn btn-primary">Xóa</button>
+
+														</div>
+													</form>
+											</b> --> 
+											<!-- <b th:if="${tgx.status==3}">
+													<form th:attr="action='/tour/cancel/'+${tgx.id}"
+														th:method="POST">
+														<div th:if="${tgx.status==3}" class="col-xs-3">
+
+
+															<button type="submit" class="btn btn-primary">Xóa</button>
+
+														</div>
+													</form>
+													
+											</b> -->
+									<!-- 	</b>
+									</b> -->
+									</td>
+
+								</tr>
+								<tr>
+									<td colspan="7" id="row-collapse">
+										<div th:id="'u'+${tgx.tour.id}" class="collapse tour-detail">
+											<!-- Nav tabs -->
+											<ul class="nav nav-tabs" role="tablist">
+												<li role="presentation" class="active"><a
+													th:attr="href='#t'+${tgx.tour.id}" aria-controls="home"
+													role="tab" data-toggle="tab">Thông tin tour</a></li>
+												<li role="presentation"><a
+													th:attr="href='#i'+${tgx.tour.id}" aria-controls="profile"
+													role="tab" data-toggle="tab">Công ty lữ hành <span></span></a>
+												</li>
+
+											</ul>
+
+											<!-- Tab panes -->
+											<div class="tab-content">
+												<div role="tabpanel" class="tab-pane fade in active"
+													th:attr="id='t'+${tgx.tour.id}">
+													<div class="form-tour">
+														<form class="form-horizontal"
+															th:attr="action='/operator/update/'+${tgx.tour.id}"
+															th:method="POST">
+															<div class="form-group">
+																<label class="control-label col-sm-2"> Tên tour:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" name="tourName"
+																		th:attr="value=${tgx.tour.tourName}"></input>
+																</div>
+															</div>
+															<div class="form-group" th:each="location:${tgx.tour.locations}">
+																<label class="control-label col-sm-2">Địa điểm:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${location.locationName}"></input>
+																</div>
+															</div>
+															
+															
+															<div class="form-group">
+																<label class="control-label col-sm-2">Thời gian:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${tgx.tour.tourTime}"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Ngôn ngữ:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${tgx.tour.language.language}" name="day"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Số lượng HDV:</label>
+																<div class="col-sm-2">
+																	<input type="text" id = "currentAmount" class="form-control" th:value="${tgx.tour.currentAmount}" name="currentAmount"></input>
+																</div>
+																<label class="control-label col-sm-2">Số lượng tối đa:</label>
+																<div class="col-sm-2">
+																	<input type="text" class="form-control" th:value="${tgx.tour.amount}" name="amount"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Giá:</label>
+																<div class="col-sm-8">
+																	<input type="number" class="form-control"
+																		name="tourPrice" th:attr="value=${tgx.tour.tourPrice}"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Yêu cầu
+																	khác:</label>
+																<div class="col-sm-8">
+																	<textarea class="form-control" rows="3" name="requirement" id="require"></textarea>
+																</div>
+
+															</div>
+
+														</form>
+													</div>
+												</div>
+												<div role="tabpanel" class="tab-pane fade"
+													th:attr="id='i'+${tgx.tour.id}">
+													<h3 class="text-center">Công ty lữ hành</h3>
+													<th:block th:unless="${#lists.isEmpty(tgx.tour.operator)}">
+														<div th:each="operator,iterStat : ${tgx.tour.operator}"
+															class="container-fluid user-request">
+
+															<div class="col-xs-2">
+																<img src="../static/image/hero_3.jpg"
+																	th:src="@{/image/hero_3.jpg}"></img>
+															</div>
+															<div class="col-xs-4">
+																<a target="_blank" th:href ="@{/guide/showOperator/(operatorid=${operator.id})}" ><strong
+																	th:text="${operator.companyNameViet}"></strong></a>
+															</div>
+
+
+
+
+														</div>
+													</th:block>
+												</div>
+
+											</div>
+										</div>
+									</td>
+								</tr>
+
+
+							</tbody>
+						</th:block>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	$(".cancelAccepteTour").click(function(){
+		var r = confirm("bạn muốn hủy?");
+		if(r==false){
+			return;
+		}
+		var tourxrefid = parseInt($(this).parent().prev().text());
+		var param = $(this);
+		console.log(tourxrefid);
+		$.ajax({
+			url: '/tour/cancelGuide',
+			data : {tourxrefid: tourxrefid},
+			type: "GET",
+			datatype : "JSON",
+			success: function(data){
+				console.log(data);
+				if(data=="success"){
+					alert("đã hủy!");
+					window.location.href = "/guide/showRequestTour";
+				}else if(data=="403"){
+					window.location.href = "/403";
+				}else{
+					alert("có lỗi xảy ra!!");
+				}
+			}
+		})
+	});
+	</script>
+</body>
+</html>

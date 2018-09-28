@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+
+<!DOCTYPE jrun-ejb-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<jrun-ejb-jar>
+ <description><![CDATA[<XDtI18n:getString resource="generated_by_xdoclet"/>]]></description>
+  <XDtConfig:ifHasConfigParam paramName="source">
+  <source><XDtConfig:configParameterValue paramName="source"/></source>
+  </XDtConfig:ifHasConfigParam>
+  <enterprise-beans>
+  <XDtEjbSession:forAllSessionBeans>
+   <XDtEjb:ifIsAConcreteEJBean>
+    <session>
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+      <jndi-name><XDtEjbHome:jndiName type="remote"/></jndi-name>
+      <XDtClass:ifHasClassTag tagName="jrun:tx-domain-name">
+      <tx-domain-name><XDtClass:classTagValue tagName="jrun:tx-domain-name" /></tx-domain-name>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:forAllClassTags tagName="jrun:ejb-ref">
+      <ejb-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="jndi-name" /></jndi-name>
+      </ejb-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:ejb-local-ref">
+      <ejb-local-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="jndi-name" /></jndi-name>
+      </ejb-local-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:resource-env-ref">
+      <resource-env-ref>
+        <resource-env-ref-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="resource-env-ref-name" /></resource-env-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="jndi-name" /></jndi-name>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-env-ref" paramName="mdb-destination">
+        <mdb-destination><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="mdb-destination" /></mdb-destination>
+        </XDtClass:ifHasClassTag>
+      </resource-env-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:resource-ref">
+      <resource-ref>
+        <res-ref-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="res-ref-name" /></res-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="jndi-name" /></jndi-name>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="user">
+        <user><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="user" /></user>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="password">
+        <password><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="password" /></password>
+        </XDtClass:ifHasClassTag>
+      </resource-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:ifHasClassTag tagName="jrun:cluster-home">
+      <cluster-home><XDtClass:classTagValue tagName="jrun:cluster-home"/></cluster-home>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:cluster-object">
+      <cluster-object><XDtClass:classTagValue tagName="jrun:cluster-object"/></cluster-object>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:timeout">
+      <timeout><XDtClass:classTagValue tagName="jrun:timeout"/></timeout>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:instance-pool">
+      <instance-pool>
+        <maximum-size><XDtClass:classTagValue tagName="jrun:instance-pool" paramName="maximum-size" /></maximum-size>
+        <minimum-size><XDtClass:classTagValue tagName="jrun:instance-pool" paramName="minimum-size" /></minimum-size>
+      </instance-pool>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:cache-size">
+      <cache-size><XDtClass:classTagValue tagName="jrun:cache-size" /></cache-size>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:interceptor">
+      <interceptors>
+        <XDtClass:forAllClassTags tagName="jrun:interceptor">
+        <interceptor><XDtClass:classTagValue tagName="jrun:interceptor" /></interceptor>
+        </XDtClass:forAllClassTags>
+      </interceptors>
+      </XDtClass:ifHasClassTag>
+    </session>
+   </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbSession:forAllSessionBeans>
+  <XDtEjbEntity:forAllEntityBeans>
+   <XDtEjb:ifIsAConcreteEJBean>
+    <entity>
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+      <jndi-name><XDtEjbHome:jndiName type="remote"/></jndi-name>
+      <XDtClass:ifHasClassTag tagName="jrun:tx-domain-name">
+      <tx-domain-name><XDtClass:classTagValue tagName="jrun:tx-domain-name" /></tx-domain-name>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:forAllClassTags tagName="jrun:ejb-ref">
+      <ejb-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="jndi-name" /></jndi-name>
+      </ejb-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:ejb-local-ref">
+      <ejb-local-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="jndi-name" /></jndi-name>
+      </ejb-local-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:resource-env-ref">
+      <resource-env-ref>
+        <resource-env-ref-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="resource-env-ref-name" /></resource-env-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="jndi-name" /></jndi-name>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-env-ref" paramName="mdb-destination">
+        <mdb-destination><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="mdb-destination" /></mdb-destination>
+        </XDtClass:ifHasClassTag>
+      </resource-env-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:resource-ref">
+      <resource-ref>
+        <res-ref-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="res-ref-name" /></res-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="jndi-name" /></jndi-name>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="user">
+        <user><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="user" /></user>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="password">
+        <password><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="password" /></password>
+        </XDtClass:ifHasClassTag>
+      </resource-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:ifHasClassTag tagName="jrun:cluster-home">
+      <cluster-home><XDtClass:classTagValue tagName="jrun:cluster-home"/></cluster-home>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:cluster-object">
+      <cluster-object><XDtClass:classTagValue tagName="jrun:cluster-object"/></cluster-object>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:commit-option">
+      <commit-option><XDtClass:classTagValue tagName="jrun:commit-option"/></commit-option>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:always-dirty">
+      <always-dirty/>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:jdbc-mappings">
+      <jdbc-mappings>
+        <XDtClass:ifHasClassTag tagName="jrun:jdbc-mappings" paramName="create-table">
+        <create-table><XDtClass:classTagValue tagName="jrun:jdbc-mappings" paramName="create-table" /></create-table>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="jrun:jdbc-mappings" paramName="delete-table">
+        <delete-table><XDtClass:classTagValue tagName="jrun:jdbc-mappings" paramName="delete-table" /></delete-table>
+        </XDtClass:ifHasClassTag>
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifHasMethodTag tagName="jrun:jdbc-mapping">
+        <jdbc-mapping>
+          <name><XDtMethod:methodTagValue tagName="jrun:jdbc-mapping" paramName="name"/></name>
+          <statement>
+            <action><XDtMethod:methodTagValue tagName="jrun:jdbc-mapping" paramName="action"/></action>
+            <XDtMethod:ifHasMethodTag tagName="jrun:jdbc-mapping" paramName="source">
+            <source><XDtMethod:methodTagValue tagName="jrun:jdbc-mapping" paramName="source"/></source>
+            </XDtMethod:ifHasMethodTag>
+            <XDtMethod:ifHasMethodTag tagName="jrun:jdbc-mapping-param">
+            <params>
+              <XDtMethod:forAllMethodTags tagName="jrun:jdbc-mapping-param">
+              <param>
+                 <name><XDtMethod:methodTagValue tagName="jrun:jdbc-mapping-param" paramName="name" /></name>
+                 <type><XDtMethod:methodTagValue tagName="jrun:jdbc-mapping-param" paramName="type" /></type>
+              </param>
+              </XDtMethod:forAllMethodTags>
+            </params>
+            </XDtMethod:ifHasMethodTag>
+            <XDtMethod:ifHasMethodTag tagName="jrun:jdbc-mapping-field">
+            <fields>
+              <XDtMethod:forAllMethodTags tagName="jrun:jdbc-mapping-field">
+              <field><XDtMethod:methodTagValue tagName="jrun:jdbc-mapping-field" /></field>
+              </XDtMethod:forAllMethodTags>
+            </fields>
+            </XDtMethod:ifHasMethodTag>
+          </statement>
+        </jdbc-mapping>
+        </XDtMethod:ifHasMethodTag>
+        </XDtMethod:forAllMethods>
+      </jdbc-mappings>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:instance-pool">
+      <instance-pool>
+        <maximum-size><XDtClass:classTagValue tagName="jrun:instance-pool" paramName="maximum-size" /></maximum-size>
+        <minimum-size><XDtClass:classTagValue tagName="jrun:instance-pool" paramName="minimum-size" /></minimum-size>
+      </instance-pool>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:cache-size">
+      <cache-size><XDtClass:classTagValue tagName="jrun:cache-size" /></cache-size>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:interceptor">
+      <interceptors>
+        <XDtClass:forAllClassTags tagName="jrun:interceptor">
+        <interceptor><XDtClass:classTagValue tagName="jrun:interceptor" /></interceptor>
+        </XDtClass:forAllClassTags>
+      </interceptors>
+      </XDtClass:ifHasClassTag>
+    </entity>
+   </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbEntity:forAllEntityBeans>
+  <XDtEjbMdb:forAllMDBeans>
+   <XDtEjb:ifIsAConcreteEJBean>
+    <message-driven>
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+      <jndi-name><XDtEjbHome:jndiName type="remote"/></jndi-name>
+      <XDtClass:ifHasClassTag tagName="jrun:tx-domain-name">
+      <tx-domain-name><XDtClass:classTagValue tagName="jrun:tx-domain-name" /></tx-domain-name>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:forAllClassTags tagName="jrun:ejb-ref">
+      <ejb-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-ref" paramName="jndi-name" /></jndi-name>
+      </ejb-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:ejb-local-ref">
+      <ejb-local-ref>
+        <ejb-ref-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:ejb-local-ref" paramName="jndi-name" /></jndi-name>
+      </ejb-local-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:resource-env-ref">
+      <resource-env-ref>
+        <resource-env-ref-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="resource-env-ref-name" /></resource-env-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="jndi-name" /></jndi-name>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-env-ref" paramName="mdb-destination">
+        <mdb-destination><XDtClass:classTagValue tagName="jrun:resource-env-ref" paramName="mdb-destination" /></mdb-destination>
+        </XDtClass:ifHasClassTag>
+      </resource-env-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:forAllClassTags tagName="jrun:resource-ref">
+      <resource-ref>
+        <res-ref-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="res-ref-name" /></res-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="jndi-name" /></jndi-name>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="user">
+        <user><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="user" /></user>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="jrun:resource-ref" paramName="password">
+        <password><XDtClass:classTagValue tagName="jrun:resource-ref" paramName="password" /></password>
+        </XDtClass:ifHasClassTag>
+      </resource-ref>
+      </XDtClass:forAllClassTags>
+      <XDtClass:ifHasClassTag tagName="jrun:message-driven-subscription">
+      <message-driven-subscription>
+        <client-id><XDtClass:classTagValue tagName="jrun:message-drive-subscription" paramName="client-id" /></client-id>
+      </message-driven-subscription>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:message-driven-destination">
+      <message-driven-destination>
+        <name><XDtClass:classTagValue tagName="jrun:message-driven-destination" paramName="name" /></name>
+        <jndi-name><XDtClass:classTagValue tagName="jrun:message-driven-destination" paramName="jndi-name" /></jndi-name>
+      </message-driven-destination>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:instance-pool">
+      <instance-pool>
+        <maximum-size><XDtClass:classTagValue tagName="jrun:instance-pool" paramName="maximum-size" /></maximum-size>
+        <minimum-size><XDtClass:classTagValue tagName="jrun:instance-pool" paramName="minimum-size" /></minimum-size>
+      </instance-pool>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:server-session-pool">
+      <server-session-pool>
+        <maximum-size><XDtClass:classTagValue tagName="jrun:server-session-pool" paramName="maximum-size" /></maximum-size>
+        <minimum-size><XDtClass:classTagValue tagName="jrun:server-session-pool" paramName="minimum-size" /></minimum-size>
+        <max-lap-size><XDtClass:classTagValue tagName="jrun:server-session-pool" paramName="max-lap-size" /></max-lap-size>
+      </server-session-pool>
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifHasClassTag tagName="jrun:interceptor">
+      <interceptors>
+        <XDtClass:forAllClassTags tagName="jrun:interceptor">
+        <interceptor><XDtClass:classTagValue tagName="jrun:interceptor" /></interceptor>
+        </XDtClass:forAllClassTags>
+      </interceptors>
+      </XDtClass:ifHasClassTag>
+    </message-driven>
+   </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbMdb:forAllMDBeans>
+  </enterprise-beans>
+  <ejb-container>
+  <XDtMerge:merge file="ejb-container.xml">
+  <!--
+    Define ejb-container in a file called ejb-container.xml and place
+    it in your merge directory.
+  -->
+  </XDtMerge:merge>
+  </ejb-container>
+</jrun-ejb-jar>

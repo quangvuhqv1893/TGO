@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+    <!-- openejb specific tags -->
+    <namespace>
+        <name>openejb</name>
+        <usage-description>Tags for creation of openejb specific resources</usage-description>
+        <condition-description>only session beans on class and method level</condition-description>
+        <condition type="and">
+            <condition type="or">
+                <condition type="method"/>
+                <condition type="class"/>
+            </condition>
+            <condition type="type">
+                <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+        </condition>
+        <tags>
+            <tag>
+                <level>method</level>
+                <name>foo:bar</name>
+                <usage-description>
+                    Foo and bar
+                </usage-description>
+                <unique>true</unique>
+                <condition-description>gurba methods</condition-description>
+                <condition type="and">
+                    <condition type="method"/>
+                    <condition type="type">
+                        <condition-parameter>foo.bar.FooBar</condition-parameter>
+                    </condition>
+                    <condition type="not">
+                        <condition type="name">
+                            <condition-parameter>gurbaMethod</condition-parameter>
+                        </condition>
+                    </condition>
+                </condition>
+            </tag>
+        </tags>
+    </namespace>
+</xdoclet>

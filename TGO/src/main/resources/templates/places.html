@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Địa điểm</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="header">
+
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Logo</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Giới thiệu</a></li>
+              <li class="active"><a href="#">Địa điểm</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Đăng nhập</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Đăng ký <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Công ty lữ hành</a></li>
+                  <li><a href="#">Hướng dẫn viên</a></li>
+
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div>
+      </nav>
+      
+    </div>  <!-- header -->
+    
+    <div id="content">
+      <div id="calltoaction">
+        <div class="jumbotron">
+          <h1>Places to travel</h1>
+        </div>
+      </div>
+      <div class="heading2"> 
+        <h2>Du lịch việt nam</h2>
+      </div>
+    </div>
+    <!-- nav tab -->
+    <div class="container">
+      <ul class="nav nav-tabs nav-justified ">
+        <li class="active"><a href="#MienBac" data-toggle="tab"><h4>Miền Bắc</h4></a></li>
+        <li><a href="#MienNam" data-toggle="tab"><h4>Miền Trung</h4></a></li>
+        <li><a href="#MienTrung" data-toggle="tab"><h4>Miền Nam</h4></a></li>
+      </ul>
+    </div>
+    <!-- tab-panes -->
+    <div class="container">
+      <div class="tab-content">
+        <div class="tab-pane active" id="MienBac">
+          <div class="feature1">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4 place">
+                  <a href="place_detail.html"><img src="img/halongbay.jpeg" ></a>
+                  <div class="center">Quảng Ninh</div>
+                </div>
+                <div class="col-sm-4 place">
+                  <a href="#"><img src="img/ninhbinh.jpg" ></a>
+                  <div class="center">Ninh Bình</div>
+                </div>
+                <div class="col-sm-4 place">
+                  <a href="#"><img src="img/hagiang.jpg" ></a>
+                  <div class="center">Hà Giang</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4 place">
+                  <a href="#"><img src="img/sapa.jpg" ></a>
+                  <div class="center">Sapa</div>
+                </div>
+                <div class="col-sm-4 place">
+                  <a href="#"><img src="img/mocchau.jpg" ></a>
+                  <div class="center">Mộc Châu</div>
+                </div>
+                <div class="col-sm-4 place">
+                  <a href="#"><img src="img/xemthem.jpg" ></a>
+                  <div class="center">Xem thêm</div>
+                </div>
+              </div>
+            </div>
+            
+          </div> <!-- feature1 -->    
+        </div>
+        <div class="tab-pane" id="MienTrung">
+          <div class="feature1">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4 place">
+                  <h4 class="text-center">Đà Nẵng</h4>
+                </div>
+                <div class="col-sm-4 place">
+                  <h4 class="text-center">Nha Trang</h4>
+                </div>
+                <div class="col-sm-4 place">
+                  <h4 class="text-center">Đà Lạt</h4>
+                </div>
+              </div>
+            </div>
+            
+          </div> <!-- feature1 -->    
+        </div>
+        <div class="tab-pane" id="MienNam">
+          <div class="feature1">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4 place">
+                  <h4 class="text-center">Hồ Chí Minh</h4>
+                </div>
+                <div class="col-sm-4 place">
+                  <h4 class="text-center">Vũng Tàu</h4>
+                </div>
+                <div class="col-sm-4 place">
+                  <h4 class="text-center">Phú Quốc</h4>
+                </div>
+              </div>
+            </div>
+            
+          </div> <!-- feature1 -->    
+        </div>     
+      </div>
+    </div>
+
+    <div class="heading2" id="h2"> 
+      <h2>Du lịch quốc tế</h2>
+    </div>
+    <div class="container">
+      <div class="feature1">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 place">
+              <a href="#"><img src="img/halongbay.jpeg" ></a>
+              <div class="center">Quảng Ninh</div>
+            </div>
+            <div class="col-sm-4 place">
+              <a href="#"><img src="img/ninhbinh.jpg" ></a>
+              <div class="center">Ninh Bình</div>
+            </div>
+            <div class="col-sm-4 place">
+              <a href="#"><img src="img/hagiang.jpg" ></a>
+              <div class="center">Hà Giang</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4 place">
+              <a href="#"><img src="img/sapa.jpg" ></a>
+              <div class="center">Sapa</div>
+            </div>
+            <div class="col-sm-4 place">
+              <a href="#"><img src="img/mocchau.jpg" ></a>
+              <div class="center">Mộc Châu</div>
+            </div>
+            <div class="col-sm-4 place">
+              <a href="#"><img src="img/xemthem.jpg" ></a>
+              <div class="center">Xem thêm</div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- feature1 -->  
+    </div>
+    <div class="heading2" id="h2"> 
+      <h2>Địa điểm nổi bật</h2>
+    </div>
+    <div id="footer">
+      <div class="row">
+        <div class="col-sm-4">
+          <ul class="nav nav-stacked">
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Liên Hệ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js\jquery-3.2.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+  </html>

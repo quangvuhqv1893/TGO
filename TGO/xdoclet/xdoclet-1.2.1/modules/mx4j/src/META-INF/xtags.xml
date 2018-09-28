@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- XXXXX tags -->
+  <namespace>
+    <name>XXX name - from mx4j</name>
+    <usage-description>XXX tags</usage-description>
+    <condition-description>XXX classes</condition-description>
+    <condition type="or">
+      <condition type="type">
+        <condition-parameter>foo.bar.FooBar</condition-parameter>
+      </condition>
+      <condition type="type">
+        <condition-parameter>foo.bar.BarFly</condition-parameter>
+      </condition>
+    </condition>
+    <tags>
+      <tag>
+        <level>method</level>
+        <name>foo:bar</name>
+        <usage-description>
+                    Foo and bar
+                </usage-description>
+        <unique>true</unique>
+        <condition-description>gurba methods</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="type">
+            <condition-parameter>foo.bar.FooBar</condition-parameter>
+          </condition>
+          <condition type="not">
+            <condition type="name">
+              <condition-parameter>gurbaMethod</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

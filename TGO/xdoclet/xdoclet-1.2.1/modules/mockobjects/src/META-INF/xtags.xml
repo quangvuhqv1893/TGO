@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+<xdoclet>
+  <!-- mock tags -->
+  <namespace>
+    <name>mock</name>
+    <usage-description>Mock</usage-description>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>mock.generate</name>
+        <usage-description>
+          Specifies that the class should have a mock class created for it
+        </usage-description>
+        <unique>true</unique>
+        <parameter type="text">
+          <name>className</name>
+          <usage-description>The name of the class to create</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

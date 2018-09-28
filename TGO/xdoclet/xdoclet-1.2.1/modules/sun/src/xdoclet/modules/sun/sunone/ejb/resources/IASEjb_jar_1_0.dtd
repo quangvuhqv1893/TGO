@@ -1,0 +1,162 @@
+<!--
+This is the IAS 6.0 specific XML DTD for the EJB JAR file
+-->
+
+<!--
+The ias-ejb-jar element is the root element of the EJB deployment descrip-tor.
+-->
+<!ELEMENT ias-ejb-jar ( enterprise-beans, role-mapping* )>
+
+<!--
+The enterprise-beans element contains the declarations of one or more
+enterprise beans.
+-->
+<!ELEMENT enterprise-beans (session | entity)+>
+
+<!--
+Decalres all the ias specific session bean related deployment information
+The ejb-name MUST be matched 1 to 1 with the ejb-name declared in the 
+J2EE XML file.
+-->
+<!ELEMENT session (ejb-name, guid, pass-timeout, 
+					pass-by-value, session-timeout, ejb-ref*, resource-ref*, failover-required?, iiop? )>
+
+<!--
+Decalres all the ias specific entity bean related deployment information
+The ejb-name MUST be matched 1 to 1 with the ejb-name declared in the 
+J2EE XML file.
+-->
+<!ELEMENT entity (ejb-name, guid, pass-timeout, 
+					pass-by-value, persistence-manager?, pool-manager?, ejb-ref*, resource-ref*, failover-required?, iiop?)>
+<!--
+A string that represent the guid of the Ejb in question
+-->
+<!ELEMENT guid (#PCDATA)>
+
+<!--
+Passivation timeout in seconds used by the container.
+This value can be changed during runtime by NASA 
+-->
+<!ELEMENT pass-timeout (#PCDATA)>
+
+<!--
+Set to either true or false
+-->
+<!ELEMENT is-thread-safe (#PCDATA)>
+
+<!--
+set to either true or false
+-->
+<!ELEMENT pass-by-value (#PCDATA)>
+
+<!--
+in seconds
+-->
+<!ELEMENT session-timeout (#PCDATA)>
+
+<!--
+defines all the persistence manager specific information
+-->
+<!ELEMENT persistence-manager ( factory-class-name,
+			properties-file-location? )> 
+
+<!-- 
+Factory class used to create new instances of a persistence manager
+-->
+<!ELEMENT factory-class-name  (#PCDATA)>
+
+<!-- 
+Location in jar file of properties file, relative to the META-INF/ of the jar
+-->
+<!ELEMENT properties-file-location  (#PCDATA)>
+
+<!ELEMENT pool-manager ( commit-option, ready-pool-timeout, ready-pool-maxsize, free-pool-maxsize )>
+
+<!--
+A string field whose valid values are either COMMIT_OPTION_C, or 
+COMMIT_OPTION_B. Default is the COMMIT_OPTION_C value.
+-->
+<!ELEMENT commit-option (#PCDATA)>
+
+<!--
+The following two tags apply to the ready cache. The ready cache is used 
+for commit option B.
+-->
+
+<!--
+ready pool timeout used by the container. An integer in seconds.  
+Default is 0 (infinite) This value can be changed during runtime by NASA 
+-->
+<!ELEMENT ready-pool-timeout (#PCDATA)> 
+
+<!--
+maxsize of the ready cache (in number of entries). An integer that 
+defaults to 0. This value can be changed during runtime by NASA 
+-->
+<!ELEMENT ready-pool-maxsize (#PCDATA)> 
+
+<!--
+maxsize of the instance free pool (in number of entries). An integer that 
+defaults to 0. This value can be changed during runtime by NASA 
+-->
+<!ELEMENT free-pool-maxsize (#PCDATA)> 
+
+
+<!--
+This is a storage place for the ABSOLUTE jndi name that the ejb-link 
+in the corresponding j2ee xml file ejb-ref entry
+-->
+<!ELEMENT ejb-ref ( ejb-ref-name, jndi-name ) >
+
+<!ELEMENT ejb-ref-name (#PCDATA)> 
+
+<!ELEMENT jndi-name (#PCDATA)> 
+
+<!--
+This is a storage place for the ABSOLUTE jndi name that the resource-ref
+in the corresponding j2ee xml file resource-ref entry
+-->
+<!ELEMENT resource-ref ( res-ref-name, jndi-name ) >
+
+<!ELEMENT res-ref-name (#PCDATA)> 
+
+<!--
+THis is a True or False value indicating whether failover is required
+-->
+<!ELEMENT failover-required (#PCDATA)>
+
+<!--
+Optional element indicate if the bean is rich client enabled
+(true | false), default value is false
+-->
+<!ELEMENT iiop (#PCDATA)>
+
+<!--
+This field create the mapping between the role name as it is known in the 
+AppComponent, and then map then onto one or more LDAP defined user,group, etc.
+The deployment code simply treats each role-impl as an opaque string that's
+interpreted by the security infrastructure
+-->
+<!ELEMENT role-mapping (role-name, role-impl)>
+
+<!--
+The name of the role as refered to in the <security-role> element
+-->
+<!ELEMENT role-name (#PCDATA)>
+
+<!--
+The string used to represent a LDAP group/user thing that makes up
+a particular role-name
+A role imple could be any number of groups and/or users
+-->
+<!ELEMENT role-impl (group*, user*)>
+
+<!--
+The LDAP specific string that corresponds to a particular LDAP group
+-->
+<!ELEMENT group (#PCDATA)>
+
+<!--
+The LDAP specific string that corresponds to a particular LDAP user
+-->
+<!ELEMENT user (#PCDATA)>

@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>XDoclet - Advanced Ferature - Merge Points</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>Advanced Feature - Value Object -(DRAFT)</h2>
+<h4>Introduction</h4>
+This document explains the concept of <a href="ejbdoclet.html#subtask_valueobject">valueobject</a> SubTask.
+<h4>Samples</h4>
+AddressBean have @ejb:value-object name="Address" match="*"
+instantiation="eager"
+<p>
+That means that a AddressValue will be created containing all fields of
+the entity bean "eager" means the VO is build on ejbLoad
+<p>
+Customer Bean have
+<p>
+ * @ejb:value-object name="CustomerLight" match="light"
+ <p>
+ * @ejb:value-object name="CustomerNormal" match="normal"
+instantiation="eager"
+<p>
+ * @ejb:value-object name="Customer" match="*"
+<p>
+3 VO will be build.  CustomerValue containing all fields
+CustomerNormalValue contains only fields that have a corresponding
+<p>
+@ejb:value-object match="normal"
+<p>
+For example getCredit()
+<p>
+Etc... For LightValue
+<p>
+You can avoid a field appearing in the VO (for example I XMLized/String
+Object that are saved in the DB and SAX them on read.  Then my String
+has no meaning in my VO.  I want the object.
+<p>
+Use  @ejb:value-object match="*" exclude="true"
+<p>
+(Account.getLastModifiedDate) to avoid a field to be picked up in the VO
+<p>
+In the opposite use @ejb:value-object name="..." match="..." on non
+persistent fields to put it in the VO
+<p>
+See Accountean.getTotalAmount
+<p>
+The attribute relation="external" on a field say this: because the VO is
+cached in the bean, sometimes you wan to update some fields because you
+did not have an setSth() that killed your VO.  For example TotalAmount
+looks at other Account.  The Acount on wich you get the VO, you must
+rerun this computation at get time.
+<p>
+Aggregation (1-1)
+<p>
+AccountBean ---> CustomerBean
+<p>
+@ejb:value-object match="*" aggregate="CustomerNormalValue"
+aggregate-name="OwnerNormalValue"
+<p>
+
+Association (1-1)
+<p>
+CustomerBean ---> AddressBean
+<p>
+...
+<p>
+For these look at generated code.  The idea is "responsability" of an
+entity bean over its related relationship
+<p>
+For Composition Customer knows he is the master of Address, ....
+In all these, aggregate/compose is the Java type of the
+aggregate/compose VO (you could read test.interfaces... In fact)
+Aggregate-name/compose-name is the name given to the get/set method
+<p>
+Aggregation (1-n)
+<p>
+CustomerBean ---> AccountBean
+<p>
+@ejb:value-object match="*" aggregate="CustomerNormalValue"
+aggregate-name="OwnerNormalValue"
+<p>
+...
+<p>
+Association (1-n)
+<p>
+CustomerBean ---> AddressBean
+<p>
+@ejb:value-object
+<p>
+     *       match="normal"
+     <p>
+     *       type="Collection"
+     <p>
+     *       relation="external"
+     <p>
+     *       compose="test.interfaces.AddressValue"
+     <p>
+     *           compose-name="ShippingAddressValue"
+     <p>
+     *       members="test.interfaces.Address"
+     <p>
+     *           members-name="ShippingAddress"
+<p>
+For 1-n I also need the type of what is in the Collection so the members
+and members-name
+<p>
+For 1-n relation="external" should always be used.
+<p>
+Finally this has not been tested and was written with CMP 1.1 in mind,
+so more work will be needed for sure.
+<p>
+This covers more than Data Object but I am listening to any improvements
+that could be added...
+</body>

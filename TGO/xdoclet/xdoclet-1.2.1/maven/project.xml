@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+  <pomVersion>3</pomVersion>
+  <id>maven-xdoclet-plugin</id>
+  <name>Maven XDoclet Plug-in</name>
+  <currentVersion>1.2b2</currentVersion>
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://jakarta.apache.org/</url>
+    <logo>http://jakarta.apache.org/turbine/maven/images/jakarta-logo-blue.gif</logo>
+  </organization>
+  <inceptionYear>2002</inceptionYear>
+  <package>org.apache.maven</package>
+  <logo>http://jakarta.apache.org/turbine/maven/images/maven.jpg</logo>
+
+  <description>
+    A Maven plugin to run XDoclet from within Maven
+  </description>
+
+  <shortDescription>A Maven plugin to run XDoclet from within Maven</shortDescription>
+
+  <url>http://jakarta.apache.org/turbine/maven/reference/plugins/xdoclet/</url>
+  <issueTrackingUrl>http://nagoya.apache.org/scarab/servlet/scarab/</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/turbine/maven/reference/plugins/xdoclet/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-turbine-maven/</distributionDirectory>
+
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-turbine-maven/src/plugins-build/xdoclet/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-turbine-maven/src/plugins-build/xdoclet/</url>
+  </repository>
+
+  <developers>
+    <developer>
+      <name>Ara Abrahamian</name>
+      <id>ara_e_w</id>
+      <email>ara_e_w@yahoo.com</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+
+    <developer>
+      <name>Aslak Hellesøy</name>
+      <id>rinkrank</id>
+      <organization>ThoughtWorks</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <dependencies>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1-dev</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet</artifactId>
+			<version>@XDOCLET_VERSION@</version>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet-xdoclet-module</artifactId>
+			<version>@XDOCLET_VERSION@</version>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xjavadoc</artifactId>
+			<version>@XJAVADOC_VERSION@</version>
+		</dependency>
+  </dependencies>
+
+  <build>
+
+    <nagEmailAddress>turbine-maven-dev@jakarta.apache.org</nagEmailAddress>
+
+  </build>
+</project>
+

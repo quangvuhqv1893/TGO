@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+        <title>Resources</title>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+
+    <body>
+        <section name="Resources">
+            <subsection name="Books covering XDoclet">
+                <ul>
+                    <li><a href="http://www.manning.com/walls/">XDoclet in Action</a> by Craig Walls and Norman Richards (Manning Publications)</li>
+                    <li><a href="http://www.manning.com/sullins2/">EJB Cookbook</a> by Benjamin Sullins and Mark Whipple (Manning Publications)</li>
+                    <li><a href="http://www.manning.com/hatcher/">Java Development With Ant</a> by Steve Loughran and Erik Hatcher (Manning Publications)</li>
+                    <li><a href="http://www.samspublishing.com/catalog/product.asp?product_id={FB825A48-BC04-4C55-BD8C-DF93C6BBF920}">Extreme Programming with Ant</a> by Glenn Niemeyer and Jeremy Poteet (Sams Publishing)</li>
+                </ul>
+            </subsection>
+            <subsection name="Awards">
+                <ul>
+                    <li><a href="http://www.sdmagazine.com/documents/s=8241/sdm0306g/sdm0306g.html#biztools">Award for Business Integration and Data Tools</a> (SD Magazine 05/2003)</li>
+                </ul>
+            </subsection>
+            <subsection name="Articles">
+                <ul>
+                   <li>XDoclet and Struts, three part series (JavaPro, by Erik Hatcher)
+                     <ol>
+                       <li><a href="http://www.ftponline.com/javapro/2003_07/online/ehatcher_07_18_03/">Exploit XDoclet's Struts Capabilities</a></li>
+                       <li><a href="http://www.ftponline.com/javapro/2003_07/online/ehatcher_07_21_03/">Form Validation and Action Mapping</a></li>
+                       <li><a href="http://www.ftponline.com/javapro/2003_07/online/ehatcher_07_25_03/">Take XDoclet Even Further</a></li>
+                     </ol>
+                   </li>
+                    <li><a href="http://www-106.ibm.com/developerworks/edu/ws-dw-ws-j2x-i.html">Enhance J2EE component reuse with XDoclets</a>(IBM developerWorks, by Rick Hightower)</li>
+                    <li><a href="http://www.onjava.com/pub/a/onjava/2002/01/30/xdoclet.html">Using XDoclet: Developing EJBs with Just the Bean Class</a> (ONJava 01/2002)</li>
+                    <li><a href="http://www.onjava.com/pub/a/onjava/2002/04/17/wblogosj2ee.html">Building an Open Source J2EE Weblogger</a> (ONJava 04/2002)</li>
+                    <li><a href="http://www.hpmiddleware.com/newsletters/webservicesnews/features/">10 Best Practices for J2EE Development</a> (HP Middleware)</li>
+                    <li><a href="http://java-tools.eblox.com/index.php?ResinCMPCMRXDocletTutorial">EJB XDoclet / Resin Tutorial</a></li>
+                    <li><a href="http://www.sys-con.com/weblogic/articleprint.cfm?id=245">WebLogic Developer's Journal Magazine</a></li>
+                    <li><a href="http://www.vecna.com/whatwedo/techNotes/xdoclet-new-module.html">Customizing XDoclet</a> by Bill Schneider</li>
+                </ul>
+            </subsection>
+            <subsection name="Mentions XDoclet">
+                <ul>
+                    <li><a href="http://ant.apache.org/external.html">Ant Reference</a> - External Tools and Tasks</li>
+                    <li><a href="http://www.theserverside.com/resources/article.jsp?l=FutureEJB">Future of EJB's: Tools Are Finally Catching Up</a> (TheServerSide)</li>
+                    <li><a href="http://www.javaworld.com/javaworld/jw-12-2001/jw-1207-yesnoejb.html">To EJB, or not to EJB?</a> (JavaWorld 12/2001)</li>
+                    <li><a href="http://www.macromedia.com/software/jrun/productinfo/newfeatures/">Macromedia JRun 4 Top 10 New Features</a> - XDoclet Integration</li>
+                    <li><a href="http://developer.java.sun.com/developer/community/chat/JavaLive/2002/jl1029.html">J2EE Version 1.4 Chat</a></li>
+                    <li><a href="http://www.codegeneration.net/tiki-index.php?page=XDoclet">Code Generation Network</a> (Interview and case studies)</li>
+                </ul>
+            </subsection>
+            <subsection name="Presentations">
+                <ul>
+                    <li><a href="http://www.bejug.org/portalTool/ShowDoc?contentId=project/JavaPolis%20-%20Open%20Source/XDoclet.ppt">XDoclet presentation at BeJUG JavaPolis 2002</a> (Aslak)</li>
+                    <li><a href="http://www.ehatchersolutions.com/downloads/presentations/XDoclet.ppt">XDoclet with Ant</a> presented by Erik Hatcher for several <a href="http://www.nofluffjuststuff.com">No Fluff, Just Stuff symposiums</a>, 2002</li>
+                    <li><a href="http://www.ehatchersolutions.com/downloads/presentations/ApacheCon.ppt">Ant: The Only Bug You Want Near Your Software</a> presented by Erik Hatcher at ApacheCon, 2002 (contains a subset of the "XDoclet with Ant" presentation</li>
+                </ul>
+            </subsection>
+            <subsection name="XDoclet Project Team Member Weblogs">
+                <ul>
+                    <li><a href="http://www.jroller.com/page/rickard">Random thoughts</a> (Rickard Öberg)</li>
+                    <li><a href="http://www.jroller.com/page/ara_e">Memory Dump</a> (Ara Abrahamian)</li>
+                    <li><a href="http://blogs.codehaus.org/people/rinkrank/">uncommon sense</a> (Aslak Hellesøy)</li>
+                    <li><a href="http://blogs.atlassian.com/scuttlebutt/">scuttlebutt</a> (Mathias Bogaert)</li>
+                    <li><a href="http://www.kalixia.com/weblogs/space">Kalixia</a> (Jérôme Bernard)</li>
+                    <li><a href="http://www.blogscene.org/erik/">Erik Hatcher's blog</a></li>
+                </ul>
+            </subsection>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_3_0.dtd">
+
+<jboss>
+
+   <enterprise-beans>
+
+      <session>
+         <ejb-name>ejbres/Resource</ejb-name>
+         <jndi-name>ejbres/Resource</jndi-name>
+         <local-jndi-name>ejbres/ResourceLocal</local-jndi-name>
+        <resource-ref>
+         <res-ref-name>jdbc/DBPool</res-ref-name>
+         <resource-name>MyDataSourceManager</resource-name>
+         </resource-ref>
+      </session>
+
+   </enterprise-beans>
+
+   <resource-managers>
+      <resource-manager>
+         <res-name>mail/MyMail</res-name>
+         <res-jndi-name>Mail</res-jndi-name>
+      </resource-manager>
+   </resource-managers>
+
+</jboss>

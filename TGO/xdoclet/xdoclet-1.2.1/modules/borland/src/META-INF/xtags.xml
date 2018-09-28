@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- BES ejb tags -->
+  <namespace>
+    <name>bes</name>
+    <usage-description>Borland Enterprise Server Ejb tags</usage-description>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>bes.datasource</name>
+        <usage-description>
+          Database datasource setting for CMP/BMP Entity Bean
+          Requires @ejb.bean.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>CMP Entity Beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="abstract"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>res-ref-name</name>
+          <usage-description>Reference to entity datasource. Default is jdbc/${jndi-name}</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>JNDI name of entity data source. Default is
+            DefaultDataSource
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="bool">
+          <name>cmp-resource</name>
+          <usage-description>!!Describe me!!</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>  
+      <tag>
+        <level>method</level>
+        <name>bes.relation</name>
+        <usage-description>
+          Database configuration for persistent relations.
+          Requires @ejb.relation
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>CMR fields only</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="abstract"/>
+        </condition>
+        <parameter type="text">
+          <name>left-table-name</name>
+          <usage-description>
+            Database table name for left side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>left-column-name</name>
+          <usage-description>
+            Name of the column used for left side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>        
+        <parameter type="text">
+          <name>right-table-name</name>
+          <usage-description>
+            Database table name for right side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>right-column-name</name>
+          <usage-description>
+            Name of the column used for right side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>                
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>bes.cross-table</name>
+        <usage-description>
+          Database configuration for persistent relations.
+          Only for M:N relations
+          Requires @ejb.relation and @bes.relation
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>CMR fields only</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="abstract"/>
+        </condition>
+        <parameter type="text">
+          <name>table-name</name>
+          <usage-description>
+            Database join table name 
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>left-columnA</name>
+          <usage-description>
+            Name of the column from "Bean" table used for left side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>left-columnB</name>
+          <usage-description>
+            Name of the column from join table used for left side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>right-columnA</name>
+          <usage-description>
+            Name of the column from "Bean" table used for right side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>right-columnB</name>
+          <usage-description>
+            Name of the column in join table used for right side of the relation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>bes.bean</name>
+        <usage-description>Most of the class-level BES options are specified in
+          parameters of this tag.</usage-description>
+        <unique>false</unique>
+        <condition-description>Session and Message Driven Beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="or">
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>message-driven-destination-name</name>
+          <usage-description>Please describe this</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven Beans</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="text">
+          <name>connection-factory-name</name>
+          <usage-description>Please describe this</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven Beans</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>pool-max-size</name>
+          <usage-description>Max size of the pool</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven Beans</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>pool-init-size</name>
+          <usage-description>The initial size of the pool</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven Beans</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>pool-wait-timeout</name>
+          <usage-description>Please describe this</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Message Driven Beans</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+        <parameter type="int">
+          <name>timeout</name>
+          <usage-description>The timeout limit applied to transactions on Stateful beans.</usage-description>
+          <mandatory>false</mandatory>
+          <condition-description>Session Beans</condition-description>
+          <condition type="and">
+            <condition type="class"/>
+            <condition type="type">
+              <condition-parameter>javax.ejb.SessionBean</condition-parameter>
+            </condition>
+          </condition>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>bes.ejb-ref</name>
+        <usage-description>Reference to bean outside of the EJB-package. There must also be a matching @ejb.ejb-ref.</usage-description>
+        <unique>false</unique>
+        <condition-description>All EJBs</condition-description>
+        <parameter type="text">
+          <name>ref-name</name>
+          <usage-description>The local reference name of the EJB</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the referenced bean.</usage-description>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>bes.ejb-local-ref</name>
+        <usage-description>Reference to a local EJB. There must also be a matching @ejb.ejb-local-ref.</usage-description>
+        <unique>false</unique>
+        <condition-description>All EJBs</condition-description>
+        <parameter type="text">
+          <name>ref-name</name>
+          <usage-description>The local reference name of the EJB</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the referenced bean.</usage-description>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>bes.resource-ref</name>
+        <usage-description>Reference to a resource. There must also be a matching @ejb.resource-ref.</usage-description>
+        <unique>false</unique>
+        <condition-description>All EJBs</condition-description>
+        <parameter type="text">
+          <name>res-name</name>
+          <usage-description>The local resource name</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>res-ref-name</name>
+          <usage-description>The resource ref name</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the referenced resource.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>bes.resource-env-ref</name>
+        <usage-description>Reference to a Resource. Please provide a better description</usage-description>
+        <unique>false</unique>
+        <condition-description>All EJBs</condition-description>
+        <parameter type="text">
+          <name>name</name>
+          <usage-description>The reference name of the resource</usage-description>
+          <mandatory>true</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>The JNDI name of the referenced resource.</usage-description>
+          <mandatory/>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>bes.property</name>
+        <usage-description>Set a property</usage-description>
+        <unique>false</unique>
+        <condition-description>All EJBs</condition-description>
+        <parameter type="text">
+          <name>prop-name</name>
+          <usage-description>Name of the property</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>prop-type</name>
+          <usage-description>The type of the property</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>prop-value</name>
+          <usage-description>The value of the property</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>XDoclet - Websphere 4.0</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h2>&lt;webSphere/&gt; subtask</h2>
+
+<h3>Websphere</h3>
+
+<p>Creates &quot;Websphere-specific deployment descriptors
+(ibm-ejb-jar-bnd.xmi, ibm-ejb-jar-ext.xmi and Schema.dbxmi
+files)&quot; for EJB beans.</p>
+
+<h4>Parameters</h4>
+
+<table border="1" cellpadding="7" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td valign="top"><b>Required</b></td>
+  </tr>
+  </tr>
+  <tr>
+    <td valign="top">xmlencoding</td>
+    <td valign="top">The encoding of the ejb-jar.xml file.</td>
+    <td valign="top">No, default is &quot;UTF-8&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">destdir</td>
+    <td valign="top">Destination directory for output Websphere-specific deployment
+      descriptor files.</td>
+    <td valign="top">No, default is destdir parameter of
+      ejbdoclet task</td>
+  </tr>
+  <tr>
+    <td valign="top">mergedir</td>
+    <td valign="top">Merge directory where ejbdoclet looks for files to be
+      merged with generated files.</td>
+    <td valign="top">No, required, if the merge feature used</td>
+  </tr>
+  <tr>
+    <td valign="top">validateXml</td>
+    <td valign="top">Validates the generated xml file according to the DTD file 
+    contained inside xdoclet.jar.</td>
+    <td valign="top">No, default is false</td>
+  </tr>
+</table>
+
+<h3><a name="class-level-tags">Class level Tags</a></h3>
+
+<h4><a name="container-configuration">@jboss:container-configuration</a></h4>
+
+<p>The name of the container configuration to use for the bean.
+Applicable to all types of EJBs.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+	<td>Defines the container configuration for the bean.</td>
+  </tr>
+</table>
+
+<h4><a name="resource-ref">@websphere:resource-ref</a></h4>
+
+<p>TODO</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[res-name]</i>: String<br>
+    <td>Define the name of the resource reference.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[jndi-name]</i>: String</td>
+    <td>Define the jndi-name of the referenced resource.</td>
+  </tr>
+</table>
+
+<h4><a name="finder-query">@websphere:finder-query</a></h4>
+
+<p>TODO</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[name]</i>: String</td>
+	<td>Define the name of the finder.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[parms]</i>: String</td>
+	<td>Define the parms of the finder.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[where-clause]</i>: String</td>
+	<td>Define the where clause for the finder query.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[home]</i>: String</td>
+    <td>Optional, defaults to "Home".</td>
+  </tr>
+</table>
+
+<h4><a name="mapping">@websphere:mapping</a></h4>
+
+<p>TODO.  Applicable only to Entity beans.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[table-name]</i>: String</td>
+    <td>Define the name of the table for the mapping.</td>
+  </tr>
+</table>
+
+<h4><a name="mapping-constraint">@websphere:mapping-constraint</a></h4>
+
+<p>Define a mapping constraint.</p>
+
+<table border="1" cellpadding="7">
+  <tr valign="top">
+    <td>Parameter</td>
+    <td>Usage</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[constraint-name]</i>: String</td>
+	<td>The constraint name.</td>
+  </tr>
+  <tr valign="top">
+    <td><i>[constraint-type]</i>: TODO</td>
+    <td>TODO.</td>
+  </tr>
+</table>
+
+</body>
+</html>

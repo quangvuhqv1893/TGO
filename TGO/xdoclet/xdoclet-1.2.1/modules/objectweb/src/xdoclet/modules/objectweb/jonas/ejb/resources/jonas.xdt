@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+<!DOCTYPE jonas-ejb-jar <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="2.4">PUBLIC "<XDtXml:publicId/>"</XDtConfig:ifConfigParamGreaterOrEquals><XDtConfig:ifConfigParamNotGreaterOrEquals paramName="Version" value="2.4">SYSTEM</XDtConfig:ifConfigParamNotGreaterOrEquals> "<XDtXml:systemId/>">
+
+<jonas-ejb-jar>
+
+  <!-- Session Beans -->
+  <XDtComment:comment>
+    <!--
+    <!ELEMENT jonas-session (ejb-name, jndi-name?, jonas-resource*, jonas-resource-env*, jonas-ejb-ref*, session-timeout?)>
+    NB Before version 2.5, jndi-name was not optional.
+    -->
+  </XDtComment:comment>  
+  <XDtComment:comment><!-- jonas-session --></XDtComment:comment>  
+  <XDtEjbSession:forAllSessionBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+      <XDtMerge:merge file="jonas-{0}.xml">
+       <XDtClass:ifHasClassTag tagName="jonas.bean">
+  <jonas-session>
+
+	<XDtComment:comment><!-- ejb-name --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.bean" paramName="ejb-name">
+    <ejb-name><XDtClass:classTagValue tagName="jonas.bean" paramName="ejb-name" /></ejb-name>
+	</XDtClass:ifHasClassTag>
+
+	<XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+<XDtConfig:ifConfigParamNotGreaterOrEquals paramName="Version" value="2.5">
+    <jndi-name><XDtClass:classTagValue tagName="jonas.bean" paramName="jndi-name" /></jndi-name>
+
+</XDtConfig:ifConfigParamNotGreaterOrEquals>
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="2.5">
+	<XDtClass:ifHasClassTag tagName="jonas.bean" paramName="jndi-name">
+    <jndi-name><XDtClass:classTagValue tagName="jonas.bean" paramName="jndi-name" /></jndi-name>
+
+	</XDtClass:ifHasClassTag>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+	<XDtComment:comment><!-- jonas-resource --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.resource">
+	  <XDtClass:forAllClassTags tagName="jonas.resource">
+
+    <jonas-resource>
+	      <XDtComment:comment><!-- res-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource" paramName="res-ref-name">		
+      <res-ref-name><XDtClass:classTagValue tagName="jonas.resource" paramName="res-ref-name" /></res-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.resource" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>
+    </jonas-resource>
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+
+	<XDtComment:comment><!-- jonas-resource-env --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.resource-env">
+	  <XDtClass:forAllClassTags tagName="jonas.resource-env">
+
+    <jonas-resource-env>	      
+	      <XDtComment:comment><!-- resource-env-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource-env" paramName="resource-env-ref-name">
+      <resource-env-ref-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="resource-env-ref-name" /></resource-env-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource-env" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>
+    </jonas-resource-env>
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+
+	<XDtComment:comment><!-- jonas-ejb-ref --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.ejb-ref">
+	  <XDtClass:forAllClassTags tagName="jonas.ejb-ref">
+
+    <jonas-ejb-ref>	       
+	      <XDtComment:comment><!-- ejb-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.ejb-ref" paramName="ejb-ref-name">		
+      <ejb-ref-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+	      </XDtClass:ifHasClassTag>	       	      
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.ejb-ref" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>
+    </jonas-ejb-ref>
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+
+	<XDtComment:comment><!-- session-timeout --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.session-timeout" paramNum="0">	  
+    <session-timeout><XDtClass:classTagValue tagName="jonas.session-timeout" paramNum="0" /></session-timeout>
+	</XDtClass:ifHasClassTag>
+
+  </jonas-session>
+
+       </XDtClass:ifHasClassTag>
+      </XDtMerge:merge>
+    </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbSession:forAllSessionBeans>
+
+
+  <!-- Entity Beans -->
+  <XDtComment:comment>
+    <!--
+    <!ELEMENT jonas-entity (ejb-name, jndi-name, jonas-resource*, jonas-resource-env*, jonas-ejb-ref*, is-modified-method-name?, 
+                            passivation-timeout?, shared?, max-cache-size?, min-pool-size?, jdbc-mapping?)>
+    NB shared, max-cache-size, min-pool-size have only been present since version 2.4
+    -->
+  </XDtComment:comment>
+  <XDtComment:comment><!-- jonas-entity --></XDtComment:comment>
+  <XDtEjbEntity:forAllEntityBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+      <XDtMerge:merge file="jonas-{0}.xml">
+       <XDtClass:ifHasClassTag tagName="jonas.bean">
+  <jonas-entity>      
+
+	<XDtComment:comment><!-- ejb-name --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.bean" paramName="ejb-name">
+    <ejb-name><XDtClass:classTagValue tagName="jonas.bean" paramName="ejb-name" /></ejb-name>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.bean" paramName="jndi-name">	  
+    <jndi-name><XDtClass:classTagValue tagName="jonas.bean" paramName="jndi-name" /></jndi-name>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-resource --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.resource">
+	  <XDtClass:forAllClassTags tagName="jonas.resource">
+
+    <jonas-resource>
+	      <XDtComment:comment><!-- res-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource" paramName="res-ref-name">			
+      <res-ref-name><XDtClass:classTagValue tagName="jonas.resource" paramName="res-ref-name" /></res-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.resource" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>		
+    </jonas-resource>
+
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-resource-env --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.resource-env">
+	  <XDtClass:forAllClassTags tagName="jonas.resource-env">
+
+    <jonas-resource-env>
+	      <XDtComment:comment><!-- resource-env-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource-env" paramName="resource-env-ref-name">
+      <resource-env-ref-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="resource-env-ref-name" /></resource-env-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource-env" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>
+    </jonas-resource-env>
+
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-ejb-ref --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.ejb-ref">
+	  <XDtClass:forAllClassTags tagName="jonas.ejb-ref">
+
+    <jonas-ejb-ref>		
+	      <XDtComment:comment><!-- ejb-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.ejb-ref" paramName="ejb-ref-name">
+      <ejb-ref-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.ejb-ref" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>		
+    </jonas-ejb-ref>
+
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- is-modified-method-name --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.is-modified-method-name" paramNum="0">
+    <is-modified-method-name><XDtClass:classTagValue tagName="jonas.is-modified-method-name" paramNum="0" /></is-modified-method-name>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- passivation-timeout --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.passivation-timeout" paramNum="0">
+    <passivation-timeout><XDtClass:classTagValue tagName="jonas.passivation-timeout" paramNum="0" /></passivation-timeout>
+	</XDtClass:ifHasClassTag>
+
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="2.4">
+	<XDtComment:comment><!-- shared --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.shared" paramNum="0">
+    <shared><XDtClass:classTagValue tagName="jonas.shared" paramNum="0" /></shared>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- max-cache-size --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.max-cache-size" paramNum="0">
+    <max-cache-size><XDtClass:classTagValue tagName="jonas.max-cache-size" paramNum="0" /></max-cache-size>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- min-pool-size --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.min-pool-size" paramNum="0">
+    <min-pool-size><XDtClass:classTagValue tagName="jonas.min-pool-size" paramNum="0" /></min-pool-size>
+	</XDtClass:ifHasClassTag>
+
+</XDtConfig:ifConfigParamGreaterOrEquals>
+	    <XDtEjbCmp:ifEntityIsCmp>
+	<XDtComment:comment><!-- jdbc-mapping --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.jdbc-mapping">
+
+    <jdbc-mapping>
+	    <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	    <XDtClass:ifHasClassTag tagName="jonas.jdbc-mapping" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.jdbc-mapping" paramName="jndi-name" /></jndi-name>
+	    </XDtClass:ifHasClassTag>
+	    <XDtEjbCmp:ifNotUsingCmp2>
+        <XDtComment:comment><!-- jdbc-table-name --></XDtComment:comment>
+    	  <XDtClass:ifHasClassTag tagName="jonas.jdbc-mapping" paramName="jdbc-table-name">
+        <jdbc-table-name>
+        <XDtClass:classTagValue tagName="jonas.jdbc-mapping" paramName="jdbc-table-name" /></jdbc-table-name>
+    	  </XDtClass:ifHasClassTag>
+    
+            </XDtEjbCmp:ifNotUsingCmp2>
+	    <XDtEjbCmp:ifUsingCmp2>
+	    <XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="3.0">
+	    	<XDtClass:ifHasClassTag tagName="jonas.jdbc-mapping" paramName="automatic-pk">
+	    	<automatic-pk><XDtClass:classTagValue tagName="jonas.jdbc-mapping" paramName="automatic-pk" /></automatic-pk>
+	        </XDtClass:ifHasClassTag>
+            </XDtConfig:ifConfigParamGreaterOrEquals>
+            </XDtEjbCmp:ifUsingCmp2>
+	    <XDtEjbCmp:ifNotUsingCmp2>
+    	  <XDtComment:comment><!-- cmp-field-jdbc-mapping --></XDtComment:comment>
+    	  <XDtMethod:forAllMethods tagName="ejb:persistent-field">
+    	   <XDtMethod:ifHasMethodTag tagName="jonas.cmp-field-jdbc-mapping">		  
+    		
+        <cmp-field-jdbc-mapping>
+    		<XDtComment:comment><!-- field-name --></XDtComment:comment>
+    		<XDtMethod:ifHasMethodTag tagName="jonas.cmp-field-jdbc-mapping" paramName="field-name">
+         <field-name><XDtMethod:methodTagValue tagName="jonas.cmp-field-jdbc-mapping" paramName="field-name" /></field-name>
+    		</XDtMethod:ifHasMethodTag>
+    		  
+    		<XDtComment:comment><!-- jdbc-field-name --></XDtComment:comment>
+    		<XDtMethod:ifHasMethodTag tagName="jonas.cmp-field-jdbc-mapping" paramName="jdbc-field-name">
+         <jdbc-field-name><XDtMethod:methodTagValue tagName="jonas.cmp-field-jdbc-mapping" paramName="jdbc-field-name" /></jdbc-field-name>
+    		</XDtMethod:ifHasMethodTag>
+        </cmp-field-jdbc-mapping>
+    	  </XDtMethod:ifHasMethodTag>
+    	  </XDtMethod:forAllMethods>
+	    
+	 
+        <XDtComment:comment><!-- finder-method-jdbc-mapping --></XDtComment:comment>
+	     <XDtClass:forAllClassTags tagName="jonas.finder-method-jdbc-mapping">
+    
+        <finder-method-jdbc-mapping>		  
+    	  <XDtComment:comment><!-- jonas-method --></XDtComment:comment>
+        <jonas-method>		    
+    		<XDtComment:comment><!-- method-name --></XDtComment:comment>
+    		<XDtClass:ifHasClassTag tagName="jonas.finder-method-jdbc-mapping" paramName="method-name">
+         <method-name><XDtClass:classTagValue tagName="jonas.finder-method-jdbc-mapping" paramName="method-name" /></method-name>
+    		</XDtClass:ifHasClassTag>		      
+    		    
+    		<XDtComment:comment><!-- method-params --></XDtComment:comment>
+    		<XDtClass:ifHasClassTag tagName="jonas.finder-method-jdbc-mapping" paramName="method-params">
+         <method-params><XDtClass:classTagValue tagName="jonas.finder-method-jdbc-mapping" paramName="method-params" /></method-params>
+    		</XDtClass:ifHasClassTag>		      
+        </jonas-method>
+    		  
+    	  <XDtComment:comment><!-- jdbc-where-clause --></XDtComment:comment>
+    		<XDtClass:ifHasClassTag tagName="jonas.finder-method-jdbc-mapping" paramName="jdbc-where-clause">
+         <jdbc-where-clause><![CDATA[<XDtClass:classTagValue tagName="jonas.finder-method-jdbc-mapping" paramName="jdbc-where-clause" />]]></jdbc-where-clause>
+    		</XDtClass:ifHasClassTag>
+         </finder-method-jdbc-mapping>
+         </XDtClass:forAllClassTags>
+     </XDtEjbCmp:ifNotUsingCmp2>
+	   
+    </jdbc-mapping>
+	</XDtClass:ifHasClassTag>
+   </XDtEjbCmp:ifEntityIsCmp>
+
+  </jonas-entity>
+
+       </XDtClass:ifHasClassTag>
+      </XDtMerge:merge>
+    </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbEntity:forAllEntityBeans>
+
+  <!-- Message Driven Beans -->
+  <XDtComment:comment>
+    <!--
+    <!ELEMENT jonas-message-driven (ejb-name, jonas-message-driven-destination, jonas-resource*, jonas-resource-env*, jonas-ejb-ref*)>
+    -->
+  </XDtComment:comment>
+  <XDtEjbMdb:forAllMDBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+      <XDtMerge:merge file="jonas-{0}.xml">
+       <XDtClass:ifHasClassTag tagName="jonas.bean">
+  <jonas-message-driven>
+
+	<XDtComment:comment><!-- ejb-name --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.bean" paramName="ejb-name">
+    <ejb-name><XDtClass:classTagValue tagName="jonas.bean" paramName="ejb-name" /></ejb-name>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-message-driven-destination --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.message-driven-destination" paramName="jndi-name">
+    <jonas-message-driven-destination>
+      <jndi-name><XDtClass:classTagValue tagName="jonas.message-driven-destination" paramName="jndi-name" /></jndi-name>
+    </jonas-message-driven-destination>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-resource --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.resource">
+	  <XDtClass:forAllClassTags tagName="jonas.resource">
+
+    <jonas-resource>
+      <res-ref-name><XDtClass:classTagValue tagName="jonas.resource" paramName="res-ref-name" /></res-ref-name>
+      <jndi-name><XDtClass:classTagValue tagName="jonas.resource" paramName="jndi-name" /></jndi-name>
+    </jonas-resource>
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-resource-env --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.resource-env">
+	  <XDtClass:forAllClassTags tagName="jonas.resource-env">
+
+    <jonas-resource-env>
+	      <XDtComment:comment><!-- resource-env-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource-env" paramName="resource-env-ref-name">
+      <resource-env-ref-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="resource-env-ref-name" /></resource-env-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.resource-env" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.resource-env" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>
+    </jonas-resource-env>
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+	  
+	<XDtComment:comment><!-- jonas-ejb-ref --></XDtComment:comment>
+	<XDtClass:ifHasClassTag tagName="jonas.ejb-ref">
+	  <XDtClass:forAllClassTags tagName="jonas.ejb-ref">
+
+    <jonas-ejb-ref>		
+	      <XDtComment:comment><!-- ejb-ref-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.ejb-ref" paramName="ejb-ref-name">
+      <ejb-ref-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="ejb-ref-name" /></ejb-ref-name>
+	      </XDtClass:ifHasClassTag>
+		
+	      <XDtComment:comment><!-- jndi-name --></XDtComment:comment>
+	      <XDtClass:ifHasClassTag tagName="jonas.ejb-ref" paramName="jndi-name">
+      <jndi-name><XDtClass:classTagValue tagName="jonas.ejb-ref" paramName="jndi-name" /></jndi-name>
+	      </XDtClass:ifHasClassTag>		
+    </jonas-ejb-ref>
+	  </XDtClass:forAllClassTags>
+	</XDtClass:ifHasClassTag>
+
+  </jonas-message-driven>
+
+       </XDtClass:ifHasClassTag>
+      </XDtMerge:merge>
+    </XDtEjb:ifIsAConcreteEJBean>
+  </XDtEjbMdb:forAllMDBeans>
+
+</jonas-ejb-jar>

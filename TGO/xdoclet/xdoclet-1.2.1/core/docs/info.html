@@ -1,0 +1,52 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - JBoss</TITLE>
+<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 4.0">
+<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>&lt;info/&gt; subtask</H2>
+<H3>info</H3>
+<P>This subtask of the document task is used to extract the contents of an
+arbitrarily chosen tag and generates a browsable HTML report.&nbsp;The generated
+HTML has the same L&amp;F as Javadoc or Ant's JUnitReport. It was designed to
+generate a report of @todo tags in classes and methods, but can be used for any
+tag you want.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD VALIGN="top"><B>Attribute</B></TD>
+    <TD VALIGN="top"><B>Description</B></TD>
+    <TD VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">header</TD>
+    <TD VALIGN="top">A String describing what kind of information the generated
+      report represents. The value of this attribute will figure in the header
+      of the generated HTML, and is not used for anything else.</TD>
+    <TD VALIGN="top">No. Default is &quot;Todo List&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">projectname</TD>
+    <TD VALIGN="top">The name of the project. Like the type attribute, this is
+      only used in the generated HTML.</TD>
+    <TD VALIGN="top">No, default is the name specified in the project element of
+      the build file</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">tag</TD>
+    <TD VALIGN="top">Name of the tag to look for (without the @).</TD>
+    <TD VALIGN="top">No. Default is &quot;todo&quot;.</TD>
+  </TR>
+</TABLE>
+<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+<P>Whatever tag that was passed to the tag attribute of this sub task.</P>
+<H3><A NAME="class-level-tags">Method level Tags</A></H3>
+<P>Whatever tag that was passed to the tag attribute of this sub task.</P>
+
+</BODY>
+
+</HTML>

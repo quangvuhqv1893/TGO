@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="XDoclet" href="http://xdoclet.sourceforge.net/">
+    <title>XDoclet: Attribute-Oriented Programming</title>
+    <body>
+        <links>
+            <item name="Home Page"                  href="http://xdoclet.sourceforge.net/"/>
+            <item name="SourceForge Project Page"   href="http://sourceforge.net/projects/xdoclet/"/>
+            <item name="Browse CVS"                 href="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xdoclet/"/>
+            <item name="Create an Issue"            href="http://opensource.atlassian.com/projects/xdoclet/secure/CreateIssue!default.jspa"/>
+        </links>
+        <menu name="XDoclet">
+            <item name="Overview"                   href="/index.html"/>
+            <item name="News and Status"            href="/status.html"/>
+            <item name="Download/Installation"      href="/install.html"/>
+            <item name="Using XDoclet"              href="/using.html"/>
+            <item name="Best Practices"             href="/bp.html"/>
+            <item name="FAQ"                        href="/faq.html"/>
+            <item name="License"                    href="/licenses/xdoclet-license.html"/>
+        </menu>
+        <search/>
+        <menu name="Ant Task Reference">
+            <item name="&lt;ejbdoclet .. /&gt;"       href="/ant/xdoclet/modules/ejb/EjbDocletTask.html"/>
+            <item name="&lt;webdoclet .. /&gt;"       href="/ant/xdoclet/modules/web/WebDocletTask.html"/>
+            <item name="&lt;hibernatedoclet .. /&gt;" href="/ant/xdoclet/modules/hibernate/HibernateDocletTask.html"/>
+            <item name="&lt;mockdoclet .. /&gt;"      href="/ant/xdoclet/modules/mockobjects/MockObjectDocletTask.html"/>
+            <item name="&lt;jdodoclet .. /&gt;"       href="/ant/xdoclet/modules/jdo/JdoDocletTask.html"/>
+            <item name="&lt;jmxdoclet .. /&gt;"       href="/ant/xdoclet/modules/jmx/JMXDocletTask.html"/>
+            <item name="&lt;portletdoclet .. /&gt;"   href="/ant/xdoclet/modules/portlet/PortletDocletTask.html"/>
+            <item name="&lt;doclet .. /&gt;"          href="/ant/xdoclet/DocletTask.html"/>
+        </menu>
+        <menu name="Tag Reference">
+            <item name="apache (@soap @struts)"     href="/tags/apache-tags.html"/>
+            <item name="bea (@weblogic)"            href="/tags/bea-tags.html"/>
+            <item name="borland (@bes)"             href="/tags/borland-tags.html"/>
+            <item name="caucho (@resin)"            href="/tags/caucho-tags.html"/>
+            <item name="ejb (@ejb @dao)"            href="/tags/ejb-tags.html"/>
+            <item name="exolab (@castor)"           href="/tags/exolab-tags.html"/>
+            <item name="hp (@hpas)"                 href="/tags/hp-tags.html"/>
+            <item name="hibernate (@hibernate)"     href="/tags/hibernate-tags.html"/>
+            <item name="ibm (@websphere)"           href="/tags/ibm-tags.html"/>
+            <item name="java (@javabean)"           href="/tags/java-tags.html"/>
+            <item name="jboss (@jboss)"             href="/tags/jboss-tags.html"/>
+            <item name="jdo (@jdo)"                 href="/tags/jdo-tags.html"/>
+            <item name="jmx (@jmx)"                 href="/tags/jmx-tags.html"/>
+            <item name="macromedia (@jrun)"         href="/tags/macromedia-tags.html"/>
+            <item name="mockobjects (@mock)"        href="/tags/mockobjects-tags.html"/>
+            <item name="mvcsoft (@mvcsoft)"         href="/tags/mvcsoft-tags.html"/>
+            <item name="mx4j (@mx4j)"               href="/tags/mx4j-tags.html"/>
+            <item name="objectweb (@jonas)"         href="/tags/objectweb-tags.html"/>
+            <item name="oracle (@oc4j)"             href="/tags/oracle-tags.html"/>
+            <item name="orion (@orion)"             href="/tags/orion-tags.html"/>
+            <item name="portlet (@portlet)"         href="/tags/portlet-tags.html"/>
+            <item name="pramati (@pramati)"         href="/tags/pramati-tags.html"/>
+            <item name="sun (@sunone)"              href="/tags/sun-tags.html"/>
+            <item name="sybase (@easerver)"         href="/tags/sybase-tags.html"/>
+            <item name="tjdo (@tjdo)"               href="/tags/tjdo-tags.html"/>
+            <item name="web (@web @jsp)"            href="/tags/web-tags.html"/>
+            <item name="webwork (@webwork)"         href="/tags/webwork-tags.html"/>
+            <item name="xdoclet (@xdoclet @doc)"    href="/tags/xdoclet-tags.html"/>
+        </menu>
+        <menu name="Feature Documentation">
+            <item name="Using Value Objects"        href="/valueobjects.html"/>
+        </menu>
+        <menu name="Advanced">
+            <item name="Maven Plug-in"              href="/maven-plugin.html"/>
+            <item name="Merge Points"               href="/merge.html"/>
+            <item name="IDE Integration"            href="/ide/index.html"/>
+            <item name="Migration from EJBDoclet"   href="/migration.html"/>
+            <item name="Ant 1.5 Troubleshooting"    href="/ant15.html"/>
+        </menu>
+        <menu name="Community">
+            <item name="Feedback"                   href="/feedback.html"/>
+            <item name="Resources"                  href="/resources.html"/>
+            <item name="Tools"                      href="/tools.html"/>
+        </menu>
+        <menu name="Development">
+            <item name="Developer Guide"            href="/development/index.html"/>
+            <item name="Javadoc (API)"              href="/api/index.html"/>
+            <item name="Template Language (*.xdt)"  href="/templates/index.html"/>
+            <item name="XJavaDoc Site"              href="http://xdoclet.sourceforge.net/xjavadoc/"/>
+        </menu>
+    </body>
+</project>

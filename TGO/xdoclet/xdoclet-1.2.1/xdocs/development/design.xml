@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>XDoclet 2 Design</title>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+    <body>
+        <section name="XDoclet 2 Design">
+            <p>
+                THIS DOCUMENT IS OBSOLETE; FOR MORE INFORMATION ON XDOCLET2, CHECK <a href="http://xdoclet.codehaus.org/">http://xdoclet.codehaus.org</a>.
+            </p>
+            <p>
+                This document is a proposal for the <b>XDoclet 2 design</b>. This version is
+                a complete rewrite and will probably break compatibility with older versions and source
+                files using wrongly formatted tags.
+            </p>
+            <p>
+                Please take note that modules are now named <b>plug-ins</b>.
+            </p>
+            <p>
+                For more up-to-date details about the new XDoclet 2 architecture, check out the
+                <a href="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xdoclet/xdoclet2/">xdoclet2</a> CVS module.
+            </p>
+            <subsection name="Goals">
+                <p>
+                    General:
+                    <ul>
+                        <li>Major performance improvements</li>
+                        <li>Simple API for writing plug-ins (less bound to the core)</li>
+                        <li>Unit tests, unit tests, unit tests. Did I mention unit tests?</li>
+                        <li>Use Jelly for generation of XML, Velocity for generation of Java and other miscellaneous files.</li>
+                        <li>Tag validation and warnings about missing or incorrect tags</li>
+                    </ul>
+
+                    Standards support:
+                    <ul>
+                        <li><a href="http://www.onjava.com/pub/a/onjava/2002/08/14/ejb21.html">EJB 2.1</a></li>
+                        <li>Servlet 2.4 and JSP 2.0</li>
+                    </ul>
+
+                    EJB-JAR Plug-in:
+                    <ul>
+                        <li>New tag (supported in multiple plug-ins): @ejb.bean read-only="true"</li>
+                        <li>getValue() and setValue() are generated in the CMP class when @ejb.value-object is used</li>
+                        <li>@ejb.value-object name="..." is optional (defaults to @ejb.bean name="..." + "Value")</li>
+                    </ul>
+
+                    Build process:
+                    <ul>
+                        <li>Build process fully integrated with Maven</li>
+                        <li>Use XDoclet without Ant</li>
+                        <li><a href="http://cruisecontrol.sourceforge.net/">CruiseControl</a> or 
+                            <a href="http://www.urbancode.com/projects/anthill/default.jsp">AntHill</a> for continuous integration
+                            and hourly builds.</li>
+                    </ul>
+
+                    Plug-ins:
+                    <ul>
+                        <li>Maven Plug-in</li>
+                        <li>Eclipse Plug-in</li>
+                        <li>IDEA Plug-in</li>
+                    </ul>
+
+                    Generated sources:
+                    <ul>
+                        <li>Generation of a Session Facade</li>
+                        <li>Generation of a Message Facade</li>
+                        <li>Generation of JUnit Tests and Mock objects</li>
+                        <li>Generation of Business Delegates</li>
+                    </ul>
+
+                    Documentation:
+                    <ul>
+                       <li>Full merge point documentation</li>
+                       <li>Improved Tag Reference</li>
+                       <li>UML documentation</li>
+                       <li>XDoclet 1.2 to 2.0 Migration guide</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Deprecated and Removed">
+                <ul>
+                    <li><b>NO</b> more support for EJB 1.0 and 1.1, use XDoclet 1.2 for this</li>
+                    <li><b>NO</b> more support for HPAS (HP discontinued it)</li>
+                    <li><b>@ejb.aggregate</b> is removed in favor of @ejb.value-object</li>
+                    <li><b>@ejb.data-object</b> is removed in favor of @ejb.value-object</li>
+                    <li><b>@ejb.persistent-field</b> is deprecated in favor of @ejb.persistence (a warning is printed to the console)</li>
+                    <li><b>@ejb.use-soft-locking</b> is removed (was only valid for EJB 1.0 and 1.1 beans)</li>
+                    <li>All deprecated methods in XDoclet 1.2 are now removed</li>
+                </ul>
+            </subsection>
+            <subsection name="Template System">
+                <p>
+                    XDoclet is validly criticized for its template system.
+                    Unfortunately there were neither Velocity nor Jelly
+                    available in that old times when I was finalizing the
+                    template system. Velocity was still a v0.4. So the very tag-
+                    is but simple template system was born. It served pretty
+                    well but now that the templates are becoming more and more
+                    complex it proves to be the Achilles heel of XDoclet. So
+                    we're throwing it away in 2.0 and introducing a new Template
+                    Abstraction Layer, so you'll be able to write the templates
+                    in Velocity or Jelly or whatever.
+                </p>
+            </subsection>
+            <subsection name="XRAI">
+                <p>
+                    Fascinating idea from Ara. You might already know that .Net
+                    provides a runtime-based system for accessing attributes
+                    (@tags), so you can simply do something like
+                    anobj.getClass().getAttribute("ejb.bean") for example,
+                    whereas in java you read an xml file, and XDoclet is a
+                    compile time system which reads attributes. JSR 175 works on
+                    a runtime system, but for now what do you think about a
+                    simple simulation of a runtime attribute access API? So the
+                    idea behind XRAI is a post-proccessor ant task which reads
+                    source code and modifies the compiled classes with BCEL and
+                    injects some static fields to classes. It injects things
+                    like private static final Attribute[] attributes = new
+                    Attribute[]{new Attribute("ejb.bean", ...)} and with a
+                    naming convention for method level tags too. You'll be able
+                    to access the tags with an API like this:
+                    AClass.getAttribute("ejb.bean").
+                    <a href="../mail-lists.html">Ideas</a>?
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

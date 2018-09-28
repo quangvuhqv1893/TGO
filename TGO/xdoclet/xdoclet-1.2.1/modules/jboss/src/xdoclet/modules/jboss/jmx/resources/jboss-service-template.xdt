@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<service>
+
+<XDtClass:forAllClasses>
+  <XDtClass:ifClassTagValueEquals tagName="jboss.service" paramName="servicefile" value="<XDtConfig:configParameterValue paramName='servicefile'/>">
+
+  <XDtClass:forAllClassTags tagName="jboss.service">
+  <XDtClass:ifHasClassTag tagName="jboss.service" paramName="classpath">
+  <classpath codebase="<XDtClass:classTagValue tagName="jboss.service" paramName="classpath"/>"
+      <XDtClass:ifHasClassTag tagName="jboss.service" paramName="archives">
+             archives="<XDtClass:classTagValue tagName="jboss.service" paramName="archives"/>"
+      </XDtClass:ifHasClassTag>
+      <XDtClass:ifDoesntHaveClassTag tagName="jboss.service" paramName="archives">
+             archives="*"
+      </XDtClass:ifDoesntHaveClassTag>
+      />
+  </XDtClass:ifHasClassTag>
+  </XDtClass:forAllClassTags>
+  <mbean code="<XDtClass:fullClassName/>"
+         name="<XDtClass:classTagValue tagName="jmx.mbean" paramName="name"/>"
+         <XDtClass:ifHasClassTag tagName="jboss:xmbean">xmbean-dd="<XDtPackage:packageNameAsPath/>/<XDtClass:className/>.xml"</XDtClass:ifHasClassTag>>
+  <XDtClass:ifHasClassTag tagName="jmx.mbean" paramName="description">
+    <!--<XDtClass:classTagValue tagName="jmx.mbean" paramName="description"/>-->
+  </XDtClass:ifHasClassTag>
+  <XDtConstructor:forAllConstructors>
+      <XDtConstructor:ifConstructorTagValueEquals tagName="jmx.managed-constructor" paramName="servicefile" value="<XDtConfig:configParameterValue paramName='servicefile'/>">
+        <constructor>
+          <XDtConstructor:forAllConstructorTags tagName="jmx.managed-parameter">
+            <arg type="<XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="type"/>" value="<XDtConstructor:constructorTagValue tagName="jmx.managed-parameter" paramName="value"/>"/>
+          </XDtConstructor:forAllConstructorTags>
+        </constructor>
+      </XDtConstructor:ifConstructorTagValueEquals>
+  </XDtConstructor:forAllConstructors>
+  <XDtProperty:forAllPropertiesWithTag superclasses="<XDtClass:classTagValue tagName='jmx.mbean' paramName='superclasses' default='true'/>" tagName="jmx.managed-attribute">
+    <XDtProperty:ifHasParamWithTag tagName="jmx.managed-attribute" paramName="value">
+      <XDtType:ifIsNotOfType value="return-type" type="javax.management.ObjectName">
+    <!--Attribute <XDtMethod:methodNameWithoutPrefix/>, type <XDtProperty:propertyTypeWithTag tagName="jmx.managed-attribute"/>, <XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="description" default="(no description)"/>-->
+    <attribute name="<XDtMethod:methodNameWithoutPrefix/>"><XDtMethod:methodTagValue tagName="jmx.managed-attribute" paramName="value"/></attribute>
+      </XDtType:ifIsNotOfType>
+      <XDtType:ifIsOfType value="return-type" type="javax.management.ObjectName">
+    <!--Mbean dependency <XDtMethod:methodNameWithoutPrefix/>, <XDtProperty:paramValueWithTag tagName="jmx.managed-attribute" paramName="description" default="(no description)"/>-->
+    <depends optional-attribute-name="<XDtMethod:methodNameWithoutPrefix/>"><XDtMethod:ifHasMethodTag tagName="jmx.managed-attribute" paramName="value"><XDtMethod:methodTagValue tagName="jmx.managed-attribute" paramName="value"/></XDtMethod:ifHasMethodTag></depends>
+      </XDtType:ifIsOfType>
+    </XDtProperty:ifHasParamWithTag>
+  </XDtProperty:forAllPropertiesWithTag>
+  <XDtClass:forAllClassTags tagName="jboss.depends">
+    <depends><XDtClass:classTagValue tagName="jboss.depends" paramName="object-name"/></depends>
+  </XDtClass:forAllClassTags>
+  </mbean>
+
+  </XDtClass:ifClassTagValueEquals>
+</XDtClass:forAllClasses>
+
+<XDtMerge:merge file="jboss-service.ent" generateMergedFile="false">
+  <!--
+  To use non XDoclet mbeans, create a jboss-service.ent file that
+  contains the additional mbeans and place it in your
+  project's merge dir.
+  -->
+</XDtMerge:merge>
+
+
+</service>

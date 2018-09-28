@@ -1,0 +1,364 @@
+/*
+ * <XDtI18n:getString resource="do_not_edit"/>
+ */
+package <XDtPackage:packageOf><XDtJavaBean:beanClass/></XDtPackage:packageOf>;
+
+import java.awt.Image;
+import java.beans.BeanDescriptor;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.beans.ParameterDescriptor;
+import java.beans.MethodDescriptor;
+import java.beans.SimpleBeanInfo;
+import java.lang.reflect.Method;
+import java.util.ResourceBundle;
+import java.util.Vector;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.java.javabean.XDocletModulesJavabeanMessages" resource="beaninfo_for" arguments="<XDtClass:className/>"/>
+ */
+public class <XDtClass:classOf><XDtJavaBean:beanClass/>BeanInfo</XDtClass:classOf> extends SimpleBeanInfo
+{
+   /** Description of the Field */
+   protected BeanDescriptor bd = new BeanDescriptor(<XDtJavaBean:beanClass/>.class<XDtClass:ifHasClassTag tagName="javabean.class" paramName="customizer" superclasses="false">, <XDtClass:classTagValue tagName="javabean.class" paramName="customizer"/>.class</XDtClass:ifHasClassTag>);
+   /** Description of the Field */
+   protected Image iconMono16<XDtClass:ifHasClassTag tagName="javabean.icons" paramName="mono16" superclasses="false"> = loadImage("<XDtClass:classTagValue tagName="javabean.icons" paramName="mono16"/>")</XDtClass:ifHasClassTag>;
+   /** Description of the Field */
+   protected Image iconColor16<XDtClass:ifHasClassTag tagName="javabean.icons" paramName="color16" superclasses="false"> = loadImage("<XDtClass:classTagValue tagName="javabean.icons" paramName="color16"/>")</XDtClass:ifHasClassTag>;
+   /** Description of the Field */
+   protected Image iconMono32<XDtClass:ifHasClassTag tagName="javabean.icons" paramName="mono32" superclasses="false"> = loadImage("<XDtClass:classTagValue tagName="javabean.icons" paramName="mono32"/>")</XDtClass:ifHasClassTag>;
+   /** Description of the Field */
+   protected Image iconColor32<XDtClass:ifHasClassTag tagName="javabean.icons" paramName="color32" superclasses="false"> = loadImage("<XDtClass:classTagValue tagName="javabean.icons" paramName="color32"/>")</XDtClass:ifHasClassTag>;
+   <XDtConfig:ifConfigParamEquals paramName="i18n" value="true">
+   /** Description of the Field */
+   private final static ResourceBundle res = ResourceBundle.getBundle("<XDtJavaBean:beanClass/>BeanInfo");
+   </XDtConfig:ifConfigParamEquals>
+
+
+   /** Constructor for the <XDtClass:classOf><XDtJavaBean:beanClass/></XDtClass:classOf>BeanInfo object */
+   public <XDtClass:classOf><XDtJavaBean:beanClass/></XDtClass:classOf>BeanInfo() throws java.beans.IntrospectionException
+   {
+   	// setup bean descriptor in constructor. 
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="name" superclasses="false">
+       bd.setName("<XDtClass:classTagValue tagName="javabean.class" paramName="name"/>");
+       </XDtClass:ifHasClassTag>
+
+       <XDtConfig:ifConfigParamEquals paramName="i18n" value="true">
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="displayName" superclasses="false">
+       bd.setDisplayName(res.getString("bean.displayName"));
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="shortDescription" superclasses="false">
+       bd.setShortDescription(res.getString("bean.shortDescription"));
+       </XDtClass:ifHasClassTag>
+       </XDtConfig:ifConfigParamEquals>
+      
+       <XDtConfig:ifConfigParamNotEquals paramName="i18n" value="true">
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="displayName" superclasses="false">bd.setDisplayName("<XDtClass:classTagValue tagName="javabean.class" paramName="displayName"/>");</XDtClass:ifHasClassTag>
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="shortDescription" superclasses="false">bd.setShortDescription("<XDtClass:classTagValue tagName="javabean.class" paramName="shortDescription"/>");</XDtClass:ifHasClassTag>
+       </XDtConfig:ifConfigParamNotEquals>
+
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="expert" superclasses="false">
+       bd.setExpert(<XDtClass:classTagValue tagName="javabean.class" paramName="expert" values="true,false"/>);
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="hidden" superclasses="false">
+       bd.setHidden(<XDtClass:classTagValue tagName="javabean.class" paramName="hidden" values="true,false"/>);
+       </XDtClass:ifHasClassTag>
+       <XDtClass:ifHasClassTag tagName="javabean.class" paramName="preferred" superclasses="false">
+       bd.setPreferred(<XDtClass:classTagValue tagName="javabean.class" paramName="preferred" values="true,false"/>);
+       </XDtClass:ifHasClassTag>
+
+       <XDtClass:forAllClassTags tagName="javabean.attribute" superclasses="false">
+       <XDtClass:ifClassTagValueEquals tagName="javabean.attribute" paramName="rtexpr" superclasses="false" value="true">
+       bd.setValue("<XDtClass:classTagValue tagName="javabean.attribute" paramName="name"/>",<XDtClass:classTagValue tagName="javabean.attribute" paramName="value"/>);
+       </XDtClass:ifClassTagValueEquals>
+       <XDtClass:ifClassTagValueNotEquals tagName="javabean.attribute" paramName="rtexpr" superclasses="false" value="true">
+       bd.setValue("<XDtClass:classTagValue tagName="javabean.attribute" paramName="name"/>","<XDtClass:classTagValue tagName="javabean.attribute" paramName="value"/>");
+       </XDtClass:ifClassTagValueNotEquals>
+       </XDtClass:forAllClassTags>
+
+ 
+       BeanInfo info = Introspector.getBeanInfo(getBeanDescriptor().getBeanClass().getSuperclass());
+       String order = info.getBeanDescriptor().getValue("propertyorder") == null ? "" : (String) info.getBeanDescriptor().getValue("propertyorder");
+       PropertyDescriptor[] pd = getPropertyDescriptors();
+       for (int i = 0; i != pd.length; i++)
+       {
+          if (order.indexOf(pd[i].getName()) == -1)
+          {
+             order = order + (order.length() == 0 ? "" : ":") + pd[i].getName();
+          }
+       }
+       getBeanDescriptor().setValue("propertyorder", order);
+   }
+
+
+   /**
+    * Gets the additionalBeanInfo
+    *
+    * @return   The additionalBeanInfo value
+    */
+   public BeanInfo[] getAdditionalBeanInfo()
+   {
+      Vector bi = new Vector();
+      BeanInfo[] biarr = null;
+      try
+      {
+         <XDtClass:ifHasClassTag tagName="javabean.class" paramName="stopClass" superclasses="false">
+         for (Class cl = <XDtJavaBean:beanClass/>.class.getSuperclass(); !cl.equals(<XDtClass:classTagValue tagName="javabean.class" paramName="stopClass"/>.class.getSuperclass()); cl = cl.getSuperclass()) {
+            bi.addElement(Introspector.getBeanInfo(cl));
+         }
+         biarr = new BeanInfo[bi.size()];
+         bi.copyInto(biarr);
+         </XDtClass:ifHasClassTag>
+      }
+      catch (Exception e)
+      {
+         // Ignore it
+      }
+      return biarr;
+   }
+
+
+   /**
+    * Gets the beanDescriptor
+    *
+    * @return   The beanDescriptor value
+    */
+   public BeanDescriptor getBeanDescriptor()
+   {
+      
+      return bd;
+   }
+
+
+   /**
+    * Gets the defaultPropertyIndex
+    *
+    * @return   The defaultPropertyIndex value
+    */
+   public int getDefaultPropertyIndex()
+   {
+      String defName = "<XDtClass:classTagValue tagName="javabean.class" paramName="defaultProperty" default="" superclasses="false"/>";
+      if (defName.equals(""))
+      {
+         return -1;
+      }
+      PropertyDescriptor[] pd = getPropertyDescriptors();
+      for (int i = 0; i < pd.length; i++)
+      {
+         if (pd[i].getName().equals(defName))
+         {
+            return i;
+         }
+      }
+      return -1;
+   }
+
+
+   /**
+    * Gets the icon
+    *
+    * @param type  Description of the Parameter
+    * @return      The icon value
+    */
+   public Image getIcon(int type)
+   {
+      if (type == BeanInfo.ICON_COLOR_16x16)
+      {
+         return iconColor16;
+      }
+      if (type == BeanInfo.ICON_MONO_16x16)
+      {
+         return iconMono16;
+      }
+      if (type == BeanInfo.ICON_COLOR_32x32)
+      {
+         return iconColor32;
+      }
+      if (type == BeanInfo.ICON_MONO_32x32)
+      {
+         return iconMono32;
+      }
+      return null;
+   }
+
+
+   /**
+    * Gets the Property Descriptors
+    *
+    * @return   The propertyDescriptors value
+    */
+   public PropertyDescriptor[] getPropertyDescriptors() 
+   {
+      try
+      {
+         Vector descriptors = new Vector();
+         PropertyDescriptor descriptor = null;
+
+       <XDtMethod:forAllMethods superclasses="true">
+	 <XDtMethod:ifHasMethodTag tagName="javabean.property">
+         try
+         {
+            <XDtMethod:ifDoesntHaveMethodTag tagName="javabean.property" paramName="readOnly">
+            descriptor = new PropertyDescriptor("<XDtMethod:propertyName/>", <XDtJavaBean:beanClass/>.class);
+            </XDtMethod:ifDoesntHaveMethodTag>
+            
+            <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="readOnly">
+            descriptor = new PropertyDescriptor("<XDtMethod:propertyName/>", <XDtJavaBean:beanClass/>.class, "<XDtMethod:getterMethod/>", null);
+            </XDtMethod:ifHasMethodTag>
+         }
+         catch (IntrospectionException e)
+         {
+            descriptor = new PropertyDescriptor("<XDtMethod:propertyName/>", <XDtJavaBean:beanClass/>.class, "<XDtMethod:getterMethod/>", null);
+         }
+
+         <XDtConfig:ifConfigParamEquals paramName="i18n" value="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="displayName" superclasses="false">
+         descriptor.setDisplayName(res.getString("property.<XDtMethod:propertyName/>.displayName"));
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="shortDescription" superclasses="false">
+         descriptor.setShortDescription(res.getString("property.<XDtMethod:propertyName/>.shortDescription"));
+         </XDtMethod:ifHasMethodTag>
+         </XDtConfig:ifConfigParamEquals>
+         
+         <XDtConfig:ifConfigParamNotEquals paramName="i18n" value="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="displayName" superclasses="false">
+         descriptor.setDisplayName("<XDtMethod:methodTagValue tagName="javabean.property" paramName="displayName"/>");
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="shortDescription" superclasses="false">
+         descriptor.setShortDescription("<XDtMethod:methodTagValue tagName="javabean.property" paramName="shortDescription"/>");
+         </XDtMethod:ifHasMethodTag>
+         </XDtConfig:ifConfigParamNotEquals>
+
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="expert" superclasses="false">
+         descriptor.setExpert(<XDtMethod:methodTagValue tagName="javabean.property" paramName="expert" values="true,false"/>);
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="hidden" superclasses="false">
+         descriptor.setHidden(<XDtMethod:methodTagValue tagName="javabean.property" paramName="hidden" values="true,false"/>);
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="preferred" superclasses="false">
+         descriptor.setPreferred(<XDtMethod:methodTagValue tagName="javabean.property" paramName="preferred" values="true,false"/>);
+         </XDtMethod:ifHasMethodTag>
+
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="bound" superclasses="false">
+         descriptor.setBound(<XDtMethod:methodTagValue tagName="javabean.property" paramName="bound" values="true,false"/>);
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="constrained" superclasses="false">
+         descriptor.setConstrained(<XDtMethod:methodTagValue tagName="javabean.property" paramName="constrained" values="true,false"/>);
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.property" paramName="propertyEditor" superclasses="false">
+         descriptor.setPropertyEditorClass(Class.forName("<XDtMethod:methodTagValue tagName="javabean.property" paramName="propertyEditor"/>"));
+         </XDtMethod:ifHasMethodTag>
+
+         descriptors.add(descriptor);
+	 </XDtMethod:ifHasMethodTag>
+       </XDtMethod:forAllMethods>
+
+         return (PropertyDescriptor[]) descriptors.toArray(new PropertyDescriptor[descriptors.size()]);
+      }
+      catch (Exception e)
+      {
+         // do not ignore, bomb politely so use has chance to discover what went wrong...
+	 // I know that this is suboptimal solution, but swallowing silently is
+	 // even worse... Propose better solution! 
+	 e.printStackTrace();
+      }
+      return null;
+   }
+
+
+   /**
+    * Gets the methodDescriptors attribute ...
+    *
+    * @return   The methodDescriptors value
+    */
+   public MethodDescriptor[] getMethodDescriptors() {
+      Vector descriptors = new Vector();
+      MethodDescriptor descriptor = null;
+      Method[] m;
+      Method method;
+
+      try {
+         m = Class.forName("<XDtJavaBean:beanClass/>").getMethods();
+      } catch (ClassNotFoundException e) {
+         return new MethodDescriptor[0];
+      }
+
+      <XDtMethod:forAllMethods superclasses="false" sort="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.method">
+
+      method = null;
+      for (int j = 0; j != m.length; j++) {
+         if (m[j].getName().equals("<XDtMethod:methodName/>")) {
+            method = m[j];
+            break;
+         }
+      }
+
+      if (method != null) {
+         ParameterDescriptor[] pd = new ParameterDescriptor[method.getParameterTypes().length];
+         int pidx = 0;
+
+         <XDtMethod:ifHasMethodTag tagName="javabean.param">
+            <XDtMethod:forAllMethodTags tagName="javabean.param">
+
+         pd[pidx] = new ParameterDescriptor();
+         pd[pidx].setName("<XDtMethod:methodTagValue tagName="javabean.param" paramName="name"/>");
+         <XDtMethod:ifHasMethodTag tagName="javabean.param" paramName="propertyEditor">
+         pd[pidx].setValue("propertyeditor","<XDtMethod:methodTagValue tagName="javabean.param" paramName="propertyEditor"/>");
+         </XDtMethod:ifHasMethodTag>
+         <XDtConfig:ifConfigParamEquals paramName="i18n" value="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.param" paramName="displayName">
+         pd[pidx].setDisplayName(res.getString("method.<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>.<XDtMethod:methodTagValue tagName="javabean.param" paramName="name"/>.displayName"));
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.param" paramName="shortDescription">
+         pd[pidx].setShortDescription(res.getString("method.<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>.<XDtMethod:methodTagValue tagName="javabean.param" paramName="name"/>.shortDescription"));
+         </XDtMethod:ifHasMethodTag>
+         </XDtConfig:ifConfigParamEquals>
+         
+         <XDtConfig:ifConfigParamNotEquals paramName="i18n" value="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.param" paramName="displayName">
+         pd[pidx].setDisplayName("<XDtMethod:methodTagValue tagName="javabean.param" paramName="displayName"/>");
+         </XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.param" paramName="shortDescription">
+         pd[pidx].setShortDescription("<XDtMethod:methodTagValue tagName="javabean.param" paramName="setShortDescription"/>");
+         </XDtMethod:ifHasMethodTag>
+         </XDtConfig:ifConfigParamNotEquals>
+
+         pidx++;
+
+            </XDtMethod:forAllMethodTags>
+         </XDtMethod:ifHasMethodTag>
+
+         if (pidx == 0) {
+            descriptor = new MethodDescriptor(method);
+         } else {
+            descriptor = new MethodDescriptor(method, pd);
+         }
+         
+         descriptor.setName("<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>");
+         
+         <XDtConfig:ifConfigParamEquals paramName="i18n" value="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="displayName">descriptor.setDisplayName(res.getString("method.<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>.displayName"));</XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="shortDescription">descriptor.setDisplayName(res.getString("method.<XDtMethod:methodTagValue tagName="javabean.method" paramName="name"/>.shortDescription"));</XDtMethod:ifHasMethodTag>
+         </XDtConfig:ifConfigParamEquals>
+         
+         <XDtConfig:ifConfigParamNotEquals paramName="i18n" value="true">
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="displayName">descriptor.setDisplayName("<XDtMethod:methodTagValue tagName="javabean.method" paramName="displayName"/>");</XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="shortDescription">descriptor.setShortDescription("<XDtMethod:methodTagValue tagName="javabean.method" paramName="shortDescription"/>");</XDtMethod:ifHasMethodTag>
+         </XDtConfig:ifConfigParamNotEquals>
+
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="expert">descriptor.setExpert(<XDtMethod:methodTagValue tagName="javabean.method" paramName="expert" values="true,false"/>);</XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="hidden">descriptor.setHidden(<XDtMethod:methodTagValue tagName="javabean.method" paramName="hidden" values="true,false"/>);</XDtMethod:ifHasMethodTag>
+         <XDtMethod:ifHasMethodTag tagName="javabean.method" paramName="preferred">descriptor.setPreferred(<XDtMethod:methodTagValue tagName="javabean.method" paramName="preferred" values="true,false"/>);</XDtMethod:ifHasMethodTag>
+
+         descriptors.add(descriptor);
+      }
+
+         </XDtMethod:ifHasMethodTag>
+      </XDtMethod:forAllMethods>
+      
+      return (MethodDescriptor[]) descriptors.toArray(new MethodDescriptor[descriptors.size()]);
+   }
+}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>GUIDE</title>
+</head>
+<body>
+<h1>Wellcome GUIDE <span sec:authentication="name"></span></h1>
+
+<form action="#" th:action="@{/logout}" method="POST">
+    <button th:type="submit">Logout</button>
+</form>
+</body>
+</html>

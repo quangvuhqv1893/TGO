@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE weblogic-rdbms-jar PUBLIC "-//BEA Systems, Inc.//DTD WebLogic 6.0.0 EJB RDBMS Persistence//EN" "http://www.bea.com/servers/wls600/dtd/weblogic-rdbms20-persistence-600.dtd">
+
+<weblogic-rdbms-jar>
+   <weblogic-rdbms-bean>
+      <ejb-name>inherited/cmp/InheritedCMPSub</ejb-name>
+      <data-source-name>xdoclet.tests</data-source-name>
+      <table-name></table-name>
+
+      <weblogic-query>
+         <query-method>
+            <method-name>findByClassic</method-name>
+            <method-params>
+            </method-params>
+         </query-method>
+      </weblogic-query>
+   </weblogic-rdbms-bean>
+   <weblogic-rdbms-bean>
+      <ejb-name>inherited/cmp/InheritedCMPSuper</ejb-name>
+      <data-source-name>xdoclet.tests</data-source-name>
+      <table-name></table-name>
+
+      <weblogic-query>
+         <query-method>
+            <method-name>findByClassic</method-name>
+            <method-params>
+            </method-params>
+         </query-method>
+      </weblogic-query>
+   </weblogic-rdbms-bean>
+
+   <create-default-dbms-tables>False</create-default-dbms-tables>
+
+</weblogic-rdbms-jar>

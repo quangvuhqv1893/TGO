@@ -1,0 +1,118 @@
+/*
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="do_not_edit"/>
+ */
+package <XDtPackage:packageOf><XDtEjbPk:pkClass/></XDtPackage:packageOf>;
+
+/**
+ * <XDtI18n:getString bundle="xdoclet.modules.ejb.XDocletModulesEjbMessages" resource="primary_key_for" arguments="<XDtEjb:ejbName/>"/>
+<XDtClass:classCommentTags indent="0"/> */
+public class <XDtClass:classOf><XDtEjbPk:pkClass/></XDtClass:classOf>
+   extends <XDtEjbPk:extendsFrom/>
+   implements <XDtClass:ifDoesntHaveClassTag tagName="ejb:pk" paramName="implements">java.io.Serializable</XDtClass:ifDoesntHaveClassTag><XDtClass:ifHasClassTag tagName="ejb:pk" paramName="implements"><XDtClass:classTagValue tagName="ejb:pk" paramName="implements"/></XDtClass:ifHasClassTag>
+{
+
+  <XDtEjbPersistent:forAllPersistentFields superclasses="false" only-pk="true">
+   public <XDtMethod:methodType/> <XDtMethod:propertyName/>;
+  </XDtEjbPersistent:forAllPersistentFields>
+
+   public <XDtClass:classOf><XDtEjbPk:pkClass/></XDtClass:classOf>()
+   {
+   }
+
+  <XDtEjbPersistent:ifHasAtLeastOnePkField>
+   public <XDtClass:classOf><XDtEjbPk:pkClass/></XDtClass:classOf>( <XDtEjbPk:pkfieldList/> )
+   {
+     <XDtEjbPersistent:forAllPersistentFields superclasses="true" only-pk="true">
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+     </XDtEjbPersistent:forAllPersistentFields>
+   }
+  </XDtEjbPersistent:ifHasAtLeastOnePkField>
+
+  <XDtEjbPersistent:forAllPersistentFields superclasses="false" only-pk="true">
+   public <XDtMethod:methodType/> <XDtMethod:getterMethod/>()
+   {
+      return <XDtMethod:propertyName/>;
+   }
+  </XDtEjbPersistent:forAllPersistentFields>
+
+  <XDtEjbPersistent:forAllPersistentFields superclasses="false" only-pk="true">
+   public void <XDtMethod:setterMethod/>(<XDtMethod:methodType/> <XDtMethod:propertyName/>)
+   {
+      this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
+   }
+  </XDtEjbPersistent:forAllPersistentFields>
+
+   public int hashCode()
+   {
+      int _hashCode = 0;
+      <XDtEjbPersistent:forAllPersistentFields superclasses="true" only-pk="true">
+       <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+        <XDtType:ifIsNotPrimitiveArray value="<XDtMethod:methodType/>">
+         <XDtType:ifIsOfType type="boolean" value="<XDtMethod:methodType/>" extent="concrete-type">
+         _hashCode += this.<XDtMethod:propertyName/> ? 1 : 0;
+         </XDtType:ifIsOfType>
+         <XDtType:ifIsNotOfType type="boolean" value="<XDtMethod:methodType/>" extent="concrete-type">
+         _hashCode += (int)this.<XDtMethod:propertyName/>;
+         </XDtType:ifIsNotOfType>
+        </XDtType:ifIsNotPrimitiveArray>
+        <XDtType:ifIsPrimitiveArray value="<XDtMethod:methodType/>">
+         if (this.<XDtMethod:propertyName/> != null) _hashCode += this.<XDtMethod:propertyName/>.hashCode();	
+        </XDtType:ifIsPrimitiveArray>	
+       </XDtType:ifIsPrimitive>
+       <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+         if (this.<XDtMethod:propertyName/> != null) _hashCode += this.<XDtMethod:propertyName/>.hashCode();
+       </XDtType:ifIsNotPrimitive>
+      </XDtEjbPersistent:forAllPersistentFields>
+
+      return _hashCode;
+   }
+
+   public boolean equals(Object obj)
+   {
+      if( !(obj instanceof <XDtEjbPk:pkClass/>) )
+         return false;
+
+      <XDtEjbPk:pkClass/> pk = (<XDtEjbPk:pkClass/>)obj;
+      boolean eq = true;
+
+      if( obj == null )
+      {
+         eq = false;
+      }
+      else
+      {
+      <XDtClass:setMatchValue value="<XDtEjbPk:pkClass/>">
+      <XDtEjbPersistent:forAllPersistentFields superclasses="true" only-pk="true">
+       <XDtType:ifIsPrimitive value="<XDtMethod:methodType/>">
+         eq = eq && this.<XDtMethod:propertyName/> == pk.<XDtMethod:propertyName/>;
+       </XDtType:ifIsPrimitive>
+       <XDtType:ifIsNotPrimitive value="<XDtMethod:methodType/>">
+         if( this.<XDtMethod:propertyName/> != null )
+         {
+            eq = eq && this.<XDtMethod:propertyName/>.equals( pk.<XDtMethod:getterMethod/>() );
+         }
+         else  // this.<XDtMethod:propertyName/> == null
+         {
+            eq = eq && ( pk.<XDtMethod:getterMethod/>() == null );
+         }
+       </XDtType:ifIsNotPrimitive>
+      </XDtEjbPersistent:forAllPersistentFields>
+      </XDtClass:setMatchValue>
+      }
+
+      return eq;
+   }
+
+   /** @return String representation of this pk in the form of [.field1.field2.field3]. */
+   public String toString()
+   {
+      StringBuffer toStringValue = new StringBuffer("[.");
+        <XDtEjbPersistent:forAllPersistentFields superclasses="true" only-pk="true">
+         toStringValue.append(this.<XDtMethod:propertyName/>).append('.');
+      </XDtEjbPersistent:forAllPersistentFields>toStringValue.append(']');
+      return toStringValue.toString();
+   }
+
+  <XDtMerge:merge file="entitypk-custom.xdt">
+  </XDtMerge:merge>
+}

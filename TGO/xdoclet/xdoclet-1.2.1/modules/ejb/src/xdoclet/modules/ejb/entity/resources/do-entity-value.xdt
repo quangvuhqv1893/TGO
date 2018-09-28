@@ -1,0 +1,53 @@
+
+  /* begin value object */
+  <XDtEjbValueObj:forAllValueObjects>
+   private <XDtEjbValueObj:currentValueObjectClass/> <XDtEjbValueObj:currentValueObjectAttribute/> = null;
+
+   public <XDtEjbValueObj:valueMostSuperObjectClass/> get<XDtEjbValueObj:currentValueObjectAttribute/>()
+   {
+	  if( <XDtEjbValueObj:currentValueObjectAttribute/> == null )
+	  {
+          <XDtEjbValueObj:currentValueObjectAttribute/> = new <XDtEjbValueObj:currentValueObjectClass/>();
+	  }
+      <XDtMerge:merge file="xdoclet/modules/ejb/entity/resources/do-entity-value-instantiation.xdt">
+      </XDtMerge:merge>
+
+	 <XDtEjbPersistent:forAllPersistentFields valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+	 <XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+	 <XDtMethod:ifMethodTagValueEquals tagName="ejb:value-object" paramName="relation" value="external">
+	  <XDtEjbValueObj:currentValueObjectAttribute/>.<XDtMethod:setterMethod/>( <XDtMethod:getterMethod/>() );
+	 </XDtMethod:ifMethodTagValueEquals>
+	 </XDtMethod:ifHasMethod>
+	 </XDtEjbPersistent:forAllPersistentFields>
+
+	  return <XDtEjbValueObj:currentValueObjectAttribute/>;
+   }
+  </XDtEjbValueObj:forAllValueObjects>
+
+ <XDtEjbValueObj:forAllSuperSetValue>
+   public void set<XDtEjbValueObj:currentValueObjectAttribute/>( <XDtEjbValueObj:currentValueObjectClass/> valueHolder )
+   <XDtMethod:exceptionList method="set<XDtEjbValueObj:currentValueObjectAttribute/>"/>{
+	 <XDtEjbBmp:ifUseSoftLocking>
+	  if( getVersion() != valueHolder.getVersion() )
+		 throw new IllegalStateException( "Wrong version. Had " + getVersion() + ", got " + valueHolder.getVersion() );
+	 </XDtEjbBmp:ifUseSoftLocking>
+
+	  try
+	  {
+	  <XDtEjbPersistent:forAllPersistentFields not-pk="true" valueobject="<XDtEjbValueObj:currentValueObjectMatch/>">
+		<XDtEjbPk:ifIsNotPrimkeyField>
+		<XDtMethod:ifHasMethod name="<XDtMethod:setterMethod/>" parameters="<XDtMethod:methodType/>">
+		 <XDtMethod:setterMethod/>( valueHolder.<XDtMethod:getterMethod/>() );
+		</XDtMethod:ifHasMethod>
+		</XDtEjbPk:ifIsNotPrimkeyField>
+	  </XDtEjbPersistent:forAllPersistentFields>
+	  }
+	  catch (Exception e)
+	  {
+		 throw new javax.ejb.EJBException(e);
+	  }
+   }
+ </XDtEjbValueObj:forAllSuperSetValue>
+
+  /* end value object */
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jbosscmp-jdbc PUBLIC "-//JBoss//DTD JBOSSCMP-JDBC 3.0//EN" "http://www.jboss.org/j2ee/dtd/jbosscmp-jdbc_3_0.dtd">
+
+<jbosscmp-jdbc>
+   <defaults>
+     <datasource>java:/DefaultDS</datasource>
+     <datasource-mapping>Hypersonic SQL</datasource-mapping>
+   </defaults>
+
+   <enterprise-beans>
+
+      <entity>
+         <ejb-name>inherited/cmp/InheritedCMPSub</ejb-name>
+
+	  <!--
+	    To define load groups for this entity, write a file named
+		jbosscmp-jdbc-load-InheritedCMPSubBean.xml and put it in
+		your mergedir. Write it according to the following DTD slice:
+		<!ELEMENT load-groups (load-group+)>
+		<!ELEMENT load-group (load-group-name, description?, field-name+)>
+		<!ELEMENT load-group-name (#PCDATA)>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT field-name (#PCDATA)>
+		<!ELEMENT eager-load-group (#PCDATA)>
+		<!ELEMENT lazy-load-groups (load-group-name+)>
+	  -->
+
+      </entity>
+
+      <entity>
+         <ejb-name>inherited/cmp/InheritedCMPSuper</ejb-name>
+
+	  <!--
+	    To define load groups for this entity, write a file named
+		jbosscmp-jdbc-load-InheritedCMPSuperBean.xml and put it in
+		your mergedir. Write it according to the following DTD slice:
+		<!ELEMENT load-groups (load-group+)>
+		<!ELEMENT load-group (load-group-name, description?, field-name+)>
+		<!ELEMENT load-group-name (#PCDATA)>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT field-name (#PCDATA)>
+		<!ELEMENT eager-load-group (#PCDATA)>
+		<!ELEMENT lazy-load-groups (load-group-name+)>
+	  -->
+
+      </entity>
+
+   </enterprise-beans>
+
+</jbosscmp-jdbc>

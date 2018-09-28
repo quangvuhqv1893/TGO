@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!-- Define references to files containing common targets -->
+<!DOCTYPE project [
+    <!ENTITY modules-common SYSTEM "../modules-common.ent">
+]>
+
+<!-- the project element's name attribute will be used in the name of the module's jar file -->
+<project name="mockobjects" default="all">
+   <!-- Include the file containing common targets. -->
+   &modules-common;
+
+  <property name="mockobjects.sample.src" value="${basedir}/sample"/>
+  <property name="mockobjects.src" value="${basedir}/target/test"/>
+  <property name="mockobjects.sample.classes" value="${basedir}/target/classes"/>
+
+  <target name="test" depends="init" unless="no.prepare" description="Prepare src for compilation">
+    <mkdir dir="${mockobjects.src}"/>
+    <mkdir dir="${mockobjects.sample.classes}"/>
+
+    <path id="mockobjects.class.path">
+       <path refid="module.compile.class.path"/>
+       <pathelement location="${module.jar.file}"/>
+    </path>
+
+    <taskdef name="mockobjects" 
+             classname="xdoclet.modules.mockobjects.MockObjectDocletTask" 
+             classpathref="mockobjects.class.path"/>
+
+    <!-- MockDoclet task -->
+    <mockobjects destdir="${mockobjects.src}">
+
+      <!-- Process all src files -->
+      <fileset dir="${mockobjects.sample.src}"/>
+
+      <!-- Generate Mock Object classes -->
+      <mockobjects/>
+
+    </mockobjects>
+    
+    <javac srcdir="${mockobjects.sample.src};${mockobjects.src}"
+           destdir="${mockobjects.sample.classes}"
+           classpathref="mockobjects.class.path"/>
+
+  </target>
+
+  <target name="clean-mock" description="Clean up mock files">
+    <delete dir="${mockobjects.src}" />
+  </target>
+</project>

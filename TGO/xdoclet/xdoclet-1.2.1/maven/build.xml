@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<project name="XDocletMavenPlugin" default="plugin-jar" basedir=".">
+    <property name="xdoclet.root.dir" value="${basedir}/.."/>
+    <property file="${xdoclet.root.dir}/build.properties"/>
+    <property environment="env"/>
+
+    <!-- =================================================================== -->
+    <!-- Generates Jelly script for Maven                                    -->
+    <!-- =================================================================== -->
+    <target
+        name="jellyscript"
+        description="Generates the XDoclet Maven plugin"
+    >
+
+        <path id="doc.class.path">
+            <fileset dir="${lib.dir}">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${dist.lib.dir}">
+                <include name="**/*.jar" />
+            </fileset>
+        </path>
+
+        <taskdef
+            name="mavendoclet"
+            classname="xdoclet.DocletTask"
+            classpathref="doc.class.path"
+        />
+
+        <mkdir dir="${basedir}/target"/>
+
+        <mavendoclet destdir="${basedir}/target">
+
+            <fileset dir="${modules.all-src.dir}">
+                <exclude name="**/ModulesGrandBuilderTask.java"/>
+                <!-- exclude legacy wrappers -->
+                <exclude name="xdoclet/ejb/EjbDocletTask.java"/>
+                <exclude name="xdoclet/web/WebDocletTask.java"/>
+                <exclude name="xdoclet/jmx/JMXDocletTask.java"/>
+            </fileset>
+
+            <!-- fileset dir="${xdoclet.root.dir}/../xjavadoc/src">
+                <include name="xjavadoc/ant/XJavadocTask.java"/>
+            </fileset -->
+
+            <mavenplugin/>
+
+        </mavendoclet>
+
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Packages the plugin in a jar                                        -->
+    <!-- =================================================================== -->
+    <target name="plugin-jar" depends="jellyscript">
+
+        <copy todir="${basedir}/target">
+            <fileset dir="${basedir}">
+                <exclude name="build.xml"/>
+                <exclude name="target/**"/>
+            </fileset>
+            <filterset>
+                <filter token="XDOCLET_VERSION" value="${version}"/>
+                <filter token="XJAVADOC_VERSION" value="${xjavadoc.version}"/>
+            </filterset>
+        </copy>
+    
+        <mkdir dir="${dist.lib.dir}"/>
+
+        <jar
+            jarfile="${dist.lib.dir}/maven-xdoclet-plugin-${version}.jar">
+            <fileset dir="${basedir}/target">
+                <exclude name="build.xml"/>
+                <exclude name="README.txt"/>
+            </fileset>
+        </jar>
+        
+        <!-- Install the plugin if MAVEN_HOME is defined -->
+        <antcall target="install"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="install" if="env.MAVEN_HOME">
+        <copy file="${dist.lib.dir}/maven-xdoclet-plugin-${version}.jar" todir="${env.MAVEN_HOME}/plugins"/>
+		<mkdir dir="${env.MAVEN_HOME}/repository/xdoclet"/>
+        <copy  todir="${env.MAVEN_HOME}/repository/xdoclet/jars">
+			<fileset dir="${dist.lib.dir}">
+				<include name="xdoclet-*-${version}.jar"/>
+				<include name="xdoclet-${version}.jar"/>
+				<include name="xjavadoc-${xjavadoc.version}.jar"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${env.MAVEN_HOME}/repository/xjavadoc/jars"/>
+        <copy  file="${lib.dir}/xjavadoc-${xjavadoc.version}.jar" todir="${env.MAVEN_HOME}/repository/xjavadoc/jars"/>
+    </target>
+ 
+</project>

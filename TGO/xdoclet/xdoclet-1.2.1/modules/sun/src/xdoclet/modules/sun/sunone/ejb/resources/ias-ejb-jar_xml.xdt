@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName="Xmlencoding"/>"?>
+<!DOCTYPE ias-ejb-jar PUBLIC "<XDtXml:publicId/>" "<XDtXml:systemId/>">
+
+<!-- <XDtI18n:getString resource="generated_by_xdoclet"/> -->
+
+<ias-ejb-jar>
+  <enterprise-beans>
+<XDtEjb:forAllBeans>
+<XDtEjb:ifIsAConcreteEJBean>
+<XDtType:ifIsOfType type="javax.ejb.EntityBean,javax.ejb.SessionBean">
+<XDtType:ifIsOfType type="javax.ejb.SessionBean">
+    <session>
+</XDtType:ifIsOfType>
+<XDtType:ifIsOfType type="javax.ejb.EntityBean">
+    <entity>
+</XDtType:ifIsOfType>
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="guid">
+      <guid><XDtClass:classTagValue tagName="sunone.bean" paramName="guid"/></guid>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifDoesntHaveClassTag tagName="sunone.bean" paramName="guid">
+<XDtComment:comment>
+I don't know if we really need to generate this, but what the heck.
+</XDtComment:comment>
+      <guid><XDtSunONE:generateGUID/></guid>
+</XDtClass:ifDoesntHaveClassTag>
+      <pass-timeout><XDtClass:classTagValue tagName="sunone.bean" paramName="pass-timeout"/></pass-timeout>
+      <pass-by-value><XDtClass:classTagValue tagName="sunone.bean" paramName="pass-by-value"/></pass-by-value>
+<XDtType:ifIsOfType type="javax.ejb.SessionBean">
+      <session-timeout><XDtClass:classTagValue tagName="sunone.bean" paramName="session-timeout"/></session-timeout>
+</XDtType:ifIsOfType>
+<XDtType:ifIsOfType type="javax.ejb.EntityBean">
+<XDtClass:ifHasClassTag tagName="sunone.persistence-manager">
+      <persistence-manager>
+        <factory-class-name><XDtClass:classTagValue tagName="sunone.persistence-manager" paramName="factory-class-name"/></factory-class-name>
+<XDtClass:ifHasClassTag tagName="sunone.persistence-manager" paramName="properties-file-location">
+        <properties-file-location><XDtClass:classTagValue tagName="sunone.persistence-manager" paramName="properties-file-location"/></properties-file-location>
+</XDtClass:ifHasClassTag>
+      </persistence-manager>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.pool-manager">
+      <pool-manager>
+        <commit-option><XDtClass:classTagValue tagName="sunone.pool-manager" paramName="commit-option"/></commit-option>
+        <ready-pool-timeout><XDtClass:classTagValue tagName="sunone.pool-manager" paramName="ready-pool-timeout"/></ready-pool-timeout>
+        <ready-pool-maxsize><XDtClass:classTagValue tagName="sunone.pool-manager" paramName="ready-pool-maxsize"/></ready-pool-maxsize>
+        <free-pool-maxsize><XDtClass:classTagValue tagName="sunone.pool-manager" paramName="free-pool-maxsize"/></free-pool-maxsize>
+      </pool-manager>
+</XDtClass:ifHasClassTag>
+</XDtType:ifIsOfType>
+<XDtEjbRef:forAllEjbRefs>
+      <ejb-ref>
+        <ejb-ref-name><XDtEjbRef:ejbRefName/></ejb-ref-name>
+        <jndi-name><XDtEjbRef:ejbRefJndiName/></jndi-name>
+      </ejb-ref>
+</XDtEjbRef:forAllEjbRefs>
+<XDtClass:forAllClassTags tagName="ejb.resource-ref">
+      <resource-ref>
+        <res-ref-name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="res-ref-name"/></res-ref-name>
+        <jndi-name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="jndi-name"/></jndi-name>
+      </resource-ref>
+</XDtClass:forAllClassTags>
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="6.5">
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="transaction-manager-type">
+      <transaction-manager-type><XDtClass:classTagValue tagName="sunone.bean" paramName="transaction-manager-type"/></transaction-manager-type>
+</XDtClass:ifHasClassTag>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="failover-required">
+      <failover-required><XDtClass:classTagValue tagName="sunone.bean" paramName="failover-required"/></failover-required>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="iiop">
+      <iiop><XDtClass:classTagValue tagName="sunone.bean" paramName="iiop"/></iiop>
+</XDtClass:ifHasClassTag>
+<XDtType:ifIsOfType type="javax.ejb.SessionBean">
+    </session>
+</XDtType:ifIsOfType>
+<XDtType:ifIsOfType type="javax.ejb.EntityBean">
+    </entity>
+</XDtType:ifIsOfType>
+</XDtType:ifIsOfType>
+
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="6.5">
+<XDtType:ifIsOfType type="javax.ejb.MessageDrivenBean">
+    <message-driven>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="description">
+      <description><![CDATA[<XDtClass:classTagValue tagName="ejb.bean" paramName="description"/>]]></description>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifDoesntHaveClassTag tagName="ejb.bean" paramName="description">
+      <description><![CDATA[<XDtClass:firstSentenceDescription/>]]></description>
+</XDtClass:ifDoesntHaveClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="display-name">
+      <display-name><XDtClass:classTagValue tagName="ejb.bean" paramName="display-name"/></display-name>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="small-icon">
+      <small-icon><XDtClass:classTagValue tagName="ejb.bean" paramName="small-icon"/></small-icon>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="large-icon">
+      <large-icon><XDtClass:classTagValue tagName="ejb.bean" paramName="large-icon"/></large-icon>
+</XDtClass:ifHasClassTag>
+      <ejb-name><XDtEjb:ejbName/></ejb-name>
+      <ejb-class><XDtEjb:concreteFullClassName/></ejb-class>
+      <transaction-type><XDtClass:classTagValue tagName="ejb.bean" paramName="transaction-type" values="Container,Bean" default="Container"/></transaction-type>
+      <trans-attribute><XDtClass:classTagValue tagName="ejb.transaction" paramName="type"/></trans-attribute>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="message-selector">
+      <message-selector><XDtClass:classTagValue tagName="ejb.bean" paramName="message-selector"/></message-selector>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="acknowledge-mode">
+      <acknowledge-mode><XDtClass:classTagValue tagName="ejb.bean" paramName="acknowledge-mode" values="Auto-acknowledge,Dups-ok-acknowledge" default="Auto-acknowledge"/></acknowledge-mode>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="destination-type">
+      <message-driven-destination>
+        <destination-type><XDtClass:classTagValue tagName="ejb.bean" paramName="destination-type" values="javax.jms.Queue,javax.jms.Topic"/></destination-type>
+<XDtClass:ifHasClassTag tagName="ejb.bean" paramName="subscription-durability">
+        <subscription-durability><XDtClass:classTagValue tagName="ejb.bean" paramName="subscription-durability" values="Durable,NonDurable"/></subscription-durability>
+</XDtClass:ifHasClassTag>
+      </message-driven-destination>
+</XDtClass:ifHasClassTag>
+      <destination-name><XDtClass:classTagValue tagName="sunone.bean" paramName="destination-name"/></destination-name>
+<XDtMerge:merge file="ejb-env-entries-{0}.xml">
+<XDtClass:forAllClassTags tagName="ejb.env-entry">
+      <env-entry>
+<XDtClass:ifHasClassTag tagName="ejb.env-entry" paramName="description">
+        <description><![CDATA[<XDtClass:classTagValue tagName="ejb.env-entry" paramName="description"/>]]></description>
+</XDtClass:ifHasClassTag>
+        <env-entry-name><XDtClass:classTagValue tagName="ejb.env-entry" paramName="name"/></env-entry-name>
+<XDtClass:ifHasClassTag tagName="ejb.env-entry" paramName="type">
+        <env-entry-type><XDtClass:classTagValue tagName="ejb.env-entry" paramName="type" values="java.lang.Boolean,java.lang.String,java.lang.Character,java.lang.Integer,java.lang.Double,java.lang.Byte,java.lang.Short,java.lang.Long,java.lang.Float"/></env-entry-type>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifDoesntHaveClassTag tagName="ejb.env-entry" paramName="type">
+        <env-entry-type>java.lang.String</env-entry-type>
+</XDtClass:ifDoesntHaveClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.env-entry" paramName="value">
+        <env-entry-value><XDtClass:classTagValue tagName="ejb.env-entry" paramName="value"/></env-entry-value>
+</XDtClass:ifHasClassTag>
+      </env-entry>
+</XDtClass:forAllClassTags>
+</XDtMerge:merge>
+<XDtMerge:merge file="mdb-ejbrefs-{0}.xml">
+<XDtEjbRef:forAllEjbRefs>
+<XDtClass:ifDoesntHaveClassTag tagName="ejb.ejb-ref" paramName="view-type">
+      <mdb-ejb-ref>
+        <ejb-ref-name><XDtEjb:ejbRefName/></ejb-ref-name>
+        <ejb-ref-type><XDtEjb:beanType/></ejb-ref-type>
+        <home><XDtEjbHome:homeInterface type="remote"/></home>
+        <remote><XDtEjbIntf:componentInterface type="remote"/></remote>
+        <ejb-link><XDtClass:classTagValue tagName="ejb.ejb-ref" paramName="ejb-name"/></ejb-link>
+      </mdb-ejb-ref>
+</XDtClass:ifDoesntHaveClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.ejb-ref" paramName="view-type">
+<XDtClass:ifClassTagValueEquals tagName="ejb.ejb-ref" paramName="view-type" value="remote">
+      <mdb-ejb-ref>
+        <ejb-ref-name><XDtEjb:ejbRefName/></ejb-ref-name>
+        <ejb-ref-type><XDtEjb:beanType/></ejb-ref-type>
+        <home><XDtEjbHome:homeInterface type="remote"/></home>
+        <remote><XDtEjbIntf:componentInterface type="remote"/></remote>
+        <ejb-link><XDtClass:classTagValue tagName="ejb.ejb-ref" paramName="ejb-name"/></ejb-link>
+      </mdb-ejb-ref>
+</XDtClass:ifClassTagValueEquals>
+</XDtClass:ifHasClassTag>
+</XDtEjbRef:forAllEjbRefs>
+<XDtClass:forAllClassTags tagName="ejb.ejb-external-ref">
+<XDtClass:ifClassTagValueEquals tagName="ejb.ejb-external-ref" paramName="view-type" value="remote">
+      <mdb-ejb-ref>
+        <ejb-ref-name><XDtEjb:ejbExternalRefName/></ejb-ref-name>
+        <ejb-ref-type><XDtClass:classTagValue tagName="ejb.ejb-external-ref" paramName="type" values="Entity,Session"/></ejb-ref-type>
+        <home><XDtClass:classTagValue tagName="ejb.ejb-external-ref" paramName="home"/></home>
+<XDtClass:ifHasClassTag tagName="ejb.ejb-external-ref" paramName="remote">
+        <remote><XDtClass:classTagValue tagName="ejb.ejb-external-ref" paramName="remote"/></remote>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.ejb-external-ref" paramName="business">
+        <remote><XDtClass:classTagValue tagName="ejb.ejb-external-ref" paramName="business"/></remote>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.ejb-external-ref" paramName="link">
+        <ejb-link><XDtClass:classTagValue tagName="ejb.ejb-external-ref" paramName="link"/></ejb-link>
+</XDtClass:ifHasClassTag>
+      </mdb-ejb-ref>
+</XDtClass:ifClassTagValueEquals>
+</XDtClass:forAllClassTags>
+</XDtMerge:merge>
+<XDtClass:ifHasClassTag tagName="ejb.security-identity">
+      <security-identity>
+<XDtClass:ifHasClassTag tagName="ejb.security-identity" paramName="description">
+        <description><![CDATA[<XDtClass:classTagValue tagName="ejb.security-identity" paramName="description"/>]]></description>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.security-identity" paramName="use-caller-identity">
+        <use-caller-identity/>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.security-identity" paramName="run-as">
+        <run-as>
+<XDtClass:ifHasClassTag tagName="ejb.security-identity" paramName="description">
+          <description><![CDATA[<XDtClass:classTagValue tagName="ejb.security-identity" paramName="description"/>]]></description>
+</XDtClass:ifHasClassTag>
+          <role-name><XDtClass:classTagValue tagName="ejb.security-identity" paramName="run-as"/></role-name>
+        </run-as>
+</XDtClass:ifHasClassTag>
+      </security-identity>
+</XDtClass:ifHasClassTag>
+<XDtMerge:merge file="mdb-resourcerefs-{0}.xml">
+<XDtClass:forAllClassTags tagName="ejb.resource-ref">
+      <mdb-resource-ref>
+<XDtClass:ifHasClassTag tagName="ejb.resource-ref" paramName="res-name">
+        <res-ref-name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="res-name"/></res-ref-name>
+</XDtClass:ifHasClassTag>
+<XDtClass:ifHasClassTag tagName="ejb.resource-ref" paramName="res-ref-name">
+        <res-ref-name><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="res-ref-name"/></res-ref-name>
+</XDtClass:ifHasClassTag>
+        <res-type><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="res-type"/></res-type>
+        <res-auth><XDtClass:classTagValue tagName="ejb.resource-ref" paramName="res-auth"/></res-auth>
+      </resource-ref>
+</XDtClass:forAllClassTags>
+</XDtMerge:merge>
+<XDtMerge:merge file="ejb-resource-env-refs-{0}.xml">
+<XDtClass:forAllClassTags tagName="ejb.resource-env-ref">
+      <resource-env-ref>
+<XDtClass:ifHasClassTag tagName="ejb.resource-env-ref" paramName="description">
+        <description><![CDATA[<XDtClass:classTagValue tagName="ejb.resource-env-ref" paramName="description"/>]]></description>
+</XDtClass:ifHasClassTag>
+        <resource-env-ref-name><XDtClass:classTagValue tagName="ejb.resource-env-ref" paramName="name"/></resource-env-ref-name>
+        <resource-env-ref-type><XDtClass:classTagValue tagName="ejb.resource-env-ref" paramName="type"/></resource-env-ref-type>
+      </resource-env-ref>
+</XDtClass:forAllClassTags>
+</XDtMerge:merge>
+      <max-message-limit><XDtClass:classTagValue tagName="sunone.bean" paramName="max-message-limit"/></max-message-limit>
+<XDtClass:ifHasClassTag tagName="sunone.bean" paramName="durable-name">
+      <durable-name><XDtClass:classTagValue tagName="sunone.bean" paramName="durable-name"/></durable-name>
+</XDtClass:ifHasClassTag>
+      <max-mdb-pool-size><XDtClass:classTagValue tagName="sunone.bean" paramName="max-mdb-pool-size"/></max-mdb-pool-size>
+      <min-mdb-pool-size><XDtClass:classTagValue tagName="sunone.bean" paramName="min-mdb-pool-size"/></min-mdb-pool-size>
+    </message-driven>
+</XDtType:ifIsOfType>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+
+</XDtEjb:ifIsAConcreteEJBean>
+</XDtEjb:forAllBeans>
+  </enterprise-beans>
+
+<XDtMerge:merge file="sunone-role-mappings.ent">
+  <!--
+    To add any role mappings, add an Unparsed XML Entity file to your XDoclet
+    merge directory called sunone-role-mappings.ent that contains the
+    <role-mapping> elements.
+    <!ELEMENT role-mapping (role-name, role-impl)>
+    <!ELEMENT role-impl (group*, user*)>
+    N.B. This is an Unparsed XML Entity file, rather than an XML Document, since
+    if there are multiple mappings it will not be well-formed.
+  -->
+
+</XDtMerge:merge>
+<XDtConfig:ifConfigParamGreaterOrEquals paramName="Version" value="6.5">
+<XDtConfig:ifHasConfigParam paramName="TransactionManagerType">
+  <transaction-manager-type><XDtConfig:configParameterValue paramName="TransactionManagerType"/></transaction-manager-type>
+
+</XDtConfig:ifHasConfigParam>
+</XDtConfig:ifConfigParamGreaterOrEquals>
+</ias-ejb-jar>

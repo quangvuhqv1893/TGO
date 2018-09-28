@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Developer Guide</title>
+	</properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+	<body>
+		<section name="Developer Guide">
+		    <subsection name="New XDoclet Developer? Welcome!">
+		    	<p>
+		    		There are a variety of ways to participate. Regardless of how you choose to
+		    		participate, we suggest you to <a href="../mail-lists.html">join the mailing list</a>
+		    		first.
+				</p>
+				<p>
+					Feel the irresistible urge to write quality code? Then <a href="../mail-lists.html">join</a> the XDoclet
+					<a href="../team-list.html">project team</a> today (send an email to the xdoclet-devel mailing list)!
+				</p>
+			</subsection>
+            <subsection name="Coding Conventions">
+                <p>
+                    Below is a list of coding conventions that are specific to XDoclet, everything
+                    else not specifically mentioned here should follow the official
+                    <a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun Java Coding Conventions</a>.
+                </p>
+                <p>
+                    1. Brackets that begin and end classes and methods should begin and end on a new line and should exist even for one line statements.
+                </p>
+                <p>
+                    2. 4 space indent. <b>NO tabs</b>. Period. We understand that many developers like to use tabs, but
+                    the fact of the matter is that in a distributed development environment where diffs are sent to the
+                    mailing lists by both developers and the version control system (which sends commit log messages),
+                    the use tabs makes it impossible to preserve legibility.
+                </p>
+                <p>
+                    3. JavaDoc <b>MUST</b> exist on all methods. If your code modifications use an existing
+                    class/method/variable which lacks JavaDoc, it is required that you add it. This will improve the
+                    project as a whole.
+                </p>
+                <p>
+                    4. If you contribute to a file (code or documentation), add yourself to the authors list at the top
+                    of the file. Your sourceforge email address is preferred. Do not include the @ sign, as email spiders
+                    will put your email in spam lists. For java files the preferred Javadoc format is:
+                </p>
+                <source>@author &lt;a href="mailto:user at domain.com"&gt;John Doe&lt;/a&gt;</source>
+                <p>
+                    Thanks for your cooperation.
+                </p>
+            </subsection>
+			<subsection name="Further Reading">
+				<ul>
+                    <li><a href="architecture.html">Architecture</a></li>
+                    <li><a href="branches.html">Branches and Tags</a></li>
+					<li><a href="planning.html">Planning</a></li>
+				</ul>
+			</subsection>
+		</section>
+	</body>
+</document>

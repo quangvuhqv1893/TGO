@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>IDE Integration</title>
+        <author email="aslak.nospam@users.sf.net">Aslak Hellesoy</author>
+    </properties>
+
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+
+    <body>
+        <section name="IDE Integration">
+            <subsection name="IntelliJ IDEA">
+                <p>
+                    A set of live templates for <a href="http://www.intellij.com">IntelliJ IDEA</a>
+                    development environment are provided. Copy <a href="idea/xdoclet.xml">xdoclet.xml</a>
+                    (right click and use "Save Target As...") file to $idea$/config/templates folder. Here
+                    are the live templates:
+                </p>
+
+                <table>
+                    <tr>
+                        <td><b>Inside class comments</b></td>
+                    </tr>
+                    <tr>
+                        <td>ejb.cmp, ejb.bmp, ejb.sfsb, ejb.ssb, ejb.mdb, ejb.ejb-ref, ejb.env, ejb.finder, ejb.perm</td>
+                    </tr>
+                    <tr>
+                        <td><b>Inside both class and method comment</b></td>
+                    </tr>
+                    <tr>
+                        <td>ejb.sec, ejb.trans</td>
+                    </tr>
+                    <tr>
+                        <td><b>Inside class body</b></td>
+                    </tr>
+                    <tr>
+                        <td>ejb.intf, ejb.lintf, ejb.rintf, ejb.create, ejb.pf, ejb.pfg, ejb.pk</td>
+                    </tr>
+                </table>
+
+                <p>For example:</p>
+<source>
+/**
+ * |
+ */
+public abstract class MyStatelessSessionBean extends javax.ejb.SessionBean
+{
+}
+</source>
+
+                <p>And type ejb.slsb and hit tab, you'll get:</p>
+
+<source>
+/**
+ * @ejb.bean type=&quot;Stateless&quot;
+ *           name=&quot;MyStatelessSessionBean&quot;
+ *           jndi-name=&quot;ejb/MyStatelessSessionBean&quot;
+ */
+public abstract class MyStatelessSessionBean extends javax.ejb.SessionBean
+{
+}
+</source>
+            </subsection>
+        </section>
+    </body>
+</document>

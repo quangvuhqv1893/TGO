@@ -1,0 +1,311 @@
+<HTML>
+
+<HEAD>
+<TITLE>XDoclet - Struts</TITLE>
+<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 4.0">
+<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+</HEAD>
+
+<BODY BGCOLOR="#ffffff">
+
+<H2>Struts subtasks</H2>
+<H3>struts</H3>
+<P>The Struts subtasks include tasks to generate Forms from entity beans, and to
+generate struts-config.xml from Form and Action classes.</P>
+<H3><A NAME="strutsform">&lt;strutsform /&gt;</A></H3>
+<P>The <CODE>&lt;strutsform /&gt;</CODE> subtask is a subtask of the <A HREF="ejbdoclet.html"><CODE>&lt;ejbdoclet
+/&gt;</CODE></A> task. It processes all entity beans and generates struts form
+beans.
+<P>Form beans include getter and setter methods and also convenient bulk data
+setting methods (in form: <NOBR><CODE>&lt;DataObjectType&gt; getData()</CODE></NOBR>
+to return data object with only form fields set, and <NOBR><CODE>&lt;DataObjectType&gt;
+getData(&lt;DataObjectType&gt;)</CODE></NOBR> to merge form fields with actual
+EJB data)
+<P>Several forms can be defined for a single EJB, with different sets of
+properties. <CODE>validate</CODE> method of form beans shall be overriden with
+something more useful than default struts validation method.
+<P>PK fields are included by default, but can be excluded if necessary.
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD VALIGN="top"><B>Attribute</B></TD>
+    <TD VALIGN="top"><B>Description</B></TD>
+    <TD VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">destdir</TD>
+    <TD VALIGN="top">Base destination directory for the generated source code.</TD>
+    <TD VALIGN="top">No, default is destdir parameter of ejbdoclet task</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">pattern</TD>
+    <TD VALIGN="top">The pattern by which the form bean classes are named. {0}
+      designates the EJB name, {1} form bean name</TD>
+    <TD VALIGN="top">No, default is {0}{1}Form.</TD>
+  </TR>
+</TABLE>
+<H3><A NAME="strutsconfigxml">&lt;strutsconfigxml /&gt;</A></H3>
+<P>The <CODE>&lt;strutsconfigxml /&gt;</CODE> subtask is a subtask of the <A HREF="webdoclet.html"><CODE>&lt;webdoclet
+/&gt;</CODE></A> task. It parses the source directories for Action and Form
+classes that contain @struts: tags and generates a struts-config.xml based on
+that data. It also relies on merging for additional global config options.</P>
+<H4>Parameters</H4>
+<TABLE BORDER="1" CELLPADDING="7" CELLSPACING="0" WIDTH="100%">
+  <TR>
+    <TD VALIGN="top"><B>Attribute</B></TD>
+    <TD VALIGN="top"><B>Description</B></TD>
+    <TD VALIGN="top"><B>Required</B></TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">xmlencoding</TD>
+    <TD VALIGN="top">The encoding of the struts-config.xml file.</TD>
+    <TD VALIGN="top">No, default is &quot;UTF-8&quot;</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">destdir</TD>
+    <TD VALIGN="top">Destination directory for the struts-config file.</TD>
+    <TD VALIGN="top">No, default is destdir parameter of webdoclet task</TD>
+  </TR>
+  <TR>
+    <TD VALIGN="top">mergedir</TD>
+    <TD VALIGN="top">Merge directory where strutsconfig looks for files to be
+      merged with generated files.</TD>
+    <TD VALIGN="top">No, required, if the merge feature used</TD>
+  </TR>
+  <TR>
+    <TD>validateXml</TD>
+    <TD>Validates the generated xml file according to the DTD file contained
+      inside xdoclet.jar. Please note that the current support for Struts 1.1
+      beta is not complete. You have to put validateXml to <CODE>false</CODE> if
+      you use Struts 1.1 specific features (for example declarative exceptions).</TD>
+    <TD>No, default is false</TD>
+  </TR>
+</TABLE>
+<H4>Merge Points</H4>
+<DIV ALIGN="left">
+  <TABLE BORDER="1" WIDTH="100%" CELLSPACING="0" CELLPADDING="2">
+    <TR>
+      <TH WIDTH="20%" ALIGN="left"><B>Merge File Name</B></TH>
+      <TH ALIGN="left"><B>Description</B></TH>
+      <TH VALIGN="top"><B>Required</B></TH>
+    </TR>
+    <TR>
+      <TD>struts-forms.xml</TD>
+      <TD>The file where additional forms are defined.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD>global-forwards.xml</TD>
+      <TD>The file where the global forwards are defined.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD>global-exceptions.xml</TD>
+      <TD>The file where the global exceptions are defined.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+    <TR>
+      <TD>struts-actions.xml</TD>
+      <TD>The file where additional actions are defined.</TD>
+      <TD ALIGN="center" VALIGN="top">No</TD>
+    </TR>
+  </TABLE>
+</DIV>
+<H3><A NAME="class-level-tags">Class level Tags</A></H3>
+<H4><A NAME="action">@struts:action</A></H4>
+<P>Defines the action class and its attributes.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR>
+    <TD><I>path</I>: String</TD>
+    <TD>The Application-relative path of the submitted request,<BR>
+      starting with a &quot;/&quot; character, and without the<BR>
+      filename extension if extension mapping is used.<BR>
+      NOTE: Do *not* include a period in your path name,<BR>
+      because it will look like a filename extension and<BR>
+      cause your Action to not be located.</TD>
+  </TR>
+  <TR>
+    <TD><I>[name]</I>: String</TD>
+    <TD>Name of the form bean, if any, that is associated with this action.</TD>
+  </TR>
+  <TR>
+    <TD><I>[attribute]</I>: String</TD>
+    <TD>Name of the request-scope or session-scope attribute<BR>
+      under which our form bean is accessed, if it is other<BR>
+      than the bean's specified &quot;name&quot;. Optional if<BR>
+      &quot;name&quot; is specified, else not allowed.</TD>
+  </TR>
+  <TR>
+    <TD><I>[prefix]</I>: String</TD>
+    <TD>Prefix used to match request parameter names to form bean<BR>
+      property names, if any. Optional if &quot;name&quot; is specified,<BR>
+      else not allowed.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[suffix]</I>: String</TD>
+    <TD>Suffix used to match request parameter names to form bean<BR>
+      property names, if any. Optional if &quot;name&quot; is specified,<BR>
+      else not allowed.</TD>
+  </TR>
+  <TR>
+    <TD><I>[scope]</I>: &quot;request&quot; | &quot;session&quot;</TD>
+    <TD>Identifier of the scope (&quot;request&quot; or &quot;session&quot;)
+      within<BR>
+      which our form bean is accessed, if any. Optional if<BR>
+      &quot;name&quot; is specified, else not allowed.</TD>
+  </TR>
+  <TR>
+    <TD><I>[input]</I>: String</TD>
+    <TD>Application-relative path of the input form to which<BR>
+      control should be returned if a validation error is<BR>
+      encountered. Required if &quot;name&quot; is specified and the<BR>
+      input bean returns validation errors. Optional if &quot;name&quot;<BR>
+      is specified and the input bean does not return validation<BR>
+      errors. Not allowed if &quot;name&quot; is not specified.</TD>
+  </TR>
+  <TR>
+    <TD><I>[validate]</I>: &quot;true&quot; | &quot;false&quot;</TD>
+    <TD>Set to &quot;true&quot; if the validate() method of the form bean<BR>
+      should be called prior to calling this action, or set to<BR>
+      &quot;false&quot; if you do not want validation performed.</TD>
+  </TR>
+  <TR>
+    <TD><I>[parameter]</I>: String</TD>
+    <TD>General purpose configuration parameter that can be used<BR>
+      to pass extra information to the Action selected by this<BR>
+      mapping.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="action-forward">@struts:action-forward</A></H4>
+<P>Defines local forwards for a Struts action class.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>name</I>: String</TD>
+    <TD>Unique identifier of this forward, used to reference it<BR>
+      in application action classes.</TD>
+  </TR>
+  <TR>
+    <TD><I>path</I>: String</TD>
+    <TD>The application-relative or context-relative path of<BR>
+      the mapped resource (determined by the selected value<BR>
+      for the &quot;contextRelative&quot; attribute).</TD>
+  </TR>
+  <TR>
+    <TD><I>[redirect]</I>: String</TD>
+    <TD>Set to &quot;true&quot; if sendRedirect() should be used to forward<BR>
+      to this resource, or &quot;false&quot; in order to use<BR>
+      RequestDispatcher.forward() instead.</TD>
+  </TR>
+  <TR>
+    <TD><I>[className]</I>: String</TD>
+    <TD>Implementation subclass of the standard configuration<BR>
+      bean, if you do not want to use the standard value.<BR>
+      [org.apache.struts.action.ActionForward]</TD>
+  </TR>
+  <TR>
+    <TD><I>[contextRelative]</I>: String</TD>
+    <TD>Set to &quot;true&quot; if the path should be considered relative<BR>
+      to the entire web application, rather than prefixed with<BR>
+      the sub-application prefix, if it starts with a &quot;/&quot;.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="action-exception">@struts:action-exception</A></H4>
+<P>Defines a mapping of an exception that may occur during Action delegation and
+should be handled by the ActionServlet. <STRONG>Struts 1.1 only.</STRONG></P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+  </TR>
+  <TR>
+    <TD><I>[className]</I>: String</TD>
+    <TD>Implementation subclass of the standard configuration bean, if you do
+      not want to use the standard value.
+      [org.apache.struts.config.ExceptionConfig]</TD>
+  </TR>
+  <TR>
+    <TD><I>[handler]</I>: String</TD>
+    <TD>Fully qualified Java class name of the exception handler which should
+      handle this exception. [org.apache.struts.action.ExceptionHandler]</TD>
+  </TR>
+  <TR>
+    <TD><I>[key]</I>: String</TD>
+    <TD>Message resources key specifying the error message associated with this
+      exception.</TD>
+  </TR>
+  <TR>
+    <TD><I>[path]</I>: String</TD>
+    <TD>The application-relative path of the resource to forward to if this
+      exception occurs.</TD>
+  </TR>
+  <TR>
+    <TD><I>[scope]</I>: &quot;request&quot; | &quot;session&quot;</TD>
+    <TD>Identifier of the scope (&quot;request&quot; or &quot;session&quot;)
+      within which the resulting ActionError will be made accessible.</TD>
+  </TR>
+  <TR>
+    <TD><I>[type]</I>: String</TD>
+    <TD>Fully qualified Java class name of the exception that is to be handled.</TD>
+  </TR>
+</TABLE>
+<H4><A NAME="form">@struts:form</A></H4>
+<P>Defines a form bean and its attributes.</P>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Required</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[name]</I>: String</TD>
+    <TD>Define a unique name for the form.</TD>
+    <TD>Yes.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[extends]</I>: String</TD>
+    <TD>Define which class the generated form must extend.</TD>
+    <TD>No.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[implements]</I>: String</TD>
+    <TD>Define which class the generated form must implement.</TD>
+    <TD>No.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[include-pk]</I>: &quot;true&quot; | &quot;false&quot;</TD>
+    <TD>Whether to include pk field in form. Default is true. If set to false,
+      individual pk fields can still be included.</TD>
+    <TD>No.</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[include-all]</I>: &quot;true&quot; | &quot;false&quot;</TD>
+    <TD>Whether to include all persistent fields in form. Default is false.</TD>
+    <TD>No.</TD>
+  </TR>
+</TABLE>
+<H3><A NAME="method-level-tags">Method level Tags</H3>
+<H4></A><A NAME="form-field">@struts:form-field</A></H4>
+<TABLE BORDER="1" CELLPADDING="7">
+  <TR VALIGN="top">
+    <TD>Parameter</TD>
+    <TD>Usage</TD>
+    <TD>Required</TD>
+  </TR>
+  <TR VALIGN="top">
+    <TD><I>[form-name]</I>: String</TD>
+    <TD>to include this property in specified form.</TD>
+    <TD>Yes.</TD>
+  </TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

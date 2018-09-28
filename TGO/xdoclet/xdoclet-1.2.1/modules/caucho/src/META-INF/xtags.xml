@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xdoclet PUBLIC "-//XDoclet Team//DTD XDoclet Tags 1.1//EN" "http://xdoclet.sourceforge.net/dtds/xtags_1_1.dtd">
+
+<xdoclet>
+  <!-- resin ejb tags -->
+  <namespace>
+    <name>resin-ejb</name>
+    <usage-description>Resin Ejb tags</usage-description>
+    <tags>
+      <tag>
+        <level>class</level>
+        <name>resin-ejb.entity-bean</name>
+        <usage-description>
+          Resin CMP Entity Bean.
+          Requires @ejb.bean.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>CMP Entity Beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="abstract"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.EntityBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>sql-table</name>
+          <usage-description>Database table for this Entity.  Deprecated, in favour
+          of @ejb.persistence table-name parameter.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>data-source</name>
+          <usage-description>Entity data source</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="int">
+          <name>cache-size</name>
+          <usage-description>Bean cache size</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>cache-timeout</name>
+          <usage-description>Bean cache timeout; default unit is seconds (s) if none specified.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>resin-ejb.cmp-field</name>
+        <usage-description>
+          Specifies database column properties of a persistent field.
+          Requires @ejb.persistent-field.
+        </usage-description>
+        <unique>true</unique>
+        <deprecated>Use @ejb.persistence method level tags instead.</deprecated>
+        <condition-description>Entity CMP field</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="abstract"/>
+        </condition>
+        <parameter type="text">
+          <name>sql-column</name>
+          <usage-description>Database column name</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>sql-type</name>
+          <usage-description>
+            SQL column type used during table generation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>abstract-sql-type</name>
+          <usage-description>
+            java.sql.Types column type which is matched with driver type map to determine physical column type during table generation
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <level>class</level>
+        <name>resin-ejb.entity-method</name>
+        <usage-description>
+          Business method configuration;
+          see http://caucho.com/products/resin-ejb/ejb-ref/resin-ejb-config.xtp#method
+        </usage-description>
+        <unique>false</unique>
+        <condition-description>Class or method level</condition-description>
+        <condition type="or">
+          <condition type="method"/>
+          <condition type="class"/>
+        </condition>
+        <parameter type="text">
+          <name>signature</name>
+          <usage-description>
+            Java method signature or * (for general case); mandatory at class-level
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>resin-isolation</name>
+          <usage-description>
+            Caching hint for Resin; valid values are 'read-only' (read-only) and 'database' (read-write)
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <options>
+                <option>read-only</option>
+                <option>database</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+        <parameter type="text">
+          <name>query-loads-bean</name>
+          <usage-description>
+            find or select query will load the bean rather than just the primary key;
+            valid values are 'true', 'false'
+          </usage-description>
+          <mandatory>false</mandatory>
+          <option-sets>
+            <option-set>
+              <default>false</default>
+              <options>
+                <option>true</option>
+                <option>false</option>
+              </options>
+            </option-set>
+          </option-sets>
+        </parameter>
+      </tag>
+      <tag>
+        <level>method</level>
+        <name>resin-ejb.relation</name>
+        <usage-description>
+          Database configuration for persistent relations.
+          Requires @ejb.relation
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>CMR fields only</condition-description>
+        <condition type="and">
+          <condition type="method"/>
+          <condition type="abstract"/>
+        </condition>
+        <parameter type="text">
+          <name>sql-table</name>
+          <usage-description>
+            Database table for n-m relationships (only)
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>sql-column</name>
+          <usage-description>
+            Database column
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>order-by</name>
+          <usage-description>
+            Persistent field name for ordering collections in 1-n relationships (only)
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+        <parameter type="text">
+          <name>target-sql-column</name>
+          <usage-description>
+            Database column of target in unidirectional relationship
+          </usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+      <tag>
+        <level>class</level>
+        <name>resin-ejb.message-bean</name>
+        <usage-description>
+          Resin Message Driven Bean.
+          Requires @ejb.bean.
+        </usage-description>
+        <unique>true</unique>
+        <condition-description>Message Driven Beans</condition-description>
+        <condition type="and">
+          <condition type="class"/>
+          <condition type="abstract"/>
+          <condition type="type">
+            <condition-parameter>javax.ejb.MessageDrivenBean</condition-parameter>
+          </condition>
+        </condition>
+        <parameter type="text">
+          <name>jndi-name</name>
+          <usage-description>JNDI name of the queue or topic for the bean.</usage-description>
+          <mandatory>false</mandatory>
+        </parameter>
+      </tag>
+    </tags>
+  </namespace>
+</xdoclet>

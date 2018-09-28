@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+
+<project name="XDoclet" default="dist">
+    <property name="xdoclet.root.dir" value="${basedir}"/>
+    <property file="${xdoclet.root.dir}/build.properties"/>
+    <property file="${user.home}/build.properties"/>
+    <property name="xjavadoc.jar" location="${lib.dir}/xjavadoc-${xjavadoc.version}.jar"/>
+    <property environment="env"/>
+
+    <target name="xjavadoc-determine-presence">
+        <available property="xjavadoc.sources.present"
+                   file="${basedir}/../xjavadoc"
+                   type="dir"/>
+    </target>
+
+    <target name="xjavadoc-determine-uptodate" depends="xjavadoc-determine-presence" if="xjavadoc.sources.present">
+        <echo>XJavaDoc sources are available. Checking against ${xjavadoc.jar}</echo>
+        <uptodate property="xjavadoc.uptodate"
+                  targetfile="${xjavadoc.jar}">
+            <srcfiles dir="${basedir}/../xjavadoc/src"/>
+            <srcfiles dir="${basedir}/../xjavadoc/junit"/>
+            <srcfiles dir="${basedir}/../xjavadoc/javacc"/>
+        </uptodate>
+    </target>
+
+    <target name="build-xjavadoc" depends="xjavadoc-determine-uptodate" if="xjavadoc.sources.present" unless="xjavadoc.uptodate">
+        <echo>XJavaDoc sources modified after jar file. Building XJavaDoc...</echo>
+        <ant dir="${basedir}/../xjavadoc">
+            <property name="rootdir" value="${basedir}/../xjavadoc"/>
+            <property name="jardir" value="${lib.dir}"/>
+            <property name="version" value="${xjavadoc.version}"/>
+        </ant>
+    </target>
+
+    <target name="dont-build-xjavadoc" depends="xjavadoc-determine-uptodate" if="xjavadoc.uptodate">
+        <echo>The XJavaDoc binaries are up to date. No need to build.</echo>
+    </target>
+
+    <target name="download-xjavadoc" depends="xjavadoc-determine-presence" unless="xjavadoc.sources.present">
+        <echo>
+        XJavaDoc's sources are not available in ${basedir}/../xjavadoc
+        Trying to download xjavadoc via HTTP. If you're behind a proxy, you should uncomment
+        build.xml's setproxy task and fill in the appropriate values.
+        See http://ant.apache.org/manual/OptionalTasks/setproxy.html
+        </echo>
+        <!--setproxy/-->
+        
+        <get src="http://xdoclet.sourceforge.net/repository/xjavadoc/jars/xjavadoc-${xjavadoc.version}.jar"
+             dest="${xjavadoc.jar}"/>
+    </target>
+
+    <target name="xjavadoc" depends="build-xjavadoc,dont-build-xjavadoc,download-xjavadoc"/>
+
+    <target name="core">
+        <ant dir="${core.dir}"/>
+    </target>
+
+    <!-- Depends on core because of classes in core. -->
+    <target name="modules" depends="core">
+        <ant dir="${modules.dir}"/>
+    </target>
+
+    <target name="maven" unless="omit.maven">
+        <ant dir="maven"/>
+    </target>
+
+    <!-- Depends on modules because the Ant Task Reference is generated with the xdoclet module. -->
+    <target name="docs" depends="modules" unless="omit.docs">
+        <ant dir="${xdoclet.root.dir}" antfile="build-docs.xml"/>
+    </target>
+
+    <!-- Depends on modules because it uses them. -->
+    <target name="samples" depends="modules">
+        <ant dir="${samples.dir}" target="clean"/>
+        <ant dir="${samples.dir}"/>
+    </target>
+
+    <target name="l10n" depends="core, modules">
+        <!-- messages for each locale get built into a separate jar -->
+        <jar jarfile="${dist.lib.dir}/${name}-pt_BR-locale-${version}.jar">
+            <fileset dir="${l10n.build.dir}">
+                <include name="**/*Messages_pt_BR.properties"/>
+            </fileset>
+        </jar>
+        <jar jarfile="${dist.lib.dir}/${name}-de-locale-${version}.jar">
+            <fileset dir="${l10n.build.dir}">
+                <include name="**/*Messages_de.properties"/>
+            </fileset>
+        </jar>
+        <jar jarfile="${dist.lib.dir}/${name}-fr_FR-locale-${version}.jar">
+            <fileset dir="${l10n.build.dir}">
+                <include name="**/*Messages_fr_FR.properties"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="dist" depends="xjavadoc, core, modules, maven, docs, samples, l10n">
+        <echo>+--------------------------------------------------------------------+</echo>
+        <echo>|                                                                    |</echo>
+        <echo>| E X E C U T I N G   M A V E N   T O   G E N E R A T E   D O C S    |</echo>
+        <echo>|                                                                    |</echo>
+        <echo>+--------------------------------------------------------------------+</echo>
+
+        <condition property="maven.script" value="maven.bat">
+            <and>
+                <os family="windows"/>
+                <equals arg1="${maven.script}" arg2="$${maven.script}"/>
+            </and>
+        </condition>
+        <condition property="maven.script" value="maven">
+            <equals arg1="${maven.script}" arg2="$${maven.script}"/>
+        </condition>
+
+        <property name="maven.command" value="${env.MAVEN_HOME}/bin/${maven.script}"/>
+
+
+        <echo>+--------------------------------------------------------------------+</echo>
+        <echo>|                                                                    |</echo>
+        <echo>| P A C K A G I N G   X D O C L E T                                  |</echo>
+        <echo>|                                                                    |</echo>
+        <echo>+--------------------------------------------------------------------+</echo>
+
+        <!-- Enable to see the elaborate CVS statistics. -->
+        <!--<exec executable="${maven.command}">
+            <arg line="statcvs"/>
+        </exec>-->
+
+        <exec executable="${maven.command}">
+            <arg line="site"/>
+        </exec>
+
+        <!-- Copy the IDEA Live Templates file -->
+        <copy file="${docs.src.dir}/ide/idea/xdoclet.xml" tofile="${docs.build.dir}/ide/idea/xdoclet.xml"/>
+
+        <!-- Copy the DTDs -->
+        <copy todir="${docs.build.dir}/dtds">
+            <fileset dir="${docs.src.dir}/dtds"/>
+        </copy>
+
+        <!-- Copy XJavaDoc to the dist.lib directory -->
+        <copy file="${xjavadoc.jar}" todir="${dist.lib.dir}"/>
+
+        <!-- Copy the Jakarta Log4J and Commons Logging jar to the dist.lib directory -->
+        <copy file="${lib.dir}/commons-logging.jar" todir="${dist.lib.dir}"/>
+        <copy file="${lib.dir}/log4j.jar" todir="${dist.lib.dir}"/>
+
+        <!-- Copy the Jakarta Commons Collections jar to the dist.lib directory -->
+        <copy file="${lib.dir}/commons-collections-2.0.jar" todir="${dist.lib.dir}"/>
+
+        <delete file="${dist.dir}/activity-log.xml"/>
+
+        <!-- xdoclet-bin-1.X.X, includes the core and module libraries, documentation and samples -->
+        <zip zipfile="${dist.dir}/${name}-bin-${version}.zip">
+            <zipfileset dir="${dist.dir}" prefix="${name}-${version}" includes="docs/**, lib/**"/>
+            <zipfileset dir="${samples.dir}" prefix="${name}-${version}/samples" excludes="build/**"/>
+        </zip>
+        <tar tarfile="${dist.dir}/${name}-bin-${version}.tgz" compression="gzip" longfile="gnu">
+            <tarfileset dir="${dist.dir}" prefix="${name}-${version}" includes="docs/**, lib/**"/>
+            <tarfileset dir="${samples.dir}" prefix="${name}-${version}/samples" excludes="build/**"/>
+        </tar>
+
+        <!-- xdoclet-lib-1.X.X, includes the core and module libraries -->
+        <zip zipfile="${dist.dir}/${name}-lib-${version}.zip">
+            <zipfileset dir="${dist.lib.dir}" prefix="${name}-${version}"/>
+        </zip>
+        <tar tarfile="${dist.dir}/${name}-lib-${version}.tgz" compression="gzip">
+            <tarfileset dir="${dist.lib.dir}" prefix="${name}-${version}"/>
+        </tar>
+
+        <!-- xdoclet-src-1.X.X, includes the source files -->
+        <zip zipfile="${dist.dir}/${name}-src-${version}.zip">
+            <zipfileset dir="${xdoclet.root.dir}" prefix="${name}-${version}" excludes="**/build/**, target/**, *.log*"/>
+        </zip>
+        <tar tarfile="${dist.dir}/${name}-src-${version}.tgz" compression="gzip" longfile="gnu">
+            <tarfileset dir="${xdoclet.root.dir}" prefix="${name}-${version}" excludes="**/build/**, target/**, *.log*"/>
+        </tar>
+
+        <!-- base locale messages jar, for translators' use -->
+        <jar jarfile="${dist.dir}/${name}-base-locale-${version}.jar">
+            <fileset dir="${l10n.build.dir}">
+                <include name="**/*Messages.properties"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <echo message="Cleaning all: reverting back to source distribution..."/>
+        <ant dir="${basedir}/core" target="clean"/>
+        <ant dir="${basedir}/modules" target="clean"/>
+        <ant dir="${basedir}/samples" target="clean"/>
+        <ant dir="${basedir}/maven" target="clean"/>
+        <delete dir="${dist.dir}"/>
+        <delete>
+            <fileset dir="." includes="**/velocity*.log*"/>
+            <fileset dir="." includes="**/maven*.log*"/>
+            <fileset dir="${lib.dir}" includes="xjavadoc*.jar"/>
+        </delete>
+    </target>
+
+    <!--
+    Makes one patch file containing all local changes. Use this if target if you have
+    a local copy of sources from CVS and want to contribute any fixes you have made.
+
+    The generated patch.txt file should be attached in a new "Improvement" issue in
+    JIRA at http://opensource.atlassian.com/projects/xdoclet/ (where you'll have
+    to register and log in).
+    -->
+    <target name="patch">
+        <cvs command="-q diff -u -N" output="patch.txt"/>
+    </target>
+
+</project>

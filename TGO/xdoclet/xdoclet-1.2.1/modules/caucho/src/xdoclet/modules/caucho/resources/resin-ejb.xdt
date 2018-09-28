@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="<XDtConfig:configParameterValue paramName='Xmlencoding'/>"?>
+
+<!--
+	Generated resin-ejb deployment descriptor.
+	Follows the configuration documented at
+	http://caucho.com/resin-ee/ejb-ref/resin-ejb-config.xtp
+-->
+<resin-ejb>
+	<XDtConfig:ifHasConfigParam paramName="cacheSize">
+	<cache-size><XDtConfig:configParameterValue paramName="cacheSize"/></cache-size>
+	</XDtConfig:ifHasConfigParam>
+	<XDtConfig:ifHasConfigParam paramName="cacheTimeout">
+	<cache-timeout><XDtConfig:configParameterValue paramName="cacheTimeout"/></cache-timeout>
+	</XDtConfig:ifHasConfigParam>
+
+	<enterprise-beans>
+<XDtEjbEntity:forAllEntityBeans>
+	<XDtEjb:ifIsAConcreteEJBean>
+		<XDtEjbCmp:ifEntityIsCmp>
+		  <XDtConfig:ifConfigParamEquals paramName="generateSourceComments" value="true">
+    <!-- generated from <XDtEjb:concreteFullClassName/> -->
+	    </XDtConfig:ifConfigParamEquals>
+		<entity>
+			<ejb-name><XDtEjb:ejbName/></ejb-name>
+
+			<XDtComment:comment> Supporting ejb.persistence table-name </XDtComment:comment>
+			<XDtClass:ifHasClassTag tagName="ejb.persistence" paramName="table-name">
+			<sql-table><XDtClass:classTagValue tagName="ejb.persistence" paramName="table-name"/></sql-table>
+			</XDtClass:ifHasClassTag>
+			<XDtComment:comment> Backwards compatible with original resin tags </XDtComment:comment>
+			<XDtClass:ifHasClassTag tagName="resin-ejb.entity-bean" paramName="sql-table">
+			<sql-table><XDtClass:classTagValue tagName="resin-ejb.entity-bean" paramName="sql-table"/></sql-table>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifClassTagValueEquals tagName="ejb.persistence" paramName="read-only" value="true">
+			<read-only/>
+			</XDtClass:ifClassTagValueEquals>
+			<XDtClass:ifHasClassTag tagName="resin-ejb.entity-bean" paramName="cache-timeout">
+			<cache-timeout><XDtClass:classTagValue tagName="resin-ejb.entity-bean" paramName="cache-timeout"/></cache-timeout>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin-ejb.entity-bean" paramName="cache-size">
+			<cache-size><XDtClass:classTagValue tagName="resin-ejb.entity-bean" paramName="cache-size"/></cache-size>
+			</XDtClass:ifHasClassTag>
+			<XDtClass:ifHasClassTag tagName="resin-ejb.entity-bean" paramName="data-source">
+			<data-source><XDtClass:classTagValue tagName="resin-ejb.entity-bean" paramName="data-source"/></data-source>
+			</XDtClass:ifHasClassTag>
+
+			<XDtEjbCmp:forAllCmpFields>
+			<cmp-field>
+				<field-name><XDtMethod:propertyName/></field-name>
+				<XDtComment:comment> Supporting ejb.persistence column-name </XDtComment:comment>
+				<XDtMethod:ifHasMethodTag tagName="ejb.persistence" paramName="column-name">
+				<sql-column><XDtMethod:methodTagValue tagName="ejb.persistence" paramName="column-name"/></sql-column>
+				</XDtMethod:ifHasMethodTag>
+				<XDtMethod:ifHasMethodTag tagName="ejb.persistence" paramName="jdbc-type">
+				<abstract-sql-type><XDtMethod:methodTagValue tagName="ejb.persistence" paramName="jdbc-type"/></abstract-sql-type>
+				</XDtMethod:ifHasMethodTag>
+				<XDtMethod:ifHasMethodTag tagName="ejb.persistence" paramName="sql-type">
+				<sql-type><XDtMethod:methodTagValue tagName="ejb.persistence" paramName="sql-type"/></sql-type>
+				</XDtMethod:ifHasMethodTag>
+				<XDtComment:comment> Backwards compatible with original resin-ejb.cmp-field sql-column tags </XDtComment:comment>
+				<XDtMethod:ifHasMethodTag tagName="resin-ejb.cmp-field" paramName="sql-column">
+				<sql-column><XDtMethod:methodTagValue tagName="resin-ejb.cmp-field" paramName="sql-column"/></sql-column>
+				</XDtMethod:ifHasMethodTag>
+				<XDtMethod:ifHasMethodTag tagName="resin-ejb.cmp-field" paramName="abstract-sql-type">
+				<abstract-sql-type><XDtMethod:methodTagValue tagName="resin-ejb.cmp-field" paramName="abstract-sql-type"/></abstract-sql-type>
+				</XDtMethod:ifHasMethodTag>
+				<XDtMethod:ifHasMethodTag tagName="resin-ejb.cmp-field" paramName="sql-type">
+				<sql-type><XDtMethod:methodTagValue tagName="resin-ejb.cmp-field" paramName="sql-type"/></sql-type>
+				</XDtMethod:ifHasMethodTag>
+			</cmp-field>
+			</XDtEjbCmp:forAllCmpFields>
+
+			<XDtClass:forAllClassTags tagName="resin-ejb.entity-method">
+			<method>
+				<signature><XDtClass:classTagValue tagName="resin-ejb.entity-method" paramName="signature"/></signature>
+				<XDtClass:ifHasClassTag tagName="resin-ejb.entity-method" paramName="resin-isolation">
+				<resin-isolation><XDtClass:classTagValue tagName="resin-ejb.entity-method" paramName="resin-isolation" values="database,read-only"/></resin-isolation>
+				</XDtClass:ifHasClassTag>
+				<XDtClass:ifHasClassTag tagName="resin-ejb.entity-method" paramName="query-loads-bean">
+				<query-loads-bean><XDtClass:classTagValue tagName="resin-ejb.entity-method" paramName="query-loads-bean" values="true,false"/></query-loads-bean>
+				</XDtClass:ifHasClassTag>
+			</method>
+			</XDtClass:forAllClassTags>
+			<XDtMethod:forAllMethods>
+				<XDtMethod:forAllMethodTags tagName="resin-ejb.entity-method">
+			<method>
+				<signature><XDtResinEjb:signatureFromMethod/></signature>
+					<XDtMethod:ifHasMethodTag tagName="resin-ejb.entity-method" paramName="resin-isolation">
+				<resin-isolation><XDtMethod:methodTagValue tagName="resin-ejb.entity-method" paramName="resin-isolation" values="database,read-only"/></resin-isolation>
+					</XDtMethod:ifHasMethodTag>
+					<XDtMethod:ifHasMethodTag tagName="resin-ejb.entity-method" paramName="query-loads-bean">
+				<query-loads-bean><XDtMethod:methodTagValue tagName="resin-ejb.entity-method" paramName="query-loads-bean" values="true,false"/></query-loads-bean>
+					</XDtMethod:ifHasMethodTag>
+			</method>
+				</XDtMethod:forAllMethodTags>
+			</XDtMethod:forAllMethods>
+		</entity>
+		</XDtEjbCmp:ifEntityIsCmp>
+	</XDtEjb:ifIsAConcreteEJBean>
+</XDtEjbEntity:forAllEntityBeans>
+
+  <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+      <!-- Message Driven Beans -->
+   <XDtEjbMdb:forAllMDBeans>
+    <XDtEjb:ifIsAConcreteEJBean>
+      <message-driven <XDtId:prefixedId prefix="MessageDriven"/>>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="description">
+         <description><![CDATA[<XDtClass:classTagValue tagName="ejb.bean" paramName="description"/>]]></description>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifDoesntHaveClassTag tagName="ejb.bean" paramName="description">
+         <description><![CDATA[<XDtClass:firstSentenceDescription/>]]></description>
+        </XDtClass:ifDoesntHaveClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="display-name">
+         <display-name><XDtClass:classTagValue tagName="ejb.bean" paramName="display-name"/></display-name>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="small-icon">
+         <small-icon><XDtClass:classTagValue tagName="ejb.bean" paramName="small-icon"/></small-icon>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="large-icon">
+         <large-icon><XDtClass:classTagValue tagName="ejb.bean" paramName="large-icon"/></large-icon>
+        </XDtClass:ifHasClassTag>
+
+         <ejb-name><XDtEjb:ejbName/></ejb-name>
+       <XDtConfig:ifConfigParamGreaterOrEquals paramName="EjbSpec" value="2.0">
+         <transaction-type><XDtClass:classTagValue tagName="ejb.bean" paramName="transaction-type" values="Container,Bean" default="Container"/></transaction-type>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="message-selector">
+         <message-selector><XDtClass:classTagValue tagName="ejb.bean" paramName="message-selector"/></message-selector>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="acknowledge-mode">
+         <acknowledge-mode><XDtClass:classTagValue tagName="ejb.bean" paramName="acknowledge-mode" values="Auto-acknowledge,Dups-ok-acknowledge" default="Auto-acknowledge"/></acknowledge-mode>
+        </XDtClass:ifHasClassTag>
+        <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="destination-type">
+         <message-driven-destination>
+            <destination-type><XDtClass:classTagValue tagName="ejb.bean" paramName="destination-type" values="javax.jms.Queue,javax.jms.Topic"/></destination-type>
+           <XDtClass:ifHasClassTag tagName="ejb.bean" paramName="subscription-durability">
+            <subscription-durability><XDtClass:classTagValue tagName="ejb.bean" paramName="subscription-durability" values="Durable,NonDurable"/></subscription-durability>
+           </XDtClass:ifHasClassTag>
+            <jndi-name><XDtClass:classTagValue tagName="resin-ejb.message-bean" paramName="jndi-name"/></jndi-name>
+         </message-driven-destination>
+        </XDtClass:ifHasClassTag>
+       </XDtConfig:ifConfigParamGreaterOrEquals>
+      </message-driven>
+
+    </XDtEjb:ifIsAConcreteEJBean>
+   </XDtEjbMdb:forAllMDBeans>
+  </XDtConfig:ifConfigParamGreaterOrEquals>
+
+	</enterprise-beans>
+
+<XDtEjbRel:ifHasRelationships>
+	<relationships>
+	<XDtMerge:merge file="xdoclet/modules/caucho/resources/resin-relationships.xdt">
+	</XDtMerge:merge>
+	</relationships>
+</XDtEjbRel:ifHasRelationships>
+
+<XDtMerge:merge file="resin-query-functions.xml">
+<!--
+	To add query-functions, add a file named resin-query-functions.xml
+	containing <query-function></query-function> tags
+	to your project's merge dir.
+-->
+</XDtMerge:merge>
+</resin-ejb>
