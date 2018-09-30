@@ -6,5 +6,6 @@ encoding//src/main/java/com/webapp/tgo/controller/UserController.java=UTF-8
 encoding//src/main/java/com/webapp/tgo/service/UserDetailsServiceImpl.java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/templates/index.html=UTF-8
+encoding//src/main/resources/templates/operator-waitingtour-loadGuide.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

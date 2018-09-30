@@ -1,3 +1,8 @@
+ function loadContent(divName,pageURL) {
+                $("#" + divName).load(pageURL);
+                console.log('loading.................');
+            }
+
 $(document).ready(function(){
 $(".cancelTourRunning").click(function(){
 		var r = confirm("bạn muốn hủy tour?");
@@ -57,6 +62,9 @@ $(".acceptGuide").click(function(){
 				$("#currentAmount"+tourid).val(amount);
 				$("#rowcancel"+tourxrefid).add();
 				console.log("amount: "+$("#currentAmount"+tourid).val() );
+				//add new record in "danh sach hdv"
+				loadContent('h'+tourid,'/operator/waitingTour')
+				//
 			}else if(data=="403"){
 				window.location.href = "/403";
 			}else{
@@ -120,7 +128,9 @@ $(".runningTour").click(function(){
 			if(data=="success"){
 				alert("thực hiện tour thành công!");
 //				window.location.href = "/operator/waitingTour";
+//				$("#tour"+tourid).remove();
 				$("#tour"+tourid).remove();
+				$("#collapse"+tourid).remove();
 			}else if(data=="notExistGuide"){
 				alert("Không tìm thấy hdv tham gia tour!");
 //				return false;

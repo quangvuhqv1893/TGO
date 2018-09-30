@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+<meta charset="utf-8"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>Công ty lữ hành</title>
+
+<!-- Bootstrap -->
+<link href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet"></link>
+<link href="../static/css/touroperator_style.css"
+	th:href="@{/css/touroperator_style.css}" rel="stylesheet"></link>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 sidebar">
+
+
+					<img src="../static/image/hero_1.jpg" th:src="@{/image/hero_1.jpg}"></img>
+					<h4 class="text-center">
+						<b th:text="${operator.companyNameViet}"></b>
+					</h4>
+					<ul class="nav nav-pills nav-stacked nav-tabs">
+						<li><a th:href="@{/operator/info}">Thông tin công ty</a></li>
+						
+						<li  class="active dropdown "><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown">Quản lý tour</a>
+							<ul class="nav nav-pills nav-stacked nav-tabs" role="tablist">
+							<li ><a th:href="@{/operator}"  role="tab">Tour đang xử lý</a></li>
+								<li style="background-color:LightGray;"><a style="text-decoration: underline;" role="tab">Tour đang chờ</a></li>
+								<li><a th:href="@{/operator/runningTour}" role="tab">Tour đang chạy</a></li>
+		                    	<li><a th:href="@{/operator/finishTour}" role="tab">Tour đã hoàn thành</a></li>
+								<!-- <li class="active"><a th:href="@{/operator}">Tour đang chờ</a></li>
+								<li><a th:href="@{/operator}">Tour đang chạy</a></li>
+		                    	<li><a th:href="@{/operator/history}">Tour đã hoàn thành</a></li> -->
+		                    </ul>
+                    	</li>
+                    	<li><a href="#">Cài đặt</a></li>
+					</ul>
+					<button type="button" class="btn btn-danger button-newtour"
+						data-toggle="modal" data-target="#new-tour">Đăng tour</button>
+					<form th:action="@{/operator/searchguide}" th:method="GET">
+						<button type="submit" class="btn btn-danger button-newtour">
+							Tìm HDV</button>
+					</form>
+					<!-- Modal -->
+					<div class="modal fade" id="new-tour" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<form id ="formPostTour" class="form-horizontal" onsubmit="return(postour());"
+								method="GET">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">Đăng tour</h4>
+									</div>
+									<div class="modal-body">
+
+
+										<div class="form-tour form-tour-modal">
+
+											<div class="form-group">
+												<label class="control-label col-sm-3"> Tên tour:</label>
+												<div class="col-sm-8">
+													<input type="text" id="tourname"  name="tourname" class="form-control" required="required"></input>
+												</div>
+											</div>
+											<div class="form-group input_fields_wrap">
+												<label class="control-label col-sm-3">Địa điểm:</label>
+												<div class="col-sm-8 ">
+                                                    <select name="location" class="form-control">
+													<option th:each="location:${listLocation}" th:text="${location.locationName}"></option>
+													</select>
+                                            </div>
+
+												<button class="add_field_button btn btn-link">
+													<span class="glyphicon glyphicon-plus"></span>
+												</button>
+
+
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-3">Ngôn ngữ:</label>
+												<div class="col-sm-8">
+                                                <select id="language" name="language" class="form-control">
+													<option th:each="language:${listLanguage}" th:text="${language.language}"></option>
+												</select>
+                                            </div>
+
+												<input type="text" id="count-location" class="form-control hidden"
+													name="count-location"></input>
+
+											</div>
+											<div class="form-group">
+											<label class="control-label col-sm-3">Số lượng HDV:</label>
+												<div class="col-sm-2">
+													 <input type="number" id="amount" name="amount" class="form-control"
+														placeholder="" pattern ="^\d{1,5}$" min="0"></input>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-3">Thời gian:</label>
+												<div class="col-sm-2">
+													<input type="number" name="day" class="form-control"
+														placeholder="4" min="0"></input>
+												</div>
+												<label class="control-label col-sm-1">ngày</label>
+												<div class="col-sm-2">
+													<input type="number" name="night" min="0"
+														class="form-control" placeholder="3"></input>
+												</div>
+												<label class="control-label col-sm-1">đêm</label>
+
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-3">Ngày xuất
+													phát:</label>
+												<div class="col-sm-8">
+													<input id="startDate" type="date" name="date" class="form-control"></input>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-3">Giá:</label>
+												<div class="col-sm-8">
+													<input min ="0" id="tourprice" type="text" pattern="\d{0,10}" name="tourprice" class="form-control" required="required"></input>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-3">Yêu cầu khác:</label>
+												<div class="col-sm-8">
+													<textarea class="form-control"  rows="3" name="requirement" id="require"></textarea>
+												</div>
+
+											</div>
+
+
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary"
+											data-dismiss="modal">Hủy</button>
+
+										<button th:type="submit" class="btn btn-primary" >Đăng</button>
+
+									</div>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-9">
+					<!--tab-pane-sidebar-->
+
+					<table class="table">
+					<p style="color: red" th:text="${messageError}"></p>
+						<thead>
+							<tr>
+								<th>Mã tour</th>
+								<th>Tên tour</th>
+								<th>Thời gian</th>
+								<th>Giá</th>
+								<th>Chức năng</th>
+								<th></th>
+							</tr>
+						</thead>
+						<th:block th:unless="${#lists.isEmpty(operator.tours)}" id="WaittingTour" role="tabpanel">
+							<tbody th:each="tour,iterStat : ${operator.tours}" th:if="${tour.status==0}">
+								<tr data-toggle="collapse" th:attr="data-target='#u'+${tour.id}"  th:attrappend="id='tour'+${tour.id}"
+									class="clickable">
+									<td th:text="${tour.id}"></td>
+									<td th:text="${tour.tourName}"></td>
+									<td th:text="${tour.tourTime}"></td>
+									<th:block th:if="${tour.tourPrice != null}">
+										<td th:text="${tour.tourPrice}+' VNĐ'"></td>
+									</th:block>
+									<th:block th:if="${tour.tourPrice == null}">
+										<td>0</td>
+									</th:block>
+									<td th:text= "${tour.id}" class="hidden"></td>
+									<td>
+										<button type="button" class="btn btn-primary cancelTourRunning" >Hủy</button>
+									</td>
+									<td th:text= "${tour.id}" class="hidden"></td>
+									<td>
+										<button type="button" class="btn btn-primary runningTour">Chạy</button>
+									</td>
+									<td><span class="glyphicon glyphicon-chevron-down"></span></td>
+
+								</tr>
+								<tr th:id="'collapse'+${tour.id}">
+									<td colspan="7" id="row-collapse" >
+									<!-- <td colspan="7" th:id="'collapse'+${tour.id}">  -->
+										<div th:id="'u'+${tour.id}" class="collapse tour-detail">
+											<!-- Nav tabs -->
+											<ul class="nav nav-tabs" role="tablist">
+												<li role="presentation" class="active"><a
+													th:attr="href='#t'+${tour.id}" aria-controls="home"
+													role="tab" data-toggle="tab">Thông tin tour</a></li>
+													<li role="presentation"><a
+													th:attr="href='#h'+${tour.id}" aria-controls="profile"
+													role="tab" data-toggle="tab" th:class="${tour.id}" onclick="CheckListGuideReady(this);">Danh sách hướng dẫn viên <span></span></a>
+												</li>
+												<li role="presentation"><a
+													th:attr="href='#i'+${tour.id}" aria-controls="profile"
+													role="tab" data-toggle="tab" th:class="${tour.id}" onclick="CheckListGuideRequest(this);">Yêu cầu gửi đến <span></span></a>
+												</li>
+												<!-- <li role="presentation"><a
+													th:attr="href='#o'+${tour.id}" aria-controls="messages"
+													role="tab" data-toggle="tab">Yêu cầu gửi đi <span></span></a>
+												</li> -->
+											</ul>
+
+											<!-- Tab panes -->
+											<div class="tab-content">
+												<div role="tabpanel" class="tab-pane fade in active" 
+													th:attr="id='t'+${tour.id}">
+													<fieldset disabled="disabled">
+													<div class="form-tour" >
+														<form class="form-horizontal" 
+															th:attr="action='/operator/update/'+${tour.id}"
+															th:method="POST" >
+															<div class="form-group">
+																<label class="control-label col-sm-2"> Tên tour:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" name="tourName"
+																		th:attr="value=${tour.tourName}"></input>
+																</div>
+															</div>
+															<div class="form-group"
+																th:each="location:${tour.locations}">
+																<label class="control-label col-sm-2">Địa điểm:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control"
+																		th:value="${location.locationName}"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Ngôn ngữ:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${tour.language.language}" name="day"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Số lượng HDV:</label>
+																<div class="col-sm-2">
+																	<input type="text" th:attr="id='currentAmount'+${tour.id}" class="form-control" th:value="${tour.currentAmount}" name="currentAmount"></input>
+																</div>
+																<label class="control-label col-sm-2">Số lượng tối đa:</label>
+																<div class="col-sm-2">
+																	<input type="text" class="form-control" th:value="${tour.amount}" name="amount"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Ngày khởi hành:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${#dates.format(tour.startDate, 'dd-MM-yyyy')}" name="startDate"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Thời gian:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${tour.tourTime}" name="day"></input>
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-sm-2">Giá:</label>
+																<div class="col-sm-8">
+																	<input type="number" class="form-control"
+																		name="tourPrice" th:attr="value=${tour.tourPrice}"></input>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Yêu cầu
+																	khác:</label>
+																<div class="col-sm-8">
+																	<textarea class="form-control" rows="3" th:text="${tour.requirement}" name="requirement" id="require"></textarea>
+																</div>
+
+															</div>
+															<div class="form-group">
+																<div class="col-sm-offset-2 col-sm-8">
+																	<button type="submit" class="btn btn-primary hidden" disabled="disabled" onclick="return confirm('bạn chắc chắn muốn cập nhật tour này?')">Cập
+																		nhật</button>
+																</div>
+															</div>
+														</form>
+													</div>
+													</fieldset>
+												</div>
+												<div role="tabpanel" class="tab-pane fade"
+													th:attr="id='h'+${tour.id}" >
+													<!-- <h3 class="text-center">Danh sách ứng viên</h3> -->
+													<!-- <th:block th:if="${#lists.isEmpty(tour.tourGuideXref)}"> -->
+														<p th:id="'noticeListGuide'+${tour.id}" class="hidden" style="text-align: center; font-size: 23px; padding-top: 15px;color: #b9b3b3">Tour chưa có HDV.</p>
+													<!-- </th:block> -->
+													<!-- <p class="noticeListGuide"></p> -->
+													<th:block th:unless="${#lists.isEmpty(tour.tourGuideXref)}">
+														<div th:each="tourxref,iterStat : ${tour.tourGuideXref}"
+															class="container-fluid user-request ">
+															<div th:if="${tourxref.status==2}" th:attr="id='rowcancel'+${tourxref.id}" th:class="row" th:classappend="'gl'+${tour.id}">
+																<div class="col-xs-2">
+																	<img src="../static/image/hero_3.jpg"
+																		th:src="@{/image/hero_3.jpg}"></img>
+																</div>
+																<div class="col-xs-4">
+																	<a target="_blank" th:href="@{/operator/showGuide/(guideid= ${tourxref.guide.id})}"><strong
+																		th:text="${tourxref.guide.user.fullname}"></strong></a>
+																</div>
+																<div th:text= "${tour.id}" class="hidden"></div>
+																<div th:text= "${tourxref.id}" class="hidden"></div>
+																	<div class="col-xs-3">
+																		<button type="submit" class="btn btn-primary cancelAccepteTour">Xóa
+																		</button>
+
+																	</div>
+															</div>
+
+														</div>
+													</th:block>
+												</div>
+												<div role="tabpanel" class="tab-pane fade"
+													th:attr="id='i'+${tour.id}">
+													<!-- <h3 class="text-center">danh sách tự đề cử</h3> -->
+													<!-- <th:block th:if="${#lists.isEmpty(tour.tourGuideXref)}"> -->
+														<p th:id="'noticelistGuideRequest'+${tour.id}" th:class="hidden" style="text-align: center; font-size: 23px; padding-top: 15px;color: #b9b3b3">Hiện tại chưa có yêu cầu.</p>
+													<!-- </th:block> -->
+													<th:block th:unless="${#lists.isEmpty(tour.tourGuideXref)}">
+														<div th:each="tourxref,iterStat : ${tour.tourGuideXref}"
+															class="container-fluid user-request">
+															<div th:if="${tourxref.status==0}" th:attr="id='rowadd'+${tourxref.id}" class="row" th:classappend="'rl'+${tour.id}">
+																<div class="col-xs-2">
+																	<img src="../static/image/hero_3.jpg"
+																		th:src="@{/image/hero_3.jpg}"></img>
+																</div>
+																<div class="col-xs-4">
+																	<a target="_blank" th:href="@{/operator/showGuide/(guideid= ${tourxref.guide.id})}"><strong
+																		th:text="${tourxref.guide.user.fullname}"></strong></a>
+																</div>
+																<div th:text= "${tour.id}" class="hidden"></div>
+																<div th:text= "${tourxref.id}" class="hidden"></div>
+																	<div class="col-xs-3">
+																		<button type="submit" th:attr="id='accept'+${tourxref.id}" class="btn btn-primary acceptGuide">Chấp
+																			nhận</button>
+																	</div>
+																	<div th:text= "${tourxref.id}" class="hidden"></div>
+																	<div class="col-xs-3">
+																		<button type="submit" th:attr="id='cancel'+${tourxref.id}" class="btn btn-primary cancelAccepteTour">Xóa
+																		</button>
+																	</div>
+
+
+															</div>
+
+														</div>
+													</th:block>
+												</div>
+												<div role="tabpanel" class="tab-pane fade"
+													th:attr="id='o'+${tour.id}">
+													<!-- <h3 class="text-center">Lời mời gửi đi</h3> -->
+													<th:block th:unless="${#lists.isEmpty(tour.tourGuideXref)}">
+														<div th:each="tourxref,iterStat : ${tour.tourGuideXref}"
+															class="container-fluid user-request">
+
+															<div th:if="${tourxref.status==1}" class="row">
+																<div class="col-xs-2">
+																	<img src="../static/image/hero_3.jpg"
+																		th:src="@{/image/hero_3.jpg}"></img>
+																</div>
+																<div class="col-xs-4">
+																	<a target="_blank" th:href="@{/operator/showGuide/(guideid= ${tourxref.guide.id})}"><strong
+																		th:text="${tourxref.guide.user.fullname}"></strong></a>
+																</div>
+																<div class="col-xs-3"></div>
+																<div th:text= "${tourxref.id}" class="hidden"></div>
+																	<div class="col-xs-3">
+																		<button type="submit" class="btn btn-primary cancelAccepteTour">Xóa
+																		</button>
+
+																	</div>
+															</div>
+
+
+														</div>
+													</th:block>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+						</th:block>
+			
+					</table>
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="../static/js/jquery-3.2.1.min.js"
+		th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../static/js/bootstrap.min.js"
+		th:src="@{/js/bootstrap.min.js}"></script>
+	
+	<script src="../static/js/checkall.js" th:src="@{/js/checkall.js}"></script>
+	<script src="../static/js/operator.js" th:src="@{/js/operator.js}"></script>
+	<script src="../static/js/waitingTour.js" th:src="@{/js/waitingTour.js}"></script>
+	<script src="../static/js/waitingTour.js" th:src="@{/js/validatePostTour.js}"></script>
+</body>
+</html>
