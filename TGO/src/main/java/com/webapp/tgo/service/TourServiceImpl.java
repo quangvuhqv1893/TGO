@@ -140,14 +140,19 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	@Transactional
-	public boolean acceptRequest(int tourGuidexrefId) {
+	public String acceptRequest(int tourGuidexrefId) {
 		// insert new row in contract table, update status of tgx is 2
 		try {
 			log.info("----------------start service to accept request!!!");
 			Tour_Guide_Xref tXref = tgxRepository.findOne(tourGuidexrefId);
+			//check amount of tour before add tour
+			int currentAmount = tXref.getTour().getCurrentAmount();
+			if(currentAmount>=tXref.getTour().getAmount()) {
+				return Constant.MESS_ERROR_AMONUNT;
+			}
 			tXref.setStatus(Constant.VALUE_ACCEPT_REQUEST);
 			tXref.setUpdatedDate(new Date());
-			tXref.getTour().setCurrentAmount(tXref.getTour().getCurrentAmount()+1);
+			tXref.getTour().setCurrentAmount(currentAmount+1);
 			tgxRepository.save(tXref);
 			Contract contract = new Contract();
 			contract.setCreatedDate(new Date());
@@ -158,10 +163,10 @@ public class TourServiceImpl implements TourService {
 			contract.setStatus(Constant.VALUE_CREATE_CONTRACT);
 			contract.setSalary(tXref.getTour().getTourPrice());
 			contractRepository.save(contract);
-		return true;
+		return Constant.MESS_SUCCESS;
 		}catch (Exception e) {
 			log.error("----------------false to accept request!!!",e);
-			return false;
+			return Constant.MESS_FAIL;
 		}
 		
 	}

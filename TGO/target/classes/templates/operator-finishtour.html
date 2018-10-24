@@ -154,25 +154,31 @@
 														placeholder="" pattern ="^\d{1,5}$" min="0"></input>
 												</div>
 											</div>
-											<div class="form-group">
+											<!-- <div class="form-group">
 												<label class="control-label col-sm-3">Thời gian:</label>
 												<div class="col-sm-2">
 													<input type="number" name="day" class="form-control"
-														placeholder="4" min="0"></input>
+													placeholder="4" min="0"></input>
 												</div>
 												<label class="control-label col-sm-1">ngày</label>
 												<div class="col-sm-2">
 													<input type="number" name="night" min="0"
-														class="form-control" placeholder="3"></input>
+													class="form-control" placeholder="3"></input>
 												</div>
 												<label class="control-label col-sm-1">đêm</label>
 
-											</div>
+											</div> -->
 											<div class="form-group">
 												<label class="control-label col-sm-3">Ngày xuất
 													phát:</label>
 												<div class="col-sm-8">
 													<input id="startDate" type="date" name="date" class="form-control"></input>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-sm-3">Ngày kết thúc:</label>
+												<div class="col-sm-8">
+													<input id="endDate" type="date" name="endDate" class="form-control"></input>
 												</div>
 											</div>
 											<div class="form-group">
@@ -216,7 +222,8 @@
 							<tr>
 								<th>Mã tour</th>
 								<th>Tên tour</th>
-								<th>Thời gian</th>
+								<th>Ngày khởi hành</th>
+								<th>Ngày kết thúc</th>
 								<th>Giá</th>
 								<th>Trạng thái</th>
 								<th></th>
@@ -228,7 +235,8 @@
 									class="clickable">
 									<td th:text="${tour.id}"></td>
 									<td th:text="${tour.tourName}"></td>
-									<td th:text="${tour.tourTime}"></td>
+									<td th:text="${#dates.format(tour.startDate, 'dd-MM-yyyy')}"></td>
+									<td th:text="${#dates.format(tour.endDate, 'dd-MM-yyyy')}"></td>
 									<th:block th:if="${tour.tourPrice != null}">
 										<td th:text="${tour.tourPrice}+' VNĐ'"></td>
 									</th:block>
@@ -300,6 +308,12 @@
 																</div>
 															</div>
 															<div class="form-group">
+																<label class="control-label col-sm-3">Ngày kết thúc:</label>
+																<div class="col-sm-8">
+																	<input id="startDate" type="date" name="endDate" class="form-control"></input>
+																</div>
+															</div>
+															<!-- <div class="form-group">
 																<label class="control-label col-sm-2">Thời gian:</label>
 																<div class="col-sm-2">
 																	<input type="number" class="form-control" name="day"></input>
@@ -311,7 +325,7 @@
 																</div>
 																<label class="control-label col-sm-1">đêm</label>
 
-															</div>
+															</div> -->
 
 															<div class="form-group">
 																<label class="control-label col-sm-2">Giá:</label>

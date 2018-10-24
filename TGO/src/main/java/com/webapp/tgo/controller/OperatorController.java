@@ -238,7 +238,7 @@ public class OperatorController {
 				model.addAttribute(Constant.ENTITY_OPERATOR, operator);
 				model.addAttribute(Constant.ENTITY_LIST_LANGUAE, (List<Language>) languageService.findAll());
 				model.addAttribute(Constant.ENTITY_LIST_LOCATION, (List<Location>) locationService.findAll());
-				log.info("--- finis go to waiting tour");
+				log.info("--- finish go to waiting tour");
 				return Constant.VIEW_WATING_TOUR;
 			} else {
 				return Constant.VIEW_403;
@@ -308,7 +308,32 @@ public class OperatorController {
 	}
 
 	
-	
+	/**
+	 * @description: loading list guide if it have change
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/operator/loadingListGuide")
+	public String loadingListGuide(@RequestParam("tourid") int tourid,HttpServletRequest request, Model model) {
+		try {
+			log.info("----loading list guide");
+			if (request.isUserInRole(Constant.ROLE_OPERATOR)) {
+//				Operator operator = operatorService.findByUserName(request.getUserPrincipal().getName());
+//				List<Tour> tourList = operatorService.findTourWaitting(operator.getId());
+				model.addAttribute(Constant.ENTITY_TOUR, tourService.findOne(tourid));
+				log.info("--- finish loading list guide");
+				return Constant.VIEW_WATING_TOUR_LOAD_GUIDE;
+			} else {
+				return Constant.VIEW_403;
+			}
+
+		} catch (Exception e) {
+			log.error("redirect to info operator page error: " + e);
+			model.addAttribute(Constant.MESS_ERROR, e);
+			return Constant.VIEW_ERROR;
+		}
+	}
 
 	/**
 	 * @description: create new tour in operator
@@ -327,14 +352,15 @@ public class OperatorController {
 			Operator operator = operatorService.findByUserName(request.getUserPrincipal().getName());
 			String tourname = request.getParameter(Constant.PARAMETER_TOUR_NAME);
 			String language = request.getParameter(Constant.PARAMETER_LANGUAGE);
-			String day = request.getParameter(Constant.PARAMETER_DAY);
-			String night = request.getParameter(Constant.PARAMETER_NIGHT);
-			String tourTime = Constant.VALUE_TIME_TOUR_NOTHING;
-			if(!"".equals(day)||!"".equals(night)) {
-				 tourTime = day + Constant.PARAMETER_NGAY
-						+ night + Constant.PARAMETER_DEM;
-			}
+//			String day = request.getParameter(Constant.PARAMETER_DAY);
+//			String night = request.getParameter(Constant.PARAMETER_NIGHT);
+//			String tourTime = Constant.VALUE_TIME_TOUR_NOTHING;
+//			if(!"".equals(day)||!"".equals(night)) {
+//				 tourTime = day + Constant.PARAMETER_NGAY
+//						+ night + Constant.PARAMETER_DEM;
+//			}
 			String startDate = request.getParameter(Constant.PARAMETER_DATE);
+			String endDate = request.getParameter(Constant.PARAMETER_END_DATE);
 			String tourprice = request.getParameter(Constant.PARAMETER_TOUR_PRICE);
 			String amount = request.getParameter(Constant.PARAMETER_AMOUNT);
 			String location = request.getParameter(Constant.PARAMETER_LOCATION);
@@ -346,8 +372,8 @@ public class OperatorController {
 			}
 			log.info("tourname: " + tourname);
 			log.info("language: " + language);
-			log.info("tourTime: " + tourTime);
 			log.info("startDate: " + startDate);
+			log.info("endDate: " + endDate);
 			log.info("tourprice: " + tourprice);
 			log.info("amount: " + amount);
 			log.info("count: " + count);
@@ -359,7 +385,7 @@ public class OperatorController {
 				locations.add(request.getParameter(Constant.PARAMETER_LOCATION + i));
 				log.info("location " + i + " : " + locations.get(i));
 			}
-			if (operatorService.postTour(operator, tourname, language, tourTime, startDate, tourprice, locations, requirement,amount)) {
+			if (operatorService.postTour(operator, tourname, language, endDate, startDate, tourprice, locations, requirement,amount)) {
 				log.info("----------------post tour is success!!!!!");
 			}else {
 				log.error("---------------------fasle post tour!!!!!!!!!!");
@@ -460,22 +486,23 @@ public class OperatorController {
 		return "danhsachcongtyluhanh";
 	}
 
-	@PostMapping("/operator/update/{id}")
+	/*@PostMapping("/operator/update/{id}")
 	public String updateTour(@PathVariable("id") int id, HttpServletRequest request, Model model) {
 		Tour tour = tourService.findOne(id);
 		String tourName = request.getParameter("tourName");
 		String tourPrice = request.getParameter("tourPrice");
 		String tourTime = request.getParameter(Constant.PARAMETER_DAY) + " ngày "
 				+ request.getParameter(Constant.PARAMETER_NIGHT) + " đêm ";
+		String endDate = request.getParameter(Constant.PARAMETER_END_DATE);
 		tour.setTourName(tourName);
 		tour.setTourPrice(Integer.parseInt(tourPrice));
-		tour.setTourTime(tourTime);
+		tour.setEndDate(endDate);
 		tourService.save(tour);
 		Principal principal = request.getUserPrincipal();
 		User user = userDetailService.findByUsername(principal.getName());
 		Operator operator = operatorService.findByUserId(user.getId());
 		model.addAttribute("operator", operator);
 		return "TourOperator";
-	}
+	}*/
 
 }

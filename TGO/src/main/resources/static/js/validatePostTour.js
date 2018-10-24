@@ -18,6 +18,12 @@ function postour(){
 		alert("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!!");
 		return false;
 	}
+	//validate endDate
+	var endDate = document.querySelector('#endDate').value;
+	if(endDate==""||Date.parse(endDate)<Date.parse(startDate)){
+		alert("Ngày kết thúc không thể nhỏ hơn ngày bắt đầu!!");
+		return false;
+	}
 	var tourprice = document.querySelector('#tourprice').value.trim();
 	if(tourprice<10000){
 		alert('giá tour không được dưới 10.000VND');

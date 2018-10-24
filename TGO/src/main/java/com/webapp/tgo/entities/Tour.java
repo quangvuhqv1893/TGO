@@ -45,9 +45,9 @@ public class Tour implements Serializable {
 	private Date startDate;
 	
 
-	@Length(max = 255)
-	@Column(name = "Tourtime", nullable = false)
-	private String tourTime;
+//	@Length(max = 255)
+	@Column(name = "endDate", nullable = false)
+	private Date endDate;
 
 	@Column(name = "Tourprice", nullable = true)
 	private int tourPrice;
@@ -160,13 +160,13 @@ public class Tour implements Serializable {
 		this.tourName = tourName;
 	}
 
-	public String getTourTime() {
+/*	public String getTourTime() {
 		return tourTime;
 	}
 
 	public void setTourTime(String tourTime) {
 		this.tourTime = tourTime;
-	}
+	}*/
 
 	public int getTourPrice() {
 		return tourPrice;
@@ -213,20 +213,20 @@ public class Tour implements Serializable {
 		this.startDate = startDate;
 	}
 
-	public Tour(String tourName, String tourTime, int tourPrice) {
+	public Tour(String tourName, Date endDate, int tourPrice) {
 		super();
 		this.tourName = tourName;
-		this.tourTime = tourTime;
+		this.endDate = endDate;
 		this.tourPrice = tourPrice;
 	}
 
-	public Tour(String tourName, int status, Date startDate, String tourTime, int tourPrice,
+	public Tour(String tourName, int status, Date startDate, Date endDate, int tourPrice,
 			Set<Location> locations, Operator operator) {
 		super();
 		this.tourName = tourName;
 		this.status = status;
 		this.startDate = startDate;
-		this.tourTime = tourTime;
+		this.endDate = endDate;
 		this.tourPrice = tourPrice;
 		this.locations = locations;
 		this.operator = operator;
@@ -255,6 +255,14 @@ public class Tour implements Serializable {
 
 	public void setCurrentAmount(int currentAmount) {
 		this.currentAmount = currentAmount;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 }

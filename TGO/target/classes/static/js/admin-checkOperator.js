@@ -13,14 +13,14 @@ $(".runningTour").click(function(){
 		success: function(data){
 			console.log(data);
 			if(data=="success"){
-				alert("kiểm duyệt tài khoản thành công!");
+				alert("Kiểm duyệt tài khoản thành công!");
 				window.location.href = "/admin/operatorApproval";
 			}
 			else if(data=="403"){
 				window.location.href = "/403";
 			}
 			else{
-				alert("tài khoản kiểm duyệt thất bại!");
+				alert("Kiểm duyệt tài khoản thất bại!");
 //				return false;
 			}
 		}

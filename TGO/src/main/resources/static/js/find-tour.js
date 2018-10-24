@@ -16,8 +16,10 @@ $(".sendRequest").click(function(){
 			console.log(data);
 			if(data=="success"){
 			alert(" Gửi yêu cầu thành công");
-			param.text("đã gửi yêu cầu");
-			param.attr("disabled","disabled");
+//			param.text("đã gửi yêu cầu");
+//			param.attr("disabled","disabled");
+			$("#tour"+tourid).remove();
+			$("#collapse"+tourid).remove();
 		}else if (data=="403") {
 			window.location.href = "/403";
 		}else{

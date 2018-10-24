@@ -20,7 +20,7 @@ public interface TourService {
     boolean cancelTour(int id);
     String runTour(int id);
     boolean finishTour(int id);
-    boolean acceptRequest(int tourGuidexrefId);
+    String acceptRequest(int tourGuidexrefId);
     
     List<Tour> findByTourName(String tourName);
 //    List<Tour> findTour(Guide guide,String tourName,String operatorName,String location, String day);

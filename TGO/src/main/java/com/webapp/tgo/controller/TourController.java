@@ -112,7 +112,7 @@ public class TourController {
 	public String accept(@PathVariable("tourxrefid") int tourxrefid, HttpServletRequest request, Model model) {
 		try {
 			if(request.isUserInRole(Constant.ROLE_OPERATOR)||request.isUserInRole(Constant.ROLE_GUIDE)) {
-			return tourService.acceptRequest(tourxrefid)? Constant.MESS_SUCCESS : Constant.MESS_FAIL;
+			return tourService.acceptRequest(tourxrefid);
 			} else {
 				return Constant.VIEW_403;
 			}

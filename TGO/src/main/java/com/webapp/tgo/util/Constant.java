@@ -34,6 +34,7 @@ public class Constant {
 	public static final String VIEW_ADMIN = "admin";
 	public static final String VIEW_ADMIN_CHECK_USER = "admin-checkUser";
 	public static final String VIEW_ADMIN_CHECK_OPERATOR = "admin-checkOperator";
+	public static final String VIEW_WATING_TOUR_LOAD_GUIDE = "operator-waitingtour-loadGuide";
 	
 	public static final String ENTITY_OPERATOR = "operator";
 	public static final String ENTITY_GUIDE = "guide";
@@ -42,6 +43,7 @@ public class Constant {
 	public static final String ENTITY_LIST_LOCATION = "listLocation";
 	public static final String ENTITY_LIST_GUIDE = "listGuide";
 	public static final String ENTITY_LIST_TOUR = "listTour";
+	public static final String ENTITY_TOUR = "tour";
 	public static final String ENTITY_LIST_OPERATOR = "operatorlist";
 	
 	public static final String ROLE_OPERATOR = "ROLE_OPERATOR";
@@ -72,6 +74,9 @@ public class Constant {
 	public static final String MESS_EXIST_USER = "existUser";
 	public static final String MESS_NOT_EXIST = "notExist";
 	public static final String MESS_NOT_APPROVAL = "notApproval";
+	public static final String MESS_ERROR_AMONUNT = "errorAmount";
+	public static final String MESS_TRUE = "TRUE";
+	public static final String MESS_FAlSE = "FAlSE";
 
 	
 	
@@ -88,6 +93,7 @@ public class Constant {
 	public static final String PARAMETER_TOUR_NAME = "tourname";
 	public static final String PARAMETER_TOUR_PRICE = "tourprice";
 	public static final String PARAMETER_DATE = "date";
+	public static final String PARAMETER_END_DATE = "endDate";
 	public static final String PARAMETER_DAY = "day";
 	public static final String PARAMETER_NIGHT = "night";
 	public static final String PARAMETER_GUIDE_NAME = "guidename";
@@ -204,6 +210,9 @@ public class Constant {
 	public static final String QUERY_CHANGE_STATUS_USER = "UPDATE User u SET u.status = :status WHERE u.id = :userid AND u.roles.id = :role";
 	public static final String QUERRY_FIND_OPERATOR_NEED_CHECK = "SELECT o FROM Operator o JOIN o.user u WHERE u.status = :status order by o.id DESC";
 	public static final String PARAMETER_AMOUNT = "amount";
+
+	
+	
 
 
 

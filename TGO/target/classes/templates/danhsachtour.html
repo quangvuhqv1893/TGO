@@ -145,7 +145,7 @@ li:hover .dropdown-menu {
 							<td th:text="${tour.id}"></td>
 							<td th:text="${tour.tourName}"></td>
 							<td th:text="${tour.tourPrice}"></td>
-							<td th:text="${tour.tourTime}"></td>
+							<td th:text="${tour.endDate}"></td>
 							<td th:text="${tour.status}"></td>
 							<td><form th:method="get"
 									th:attr="action='/tour/delete/'+${page}+'/'+${tour.id}">

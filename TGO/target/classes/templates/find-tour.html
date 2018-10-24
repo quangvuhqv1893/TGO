@@ -124,7 +124,7 @@
 					<th><b>Tên tour</b></th>
 					<th><b>Tên công ty lữ hành</b></th>
 					<th><b>Ngày khởi hành</b></th>
-					<th><b>Thời gian</b></th>
+					<th><b>Ngày kết thúc</b></th>
 					<th><b>Giá</b></th>
 					<th></th>
 					<!-- <th><b>Địa điểm</b></th> -->
@@ -138,7 +138,7 @@
 				<td><a target="_blank" th:href ="@{/guide/showOperator/(operatorid=${tour.operator.id})}" th:text = "${tour.operator.companyNameViet}"></a></td>
 				<td th:text = "${#dates.format(tour.startDate, 'dd-MM-yyyy')}"></td>
 				<!-- <td th:text = "${tour.startDate}"></td> -->
-				<td th:text = "${tour.tourTime}"></td>
+				<td th:text = "${tour.endDate}"></td>
 				<td th:text = "${tour.tourPrice}"></td>
 				<!-- <td th:text = "${}"></td> -->
 				<td th:text= "${tour.id}" class="hidden"></td>
@@ -180,13 +180,25 @@
 																</div>
 															</div>
 															
-															
 															<div class="form-group">
-																<label class="control-label col-sm-2">Thời gian:</label>
+																<label class="control-label col-sm-2">Ngày khởi hành:</label>
 																<div class="col-sm-8">
-																	<input type="text" class="form-control" th:value="${tour.tourTime}"></input>
+																	<input type="text" class="form-control" th:value="${#dates.format(tour.startDate, 'dd-MM-yyyy')}" name="startDate"></input>
 																</div>
 															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Ngày kết thúc:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${#dates.format(tour.endDate, 'dd-MM-yyyy')}" name="endDate"></input>
+																</div>
+															</div>
+															
+															<!-- <div class="form-group">
+																<label class="control-label col-sm-2">Thời gian:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${tour.endDate}"></input>
+																</div>
+															</div> -->
 															<div class="form-group">
 																<label class="control-label col-sm-2">Giá:</label>
 																<div class="col-sm-8">
@@ -269,7 +281,7 @@
 										<a href="#"><strong th:text="${iterStat.count+') Tên tour'}"></strong></a> <b th:text="${tour.tourName}"></b>
 									</div>
 									<div class="col-xs-4">
-										<a href="#"><strong>Thời gian </strong></a> <b th:text="${tour.tourTime}"></b>
+										<a href="#"><strong>Thời gian </strong></a> <b th:text="${tour.endDate}"></b>
 									</div>
 									<div class="col-xs-4" >
 										<a><strong>Công ty lữ hành</strong></a><a  th:attr="href='/guide/'+${tour.operator.id}" th:text="${tour.operator.companyNameViet}"></a>

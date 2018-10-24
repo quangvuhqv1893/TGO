@@ -166,15 +166,16 @@ public class OperatorServiceImpl implements OperatorService{
 
 	@Override
 	@Transactional
-	public boolean postTour(Operator operator, String tourname, String language, String tourTime, String startDate,
+	public boolean postTour(Operator operator, String tourname, String language, String endDate, String startDate,
 			String tourprices, List<String> locations, String requirement,String amount) {
 		try {
 		log.info("----start method post tour-----");
 		int tourprice = (tourprices==null||"".equalsIgnoreCase(tourprices))? 0 : Integer.parseInt(tourprices);
 		int amountvalue = (amount==null||"".equalsIgnoreCase(amount))? 0 : Integer.parseInt(amount);
-		Date stDate = new Date();
+		Date stDate=new Date(),eDate = new Date();
 		try {
 			stDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);	
+			eDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);	
 			log.info("stdate: "+startDate);
 		} catch (Exception e) {
 			log.error("error in Date method: "+e);
@@ -194,7 +195,7 @@ public class OperatorServiceImpl implements OperatorService{
 		tour.setTourName(tourname);
 		tour.setTourPrice(tourprice);
 		tour.setAmount(amountvalue);
-		tour.setTourTime(tourTime);
+		tour.setEndDate(eDate);
 		tour.setRequirement(requirement);
 		tourRepository.save(tour);
 		log.info("----end method post tour-----");

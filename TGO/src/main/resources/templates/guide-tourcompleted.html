@@ -104,7 +104,8 @@
 							<tr>
 								<th>Mã tour</th>
 								<th>Tên tour</th>
-								<th>Thời gian</th>
+								<th>Ngày khởi hành</th>
+								<th>Ngày kết thúc</th>
 								<th>Giá</th>
 								<th>Trạng thái</th>
 								<th>Chức năng</th>
@@ -117,7 +118,8 @@
 									class="clickable">
 									<td th:text="${tgx.tour.id}"></td>
 									<td th:text="${tgx.tour.tourName}"></td>
-									<td th:text="${tgx.tour.tourTime}"></td>
+									<td th:text="${#dates.format(tour.startDate, 'dd-MM-yyyy')}"></td>
+									<td th:text="${#dates.format(tour.endDate, 'dd-MM-yyyy')}"></td>
 									<th:block th:if="${tgx.tour.tourPrice != null}">
 										<td th:text="${tgx.tour.tourPrice}+' VNĐ'"></td>
 									</th:block>
@@ -232,10 +234,11 @@
 
 											</ul>
 
-											<!-- Tab panes -->
+											<!-- Tab panes thong tin tour -->
 											<div class="tab-content">
 												<div role="tabpanel" class="tab-pane fade in active"
 													th:attr="id='t'+${tgx.tour.id}">
+													<fieldset disabled="disabled">
 													<div class="form-tour">
 														<form class="form-horizontal"
 															th:attr="action='/operator/update/'+${tgx.tour.id}"
@@ -254,13 +257,24 @@
 																</div>
 															</div>
 															
-															
 															<div class="form-group">
-																<label class="control-label col-sm-2">Thời gian:</label>
+																<label class="control-label col-sm-2">Ngày khởi hành:</label>
 																<div class="col-sm-8">
-																	<input type="text" class="form-control" th:value="${tgx.tour.tourTime}"></input>
+																	<input type="text" class="form-control" th:value="${#dates.format(tour.startDate, 'dd-MM-yyyy')}" name="startDate"></input>
 																</div>
 															</div>
+															<div class="form-group">
+																<label class="control-label col-sm-2">Ngày kết thúc:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${#dates.format(tour.endDate, 'dd-MM-yyyy')}" name="endDate"></input>
+																</div>
+															</div>
+															<!-- <div class="form-group">
+																<label class="control-label col-sm-2">Thời gian:</label>
+																<div class="col-sm-8">
+																	<input type="text" class="form-control" th:value="${tgx.tour.endDate}"></input>
+																</div>
+															</div> -->
 															<div class="form-group">
 																<label class="control-label col-sm-2">Ngôn ngữ:</label>
 																<div class="col-sm-8">
@@ -295,6 +309,7 @@
 
 														</form>
 													</div>
+													</fieldset>
 												</div>
 												<div role="tabpanel" class="tab-pane fade"
 													th:attr="id='i'+${tgx.tour.id}">
