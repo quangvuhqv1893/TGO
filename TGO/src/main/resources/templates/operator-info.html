@@ -251,8 +251,8 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3">Email:</label>
                         <div class="col-sm-8">
-                        <input type="email" name="email" class="form-control"
-                                   placeholder="" th:field="${operator.user.email}" th:required="required"></input>
+                        <input type="email" name="email" class="form-control" 
+                                   placeholder="" th:field="${operator.user.email}" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" th:required="required"></input>
                          
                         </div>
                     </div>
@@ -325,5 +325,6 @@
         th:src="@{/js/bootstrap.min.js}"></script>
 <script src="../static/js/operator.js" th:src="@{/js/operator.js}"></script>
 <script src="../static/js/validator.js" th:src="@{/js/validator.js}"> </script>
+<script src="../static/js/waitingTour.js" th:src="@{/js/validatePostTour.js}"></script>
 </body>
 </html>

@@ -75,19 +75,27 @@
 						<b th:text="${admin.fullname}"></b>
 					</h4>
 					<ul class="nav nav-pills nav-stacked nav-tabs">
-						<!-- <li   ><a th:href="@{/admin}">Tour yêu cầu xử lý</a></li> -->
-						<li><a>Thông tin cá nhân </a></li> 
-						<li class="active dropdown"><a class="dropdown-toggle"
-                                                data-toggle="dropdown">Kiểm duyệt thông tin</a>
-                             <ul class="nav nav-pills nav-stacked nav-tabs">
-                             	<li><a th:href="@{/admin}">Kiểm duyệt Tour</a></li>
-                             	<li style="background-color:LightGray;"><a>Kiểm duyệt HDV</a></li>
+						<!-- <li  class="active dropdown"><a>Tour yêu cầu xử lý</a></li> -->
+						<li><a> Thông tin cá nhân </a></li> 
+						<li >
+							<a th:href="@{/admin}"> Kiểm duyệt thông tin</a>
+                             <!-- <ul class="nav nav-pills nav-stacked nav-tabs">
+                             	<li  style="background-color:LightGray;"><a th:href="@{/admin}">Kiểm duyệt Tour</a></li>
+                             	<li><a th:href="@{/admin/userApproval}">Kiểm duyệt HDV</a></li>
 								<li><a th:href="@{/admin/operatorApproval}">Kiểm duyệt công ty lữ hành</a></li>
 								
 							</ul>
-                    	</li>
-                    	<li><a th:href="@{/admin/manageTour}"> Quản lý thông tin </a></li> 
-                    	<!-- <li><a href="#">Cài đặt</a></li> -->
+						-->						</li>
+						<li class="active dropdown"><a> Quản lý thông tin </a>
+							<ul class="nav nav-pills nav-stacked nav-tabs">
+								<li><a th:href="@{/admin/manageTour}">Quản lý Tour</a></li>
+								<li  style="background-color:LightGray;"><a>Quản lý HDV</a></li>
+								<li><a th:href="@{/admin/manageOperator}">Quản lý công ty lữ hành</a></li>
+								
+							</ul>
+
+						</li> 
+						<!-- <li><a href="#">Cài đặt</a></li> -->
 					</ul>
 					<!-- Modal -->
 				</div>
@@ -97,43 +105,55 @@
 					<!--tab-pane-sidebar-->
 
 				<table class="table">
-					<p style="color: red" th:text="${messageError}"></p>
 						<thead>
 							<tr>
-								<th>Mã HDV</th>
-								<th>Tài khoản</th>
-								<th>Tên HDV</th>
-								<!-- <th>Địa chỉ</th> -->
-								<th>Chức năng</th>
-								<th></th>
+								<th style="text-align: center;">Mã HDV</th>
+								<th style="text-align: center;">Email</th>
+								<th style="text-align: center;">Tên HDV</th>
+								<th style="text-align: center;">Nơi hoạt động</th>
+								<th style="text-align: center;">Ngôn ngữ</th>
+								<th style="text-align: center;">Chức năng</th>
+								<th></th> 
 							</tr>
 						</thead>
+						<tr>
+							<form th:action="@{/admin/manageGuide}" th:method="GET">
+								<td><input style="width: 100%" type="text" th:value="${guideId}" name="guideId" /></td>
+								<td><input style="width: 100%" type="text" th:value="${email}" name="email" /></td>
+								<td><input style="width: 100%" type="text" th:value="${fullname}" name="fullname" /></td>
+								<td><input style="width: 100%" type="text" th:value="${location}" name="location" /></td>
+								<td><input style="width: 100%" type="text" th:value="${language}" name="language" /></td>
+								<td><button type="submit" class="btn btn-success" hidden="true">Tìm kiếm</button></td>
+								
+							</form>
+						</tr>
 						<th:block th:unless="${#lists.isEmpty(listGuide)}" role="tabpanel">
-							<tbody th:each="tour,iterStat : ${listGuide}">
-								<tr data-toggle="collapse" th:attr="data-target='#u'+${tour.id}" 
+							<tbody th:each="guide,iterStat : ${listGuide}">
+								<tr data-toggle="collapse" th:attr="data-target='#u'+${guide.id}" 
 									class="clickable">
-									<td th:text="${tour.id}"></td>
-									<td th:text="${tour.user.username}"></td>
-									<td th:text="${tour.user.fullname}"></td>
-									<!-- <td th:if="${tour.user.address}"></td> -->
-									<td th:text= "${tour.user.id}" class="hidden"></td>
+									<td th:text="${guide.id}"></td>
+									<td th:text="${guide.user.email}"></td>
+									<td th:text="${guide.user.fullname}"></td>
+									<td><span th:each="location:${guide.locations} "><b th:text="${location.locationName}"></b><br/></span></td>
+									<td><span th:each="language:${guide.languages} "><b th:text="${language.language}"></b><br/></span></td>
+									<td th:text= "${guide.user.id}" class="hidden"></td>
 									<td>
-										<button type="button" class="btn btn-primary cancelTourRunning" >Hủy</button>
+										<button type="button" class="btn btn-primary " th:onclick="|window.open('@{/guide/detailGuide/(guideId=${guide.id})}','_blank')|">Chi tiết</button>
 									</td>
-									<td th:text= "${tour.user.id}" class="hidden"></td>
+									<!-- <td th:text= "${guide.user.id}" class="hidden"></td>
 									<td>
 										<button type="button" class="btn btn-primary runningTour">Đồng ý</button>
-									</td>
+									</td> -->
 									<td><span class="glyphicon glyphicon-chevron-down"></span></td>
 
 								</tr>
 								<tr>
 									<td colspan="7" id="row-collapse">
-										<div th:id="'u'+${tour.id}" class="collapse tour-detail">
+										<div th:id="'u'+${guide.id}" class="collapse tour-detail">
 											<!-- Nav tabs -->
 											<ul class="nav nav-tabs" role="tablist">
 												<li role="presentation" class="active"><a
-													th:attr="href='#t'+${tour.id}" aria-controls="home"
+													th:attr="href='#t'+${guide.id}" aria-controls="home"
 													role="tab" data-toggle="tab">Thông tin HDV</a>
 												</li>
 											</ul>
@@ -141,45 +161,45 @@
 											<!-- Tab panes -->
 											<div class="tab-content">
 												<div role="tabpanel" class="tab-pane fade in active"
-													th:attr="id='t'+${tour.id}">
+													th:attr="id='t'+${guide.id}">
 													<fieldset disabled="disabled">
 													<div class="form-tour">
 														<form class="form-horizontal"
-															th:attr="action='/operator/update/'+${tour.id}"
+															th:attr="action='/operator/update/'+${guide.id}"
 															th:method="POST">
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Tên HDV:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.user.fullname}"></input>
+																		th:attr="value=${guide.user.fullname}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Tài khoản:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.user.username}"></input>
+																		th:attr="value=${guide.user.username}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Email:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.user.email}"></input>
+																		th:attr="value=${guide.user.email}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Số điện thoại:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.user.phonenumber}"></input>
+																		th:attr="value=${guide.user.phonenumber}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Ngày sinh:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																	th:value = "${#dates.format(tour.birthdate, 'dd-MM-yyyy')}"
+																	th:value = "${#dates.format(guide.birthdate, 'dd-MM-yyyy')}"
 																	></input>
 																</div>
 															</div>
@@ -187,47 +207,47 @@
 																<label class="control-label col-sm-2"> Giới tính:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.gender}"></input>
+																		th:attr="value=${guide.gender}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Số thẻ:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.cardnumber}"></input>
+																		th:attr="value=${guide.cardnumber}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Loại thẻ:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.cardtype}"></input>
+																		th:attr="value=${guide.cardtype}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Ngày hết hạn:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.expirationdate}"></input>
+																		th:attr="value=${guide.expirationdate}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> kinh nghiệm:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.experience}"></input>
+																		th:attr="value=${guide.experience}"></input>
 																</div>
 															</div>
 															
 															<div class="form-group"
-																th:each="location:${tour.locations}">
+																th:each="location:${guide.locations}">
 																<label class="control-label col-sm-2">Địa điểm:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control"
 																		th:value="${location.locationName}"></input>
 																</div>
 															</div>
-															<div class="form-group" th:each="language:${tour.languages}">
+															<div class="form-group" th:each="language:${guide.languages}">
 																<label class="control-label col-sm-2">Ngôn ngữ:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control"
@@ -247,8 +267,47 @@
 							</tbody>
 						</th:block>
 			</table>
-
-
+			<!-- paging -->
+					<div class="row">
+						<div class="form-group col-md-1 hidden">
+							<select class="form-control pagination" id="pageSizeSelect">
+								<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+								th:value="${pageSize}"
+								th:selected="${pageSize} == ${selectedPageSize}"></option>
+							</select>
+						</div>
+						<div th:if="${listGuide.totalPages > 1}"
+							class="form-group col-md-11 pagination-centered">
+							<ul class="pagination">
+								<li th:class="${listGuide.number == 0} ? disabled"><a
+									class="pageLink"
+									th:href="@{/admin/manageGuide/(fullname=${fullname}, guideId=${guideId},email=${email},location=${location},language=${language}, pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+								</li>
+								<li th:class="${listGuide.number == 0} ? disabled"><a
+									class="pageLink"
+									th:href="@{/admin/manageGuide/(fullname=${fullname}, guideId=${guideId},email=${email},location=${location},language=${language}, pageSize=${selectedPageSize}, page=${listGuide.number})}">&larr;</a>
+								</li>
+								<li
+								th:class="${listGuide.number == (page - 1)} ? 'active pointer-disabled'"
+								th:each="page : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+								<a class="pageLink"
+								th:href="@{/admin/manageGuide/(fullname=${fullname}, guideId=${guideId},email=${email},location=${location},language=${language}, pageSize=${selectedPageSize}, page=${page})}"
+								th:text="${page}"></a>
+								</li>
+								<li
+								th:class="${listGuide.number + 1 == listGuide.totalPages} ? disabled">
+								<a class="pageLink"
+								th:href="@{/admin/manageGuide/(fullname=${fullname}, guideId=${guideId},email=${email},location=${location},language=${language}, pageSize=${selectedPageSize}, page=${listGuide.number + 2})}">&rarr;</a>
+								</li>
+								<li
+								th:class="${listGuide.number + 1 == listGuide.totalPages} ? disabled">
+								<a class="pageLink"
+								th:href="@{/admin/manageGuide/(fullname=${fullname}, guideId=${guideId},email=${email},location=${location},language=${language}, pageSize=${selectedPageSize}, page=${listGuide.totalPages})}">&raquo;</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+			<!-- end -->
 				</div>
 			</div>
 

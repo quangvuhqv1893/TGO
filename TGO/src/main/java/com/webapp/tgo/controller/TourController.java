@@ -1,5 +1,10 @@
 	package com.webapp.tgo.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,9 +20,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.webapp.tgo.entities.Language;
+import com.webapp.tgo.entities.Location;
+import com.webapp.tgo.entities.Operator;
 import com.webapp.tgo.entities.Tour;
+import com.webapp.tgo.service.LanguageService;
+import com.webapp.tgo.service.LocationService;
 import com.webapp.tgo.service.TourService;
 import com.webapp.tgo.service.Tour_Guide_Xref_Service;
+import com.webapp.tgo.service.UserDetailService;
 import com.webapp.tgo.util.Constant;
 
 @Controller
@@ -27,6 +38,12 @@ public class TourController {
 	private TourService tourService;
 	@Autowired
 	private Tour_Guide_Xref_Service tour_Guide_Xref_Service;
+	@Autowired
+	private LocationService locationService;
+	@Autowired
+	private LanguageService languageService;
+	@Autowired
+	private UserDetailService userDetailService;
 
 	/*
 	 * @description: operator delete tour waiting or cancel tour is running
@@ -134,7 +151,7 @@ public class TourController {
 	@GetMapping("/tour/cancelGuide")
 	public String cancelGuide(@Param("tourxrefid") int tourxrefid, HttpServletRequest request, Model model) {
 		try {
-			if(request.isUserInRole(Constant.ROLE_OPERATOR)|| request.isUserInRole(Constant.ROLE_GUIDE)) {
+			if(request.isUserInRole(Constant.ROLE_OPERATOR)|| request.isUserInRole(Constant.ROLE_GUIDE)||request.isUserInRole(Constant.ROLE_ADMIN)) {
 			 return tour_Guide_Xref_Service.deleteGuideInTour(tourxrefid);
 			} else
 				return Constant.VIEW_403;
@@ -194,6 +211,89 @@ public class TourController {
 	}
 	
 	
+	/**
+	 * @description: create new tour in operator
+	 * @param request
+	 * @param model
+	 * @return view
+	 */
+	@ResponseBody
+	@PostMapping("/tour/updateTour")
+	public String updateTour(HttpServletRequest request) {
+		try {
+			log.info("------------------start postour");
+			String language = null;
+			String tourname = request.getParameter(Constant.PARAMETER_TOUR_NAME);
+//			String day = request.getParameter(Constant.PARAMETER_DAY);
+//			String night = request.getParameter(Constant.PARAMETER_NIGHT);
+//			String tourTime = Constant.VALUE_TIME_TOUR_NOTHING;
+//			if(!"".equals(day)||!"".equals(night)) {
+//				 tourTime = day + Constant.PARAMETER_NGAY
+//						+ night + Constant.PARAMETER_DEM;
+//			}
+			int tourid =0;	
+			if(request.getParameter(Constant.PARAMETER_TOUR_ID)!=null) {
+				tourid =Integer.parseInt(request.getParameter(Constant.PARAMETER_TOUR_ID));	
+			}
+			String startDate = request.getParameter(Constant.PARAMETER_DATE);
+			String endDate = request.getParameter(Constant.PARAMETER_END_DATE);
+			String tourprice = request.getParameter(Constant.PARAMETER_TOUR_PRICES);
+			String amount = request.getParameter(Constant.PARAMETER_AMOUNT);
+//			String location = request.getParameter(Constant.PARAMETER_LOCATION);
+			String countlocation = request.getParameter(Constant.PARAMETER_COUNT_LOCATION);
+			String countlanguage = request.getParameter(Constant.PARAMETER_COUNT_LANGUAGE);
+			String requirement =request.getParameter(Constant.PARAMETER_REQUIREMENT);
+			int countLocation =0;
+			if(!"".equals(countlocation)&&!"null".equalsIgnoreCase(countlocation)&& countlocation!=null) {
+				countLocation = Integer.parseInt(countlocation);
+			}
+			int countLanguage =0;
+			if(!"".equals(countlanguage)&&!"null".equalsIgnoreCase(countlanguage)&& countlanguage!=null) {
+				countLanguage = Integer.parseInt(countlanguage);
+			}
+			log.info("tourid: " + tourid);
+			log.info("tourname: " + tourname);
+			log.info("startDate: " + startDate);
+			log.info("endDate: " + endDate);
+			log.info("tourprice: " + tourprice);
+			log.info("amount: " + amount);
+			log.info("coucountLocationnt: " + countLocation);
+			log.info("countLanguage: " + countLanguage);
+			log.info("requirement: " + requirement);
+			Set<Location> locations = new HashSet<>();
+			if (countLocation>0) {
+				for (int i = 1; i <= countLocation; i++) {
+					log.info(request.getParameter(Constant.PARAMETER_LOCATION + i));
+					locations.add(locationService
+							.findByLocationName(request.getParameter(Constant.PARAMETER_LOCATION + i)));
+				}
+			}
+			if (countLanguage>0) {
+				for (int i = 1; i <= countLanguage; i++) {
+					log.info(request.getParameter(Constant.PARAMETER_LANGUAGE + i));
+					language = request.getParameter(Constant.PARAMETER_LANGUAGE+ i);
+					log.info("language: " + language);
+//					locations.add(locationService
+//							.findByLocationName(request.getParameter(Constant.PARAMETER_LOCATION + i)));
+				}
+			}
+			if (tourService.updateTour(tourid,tourname, language, endDate, startDate, tourprice, locations, requirement,amount)) {
+				log.info("----------------post tour is success!!!!!");
+			}else {
+				log.error("---------------------fasle post tour!!!!!!!!!!");
+//				model.addAttribute(Constant.MESS_ERROR, Constant.MESS_POST_TOUR_FAILS);
+				return Constant.MESS_FAIL;
+			}
+			log.info("------------------end postour");
+			return Constant.MESS_SUCCESS;
+		} catch (Exception e) {
+			log.error("error: "+e);
+//			model.addAttribute(Constant.MESS_ERROR, e);
+			return Constant.MESS_FAIL;
+		}
+	}
+	
+	
 	@GetMapping("/danhsachtour")
 	public String adminConTour(HttpServletRequest request, Model model) {
 		if (request.isUserInRole("ROLE_ADMIN")) {
@@ -209,7 +309,52 @@ public class TourController {
 		}
 		return "ERROR";
 	}
-
+	@GetMapping("/tour/detailTour")
+	public String detailTour(HttpServletRequest request, Model model, int tourId) {
+		try {
+			if (request!=null && request.isUserInRole(Constant.ROLE_ADMIN)) {
+				log.info("----------------start redirect to info tour page");
+				model.addAttribute(Constant.ENTITY_ADMIN,userDetailService.findByUsername(request.getUserPrincipal().getName()));
+				model.addAttribute(Constant.ENTITY_TOUR, tourService.findOne(tourId));
+				model.addAttribute(Constant.ENTITY_LIST_LANGUAE, (List<Language>) languageService.findAll());
+				model.addAttribute(Constant.ENTITY_LIST_LOCATION, (List<Location>) locationService.findAll());
+				log.info("----------------end redirect to info tour page");
+				return Constant.VIEW_ADMIN_TOUR_INFO;
+			}else{
+				return Constant.VIEW_403;
+			}
+		} catch (Exception e) {
+			log.error("error in detail tour ", e);
+			model.addAttribute(Constant.MESS_EXCEPTION, e);
+			return Constant.VIEW_ERROR;
+		}
+	}
+	
+	/**
+	 * description: go to guide in tour page
+	 * @param request
+	 * @param model
+	 * @param tourId
+	 * @return
+	 */
+	@GetMapping("/admin/guideInTour")
+	public String guideInTour(HttpServletRequest request, Model model, int tourId) {
+		try {
+			if(!request.isUserInRole(Constant.ROLE_ADMIN)) {
+				return Constant.VIEW_403;
+			}
+			log.info("----------------start redirect to info guide of tour page");
+			model.addAttribute(Constant.ENTITY_ADMIN,userDetailService.findByUsername(request.getUserPrincipal().getName()));
+			model.addAttribute(Constant.ENTITY_TOUR, tourService.findOne(tourId));
+			log.info("----------------end redirect to info guide of tour page");
+			return Constant.VIEW_GUIDE_IN_TOUR;
+		} catch (Exception e) {
+			log.error("error in show guide in tour ", e);
+			model.addAttribute(Constant.MESS_EXCEPTION, e);
+			return Constant.VIEW_ERROR;
+		}
+	}
+	
 	@GetMapping("/danhsachtour/page/{id}")
 	public String adminConTour1(@PathVariable("id") int id, HttpServletRequest request, Model model) {
 		if (request.isUserInRole("ROLE_ADMIN")) {

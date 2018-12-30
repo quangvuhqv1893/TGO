@@ -118,8 +118,8 @@
 									class="clickable">
 									<td th:text="${tgx.tour.id}"></td>
 									<td th:text="${tgx.tour.tourName}"></td>
-									<td th:text="${#dates.format(tour.startDate, 'dd-MM-yyyy')}"></td>
-									<td th:text="${#dates.format(tour.endDate, 'dd-MM-yyyy')}"></td>
+									<td th:text="${#dates.format(tgx.tour.startDate, 'dd-MM-yyyy')}"></td>
+									<td th:text="${#dates.format(tgx.tour.endDate, 'dd-MM-yyyy')}"></td>
 									<th:block th:if="${tgx.tour.tourPrice != null}">
 										<td th:text="${tgx.tour.tourPrice}+' VNĐ'"></td>
 									</th:block>
@@ -206,13 +206,13 @@
 															<div class="form-group">
 																<label class="control-label col-sm-2">Ngày khởi hành:</label>
 																<div class="col-sm-8">
-																	<input type="text" class="form-control" th:value="${#dates.format(tour.startDate, 'dd-MM-yyyy')}" name="startDate"></input>
+																	<input type="text" class="form-control" th:value="${#dates.format(tgx.tour.startDate, 'dd-MM-yyyy')}" name="startDate"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2">Ngày kết thúc:</label>
 																<div class="col-sm-8">
-																	<input type="text" class="form-control" th:value="${#dates.format(tour.endDate, 'dd-MM-yyyy')}" name="endDate"></input>
+																	<input type="text" class="form-control" th:value="${#dates.format(tgx.tour.endDate, 'dd-MM-yyyy')}" name="endDate"></input>
 																</div>
 															</div>
 															<!-- <div class="form-group">

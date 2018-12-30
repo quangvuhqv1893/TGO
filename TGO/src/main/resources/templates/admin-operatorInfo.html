@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Quản trị</title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}"
+          rel="stylesheet"></link>
+    <link href="../static/css/touroperator_style.css"
+          th:href="@{/css/touroperator_style.css}" rel="stylesheet"></link>
+    <link href="../static/css/verticalTabList.css"
+          th:href="@{/css/verticalTabList.css}" rel="stylesheet"></link>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="header">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <img src="../static/image/logo.png" th:src="@{/image/logo.png}"></img>
+            </div>
+            <div class="container">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a th:href="@{/home}">Trang chủ</a></li>
+                        <li><a href="#">Địa điểm</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Trợ giúp</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown"><b
+                                th:text="${admin.fullname}"></b><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Thông tin cá nhân</a></li>
+                                <li><a href="#">Trợ giúp</a></li>
+                                <li><a href="#">Cài đặt</a></li>
+                                <li class="divider"></li>
+                                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar tab">
+
+                <button class="tablinks active"  id="defaultOpen">Thông tin công ty</button>
+                <button class="tablinks" th:onclick="|window.open('@{/admin/tourInOperator/(operatorId=${operator.id})}','_self')|"  >Thông tin tour</button>
+
+            </div>
+
+
+             <div class="col-md-9">
+                <h3 class="text-center">Thông tin công ty</h3>
+                <br></br>
+                <p style="color: red; text-align: center;" th:text="${mess}"></p>
+                <form class="form-horizontal" th:action="@{/admin/changeinfoOperator}"  method="POST" onsubmit="return confirm('Bạn muốn cập nhật?')">
+                    <div class="form-group">
+                        <input type="hidden" name="id" th:field="${operator.id}" />
+                        <input type="hidden" name ="userid" th:field="${operator.user.id}" />
+                        <input type="hidden" name ="role" th:field="${operator.user.roles.name}" />
+                        <label class="control-label col-sm-3"> Tên công ty:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="companyNameViet" class="form-control"  th:field="${operator.companyNameViet}" th:required="required"></input>
+                        </div>
+                       
+                    </div>
+                    <div class="form-group">
+                     <label class="control-label col-sm-3"> Tên người đại diện:</label>
+                     <div class="col-sm-8">
+                            <input type="text" name="representative" class="form-control"  th:field="${operator.representative}" required="required"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="control-label col-sm-3">Mã kinh doanh:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="businessRegistrationCode" class="form-control"  th:field="${operator.businessRegistrationCode}" pattern="^\d{3,5}$" required="required"> </input>
+                        </div>
+                     </div>
+                    <div class="form-group">
+                    <label class="control-label col-sm-3">Mã số thuế:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="taxCode" class="form-control"  th:field="${operator.taxCode}" pattern="^\d{9}$" required="required"></input>
+                        </div>
+                    </div>                       
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Địa chỉ:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="address" class="form-control"
+                                   placeholder="" th:field="${operator.user.address}" th:required="required"></input>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Email:</label>
+                        <div class="col-sm-8">
+                        <input type="email" name="email" class="form-control" 
+                                   placeholder="" th:field="${operator.user.email}" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" th:required="required"></input>
+                         
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" >Số điện thoại:</label>
+                        <div class="col-sm-8">
+                            <input type="tel" pattern="^(84|0)(1\d{9}|9\d{8})$" name="phonenumber" class="form-control"  th:field="${operator.user.phonenumber}" th:required="required"></input>
+                            <!-- <label class="control-label" style="font-weight: 100;font-size: 14px;color: red;" >(format: xxxx-xxx-xxxx)</label> -->
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-offset-3">
+                        <button th:type="submit" class="btn btn-primary" style="margin-left: 7px;" >Cập nhật</button>
+
+                    </div>
+                
+            </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-3.2.1.min.js"
+        th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/js/bootstrap.min.js"
+        th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../static/js/operator.js" th:src="@{/js/operator.js}"></script>
+<script src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
+<script src="../static/js/verticalTabList.js" th:src="@{/js/verticalTabList.js}"></script>
+<script src="../static/js/admincheck.js" th:src="@{/js/admincheck.js}"></script>
+</body>
+</html>

@@ -112,3 +112,6 @@ article img {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.modal-footer {
+	text-align: center;
+}

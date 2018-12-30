@@ -1,5 +1,7 @@
 package com.webapp.tgo.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrlPattern;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -10,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.webapp.tgo.entities.Guide;
 import com.webapp.tgo.entities.Location;
 import com.webapp.tgo.entities.Operator;
 import com.webapp.tgo.entities.Tour;
@@ -110,6 +114,12 @@ public class OperatorServiceImpl implements OperatorService{
 		operatorNew.getUser().setPhonenumber(operator.getUser().getPhonenumber());
 		log.info("+++++++++++++phone: "+operatorNew.getUser().getPhonenumber());
 		//add new info of operator
+		if (!operator.getBusinessRegistrationCode().isEmpty()) {
+			operatorNew.setBusinessRegistrationCode(operator.getBusinessRegistrationCode());
+		}
+		if (!operator.getTaxCode().isEmpty()) {
+			operatorNew.setTaxCode(operator.getTaxCode());
+		}
 		operatorNew.setRepresentative(operator.getRepresentative());
 		log.info("+++++++++++++representative: "+operatorNew.getRepresentative());
 		operatorRepository.save(operatorNew);
@@ -216,6 +226,12 @@ public class OperatorServiceImpl implements OperatorService{
 			
 		}
 
+	}
+
+	@Override
+	public Page<Operator> manageOperator(String operatorId, String fullName, String email, String busRegCode,
+			String taxcode, Pageable pageRequest) {
+		return operatorRepository.manageOperator(operatorId, fullName, email, busRegCode, taxcode, pageRequest);
 	}
 
 //	@Override

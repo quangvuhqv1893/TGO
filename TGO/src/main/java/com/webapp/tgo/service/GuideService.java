@@ -3,6 +3,7 @@ package com.webapp.tgo.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.webapp.tgo.entities.Guide;
@@ -23,5 +24,8 @@ public interface GuideService {
 //    List<Guide> findGuide(String guideName,Tour tour,String location,boolean isMale,boolean isFeMale,boolean isNoExpGuide,boolean isExpGuide);
     Guide findbyUserName(String username);
 	List<Guide> findGuideNeedCheck();
+	Page<Guide> manageGuide(String guideId, String fullName, String email, String location, String language,
+			Pageable pageRequest);
+
     
 }

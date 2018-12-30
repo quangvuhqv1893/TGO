@@ -3,8 +3,10 @@ package com.webapp.tgo.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import com.webapp.tgo.entities.Guide;
 import com.webapp.tgo.entities.Operator;
 
 public interface OperatorService {
@@ -38,5 +40,6 @@ public interface OperatorService {
 //	void postTour(String tourName, String );
 //	List<Guide> findGuide(String locationName, String gender, String type, String language);
 	
-	
+	Page<Operator> manageOperator(String operatorId, String fullName, String email, String busRegCode, String taxcode,
+			Pageable pageRequest);
 }

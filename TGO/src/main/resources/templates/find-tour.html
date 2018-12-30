@@ -138,13 +138,14 @@
 				<td><a target="_blank" th:href ="@{/guide/showOperator/(operatorid=${tour.operator.id})}" th:text = "${tour.operator.companyNameViet}"></a></td>
 				<td th:text = "${#dates.format(tour.startDate, 'dd-MM-yyyy')}"></td>
 				<!-- <td th:text = "${tour.startDate}"></td> -->
-				<td th:text = "${tour.endDate}"></td>
+				<td th:text = "${#dates.format(tour.endDate, 'dd-MM-yyyy')}"></td>
 				<td th:text = "${tour.tourPrice}"></td>
 				<!-- <td th:text = "${}"></td> -->
 				<td th:text= "${tour.id}" class="hidden"></td>
 				<td><button type="button" class="btn btn-primary btn-condensed sendRequest" >
 							gửi yêu cầu
 				</button></td>
+				<td><span class="glyphicon glyphicon-chevron-down"></span></td>
 			</tr>
 			
 			<tr>
@@ -158,6 +159,7 @@
 											</ul>
 
 											<!-- Tab panes -->
+											<fieldset disabled="disabled">
 											<div class="tab-content">
 												<div role="tabpanel" class="tab-pane fade in active"
 													th:attr="id='t'+${tour.id}">
@@ -219,6 +221,7 @@
 													</div>
 												</div>
 											</div>
+											</fieldset>
 										</div>
 									</td>
 								</tr>

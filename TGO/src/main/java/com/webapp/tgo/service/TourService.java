@@ -1,11 +1,14 @@
 package com.webapp.tgo.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.webapp.tgo.entities.Guide;
+import com.webapp.tgo.entities.Location;
 import com.webapp.tgo.entities.Tour;
 
 public interface TourService {
@@ -33,5 +36,16 @@ public interface TourService {
 	String approveTour(int tourid);
 
 	String cancelApproveTour(int tourid);
-    
+
+	Page<Tour> manageTour(String idTour, String tourName, String startDate, String status, String tourPrice,
+			Pageable pageRequest);
+
+	boolean updateTour(int tourid,String tourname, String language, String endDate, String startDate, String tourprice,
+			Set<Location> locations, String requirement, String amount);
+
+	List<Tour> getTourofGuide(int guideId);
+
+	Page<Tour> manageTourinOpearator(int operatorId, String idTour, String tourName, String startDate, String status, String tourPrice,
+			Pageable pageRequest);
+
 }

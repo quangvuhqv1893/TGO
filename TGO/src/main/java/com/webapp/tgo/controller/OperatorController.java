@@ -425,7 +425,24 @@ public class OperatorController {
 		}
 	}
 
-	
+	@GetMapping("/operator/detailOperator")
+	public String detailOperator(HttpServletRequest request, Model model, int operatorId) {
+		try {
+			if (request.isUserInRole(Constant.ROLE_ADMIN)) {
+				log.info("----------------start redirect to info operator page");
+				model.addAttribute(Constant.ENTITY_ADMIN,userDetailService.findByUsername(request.getUserPrincipal().getName()));
+				model.addAttribute(Constant.ENTITY_OPERATOR, operatorService.findOne(operatorId));
+				log.info("----------------end redirect to info operator page");
+				return Constant.VIEW_ADMIN_OPERATOR_INFO;
+			}else {
+				return Constant.VIEW_403;
+			}
+		} catch (Exception e) {
+			log.error("error in detail guide ", e);
+			model.addAttribute(Constant.MESS_EXCEPTION, e);
+			return Constant.VIEW_ERROR;
+		}
+	}
 	
 	
 	

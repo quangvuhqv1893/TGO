@@ -248,12 +248,10 @@
 										<td>0</td>
 									</th:block>
 									<td th:text= "${tour.id}" class="hidden"></td>
-									<td>
-											<!-- <div class="col-xs-3"> -->
+									<!-- <td>
 												<button type="submit" class="btn btn-primary cancelTourRunning" >Hủy</button>
 
-											<!-- </div> -->
-									</td>
+									</td> -->
 										<td><form th:attr="action='/tour/finish/'+${tour.id}"
 											th:method="POST">
 											<div class="col-xs-3">

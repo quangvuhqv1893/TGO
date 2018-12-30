@@ -32,10 +32,13 @@ import com.webapp.tgo.service.LocationService;
 import com.webapp.tgo.service.OperatorService;
 import com.webapp.tgo.service.TourService;
 import com.webapp.tgo.service.Tour_Guide_Xref_Service;
+import com.webapp.tgo.service.UserDetailService;
 import com.webapp.tgo.util.Constant;
 
 @Controller
 public class GuideController {
+	@Autowired
+	private UserDetailService userDetailService;
 	@Autowired
 	private GuideService guideService;
 	@Autowired
@@ -346,6 +349,12 @@ public class GuideController {
 		}
 	}
 	
+	/**
+	 * @description: show completed  tour in guide page
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/guide/showCompletedTour")
 	public String goToCompletedTourPage(HttpServletRequest request, Model model) {
 		try {
@@ -361,6 +370,12 @@ public class GuideController {
 		}
 	}
 	
+	/**
+	 * @description: show request of tour in guide page
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/guide/showRequestTour")
 	public String goToRequestTouPage(HttpServletRequest request, Model model) {
 		try {
@@ -376,6 +391,12 @@ public class GuideController {
 		}
 	}
 	
+	/**
+	 * @description: show invited tour in guide page
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/guide/showInvitedTour")
 	public String goToInvitedTourPage(HttpServletRequest request, Model model) {
 		try {
@@ -392,7 +413,26 @@ public class GuideController {
 	}
 	
 	
-	
+	@GetMapping("/guide/detailGuide")
+	public String detailGuide (HttpServletRequest request, Model model, int guideId) {
+		try {
+			if (request.isUserInRole(Constant.ROLE_ADMIN)) {
+				log.info("----------------start redirect to info guide page");
+				model.addAttribute(Constant.ENTITY_ADMIN,userDetailService.findByUsername(request.getUserPrincipal().getName()));
+				model.addAttribute(Constant.ENTITY_GUIDE, guideService.findOne(guideId));
+				model.addAttribute(Constant.ENTITY_LIST_LANGUAE, (List<Language>) languageService.findAll());
+				model.addAttribute(Constant.ENTITY_LIST_LOCATION, (List<Location>) locationService.findAll());
+				log.info("----------------end redirect to info guide page");
+				return Constant.VIEW_ADMIN_GUIDE_INFO;
+			}else {
+				return Constant.VIEW_403;
+			}
+		} catch (Exception e) {
+			log.error("error in detail guide ", e);
+			model.addAttribute(Constant.MESS_EXCEPTION, e);
+			return Constant.VIEW_ERROR;
+		}
+	}
 	
 	
 	

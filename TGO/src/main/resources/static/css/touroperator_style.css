@@ -1,7 +1,9 @@
+
 nav {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
 nav img {
 	margin-left: 20px;
 }
@@ -128,6 +130,7 @@ div.star-ratting {
 }
 .nav-pills>li>a {
 	border-radius: 0px;
+	display: block;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
 	color: #555;
@@ -154,4 +157,7 @@ div.star-ratting {
 	background-color: #fff;
 	color: #fff;
 	box-shadow: none;
+}
+.nav-pills>li>ul {
+	margin-left: 12%;
 }

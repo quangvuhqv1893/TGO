@@ -75,19 +75,18 @@
 						<b th:text="${admin.fullname}"></b>
 					</h4>
 					<ul class="nav nav-pills nav-stacked nav-tabs">
-						<!-- <li   ><a th:href="@{/admin}">Tour yêu cầu xử lý</a></li> -->
-						<li><a>Thông tin cá nhân </a></li> 
-						<li class="active dropdown"><a class="dropdown-toggle"
-                                                data-toggle="dropdown">Kiểm duyệt thông tin</a>
-                            <ul class="nav nav-pills nav-stacked nav-tabs">
-                            	<li><a th:href="@{/admin}">Kiểm duyệt tour</a></li>
-                             	<li><a th:href="@{/admin/userApproval}">Kiểm duyệt HDV</a></li>
-								<li  style="background-color:LightGray;"><a >Kiểm duyệt công ty lữ hành</a></li>
+						<li><a> Thông tin cá nhân </a></li> 
+						<li> <a th:href="@{/admin}"> Kiểm duyệt thông tin</a></li>
+						<li class="active dropdown"><a> Quản lý thông tin </a>
+							<ul class="nav nav-pills nav-stacked nav-tabs">
+								<li><a th:href="@{/admin/manageTour}">Quản lý Tour</a></li>
+								<li><a th:href="@{/admin/manageGuide}">Quản lý HDV</a></li>
+								<li style="background-color:LightGray;"><a>Quản lý công ty lữ hành</a></li>
 								
 							</ul>
-                    	</li>
-                    	<li><a th:href="@{/admin/manageTour}"> Quản lý thông tin </a></li> 
-                    	<!-- <li><a href="#">Cài đặt</a></li> -->
+
+						</li> 
+						<!-- <li><a href="#">Cài đặt</a></li> -->
 					</ul>
 					<!-- Modal -->
 				</div>
@@ -100,40 +99,49 @@
 					<p style="color: red" th:text="${messageError}"></p>
 						<thead>
 							<tr>
-								<th>Mã công ty</th>
-								<th>Tài khoản</th>
-								<th>Tên công ty</th>
-								<!-- <th>Địa chỉ</th> -->
-								<th>Chức năng</th>
-								<th></th>
+								<th style="text-align: center;">Mã công ty</th>
+								<th style="text-align: center;">Tài khoản</th>
+								<th style="text-align: center;">Tên công ty</th>
+								<th style="text-align: center;">Mã số thuế</th>
+								<th style="text-align: center;">Mã số kinh doanh</th>
+								<th style="text-align: center;">Chức năng</th>
+								
 							</tr>
 						</thead>
+						<tr>
+							<form th:action="@{/admin/manageOperator}" th:method="GET">
+								<td><input style="width: 100%" type="text" th:value="${operatorId}" name="operatorId" /></td>
+								<td><input style="width: 100%" type="text" th:value="${username}" name="username" /></td>
+								<td><input style="width: 100%" type="text" th:value="${fullname}" name="fullname" /></td>
+								<td><input style="width: 100%" type="text" th:value="${taxCode}" name="taxCode" /></td>
+								<td><input style="width: 100%" type="text" th:value="${businessRegistrationCode}" name="businessRegistrationCode" /></td>
+								<td><button type="submit" class="btn btn-success" hidden="true">Tìm kiếm</button></td>
+								
+							</form>
+						</tr>
 						<th:block th:unless="${#lists.isEmpty(operatorlist)}" role="tabpanel">
-							<tbody th:each="tour,iterStat : ${operatorlist}">
-								<tr data-toggle="collapse" th:attr="data-target='#u'+${tour.id}" 
+							<tbody th:each="operator,iterStat : ${operatorlist}">
+								<tr data-toggle="collapse" th:attr="data-target='#u'+${operator.id}" 
 									class="clickable">
-									<td th:text="${tour.id}"></td>
-									<td th:text="${tour.user.username}"></td>
-									<td th:text="${tour.companyNameViet}"></td>
-									<!-- <td th:if="${tour.user.address}"></td> -->
-									<td th:text= "${tour.user.id}" class="hidden"></td>
+									<td th:text="${operator.id}"></td>
+									<td th:text="${operator.user.username}"></td>
+									<td th:text="${operator.companyNameViet}"></td>
+									<td th:text="${operator.taxCode}"></td>
+									<td th:text="${operator.businessRegistrationCode}"></td>
+									<!-- <td th:if="${operator.user.address}"></td> -->
 									<td>
-										<button type="button" class="btn btn-primary cancelTourRunning" >Hủy</button>
-									</td>
-									<td th:text= "${tour.user.id}" class="hidden"></td>
-									<td>
-										<button type="button" class="btn btn-primary runningTour">Đồng ý</button>
+										<button type="button" class="btn btn-primary"  th:onclick="|window.open('@{/operator/detailOperator/(operatorId=${operator.id})}','_blank')|">Chi tiết</button>
 									</td>
 									<td><span class="glyphicon glyphicon-chevron-down"></span></td>
 
 								</tr>
 								<tr>
 									<td colspan="7" id="row-collapse">
-										<div th:id="'u'+${tour.id}" class="collapse tour-detail">
+										<div th:id="'u'+${operator.id}" class="collapse tour-detail">
 											<!-- Nav tabs -->
 											<ul class="nav nav-tabs" role="tablist">
 												<li role="presentation" class="active"><a
-													th:attr="href='#t'+${tour.id}" aria-controls="home"
+													th:attr="href='#t'+${operator.id}" aria-controls="home"
 													role="tab" data-toggle="tab">Thông tin công ty lữ hành</a>
 												</li>
 											</ul>
@@ -141,31 +149,31 @@
 											<!-- Tab panes thong tin cty -->
 											<div class="tab-content">
 												<div role="tabpanel" class="tab-pane fade in active"
-													th:attr="id='t'+${tour.id}">
+													th:attr="id='t'+${operator.id}">
 													<fieldset disabled="disabled">
 													<div class="form-tour">
 														<form class="form-horizontal"
-															th:attr="action='/operator/update/'+${tour.id}"
+															th:attr="action='/operator/update/'+${operator.id}"
 															th:method="POST">
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Tên cty:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.companyNameViet}"></input>
+																		th:attr="value=${operator.companyNameViet}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Tên người đại diện:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.representative}"></input>
+																		th:attr="value=${operator.representative}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Tài khoản:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																	th:value = "${tour.user.username}"
+																	th:value = "${operator.user.username}"
 																	></input>
 																</div>
 															</div>
@@ -173,7 +181,7 @@
 																<label class="control-label col-sm-2"> Địa chỉ:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																	th:value = "${tour.user.address}"
+																	th:value = "${operator.user.address}"
 																	></input>
 																</div>
 															</div>
@@ -181,7 +189,7 @@
 																<label class="control-label col-sm-2"> Người đăng kí:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																	th:value = "${tour.user.fullname}"
+																	th:value = "${operator.user.fullname}"
 																	></input>
 																</div>
 															</div>
@@ -189,14 +197,14 @@
 																<label class="control-label col-sm-2"> Email:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.user.email}"></input>
+																		th:attr="value=${operator.user.email}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Số điện thoại:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.user.phonenumber}"></input>
+																		th:attr="value=${operator.user.phonenumber}"></input>
 																</div>
 															</div>
 															
@@ -204,14 +212,14 @@
 																<label class="control-label col-sm-2"> Mã kinh doanh: </label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.businessRegistrationCode}"></input>
+																		th:attr="value=${operator.businessRegistrationCode}"></input>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label col-sm-2"> Mã số thuế:</label>
 																<div class="col-sm-8">
 																	<input type="text" class="form-control" name="guideName"
-																		th:attr="value=${tour.taxCode}"></input>
+																		th:attr="value=${operator.taxCode}"></input>
 																</div>
 															</div>
 															
@@ -227,8 +235,48 @@
 
 							</tbody>
 						</th:block>
-			</table>
-
+					</table>
+			<!-- paging -->
+					<div class="row">
+						<div class="form-group col-md-1 hidden">
+							<select class="form-control pagination" id="pageSizeSelect">
+								<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+								th:value="${pageSize}"
+								th:selected="${pageSize} == ${selectedPageSize}"></option>
+							</select>
+						</div>
+						<div th:if="${operatorlist.totalPages > 1}"
+							class="form-group col-md-11 pagination-centered">
+							<ul class="pagination">
+								<li th:class="${operatorlist.number == 0} ? disabled"><a
+									class="pageLink"
+									th:href="@{/admin/manageGuide/(fullname=${fullname}, operatorId=${operatorId},username=${username},taxCode=${taxCode},businessRegistrationCode=${businessRegistrationCode}, pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+								</li>
+								<li th:class="${operatorlist.number == 0} ? disabled"><a
+									class="pageLink"
+									th:href="@{/admin/manageGuide/(fullname=${fullname}, operatorId=${operatorId},username=${username},taxCode=${taxCode},businessRegistrationCode=${businessRegistrationCode}, pageSize=${selectedPageSize}, page=${operatorlist.number})}">&larr;</a>
+								</li>
+								<li
+								th:class="${operatorlist.number == (page - 1)} ? 'active pointer-disabled'"
+								th:each="page : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+								<a class="pageLink"
+								th:href="@{/admin/manageGuide/(fullname=${fullname}, operatorId=${operatorId},username=${username},taxCode=${taxCode},businessRegistrationCode=${businessRegistrationCode}, pageSize=${selectedPageSize}, page=${page})}"
+								th:text="${page}"></a>
+								</li>
+								<li
+								th:class="${operatorlist.number + 1 == operatorlist.totalPages} ? disabled">
+								<a class="pageLink"
+								th:href="@{/admin/manageGuide/(fullname=${fullname}, operatorId=${operatorId},username=${username},taxCode=${taxCode},businessRegistrationCode=${businessRegistrationCode}, pageSize=${selectedPageSize}, page=${operatorlist.number + 2})}">&rarr;</a>
+								</li>
+								<li
+								th:class="${operatorlist.number + 1 == operatorlist.totalPages} ? disabled">
+								<a class="pageLink"
+								th:href="@{/admin/manageGuide/(fullname=${fullname}, operatorId=${operatorId},username=${username},taxCode=${taxCode},businessRegistrationCode=${businessRegistrationCode}, pageSize=${selectedPageSize}, page=${operatorlist.totalPages})}">&raquo;</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+			<!-- end -->
 
 				</div>
 			</div>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Quản trị</title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}"
+          rel="stylesheet"></link>
+    <link href="../static/css/verticalTabList.css"
+          th:href="@{/css/verticalTabList.css}" rel="stylesheet"></link>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="header">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <img src="../static/image/logo.png" th:src="@{/image/logo.png}"></img>
+            </div>
+            <div class="container">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a th:href="@{/home}">Trang chủ</a></li>
+                        <li><a href="#">Địa điểm</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Trợ giúp</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown"><b
+                                th:text="${admin.fullname}"></b><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Thông tin cá nhân</a></li>
+                                <li><a href="#">Trợ giúp</a></li>
+                                <!-- <li><a href="#">Cài đặt</a></li> -->
+                                <li class="divider"></li>
+                                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar tab">
+                    <!-- <ul class="nav nav-pills nav-stacked nav-tabs">
+                        <li class="tablinks" id="defaultOpen"><a onclick="openTab(event, 'tourInformation')"> Thông tin Tour</a></li> 
+                        <li class="tablinks"> <a onclick="openTab(event, 'tourGuideList')"> Thông tin HDV tour</a></li>
+                    </ul> -->
+                    <button class="tablinks active"  id="defaultOpen">Thông tin Tour</button>
+                    <button class="tablinks" th:onclick="|window.open('@{/admin/guideInTour/(tourId=${tour.id})}','_self')|"  >Thông tin HDV tour</button>
+                    <!-- Modal -->
+             </div>
+            <div class="col-md-9 tabcontent" id="tourInformation">
+                <h3 class="text-center" style="font-weight: bold;">Thông tin tour</h3>
+                <br></br>
+                 <p style="color: red; text-align: center;" th:text="${mess}"></p>
+                <form id="formTourInfo" class="form-horizontal" >
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> Tên tour*:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="tourname"
+                            th:attr="value=${tour.tourName}" required="true"></input>
+                        </div>
+                    </div>
+                    <div class="form-group disabled" >
+                        <label class="control-label col-sm-2"> Tên công ty:</label>
+                        <div class="col-sm-8" >
+                            <input disabled="disabled" type="text" class="form-control" name="companyNameViet"
+                            th:attr="value=${tour.operator.companyNameViet}"></input>
+                        </div>
+                        <button type="button" class="btn btn-primary detailTour" 
+                        th:onclick="|window.open('@{/operator/detailOperator/(operatorId=${tour.operator.id})}','_blank')|" >Chi tiết</button>
+                    </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" required="true">Ngày khởi hành*:</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" th:value="${#dates.format(tour.startDate, 'yyyy-MM-dd')}" name="date" required="true"></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Ngày kết thúc*:</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" th:value="${#dates.format(tour.endDate, 'yyyy-MM-dd')}" name="endDate" required="true"></input>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Số lượng HDV tối đa*:</label>
+                        <div class="col-sm-2" required="true">
+                            <input type="number" name="amount" class="form-control"
+                            placeholder="" th:value="${tour.amount}"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Số lượng HDV hiện tại:</label>
+                        <div class="col-sm-2" disable="true">
+                            <input disabled="disabled" type="number" name="currentamount" class="form-control"
+                            placeholder="" th:value="${tour.currentAmount}" required="true"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Giá*:</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control"
+                            name="tourPrice" th:attr="value=${tour.tourPrice}" required="true"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Yêu cầu
+                        khác:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" th:text="${tour.requirement}" name="requirement" id="require" ></textarea>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Địa điểm:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" ><b th:each="location:${tour.locations} " th:text="${location.locationName}+'- '"></b></p>
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="text" id="count-location" class="form-control hidden"
+                                                    name="count-location"></input>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-3" style="margin-top: -20px;">
+                        <a class="btn btn-link" role="button" data-toggle="collapse" href="#locations"
+                        aria-expanded="false" id="changelocation">
+                        Thay đổi địa điểm?
+                    </a>
+
+                    </div>
+                <div class="form-group input_fields_wrap collapse" id="locations">
+                    <label class="control-label col-sm-3">Địa điểm:</label>
+                    <div class="col-sm-8 ">
+                        <select name="location1" class="form-control">
+                            <option th:each="location:${listLocation}" th:text="${location.locationName}"></option>
+                        </select>
+                    </div>
+                    <button class="add_field_button btn btn-link">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Ngôn ngữ:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" ><b  th:text="${tour.language.language}"></b></p>
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="text" id="count-language" class="form-control hidden"
+                                   name="count-language" value="0"></input>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-3" style="margin-top: -20px;">
+                    <a class="btn btn-link" role="button" data-toggle="collapse" href="#languages"
+                       aria-expanded="false" aria-controls="collapseExample" id="changelanguage">
+                        Thay đổi ngôn ngữ?
+                    </a>
+                    
+                     </div>
+                    <div class="form-group input_fields_wrap1 collapse" id="languages">
+                        <label class="control-label col-sm-3">Ngôn ngữ:</label>
+                        <div class="col-sm-8">
+                            <select name="language1" class="form-control">
+                                <option th:each="lang:${listLanguage}" th:text="${lang.language}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="tourid" th:value= "${tour.id}" class="hidden"/>
+                        <th:block th:if="${tour.status != -1}">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <button type="button" class="btn btn-primary updateTour">Cập nhật</button>
+                            <button type="button" class="btn btn-primary cancelTour" 
+                                    th:onclick="|cancelTour(${tour.id})|" >Xóa Tour</button>
+                        </div>
+                        </th:block>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-3.2.1.min.js"
+        th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/js/bootstrap.min.js"
+        th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../static/js/oeprator1.JavaScript" th:src="@{/js/oeprator1.js}"></script>
+<script src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
+<script src="../static/js/admin.js" th:src="@{/js/admin.js}"></script>
+<script src="../static/js/verticalTabList.js" th:src="@{/js/verticalTabList.js}"></script>
+<script src="../static/js/admin-tourInfo.js" th:src="@{/js/admin-tourInfo.js}"></script>
+</body>
+</html>

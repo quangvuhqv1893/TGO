@@ -1,7 +1,7 @@
 $(".runningTour").click(function(){
 	var r = confirm("duyệt tài khoản này?");
-	if(r==false){
-		return;
+	if(!r){
+		return false;
 	}
 	var userid = parseInt($(this).parent().prev().text());
 	var param = $(this);
@@ -31,7 +31,7 @@ $(".runningTour").click(function(){
 $(".cancelTourRunning").click(function(){
 	var r = confirm("bạn muốn hủy tài khoản này?");
 	if(r==false){
-		return;
+		return false;
 	}
 	var userid = parseInt($(this).parent().prev().text());
 	var param = $(this);

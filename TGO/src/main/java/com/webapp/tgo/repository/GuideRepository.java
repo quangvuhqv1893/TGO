@@ -3,6 +3,7 @@ package com.webapp.tgo.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -32,5 +33,9 @@ public interface GuideRepository extends CrudRepository<Guide, Integer> {
 	
 	@Query(value = Constant.QUERRY_FIND_GUIDE_BY_USERNAME)
 	Guide findbyUserName(@Param("username")String username);
+	
+	@Query(value = Constant.QUERRY_MANAGE_GUIDE)
+	Page<Guide> manageGuide(@Param("guideId") String guideId,@Param("fullName") String fullName,@Param("email") String email,@Param("location") String location,@Param("language") String language,
+			Pageable pageRequest);
 
 }

@@ -1,7 +1,7 @@
 $(".runningTour").click(function(){
 	var r = confirm("bạn muốn duyệt tài khoản này?");
 	if(r==false){
-		return;
+		return false;
 	}
 	var userid = parseInt($(this).parent().prev().text());
 	var param = $(this);
@@ -31,9 +31,12 @@ $(".runningTour").click(function(){
 $(".cancelTourRunning").click(function(){
 	var r = confirm("bạn muốn hủy tài khoản này?");
 	if(r==false){
-		return;
+		return false;
 	}
 	var userid = parseInt($(this).parent().prev().text());
+	if (isNaN(userid)) {
+		userid = document.querySelector('input[name="userid"]').value.trim();
+	}
 	var param = $(this);
 	console.log(userid);
 	$.ajax({

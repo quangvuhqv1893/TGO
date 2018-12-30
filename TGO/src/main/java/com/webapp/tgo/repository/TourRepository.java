@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -38,6 +39,21 @@ public interface TourRepository extends CrudRepository<Tour, Integer> {
 	@Modifying
 	@Query(value = Constant.QUERY_CANCEL_APPROVE_TOUR)
 	void cancelApproveTour(@Param("tourid") int tourid);
+	
+	@Query(value = Constant.QUERY_GET_LIST_MANAGE_TOUR)
+	Page<Tour> manageTour(@Param("idTour") String idTour, @Param("tourname") String tourName, 
+			@Param("startdate") String startDate,@Param("status") String status, @Param("valueRunTour") int valueRunTour,
+			@Param("valueWaitTour") int  valueWaitTour,@Param("valueCompletedTour") int  valueCompletedTour,@Param("valueCancelTour") int valueCancelTour,
+			@Param("tourPrice")  String tourPrice, Pageable Pageable);
+
+	@Query(value = Constant.QUERY_GET_LIST_TOUR_OF_GUIDE)
+	List<Tour> getTourofGuide( @Param("guideId") int guideId);
+
+	@Query(value = Constant.QUERY_GET_LIST_TOUR_OF_OPERATOR)
+	Page<Tour> manageTourinOpearator( @Param("operatorId") int operatorId,@Param("idTour") String idTour, @Param("tourname") String tourName, 
+			@Param("startdate") String startDate,@Param("status") String status, @Param("valueRunTour") int valueRunTour,
+			@Param("valueWaitTour") int  valueWaitTour,@Param("valueCompletedTour") int  valueCompletedTour,@Param("valueCancelTour") int valueCancelTour,
+			@Param("tourPrice")  String tourPrice, Pageable Pageable);
 
 //	@Query(value = Constant.QUERY_FIND_TOUR_WAITING)
 //	List<Tour> findTourWaiting(int id);

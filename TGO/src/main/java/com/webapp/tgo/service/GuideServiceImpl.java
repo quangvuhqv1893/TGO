@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,6 +96,13 @@ public class GuideServiceImpl implements GuideService{
 			return null;
 		}
 
+	}
+
+	@Override
+	public Page<Guide> manageGuide(String guideId, String fullName, String email, String location, String language,
+			Pageable pageRequest) {
+		
+		return guideRepository.manageGuide(guideId, fullName, email, location, language, pageRequest);
 	}
 
 //	@Override

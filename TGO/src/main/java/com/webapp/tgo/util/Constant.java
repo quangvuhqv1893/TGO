@@ -10,6 +10,7 @@ public class Constant {
 	public static final String VIEW_FIND_GUIDE = "find-guider";
 	public static final String VIEW_REDIRECT_FIND_GUIDE = "redirect:/operator/searchguide";
 	public static final String VIEW_REDIRECT_OPERATOR = "redirect:/operator";
+	public static final String VIEW_REDIRECT_ADMIN = "redirect:/admin";
 	public static final String VIEW_SHOWING_INFO_GUIDE = "showing-info";
 	public static final String VIEW_REDIRECT_GUIDE = "redirect:/guide";
 	public static final String VIEW_WATING_TOUR = "operator-waitingtour";
@@ -19,6 +20,8 @@ public class Constant {
 	public static final String VIEW_GUIDE = "TourGuide";
 	public static final String VIEW_GUIDE_INFO = "guide-info";
 	public static final String VIEW_REDIRECT_GUIDE_INFO =  "redirect:/guide/info";
+	public static final String VIEW_REDIRECT_DETAIL_GUIDE_INFO =  "redirect:/guide/detailGuide/?guideId=";
+	public static final String VIEW_REDIRECT_DETAIL_OPERATOR_INFO =  "redirect:/operator/detailOperator/?operatorId=";
 	public static final String VIEW_FIND_TOUR = "find-tour";
 	public static final String VIEW_REDIRECT_GUIDE_FIND_TOUR = "redirect:/guide/findtour";
 	public static final String VIEW_SHOW_OPERATOR_INFO = "showingoperator-info";
@@ -35,6 +38,15 @@ public class Constant {
 	public static final String VIEW_ADMIN_CHECK_USER = "admin-checkUser";
 	public static final String VIEW_ADMIN_CHECK_OPERATOR = "admin-checkOperator";
 	public static final String VIEW_WATING_TOUR_LOAD_GUIDE = "operator-waitingtour-loadGuide";
+	public static final String VIEW_ADMIN_MANAGE_INFO = "admin-managerInfo";
+	public static final String VIEW_ADMIN_MANAGE_INFO_GUIDE = "admin-managerInfo-guide";
+	public static final String VIEW_ADMIN_TOUR_INFO = "admin-tourInfo";
+	public static final String VIEW_ADMIN_GUIDE_INFO = "admin-guideInfo";
+	public static final String VIEW_ADMIN_OPERATOR_INFO = "admin-operatorInfo";
+	public static final String VIEW_GUIDE_IN_TOUR = "admin-tourInfo-guide";
+	public static final String VIEW_ADMIN_GUIDE_INFO_TOUR = "admin-guideInfo-tour";
+	public static final String VIEW_ADMIN_OPERATOR_INFO_TOUR = "admin-operatorinfo-Tour";
+	public static final String VIEW_ADMIN_MANAGE_INFO_OPERATOR = "admin-manageInfo-Operator";
 	
 	public static final String ENTITY_OPERATOR = "operator";
 	public static final String ENTITY_GUIDE = "guide";
@@ -83,6 +95,7 @@ public class Constant {
 	public static final String STATUS = "status";
 	
 	
+	public static final String PARAMETER_TOUR_ID = "tourid";
 	public static final String PARAMETER_NEW_PASS = "new-passwd";
 	public static final String PARAMETER_OLD_PASS = "old-passwd";
 	public static final String PARAMETER_LOCATION = "location";
@@ -92,7 +105,9 @@ public class Constant {
 	public static final String PARAMETER_TYPE = "type";
 	public static final String PARAMETER_TOUR_NAME = "tourname";
 	public static final String PARAMETER_TOUR_PRICE = "tourprice";
+	public static final String PARAMETER_TOUR_PRICES = "tourPrice";
 	public static final String PARAMETER_DATE = "date";
+	public static final String PARAMETER_START_DATE = "startDate";
 	public static final String PARAMETER_END_DATE = "endDate";
 	public static final String PARAMETER_DAY = "day";
 	public static final String PARAMETER_NIGHT = "night";
@@ -124,7 +139,10 @@ public class Constant {
 	public static final String PARAMETER_EXPIRATION_DATE = "dateExpiration";
 	public static final String PARAMETER_YEAR = "year";
 	public static final String PARAMETER_MONTH = "month";
-	
+	public static final String PARAMETER_AMOUNT = "amount";
+	public static final String PARAMETER_ID_TOUR = "idTour";
+	public static final String PARAMETER_ID_GUIDE = "guideId";
+	public static final String PARAMETER_ID_OPERATOR = "operatorId";
 	
 	public static final String VALUE_NULL = "NULL";
 	public static final String VALUE_NOT_NULL = "NOT NULL";
@@ -137,7 +155,10 @@ public class Constant {
 	public static final String VALUE_CREATE_CONTRACT = "0";
 	public static final int VALUE_APPROVAL_TOUR = 3;
 	public static final int VALUE_APPROVAL_USER = 0;
-	
+	public static final String VALUE_RUNNING_TOUR = "ĐANG CHẠY";
+	public static final String VALUE_WAITING_TOUR = "ĐANG CHỜ";
+	public static final String VALUE_COMPLETED_TOUR = "ĐÃ HOÀN THÀNH";
+	public static final String VALUE_CANCEL_TOUR = "ĐÃ HỦY";
 	
 	
 	public static final int INITIAL_PAGE_SIZE = 5;
@@ -175,7 +196,7 @@ public class Constant {
 	public static final String QUERY_UPDATE_TOUR_BY_STATUS_AND_TOURID ="UPDATE Tour t SET t.status = :status, t.updatedDate = :updatedDate WHERE t.id = :tourid";
 	public static final String DELETE_TGX_BY_TOURID = "DELETE Tour_Guide_Xref tgx WHERE tgx.tour.id = :tourid";
 	public static final String QUERY_DELETE_CONTRACT_BY_TOURID = "DELETE Contract c WHERE c.tour.id = :tourid";
-	public static final String QUERY_UPDATE_FINISH_DATE_OF_CONTRACT_BY_TOURID = "UPDATE Contract c SET c.finishday = :finishday WHERE c.id = :tourid";
+	public static final String QUERY_UPDATE_FINISH_DATE_OF_CONTRACT_BY_TOURID = "UPDATE Contract c SET c.finishday = :finishday WHERE c.tour.id = :tourid";
 	public static final String QUERY_FIND_TOUR = "SELECT distinct t "
 			+ "FROM Tour t "
 			+ "LEFT JOIN t.locations l "
@@ -209,7 +230,48 @@ public class Constant {
 	public static final String QUERY_FIND_GUIDE_NEED_CHECK = "SELECT g FROM Guide g JOIN g.user u WHERE u.status = :status order by g.id DESC";
 	public static final String QUERY_CHANGE_STATUS_USER = "UPDATE User u SET u.status = :status WHERE u.id = :userid AND u.roles.id = :role";
 	public static final String QUERRY_FIND_OPERATOR_NEED_CHECK = "SELECT o FROM Operator o JOIN o.user u WHERE u.status = :status order by o.id DESC";
-	public static final String PARAMETER_AMOUNT = "amount";
+	public static final String QUERY_GET_LIST_MANAGE_TOUR = "SELECT t FROM Tour t "
+			+ "WHERE (UPPER(:status)='NULL' OR :status IS NULL OR :status ='' OR t.status IN (:valueRunTour,:valueWaitTour,:valueCompletedTour,:valueCancelTour)) "
+			+ "AND (UPPER(:tourname)='NULL' OR :tourname IS NULL OR :tourname ='' OR UPPER(t.tourName) LIKE UPPER(CONCAT('%',:tourname, '%'))) "
+			+ "AND (UPPER(:idTour)='NULL' OR :idTour IS NULL OR :idTour ='' OR UPPER(t.id) LIKE UPPER(CONCAT('%',:idTour, '%'))) "
+			+ "AND (:startdate='NULL' OR :startdate IS NULL OR :startdate ='' OR t.startDate LIKE UPPER(CONCAT('%', :startdate, '%'))) "
+			+ "AND (UPPER(:tourPrice)='NULL' OR :tourPrice IS NULL OR :tourPrice ='' OR UPPER(t.tourPrice) LIKE UPPER(CONCAT('%', :tourPrice, '%'))) "
+			+ "AND t.status!=3 "
+			+ "AND t.status!=-1 ";
+	public static final String QUERRY_MANAGE_GUIDE = "SELECT distinct g FROM Guide g LEFT JOIN g.user u "
+																		+ " LEFT JOIN g.locations loc "
+																		+ " LEFT JOIN g.languages lang "
+		+ " WHERE (UPPER(:guideId)='NULL' OR :guideId IS NULL OR :guideId='' OR LOCATE(UPPER(:guideId),UPPER(g.id))!=0) "
+		+ " AND (UPPER(:fullName)='NULL' OR :fullName IS NULL OR :fullName='' OR LOCATE(UPPER(:fullName),UPPER(u.fullname))!=0) "
+		+ " AND (UPPER(:email)='NULL' OR :email IS NULL OR :email='' OR LOCATE(UPPER(:email),UPPER(u.email))!=0) "
+		+ " AND (UPPER(:location)='NULL' OR :location IS NULL OR :location='' OR LOCATE(UPPER(:location),UPPER(loc.locationName))!=0) "
+		+ " AND (UPPER(:language)='NULL' OR :language IS NULL OR :language='' OR LOCATE(UPPER(:language),UPPER(lang.language))!=0) "
+		+ " AND u.status!=0 "
+		+ " AND u.status!=-1";
+//	SELECT g FROM com.webapp.tgo.entities.Guide g JOIN g.user u  JOIN g.locations loc  JOIN g.languages lang  WHERE (UPPER(:guideId)='NULL' OR :guideId IS NULL OR :guideId='' OR LOCATE(UPPER(:guideId),UPPER(g.id))!=0)  AND (UPPER(:fullName)='NULL' OR :fullName IS NULL OR :fullName='' OR LOCATE(UPPER(:fullName),UPPER(u.fullname)))  AND (UPPER(:email)='NULL' OR :email IS NULL OR :email='' OR LOCATE(UPPER(:email),UPPER(u.email)))  AND (UPPER(:location)='NULL' OR :location IS NULL OR :location='' OR LOCATE(UPPER(:location),UPPER(loc.locationName)))  AND (UPPER(:language)='NULL' OR :language IS NULL OR :language='' OR LOCATE(UPPER(:language),UPPER(lang.language)))  AND u.status!=0	
+	
+	
+	public static final String QUERY_GET_LIST_TOUR_OF_GUIDE = "SELECT t FROM Tour t WHERE t.id in (SELECT tgx.tour.id FROM Tour_Guide_Xref tgx WHERE tgx.guide.id = :guideId) "
+															+ " OR "
+															+ " t.id in (SELECT c.tour.id FROM Contract c WHERE c.guide.id = :guideId)  ";
+	public static final String QUERRY_MANAGE_OPERATOR = "SELECT DISTINCT o FROM Operator o LEFT JOIN o.user u "
+			+ " WHERE (UPPER(:operatorId)='NULL' OR :operatorId IS NULL OR :operatorId='' OR LOCATE(UPPER(:operatorId),UPPER(o.id))!=0) "
+			+ " AND (UPPER(:fullName)='NULL' OR :fullName IS NULL OR :fullName='' OR LOCATE(UPPER(:fullName),UPPER(u.fullname))!=0) "
+			+ " AND (UPPER(:username)='NULL' OR :username IS NULL OR :username='' OR LOCATE(UPPER(:username),UPPER(u.username))!=0) "
+			+ " AND (UPPER(:busRegCode)='NULL' OR :busRegCode IS NULL OR :busRegCode='' OR LOCATE(UPPER(:busRegCode),UPPER(o.businessRegistrationCode))!=0) "
+			+ " AND (UPPER(:taxcode)='NULL' OR :taxcode IS NULL OR :taxcode='' OR LOCATE(UPPER(:taxcode),UPPER(o.taxCode))!=0) "
+			+ " AND u.status!=0 "
+			+ " AND u.status!=-1";
+	public static final String QUERY_GET_LIST_TOUR_OF_OPERATOR = "SELECT t FROM Tour t "
+			+ "WHERE (UPPER(:status)='NULL' OR :status IS NULL OR :status ='' OR t.status IN (:valueRunTour,:valueWaitTour,:valueCompletedTour,:valueCancelTour)) "
+			+ "AND (UPPER(:tourname)='NULL' OR :tourname IS NULL OR :tourname ='' OR UPPER(t.tourName) LIKE UPPER(CONCAT('%',:tourname, '%'))) "
+			+ "AND (UPPER(:idTour)='NULL' OR :idTour IS NULL OR :idTour ='' OR UPPER(t.id) LIKE UPPER(CONCAT('%',:idTour, '%'))) "
+			+ "AND (:startdate='NULL' OR :startdate IS NULL OR :startdate ='' OR t.startDate LIKE UPPER(CONCAT('%', :startdate, '%'))) "
+			+ "AND (UPPER(:tourPrice)='NULL' OR :tourPrice IS NULL OR :tourPrice ='' OR UPPER(t.tourPrice) LIKE UPPER(CONCAT('%', :tourPrice, '%'))) "
+			+ "AND t.status!=3 "
+			+ "AND t.status!=-1 "
+			+ " AND t.operator.id = :operatorId";
+
 
 	
 	
